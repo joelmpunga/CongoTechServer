@@ -4,5 +4,6 @@
   "main": "index.js",
   "repository": "https://github.com/joelmpunga/archivageFecProject.git",
   "author": "Joel MPUNGA <joelmpunga79@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "workspaces":["client","server"]
 }
