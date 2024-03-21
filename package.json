@@ -1,0 +1,8 @@
+{
+  "name": "ArchivageFECProject",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/joelmpunga/archivageFecProject.git",
+  "author": "Joel MPUNGA <joelmpunga79@gmail.com>",
+  "license": "MIT"
+}
