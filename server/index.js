@@ -1,6 +1,8 @@
 const express = require('express');
 const userRoutes = require('./routes/userRoutes.js');
 const port = 3000 || process.env.PORT
+const { PrismaClient } = require('@prisma/client') 
+const prisma = new PrismaClient()
 class App {
     constructor() {
         this.server = express();
