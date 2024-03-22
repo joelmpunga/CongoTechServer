@@ -5,6 +5,9 @@
   "repository": "https://github.com/joelmpunga/archivageFecProject.git",
   "author": "Joel MPUNGA <joelmpunga79@gmail.com>",
   "license": "MIT",
-  "workspaces":["client","server"],
-  "private":"true"
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "private": true
 }
