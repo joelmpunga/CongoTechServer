@@ -4,6 +4,7 @@ import express from 'express';
 import userRoutes from './routes/userRoutes.js';
 import fileRoutes from './routes/fileRoutes.js';
 import ownersRoutes from './routes/ownerRoutes.js';
+import foldersRoutes from './routes/folderRoutes.js';
 //const fileRoutes = require('./routes/fileRoutes.js');
 //const fileRoutes = require('./routes/fileRoutes.js');
 const port = 3000 || process.env.PORT
@@ -18,6 +19,7 @@ class App {
         this.server.use('/user', userRoutes);
         this.server.use('/file',fileRoutes);
         this.server.use('/owner',ownersRoutes)
+        this.server.use('/folder',foldersRoutes)
     }
     start() {
         this.server.listen(port, () => {
