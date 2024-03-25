@@ -1,6 +1,6 @@
-const { PrismaClient } = require('@prisma/client') 
+import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
-class User {
+export default class User {
     constructor(nom,postnom,email,password,role) {
         this.nom = nom;
         this.postnom = postnom;
@@ -33,5 +33,3 @@ class User {
         }).then()
     }
 }
-
-module.exports = User

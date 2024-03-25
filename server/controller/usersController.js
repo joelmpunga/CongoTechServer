@@ -1,5 +1,5 @@
-const User = require('../model/usersModel')
-class usersController {
+import User from '../model/usersModel.js'
+export default class usersController {
 
     static async createUser(req, res) {
         try {
@@ -39,5 +39,3 @@ class usersController {
         }
     }
 }
-
-module.exports = usersController
