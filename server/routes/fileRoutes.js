@@ -19,4 +19,5 @@ const upload = multer({ storage: storage })
 router.post('/upload', upload.single('file'),fileConst.uploadFile)
 router.get('',fileConst.getAllFiles)
 router.get('/download/:id',fileConst.downloadFile)
+router.put('/classer/:id',fileConst.classerFile)
 export default router

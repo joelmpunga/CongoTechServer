@@ -1,17 +1,31 @@
 import { PrismaClient } from '@prisma/client'
-import Folder from './foldersModel';
+import Folder from '../model/foldersModel.js'
 const prisma = new PrismaClient()
-export default class subFolder extends Folder {
-    constructor(titre,description) {
-        super(titre,description);
+export default class SubFolder extends Folder {
+    constructor(titre, description, idFolder) {
+        super(titre, description);
+        this.idFolder = idFolder;
     }
     async create() {
-        super()
+        const request = await prisma.subFolder.create({
+            data: {
+                titre: this.titre,
+                description: this.description,
+                idFolder: this.idFolder
+            }
+        })
+        return request
     }
-    async getAll(){
-        super()
+    async getAll() {
+        const request = await prisma.subFolder.findMany()
+        return request
     }
-    async delete(id){
-        super()
+    async delete(id) {
+        const request = await prisma.subFolder.delete({
+            where: {
+                id: id
+            }
+        })
+        return request
     }
 }

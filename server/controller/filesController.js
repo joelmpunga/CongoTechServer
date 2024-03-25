@@ -157,9 +157,6 @@ export default class filesController {
             res.status(500).json(error);
         }
     }
-
-
-
     static async deleteFile(req, res) {
         const id = parseInt(req.params.id);
         try {
@@ -173,5 +170,3 @@ export default class filesController {
         }
     }
 }
-
-// export {deleteFile,getAllFiles,uploadFile,setupConfig}
