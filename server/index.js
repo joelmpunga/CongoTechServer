@@ -1,11 +1,6 @@
 import express from 'express';
 //const express = require('express');
 //const multer = require('multer');
-import multer from 'multer';
-import path from 'path';
-//const path = require('path');
-import { fileTypeFromBuffer } from 'file-type';
-import { readChunk } from 'read-chunk';
 import userRoutes from './routes/userRoutes.js';
 import fileRoutes from './routes/fileRoutes.js';
 //const fileRoutes = require('./routes/fileRoutes.js');

@@ -7,18 +7,20 @@ export default class File {
         this.description = description;
     }
     async upload(file) {
-        const request = await prisma.user.create({
+        const request = await prisma.document.create({
             data: {
                 name: file.name,
                 path: file.path,
-                description: file.description
+                description: file.description,
+                idUser:file.idUser,
+                idOwner:file.idOwner
             }
         }).then()
         return request;
     }
 
     async download(id) {
-        const request = await prisma.files.findUnique({
+        const request = await prisma.document.findUnique({
             where: {
                 id: parseInt(id),
             },
@@ -26,12 +28,12 @@ export default class File {
         return request;
     }
     async getAll() {
-        const request = await prisma.file.findMany().then()
+        const request = await prisma.document.findMany().then()
         return request
     }
 
     async delete(id) {
-        const request = await prisma.file.delete({
+        const request = await prisma.document.delete({
             where: {
                 id: id
             }
