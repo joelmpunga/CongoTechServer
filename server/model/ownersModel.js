@@ -22,7 +22,7 @@ export default class Owner {
     }
 
     async delete(id){
-        const query = await prisma.user.delete({
+        const query = await prisma.owner.delete({
             where:{
                 id: id
             }

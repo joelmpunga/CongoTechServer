@@ -3,6 +3,7 @@ import express from 'express';
 //const multer = require('multer');
 import userRoutes from './routes/userRoutes.js';
 import fileRoutes from './routes/fileRoutes.js';
+import ownersRoutes from './routes/ownerRoutes.js';
 //const fileRoutes = require('./routes/fileRoutes.js');
 //const fileRoutes = require('./routes/fileRoutes.js');
 const port = 3000 || process.env.PORT
@@ -16,6 +17,7 @@ class App {
         //this.server.use(express.static(__dirname + '/public'));
         this.server.use('/user', userRoutes);
         this.server.use('/file',fileRoutes);
+        this.server.use('/owner',ownersRoutes)
     }
     start() {
         this.server.listen(port, () => {

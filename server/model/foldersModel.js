@@ -1,6 +1,6 @@
 const { PrismaClient } = require('@prisma/client') 
 const prisma = new PrismaClient()
-class User {
+class Folder {
     constructor(nom,postnom,email,password,role) {
         this.nom = nom;
         this.postnom = postnom;

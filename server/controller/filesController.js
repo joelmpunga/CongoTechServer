@@ -127,6 +127,39 @@ export default class filesController {
         // }
     }
 
+    static async downloadFile(req, res) {
+        try {
+        const files = new File();
+        const id = req.params.id;
+        const data = await files.download(id)
+        if (!data) {
+            return res.status(404).send('File not found');
+        }
+        res.sendFile(path.join(__dirname, data.path));
+        //res.download(data.path);
+        return data
+        }
+        catch (error) {
+            res.status(500).json(error);
+        }
+    }
+
+    static async classerFile(req,res){
+        const id = parseInt(req.params.id);
+        const {idSub} = req.body;
+        try {
+            const files = new File();
+            const data = await files.classer(id,idSub)
+            const response = await files.getAll()
+            res.status(200).json(response);
+        }
+        catch (error) {
+            res.status(500).json(error);
+        }
+    }
+
+
+
     static async deleteFile(req, res) {
         const id = parseInt(req.params.id);
         try {

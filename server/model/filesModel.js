@@ -20,12 +20,12 @@ export default class File {
     }
 
     async download(id) {
-        const request = await prisma.document.findUnique({
+        const query = await prisma.document.findUnique({
             where: {
                 id: parseInt(id),
             },
         }).then()
-        return request;
+        return query;
     }
     async getAll() {
         const request = await prisma.document.findMany().then()
@@ -38,5 +38,16 @@ export default class File {
                 id: id
             }
         }).then()
+    }
+    async classer(id,idSub){
+        const query = await prisma.document.update({
+            where: {
+                id: parseInt(id),
+            },
+            data:{
+                subFolderId:parseInt(idSub)
+            }
+        }).then()
+        return query;
     }
 }
