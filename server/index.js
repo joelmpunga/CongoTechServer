@@ -11,7 +11,7 @@ import subfolderRoutes from './routes/subFolderRoutes.js';
 const port = 3000 || process.env.PORT
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
-class App {
+export default class App {
     constructor() {
         this.server = express();
         this.server.use(express.json());
