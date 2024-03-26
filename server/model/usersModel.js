@@ -8,14 +8,14 @@ export default class User {
         this.password = password;
         this.role = role;
     }
-    async signup(user) {
+    async signup() {
         const query = await prisma.user.create({
             data: {
-                nom: user.nom,
-                postnom: user.postnom,
-                email: user.email,
-                password: user.password,
-                role: user.role
+                nom: this.nom,
+                postnom: this.postnom,
+                email: this.email,
+                password: this.password,
+                role: this.role
             }
         }).then()
         return query;

@@ -5,7 +5,7 @@ export default class usersController {
         try {
             const { nom, postnom, email, password, role } = req.body;
             const user = new User(nom, postnom, email, password, role);
-            const data = await user.signup({ nom, postnom, email, password, role });
+            const data = await user.signup();
             const response = await user.getAll()
             res.status(200).json(response);
         }
