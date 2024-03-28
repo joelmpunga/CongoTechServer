@@ -24,14 +24,14 @@ class emailModel {
 
             for await (const msg of messagesObject) {
                 const messageBody = msg.source.toString();
-                // const emailInfo = this.extractBodyInfo(messageBody);
+                const emailInfo = this.extractBodyInfo(messageBody);
 
                 messagesArray.push({
                     subject: msg.envelope.subject,
                     from: msg.envelope.from,
                     date: msg.envelope.date,
                     flags: msg.flags,
-                    // body: emailInfo.bodies
+                    body: emailInfo.bodies
                 });
             }
 
@@ -52,6 +52,24 @@ class emailModel {
             await client.close();
             console.log('Connection closed');
         }
+    }
+
+    static extractBodyInfo(message) {
+        let regex = /<div[^>]*>([\s\S]*?)<\/div>/g;
+        let bodies;
+        let match;
+        while ((match = regex.exec(message)) !== null) {
+            // match[0] is the full match, match[1] is the captured group
+            let extractedMessage = match[1];
+            bodies = extractedMessage.trim(); // Add to the array
+        }
+
+        if (!bodies) {
+            console.log("No content found between div tags.");
+            console.log("Full message:", message); // Log the full message to see its structure
+        }
+
+        return { bodies }; // Return an array of bodies
     }
 
 
