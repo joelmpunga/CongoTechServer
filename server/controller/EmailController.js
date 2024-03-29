@@ -1,6 +1,6 @@
-import emailModel from '../model/EmailModel';
+import emailModel from '../model/EmailModel.js';
 
-class emailController {
+export default class emailController {
     static async getEmails(req, res) {
         try {
             const emails = await emailModel.fetchEmails();
@@ -11,5 +11,3 @@ class emailController {
         }
     }
 }
-
-module.exports = emailController;

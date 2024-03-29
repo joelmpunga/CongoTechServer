@@ -7,7 +7,7 @@ import subfolderRoutes from './routes/subFolderRoutes.js';
 const port = 3000 || process.env.PORT
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
-import emailRoutes from './routes/emailRoutes.js';
+import emailRoutes from './routes/EmailRoutes.js';
 
 class App {
     constructor() {
