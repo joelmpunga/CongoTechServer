@@ -9,5 +9,10 @@
     "client",
     "server"
   ],
-  "private": true
+  "private": true,
+  "scripts": {
+    "start-back": "nodemon server/index.js",
+    "start-front": "cd client && vite",
+    "start": "concurrently \"npm run start-back\" \"npm run start-front\""
+  }
 }

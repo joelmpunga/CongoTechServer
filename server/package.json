@@ -4,9 +4,6 @@
   "main": "index.js",
   "license": "MIT",
   "type": "module",
-  "scripts": {
-    "start": "nodemon"
-  },
   "dependencies": {
     "@prisma/client": "5.11.0",
     "chai": "^5.1.0",
@@ -20,5 +17,8 @@
     "prisma": "^5.11.0",
     "read-chunk": "^4.0.3",
     "supertest": "^6.3.4"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }
