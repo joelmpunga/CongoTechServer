@@ -4,6 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "type": "module",
+  "scripts": {
+    "start":"nodemon"
+  },
   "dependencies": {
     "@prisma/client": "5.11.0",
     "chai": "^5.1.0",
