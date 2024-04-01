@@ -20,6 +20,7 @@
     "path": "^0.12.7",
     "prisma": "^5.11.0",
     "read-chunk": "^4.0.3",
+    "server": "file:",
     "supertest": "^6.3.4"
   }
 }
