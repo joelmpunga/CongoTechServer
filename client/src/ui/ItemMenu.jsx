@@ -9,10 +9,10 @@ export default function ItemMenu({ title }) {
     <div className="my-3 ml-10">
       {
         actived ?
-          <h3 className='text-white w-[80%] text-extra-large mx-auto bg-custom-dark-blue' onClick={handleClick}>
+          <h3 className='text-white w-[80%] text-extra-large mx-auto' onClick={handleClick}>
             {title}
           </h3> :
-          <h3 className='text-gray-400 w-[80%] mx-auto text-extra-large bg-custom-dark-blue' onClick={handleClick}>
+          <h3 className='text-gray-400 w-[80%] mx-auto text-extra-large' onClick={handleClick}>
             {title}
           </h3>
       }
