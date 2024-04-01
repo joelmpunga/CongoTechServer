@@ -1,13 +1,13 @@
-import emailModel from '../model/EmailModel.js';
 
-export default class emailController {
-    static async getEmails(req, res) {
-        try {
-            const emails = await emailModel.fetchEmails();
-            res.json(emails);
-        } catch (err) {
-            console.error('Error fetching emails:', err);
-            res.status(500).json({ error: 'Error fetching emails' });
-        }
+import  fetchEmails  from '../model/EmailModel.js';
+
+const getEmails = async (req, res) => {
+    try {
+        const emails = await fetchEmails();
+        res.json(emails);
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Error fetching emails', error: error.message });
     }
-}
+};
+
+export default  getEmails ;
