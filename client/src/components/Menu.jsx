@@ -6,22 +6,22 @@ export default function Menu({ title, children, iconeLeft, iconeRightOff, iconeR
         setActived(!actived)
     }
     return (
-        <>
+        <div className="mx-8 my-5 h-full text-fontSize-extra-large">
             {
                 actived ?
-                    <>
-                        <h2 className='flex text-white bg-black hover:bg-blue-900' onClick={handleClick}>
+                    <div>
+                        <h2 className='flex gap-3 w-[80%] mx-auto text-white bg-custom-dark-blue hover:bg-blue-900' onClick={handleClick}>
                             <img src={iconeLeft} alt="iconMenu" />
                             {title}
                             {hasManyMenuItems ?
                                 <img src={iconeRightOn} alt="iconOn" />
                                 : hasNumberCount ? { number } : ""}
                         </h2>
-                        <div>
+                        <div className="text-left my-5">
                             {children}
                         </div>
-                    </> :
-                    <h2 className='flex text-white bg-black hover:bg-blue-900' onClick={handleClick}>
+                    </div> :
+                    <h2 className='flex gap-3 w-[80%] mx-auto text-white bg-custom-dark-blue hover:bg-blue-900' onClick={handleClick}>
                         <img src={iconeLeft} alt="iconMenu" />
                         {title}
                         {hasManyMenuItems ?
@@ -29,6 +29,6 @@ export default function Menu({ title, children, iconeLeft, iconeRightOff, iconeR
                             : hasNumberCount ? { number } : ""}
                     </h2>
             }
-        </>
+        </div>
     )
 }
