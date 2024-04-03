@@ -8,7 +8,7 @@ export default function LinksPages({ title, children }) {
                 {
                     children
                 }
-                <span className='text-blue-600'> {" / "+title} </span>
+                <span className='text-blue-600'> {" / "+title.split(' ')[0]} </span>
             </div>
         </div>
     )

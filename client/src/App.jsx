@@ -1,8 +1,12 @@
+import FoldersClasser from './components/FoldersClasser'
+import FoldersWorkspace from './components/FoldersWorkspace'
 import Header from './components/Header'
 import LinksPages from './components/LinksPages'
 import Mail from './components/Mail'
 import SideBarAdmin from './components/SideBarAdmin'
 import SideBarSecretaire from './components/SideBarSecretaire'
+import StockageMailsDocuments from './components/StockageMailsDocuments'
+import SubFoldersWorkspace from './components/SubFoldersWorkspace'
 import WorkSpace from './components/WorkSpace'
 import File from './ui/File'
 import Folder from './ui/Folder'
@@ -19,14 +23,10 @@ function App() {
       <Folder title="Folder" />
       <File title="Document" />
       <Mail data={data} />
-      <WorkSpace message="Parcourez les dossiers">
-          <Folder title="Folder 1" />
-          <Folder title="Folder 2" />
-          <Folder title="Folder 3" />
-          <Folder title="Folder 4" />
-          <Folder title="Folder 5" />
-          <Folder title="Folder 6" />
-      </WorkSpace>
+      <FoldersWorkspace/>
+      <SubFoldersWorkspace/>
+      <StockageMailsDocuments/>
+      <FoldersClasser/>
     </>
   )
 }
