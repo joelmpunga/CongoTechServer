@@ -4,11 +4,11 @@ import { BsX } from "react-icons/bs";
 import Swal from "sweetalert2";
 
 export function CustomDragDrop({
-  ownerLicense,
-  onUpload,
-  onDelete,
-  count,
-  formats
+    ownerLicense,
+    onUpload,
+    onDelete,
+    count,
+    formats
 }) {
 
     const dropContainer = useRef(null);
@@ -18,87 +18,152 @@ export function CustomDragDrop({
     function handleDrop(e, type) {
         let files;
         if (type === "inputFile") {
-          files = [...e.target.files];
+            files = [...e.target.files];
         } else {
-          e.preventDefault();
-          e.stopPropagation();
-          setDragging(false);
-          files = [...e.dataTransfer.files];
+            e.preventDefault();
+            e.stopPropagation();
+            setDragging(false);
+            files = [...e.dataTransfer.files];
         }
-    
+
         const allFilesValid = files.every((file) => {
-          return formats.some((format) => file.type.endsWith(`/${format}`));
+            return formats.some((format) => file.type.endsWith(`/${format}`));
         });
-    
+
         if (ownerLicense.length >= count) {
-          showAlert(
-            "warning",
-            "Maximum Files",
-            `Only ${count} files can be uploaded`
-          );
-          return;
+            showAlert(
+                "warning",
+                "Maximum Files",
+                `Only ${count} files can be uploaded`
+            );
+            return;
         }
         if (!allFilesValid) {
-          showAlert(
-            "warning",
-            "Invalid Media",
-            `Invalid file format. Please only upload ${formats
-              .join(", ")
-              .toUpperCase()}`
-          );
-          return;
+            showAlert(
+                "warning",
+                "Invalid Media",
+                `Invalid file format. Please only upload ${formats
+                    .join(", ")
+                    .toUpperCase()}`
+            );
+            return;
         }
         if (count && count < files.length) {
-          showAlert(
-            "error",
-            "Error",
-            `Only ${count} file${count !== 1 ? "s" : ""} can be uploaded at a time`
-          );
-          return;
+            showAlert(
+                "error",
+                "Error",
+                `Only ${count} file${count !== 1 ? "s" : ""} can be uploaded at a time`
+            );
+            return;
         }
-    
+
         if (files && files.length) {
-          const nFiles = files.map(async (file) => {
-            const base64String = await convertFileBase64(file);
-            return {
-              name: file.name,
-              photo: base64String,
-              type: file.type,
-              size: file.size
-            };
-          });
-    
-          Promise.all(nFiles).then((newFiles) => {
-            onUpload(newFiles);
-            TopNotification.fire({
-              icon: "success",
-              title: "file uploaded"
+            const nFiles = files.map(async (file) => {
+                const base64String = await convertFileBase64(file);
+                return {
+                    name: file.name,
+                    photo: base64String,
+                    type: file.type,
+                    size: file.size
+                };
             });
-          });
+
+            Promise.all(nFiles).then((newFiles) => {
+                onUpload(newFiles);
+                TopNotification.fire({
+                    icon: "success",
+                    title: "file uploaded"
+                });
+            });
         }
-      }
+    }
 
-      async function convertFileBase64(file) {
+    async function convertFileBase64(file) {
         return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(file);
-          reader.onload = () => {
-            resolve(reader.result);
-          };
-          reader.onerror = (error) => {
-            reject(error);
-          };
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                resolve(reader.result);
+            };
+            reader.onerror = (error) => {
+                reject(error);
+            };
         });
-      }
-      
-    
-
-  return (
-    <>
+    }
 
 
 
-    </>
-  );
+    return (
+        <>
+
+            <div
+                className={`${dragging
+                    ? "border border-[#2B92EC] bg-[#EDF2FF]"
+                    : ""
+                    } flex items-center justify-center text-center mt-4 py-5`}
+                ref={dropContainer}
+            >
+
+                {/* the uploard files  the way to apear on drag and drop area */}
+                {ownerLicense.length > 0 && (
+                    <div className="mt-4 grid grid-cols-2 gap-y-4 gap-x-4">
+                        {ownerLicense.map((img, index) => (
+                            <div className="w-full px-3 py-3.5 rounded-md bg-slate-200 space-y-3">
+                                <div className="flex justify-between">
+                                    <div className="w-[70%] flex justify-start items-center space-x-2">
+                                        <div
+                                            className="text-[#5E62FF] text-[37px] cursor-pointer"
+                                            onClick={() => showImage(img.photo)}
+                                        >
+                                            {img.type.match(/image.*/i) ? (
+                                                <FaRegFileImage />
+                                            ) : (
+                                                <FaRegFile />
+                                            )}
+                                        </div>
+                                        <div className=" space-y-1">
+                                            <div className="text-xs font-medium text-gray-500">
+                                                {img.name}
+                                            </div>
+                                            <div className="text-[10px] font-medium text-gray-400">{`${Math.floor(
+                                                img.size / 1024)} KB`}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="flex-1 flex justify-end">
+                                        <div className="space-y-1">
+                                            <div
+                                                className="text-gray-500 text" onClick={() => onDelete(index)}
+                                            >
+                                                <BsX className="ml-auto" />
+                                            </div>
+                                            <div className="text-[10px] font-medium text-gray-400">
+                                                Done
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+
+
+
+        </>
+    );
 }
 
