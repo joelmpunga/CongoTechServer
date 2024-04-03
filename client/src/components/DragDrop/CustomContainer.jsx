@@ -104,7 +104,6 @@ export function CustomDragDrop({
                 ref={dropContainer}
             >
 
-                {/* the uploard files  the way to apear on drag and drop area */}
                 {ownerLicense.length > 0 && (
                     <div className="mt-4 grid grid-cols-2 gap-y-4 gap-x-4">
                         {ownerLicense.map((img, index) => (
@@ -149,7 +148,33 @@ export function CustomDragDrop({
                 )}
 
 
-
+                <div className="flex-1 flex flex-col">
+                    <div className="mx-auto text-gray-400 mb-2">
+                        <FaUpload size={18} />
+                    </div>
+                    <div className="text-[12px] font-normal text-gray-500">
+                        <input
+                            className="opacity-0 hidden"
+                            type="file"
+                            multiple
+                            accept=".pdf, image/*"
+                            ref={fileRef}
+                            onChange={(e) => handleDrop(e, "inputFile")}
+                        />
+                        <span
+                            className="text-[#4070f4] cursor-pointer"
+                            onClick={() => {
+                                fileRef.current.click();
+                            }}
+                        >
+                            Click to upload
+                        </span>{" "}
+                        or drag and drop
+                    </div>
+                    <div className="text-[10px] font-normal text-gray-500">
+                        Pdf, files PNG, JPG or JPEG
+                    </div>
+                </div>
 
 
 
