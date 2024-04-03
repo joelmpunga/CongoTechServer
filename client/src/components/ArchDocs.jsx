@@ -1,8 +1,10 @@
 import { useState } from "react"
+import ComboBox from "./ComboBox";
+
 
 
 export default function ArchDocs() {
-    let liste = ['Candidature', 'Entreprise'];
+    
     const [value, setValue] = useState('Candidature')
     return (
         <div className="flex flex-col m-5">
@@ -12,7 +14,7 @@ export default function ArchDocs() {
             <div className="flex flex-row pt-3 my-5 justify-start gap-5">
                 <div className="flex flex-col ">
                     <p>Nom du proprietaire</p>
-                    {/* <ComboBox />   */}
+                    <ComboBox />  
                 </div>
                 <div className="flex flex-col">
                     <p>Nom à attribuer au document</p>
