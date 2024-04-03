@@ -91,6 +91,30 @@ export function CustomDragDrop({
         });
     }
 
+    useEffect(() => {
+        function handleDragOver(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          setDragging(true);
+        }
+        function handleDragLeave(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          setDragging(false);
+        }
+        dropContainer.current.addEventListener("dragover", handleDragOver);
+        dropContainer.current.addEventListener("drop", handleDrop);
+        dropContainer.current.addEventListener("dragleave", handleDragLeave);
+    
+        return () => {
+          if (dropContainer.current) {
+            dropContainer.current.removeEventListener("dragover", handleDragOver);
+            dropContainer.current.removeEventListener("drop", handleDrop);
+            dropContainer.current.removeEventListener("dragleave", handleDragLeave);
+          }
+        };
+      }, [ownerLicense]);
+
 
 
     return (
