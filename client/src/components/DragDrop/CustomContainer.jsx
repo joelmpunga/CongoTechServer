@@ -116,6 +116,40 @@ export function CustomDragDrop({
       }, [ownerLicense]);
 
 
+      const TopNotification = Swal.mixin({
+        toast: true,
+        position: "bottom-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        }
+      });
+    
+      function showAlert(icon, title, text) {
+        Swal.fire({
+          icon: icon,
+          title: title,
+          text: text,
+          showConfirmButton: false,
+          width: 500,
+          timer: 1500
+        });
+      }
+    
+      function showImage(image) {
+        Swal.fire({
+          imageUrl: image,
+          showCloseButton: true,
+          showConfirmButton: false,
+          width: 450
+        });
+      }
+    
+
+
 
     return (
         <>
