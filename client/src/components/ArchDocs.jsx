@@ -1,5 +1,7 @@
 import { useState } from "react"
 import ComboBox from "./ComboBox";
+import DragComponent from "./DragDrop/DragComponent";
+
 
 
 
@@ -26,7 +28,7 @@ export default function ArchDocs() {
             <p>Inserer le document</p>
             <div className="my-5 h-40 border-dashed border-blue-600 border-2 blue bg-blue-gray-200">
                 
-            {/* <DragComponent /> */}
+            <DragComponent />
 
                 
             </div>
