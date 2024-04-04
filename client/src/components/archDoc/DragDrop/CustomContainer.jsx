@@ -93,73 +93,75 @@ export function CustomDragDrop({
 
     useEffect(() => {
         function handleDragOver(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          setDragging(true);
+            e.preventDefault();
+            e.stopPropagation();
+            setDragging(true);
         }
         function handleDragLeave(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          setDragging(false);
+            e.preventDefault();
+            e.stopPropagation();
+            setDragging(false);
         }
         dropContainer.current.addEventListener("dragover", handleDragOver);
         dropContainer.current.addEventListener("drop", handleDrop);
         dropContainer.current.addEventListener("dragleave", handleDragLeave);
-    
+
         return () => {
-          if (dropContainer.current) {
-            dropContainer.current.removeEventListener("dragover", handleDragOver);
-            dropContainer.current.removeEventListener("drop", handleDrop);
-            dropContainer.current.removeEventListener("dragleave", handleDragLeave);
-          }
+            if (dropContainer.current) {
+                dropContainer.current.removeEventListener("dragover", handleDragOver);
+                dropContainer.current.removeEventListener("drop", handleDrop);
+                dropContainer.current.removeEventListener("dragleave", handleDragLeave);
+            }
         };
-      }, [ownerLicense]);
+    }, [ownerLicense]);
 
 
-      const TopNotification = Swal.mixin({
+    const TopNotification = Swal.mixin({
         toast: true,
         position: "bottom-end",
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: true,
         didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
         }
-      });
-    
-      function showAlert(icon, title, text) {
+    });
+
+    function showAlert(icon, title, text) {
         Swal.fire({
-          icon: icon,
-          title: title,
-          text: text,
-          showConfirmButton: false,
-          width: 500,
-          timer: 1500
+            icon: icon,
+            title: title,
+            text: text,
+            showConfirmButton: false,
+            width: 500,
+            timer: 1500
         });
-      }
-    
-      function showImage(image) {
+    }
+
+    function showImage(image) {
         Swal.fire({
-          imageUrl: image,
-          showCloseButton: true,
-          showConfirmButton: false,
-          width: 450
+            imageUrl: image,
+            showCloseButton: true,
+            showConfirmButton: false,
+            width: 450
         });
-      }
-    
+    }
+
 
 
 
     return (
         <>
 
-            <div
+            <label
+                htmlFor="forLabel"
                 className={`${dragging
-                    ? "border border-[#2B92EC] bg-[#EDF2FF]"
-                    : ""
-                    } flex items-center justify-center text-center mt-4 py-5`}
+                    ? "border border-[#2B92EC] bg-[#EDF2FF] h-full"
+                    : "h-full"
+                    } h-full flex items-center justify-center text-center py-5`}
                 ref={dropContainer}
+
             >
 
                 {ownerLicense.length > 0 && (
@@ -206,24 +208,15 @@ export function CustomDragDrop({
                 )}
 
 
-                <div className="flex-1 flex flex-col">
+                <div className="flex-1 flex flex-col h-auto">
                     <div className="mx-auto text-gray-400 mb-2">
                         <FaUpload size={18} />
                     </div>
                     <div className="text-[12px] font-normal text-gray-500">
-                        <input
-                            className="opacity-0 hidden"
-                            type="file"
-                            multiple
-                            accept=".pdf, image/*"
-                            ref={fileRef}
-                            onChange={(e) => handleDrop(e, "inputFile")}
-                        />
+
                         <span
                             className="text-[#4070f4] cursor-pointer"
-                            onClick={() => {
-                                fileRef.current.click();
-                            }}
+
                         >
                             Click to upload
                         </span>{" "}
@@ -236,12 +229,20 @@ export function CustomDragDrop({
 
 
 
+            </label>
+            <input
+                className="opacity-0 hidden h-full"
+                type="file"
+                multiple
+                accept=".pdf, image/*"
+                ref={fileRef}
+                id="forLabel"
+                onChange={(e) => handleDrop(e, "inputFile")}
+                onClick={() => {
+                    fileRef.current.click();
 
-
-
-
-
-            </div>
+                }}
+            />
 
 
 

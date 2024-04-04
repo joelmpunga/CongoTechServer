@@ -18,14 +18,17 @@ export default function DragComponent() {
   }
 
   return (
-    <div className="w-full ">
-      <CustomDragDrop
-        ownerLicense={ownerLicense}
-        onUpload={uploadFiles}
-        onDelete={deleteFile}
-        count={1} // Limiting to one file
-        formats={["jpg", "jpeg", "png", "pdf"]}
-      />
-    </div>
+    <>
+      <p>Inserer le document</p>
+      <div className="my-5 h-40 border-dashed border-blue-600 border-2 blue bg-blue-gray-200">
+        <CustomDragDrop
+          ownerLicense={ownerLicense}
+          onUpload={uploadFiles}
+          onDelete={deleteFile}
+          count={1} // Limiting to one file
+          formats={["jpg", "jpeg", "png", "pdf"]}
+        />
+      </div>
+    </>
   );
 }

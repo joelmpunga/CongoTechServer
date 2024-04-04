@@ -1,39 +1,27 @@
-import { useState } from "react"
+import { Children, useState } from "react"
 import ComboBox from "./ComboBox";
-import DragComponent from "./DragDrop/DragComponent";
 
-
-
-
-export default function ArchDocs() {
+export default function ArchDocComp({tilte, ownNametypeDoc, attName, children}) {
     
-    const [value, setValue] = useState('Candidature')
     return (
         <div className="flex flex-col m-5">
             <div className="flex flex-row border h-12">
-                <p className="">Information du document</p>
+                <p className="">{tilte}</p>
             </div>
             <div className="flex flex-row pt-3 my-5 justify-start gap-5">
                 <div className="flex flex-col ">
-                    <p>Nom du proprietaire</p>
+                    <p>{ownNametypeDoc}</p>
                     <ComboBox />  
                 </div>
                 <div className="flex flex-col">
-                    <p>Nom à attribuer au document</p>
-                    <input className="border h-14 w-72 " type="text" placeholder="Nom du proprietaire" />
-
-                                      
+                    <p>{attName}</p>
+                    <input className="border h-14 w-72 " type="text" placeholder="Nom du proprietaire" />                    
                 </div>
             </div>
-            <p>Inserer le document</p>
-            <div className="my-5 h-40 border-dashed border-blue-600 border-2 blue bg-blue-gray-200">
-                
-            <DragComponent />
-
-                
+            <div >
+            {children}    
             </div>
            
-            
             <div>
                 <p>Decription</p>
                 <div >
