@@ -14,6 +14,7 @@ export function CustomDragDrop({
     const dropContainer = useRef(null);
     const [dragging, setDragging] = useState(false);
     const fileRef = useRef(null);
+    
 
     function handleDrop(e, type) {
         let files;
@@ -165,7 +166,7 @@ export function CustomDragDrop({
             >
 
                 {ownerLicense.length > 0 && (
-                    <div className="mt-4 grid grid-cols-2 gap-y-4 gap-x-4">
+                    <div className="mt-4 ">
                         {ownerLicense.map((img, index) => (
                             <div className="w-full px-3 py-3.5 rounded-md bg-slate-200 space-y-3">
                                 <div className="flex justify-between">
@@ -208,7 +209,8 @@ export function CustomDragDrop({
                 )}
 
 
-                <div className="flex-1 flex flex-col h-auto">
+                {
+                    !ownerLicense.length>0 && <div className="flex-1 flex flex-col h-auto">
                     <div className="mx-auto text-gray-400 mb-2">
                         <FaUpload size={18} />
                     </div>
@@ -226,6 +228,7 @@ export function CustomDragDrop({
                         Pdf, files PNG, JPG or JPEG
                     </div>
                 </div>
+                }
 
 
 
@@ -239,9 +242,11 @@ export function CustomDragDrop({
                 id="forLabel"
                 onChange={(e) => handleDrop(e, "inputFile")}
                 onClick={() => {
-                    fileRef.current.click();
+                    fileRef.current.click()
+                    setToggle(!toggle);
 
                 }}
+                
             />
 
 
