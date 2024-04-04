@@ -14,5 +14,9 @@
     "start-back": "nodemon server/index.js",
     "start-front": "cd client && vite",
     "start": "concurrently \"npm run start-back\" \"npm run start-front\""
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/lab": "^4.0.0-alpha.61"
   }
 }
