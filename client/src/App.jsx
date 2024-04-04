@@ -15,7 +15,9 @@ import WorkSpace from './components/WorkSpace'
 import File from './ui/File'
 import Folder from './ui/Folder'
 import ItemLinkPage from './ui/ItemLinkPage'
-function App() {
+
+
+function App({children}) {
   const data = {
     name: 'Joel MPUNGA',
     date: '2021-01-01',
@@ -27,13 +29,15 @@ function App() {
         <SideBarSecretaire />
         <div className='flex flex-col gap-6'>
           <Header hasSearch={true} name="John Doe" title="Secretariat" />
-          <div className='m-[5%]'>    
-            <FoldersWorkspace />
+          <div className='m-[5%]'>
+            {
+              children
+            }
           </div>
         </div>
       </div>
 
-      <Folder title="Folder" />
+      {/* <Folder title="Folder" />
       <File title="Document" />
       <Mail data={data} />
       <FoldersWorkspace />
@@ -42,7 +46,7 @@ function App() {
       <FoldersClasser />
       <MailsBrouillonAll />
       <SubFoldersClasser />
-      <FilesBrouillon />
+      <FilesBrouillon /> */}
     </>
   )
 }

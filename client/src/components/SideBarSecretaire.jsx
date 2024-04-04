@@ -2,6 +2,7 @@ import React from 'react'
 import Menu from './Menu'
 import ItemMenu from '../ui/ItemMenu'
 import LogoSideBar from '../ui/LogoSideBar'
+import { Link } from 'react-router-dom'
 
 export default function SideBarSecretaire() {
   return (
@@ -16,7 +17,9 @@ export default function SideBarSecretaire() {
       <Menu title="Profil" hasManyMenuItems={false} hasNumberCount={false} iconeRightOff="../src/assets/images/chevron-down.svg" iconeRightOn="../src/assets/images/chevron-up.svg" iconeLeft="../src/assets/images/user-alt-4.svg" />
       <Menu title="Dossiers" hasManyMenuItems={true} hasNumberCount={false} iconeRightOff="../src/assets/images/chevron-down.svg" iconeRightOn="../src/assets/images/chevron-up.svg" iconeLeft="../src/assets/images/list-alt.svg">
         <ItemMenu actived={true} title="Création" />
-        <ItemMenu actived={true} title="Dossiers" />
+        <Link to="/folder">
+          <ItemMenu actived={true} title="Dossiers" />
+        </Link>
       </Menu>
       <Menu title="Documents" hasManyMenuItems={true} hasNumberCount={false} iconeRightOff="../src/assets/images/chevron-down.svg" iconeRightOn="../src/assets/images/chevron-up.svg" iconeLeft="../src/assets/images/page.svg">
         <ItemMenu actived={true} title="Archiver" />
