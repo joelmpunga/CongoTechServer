@@ -3,6 +3,9 @@ import HeaderWorkspace from './HeaderWorkspace'
 import ItemLinkPage from '../ui/ItemLinkPage'
 import WorkSpace from './WorkSpace'
 import Folder from '../ui/Folder'
+import BouttonPagination from '../ui/BouttonPagination'
+import Popup from './Popup'
+import BouttonIcon from '../ui/BouttonIcon'
 
 
 export default function FoldersClasser() {
@@ -31,29 +34,14 @@ export default function FoldersClasser() {
                     <Folder title="Dossier 16" />
                     <Folder title="Dossier 17" />
                 </div>
-                <div className='w-[95%] flex justify-end gap-2'>
-                    <div className='bg-blue-600'>
-                    <img src="" alt="<--" />
-                    </div>
-                    <div className='bg-blue-300'>
-                        <img src="" alt="-->" />
-                    </div>
-                </div>
-                <div className='flex gap-5 p-10 bg-green-200 w-[50%] h-80 border-8 border-l-green-600'>
-                    <img src="" alt="Ok" />
-                    <div>
-                        <h4>Informations</h4>
-                        <span>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti blanditiis expedita harum amet consequatur aut suscipit ab culpa dolorum ipsam neque saepe cupiditate quam voluptates, voluptas error totam perferendis est.</span>
-                    </div>
-                </div>
-                <div className='w-[95%] flex justify-end gap-2'>
-                    <div className='bg-red-600 w-14 h-14'>
-                        <div className='bg-red-400 w-7 h-7 m-auto'>
-                            <img src="" alt="X" className='w-[90%] m-auto'/>
-                        </div>
-                    </div>
-                </div>
             </WorkSpace>
+            <div className='mr-20 flex justify-end gap-2'>
+                <BouttonPagination />
+            </div>
+            <Popup />
+            <div className='w-[95%] flex justify-end gap-2'>
+                <BouttonIcon imageUrl="../src/assets/images/cancel-btn.svg" msg="Annuler" taille="h-10 w-10"/>
+            </div>
         </>
     )
 }

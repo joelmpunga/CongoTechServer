@@ -6,7 +6,7 @@ export default function Header({ hasSearch, name, title }) {
         setDisconnect(!disconnect)
     }
     return (
-        <div className='flex flex-col gap-2'>
+        <div className='flex flex-col w-[100%] gap-2'>
             <div className='bg-white flex justify-between mx-20'>
                 {
                     hasSearch &&
