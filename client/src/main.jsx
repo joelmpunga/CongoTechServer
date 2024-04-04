@@ -7,9 +7,18 @@ import FoldersWorkspace from './components/FoldersWorkspace.jsx'
 import Error404 from './components/404Error.jsx'
 import SubFoldersWorkspace from './components/SubFoldersWorkspace.jsx'
 import StockageMailsDocuments from './components/StockageMailsDocuments.jsx'
+import FoldersClasser from './components/FoldersClasser.jsx'
+import FilesBrouillon from './components/FilesBrouillon.jsx'
+import SubFoldersClasser from './components/SubFoldersClasser.jsx'
+import MailsBrouillonAll from './components/MailsBrouillonAll.jsx'
 const router = createBrowserRouter([
   {
     path: "/login",
+    element: <></>,
+    errorElement: <Error404 />,
+  },
+  {
+    path: "/register",
     element: <></>,
     errorElement: <Error404 />,
   },
@@ -28,8 +37,28 @@ const router = createBrowserRouter([
         errorElement: <Error404 />,
       },
       {
+        path: "/folderdraft",
+        element: <FilesBrouillon />,
+        errorElement: <Error404 />,
+      },
+      {
+        path: "/folderclasser",
+        element: <FoldersClasser />,
+        errorElement: <Error404 />,
+      },
+      {
+        path: "/subfolderclasser",
+        element: <SubFoldersClasser />,
+        errorElement: <Error404 />,
+      },
+      {
         path: "subfolder/files",
         element: <StockageMailsDocuments />,
+        errorElement: <Error404 />,
+      },
+      {
+        path: "/mailsdraft",
+        element: <MailsBrouillonAll />,
         errorElement: <Error404 />,
       },
       {

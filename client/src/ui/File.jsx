@@ -1,14 +1,15 @@
 import React from 'react'
 import ContainerFolderFile from './ContainerFolderFile'
 import BouttonIcon from './BouttonIcon'
+import { Link } from 'react-router-dom'
 
-export default function File({ title,isToClass = false }) {
+export default function File({ title, isToClass = false }) {
   return (
     <ContainerFolderFile>
       <div className='flex'>
         <img src="../src/assets/images/icon-file.png" alt="" width={150} height={150} />
         {
-          isToClass && <BouttonIcon imageUrl="../src/assets/images/Ok-icon.svg" msg="Classer" taille="w-6 h-6" />
+          isToClass && <Link to="/folderclasser"> <BouttonIcon imageUrl="../src/assets/images/Ok-icon.svg" msg="Classer" taille="w-6 h-6" /></Link>
         }
       </div>
       <div className='flex my-4'>

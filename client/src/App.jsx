@@ -17,7 +17,7 @@ import Folder from './ui/Folder'
 import ItemLinkPage from './ui/ItemLinkPage'
 
 
-function App({children}) {
+function App({ children }) {
   const data = {
     name: 'Joel MPUNGA',
     date: '2021-01-01',
@@ -29,11 +29,9 @@ function App({children}) {
         <SideBarSecretaire />
         <div className='flex flex-col gap-6'>
           <Header hasSearch={true} name="John Doe" title="Secretariat" />
-          <div className='m-[5%]'>
-            {
-              children
-            }
-          </div>
+          {
+            children
+          }
         </div>
       </div>
 

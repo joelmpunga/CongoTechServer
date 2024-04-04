@@ -9,17 +9,33 @@ import Pagination from './Pagination'
 export default function MailsBrouillonAll() {
     return (
         <>
-            <HeaderWorkspace title="Dossiers" message="Parcourez les dossiers">
+            <HeaderWorkspace title="Mails Brouillon" message="Parcourez les mails non classés">
                 <ItemLinkPage title="Dashboard" path="/dashboard" />
             </HeaderWorkspace>
             <WorkSpace message="Parcourez les dossiers">
-                <MailBrouillon />
-                <MailBrouillon />
-                <MailBrouillon />
-                <MailBrouillon />
-                <MailBrouillon />
+                <tr>
+                    <MailBrouillon />
+                </tr>
+                <tr>
+                    <MailBrouillon />
+                </tr>
+                <tr>
+                    <MailBrouillon />
+                </tr>
+                <tr>
+                    <MailBrouillon />
+                </tr>
+                <tr>
+                    <MailBrouillon />
+                </tr>
+                <tr>
+                    <MailBrouillon />
+                </tr>
+                <tr>
+                    <MailBrouillon />
+                </tr>
             </WorkSpace>
-            <Pagination/>
+            <Pagination />
         </>
     )
 }

@@ -6,6 +6,7 @@ import Folder from '../ui/Folder'
 import BouttonPagination from '../ui/BouttonPagination'
 import Popup from './Popup'
 import BouttonIcon from '../ui/BouttonIcon'
+import { Link } from 'react-router-dom'
 
 
 export default function FoldersClasser() {
@@ -15,32 +16,57 @@ export default function FoldersClasser() {
                 <ItemLinkPage title="Dashboard" path="/dashboard" />
             </HeaderWorkspace>
             <WorkSpace message="Parcourez les dossiers">
-                <div className='flex '>
-                    <Folder title="Dossier 1" />
-                    <Folder title="Dossier 2" />
-                    <Folder title="Dossier 3" />
-                    <Folder title="Dossier 4" />
-                    <Folder title="Dossier 5" />
-                    <Folder title="Dossier 6" />
-                    <Folder title="Dossier 7" />
-                    <Folder title="Dossier 8" />
-                    <Folder title="Dossier 9" />
-                    <Folder title="Dossier 10" />
-                    <Folder title="Dossier 11" />
-                    <Folder title="Dossier 12" />
-                    <Folder title="Dossier 13" />
-                    <Folder title="Dossier 14" />
-                    <Folder title="Dossier 15" />
-                    <Folder title="Dossier 16" />
-                    <Folder title="Dossier 17" />
+                <div className='flex w-[600px]'>
+                    <Link to="/subfolderclasser">
+                        <Folder title="Dossier 1" />
+                    </Link>
+                    <Link to="/subfolderclasser">
+                        <Folder title="Dossier 2" />
+                    </Link>
+                    <Link to="/subfolderclasser">
+                        <Folder title="Dossier 3" />
+                    </Link>
+                    <Link to="/subfolderclasser">
+                        <Folder title="Dossier 4" />
+                    </Link>
+                    <Link to="/subfolderclasser">
+                        <Folder title="Dossier 5" />
+                    </Link>
+                    <Link to="/subfolderclasser">
+                        <Folder title="Dossier 6" />
+                    </Link>
+                    <Link to="/subfolderclasser">
+                        <Folder title="Dossier 7" />
+                    </Link>
+                    <Link to="/subfolderclasser">
+                        <Folder title="Dossier 8" />
+                    </Link>
+                    <Link to="/subfolderclasser">
+                        <Folder title="Dossier 9" />
+                    </Link>
+                    <Link to="/subfolderclasser">
+                        <Folder title="Dossier 10" />
+                    </Link>
+                    <Link to="/subfolderclasser">
+                        <Folder title="Dossier 11" />
+                    </Link>
+                    <Link to="/subfolderclasser">
+                        <Folder title="Dossier 12" />
+                    </Link>
+                    <Link to="/subfolderclasser">
+                        <Folder title="Dossier 13" />
+                    </Link>
+                    <Link to="/subfolderclasser">
+                        <Folder title="Dossier 14" />
+                    </Link>
                 </div>
             </WorkSpace>
-            <div className='mr-20 flex justify-end gap-2'>
+            <div className='flex justify-end gap-2'>
                 <BouttonPagination />
             </div>
             <Popup />
             <div className='w-[95%] flex justify-end gap-2'>
-                <BouttonIcon imageUrl="../src/assets/images/cancel-btn.svg" msg="Annuler" taille="h-10 w-10"/>
+                <BouttonIcon imageUrl="../src/assets/images/cancel-btn.svg" msg="Annuler" taille="h-10 w-10" />
             </div>
         </>
     )
