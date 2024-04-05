@@ -14,8 +14,13 @@ module.exports = {
         fontSize: {
           'extra-large': '2.5rem',
           'smaller': '0.75rem',
-        }
+        },
+
       },
+    },
+    fontFamily: {
+      'abril-fatface': ['Abril Fatface', 'sans-serif'],
+      'adamina': ['Adamina', 'sans-serif'],
     },
   },
   plugins: [],
