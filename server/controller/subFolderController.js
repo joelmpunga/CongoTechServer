@@ -26,6 +26,19 @@ export default class foldersController {
         }
     }
 
+    static async getSubFoldersByIdFolder(req, res) {
+        try {
+            const id = parseInt(req.params.id);
+            const subFolder = new SubFolder();
+            const data = await subFolder.getAllByIdFolder(id).then()
+            res.status(200).json(data);
+            return data
+        }
+        catch (error) {
+            res.status(500).json(error);
+        }
+    }
+
     static async deleteSubFolder(req, res) {
         const id = parseInt(req.params.id);
         try {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Outlet, RouterProvider, BrowserRouter } from 'react-router-dom'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
@@ -37,7 +37,12 @@ const router = createBrowserRouter([
         errorElement: <Error404 />,
       },
       {
-        path: "/folderdraft",
+        path: "subfolder/:id",
+        element: <SubFoldersWorkspace />,
+        errorElement: <Error404 />,
+      },
+      {
+        path: "/file/draft",
         element: <FilesBrouillon />,
         errorElement: <Error404 />,
       },
@@ -52,7 +57,7 @@ const router = createBrowserRouter([
         errorElement: <Error404 />,
       },
       {
-        path: "subfolder/files",
+        path: "/file/:id",
         element: <StockageMailsDocuments />,
         errorElement: <Error404 />,
       },
@@ -71,6 +76,6 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     {/* <App /> */}
-    <RouterProvider router={router} />
+      <RouterProvider router={router} />
   </React.StrictMode>,
 )

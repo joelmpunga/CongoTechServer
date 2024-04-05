@@ -23,7 +23,7 @@ export default function SideBarSecretaire() {
       </Menu>
       <Menu title="Documents" hasManyMenuItems={true} hasNumberCount={false} iconeRightOff="../src/assets/images/chevron-down.svg" iconeRightOn="../src/assets/images/chevron-up.svg" iconeLeft="../src/assets/images/page.svg">
         <ItemMenu actived={true} title="Archiver" />
-        <Link to="/folderdraft">
+        <Link to="/file/draft">
           <ItemMenu actived={true} title="Brouillon des Docs" />
         </Link>
       </Menu>

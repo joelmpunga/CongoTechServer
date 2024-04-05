@@ -2,7 +2,7 @@ import File from '../model/filesModel.js'
 import multer from 'multer'
 import express from 'express';
 import path from 'path';
-const __dirname = path.dirname('/home/joelmpunga/Documents/MyAllProjects/ArchivageFECProject/server/public');
+const __dirname = path.dirname('/home/joelmpunga/Documents/MyAllProjects/ArchivageFECProject/server');
 
 console.log(__dirname);
 
@@ -11,7 +11,7 @@ import { readChunk } from 'read-chunk';
 import { PrismaClient } from '@prisma/client';
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        const uploadDir = './public/files/';
+        const uploadDir = './server/public/files/';
         cb(null, uploadDir);
     },
     filename: (req, file, cb) => {
@@ -86,9 +86,9 @@ export default class filesController {
 
     static async uploadFile(req, res) {
         // try {
-            const {description,idOwner,idUser} = req.body
-            //const __dirname = path.dirname('/home/joelmpunga/mail-retrieval-app/index.js');
-        const buffer = await readChunk('./public/files/' + req.file.filename, { length: 4100 });
+        const { description, idOwner, idUser } = req.body
+        //const __dirname = path.dirname('/home/joelmpunga/mail-retrieval-app/index.js');
+        const buffer = await readChunk('./server/public/files/' + req.file.filename, { length: 4100 });
         const type = await fileTypeFromBuffer(buffer);
         const file = new File()
         if (type !== null && (type.ext === 'pdf' || type.ext === 'docx' || type.ext === 'jpg' || type.ext === 'png' || type.ext === 'jpeg')) {
@@ -119,7 +119,32 @@ export default class filesController {
         // try {
         const files = new File();
         const data = await files.getAll()
-        res.status(200).json({ "data": data });
+        res.status(200).json(data);
+        return data
+        // }
+        // catch (error) {
+        //     res.status(500).json(error);
+        // }
+    }
+
+    static async getAllDraftsFiles(req, res) {
+        // try {
+        const files = new File();
+        const data = await files.getAllDraft()
+        res.status(200).json(data);
+        return data
+        // }
+        // catch (error) {
+        //     res.status(500).json(error);
+        // }
+    }
+
+    static async getFilesByIdSubFolder(req, res) {
+        // try {
+        const files = new File();
+        const idSub = parseInt(req.params.id)
+        const data = await files.getByIdSubFolder(idSub)
+        res.status(200).json(data);
         return data
         // }
         // catch (error) {
@@ -129,27 +154,27 @@ export default class filesController {
 
     static async downloadFile(req, res) {
         try {
-        const files = new File();
-        const id = req.params.id;
-        const data = await files.download(id)
-        if (!data) {
-            return res.status(404).send('File not found');
-        }
-        res.sendFile(path.join(__dirname, data.path));
-        //res.download(data.path);
-        return data
+            const files = new File();
+            const id = req.params.id;
+            const data = await files.download(id)
+            if (!data) {
+                return res.status(404).send('File not found');
+            }
+            res.sendFile(path.join(__dirname, data.path));
+            //res.download(data.path);
+            return data
         }
         catch (error) {
             res.status(500).json(error);
         }
     }
 
-    static async classerFile(req,res){
+    static async classerFile(req, res) {
         const id = parseInt(req.params.id);
-        const {idSub} = req.body;
+        const { idSub } = req.body;
         try {
             const files = new File();
-            const data = await files.classer(id,idSub)
+            const data = await files.classer(id, idSub)
             const response = await files.getAll()
             res.status(200).json(response);
         }

@@ -27,8 +27,27 @@ export default class File {
         }).then()
         return query;
     }
+
     async getAll() {
         const request = await prisma.document.findMany().then()
+        return request
+    }
+
+    async getAllDraft() {
+        const request = await prisma.document.findMany({
+            where: {
+                subFolderId: null
+            }
+        }).then()
+        return request
+    }
+
+    async getByIdSubFolder(idSub) {
+        const request = await prisma.document.findMany({
+            where: {
+                subFolderId: parseInt(idSub)
+            }
+        }).then()
         return request
     }
 

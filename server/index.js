@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import userRoutes from './routes/userRoutes.js';
 import fileRoutes from './routes/fileRoutes.js';
 import ownersRoutes from './routes/ownerRoutes.js';
@@ -11,12 +12,13 @@ class App {
     constructor() {
         this.server = express();
         this.server.use(express.json());
+        this.server.use(cors())
         this.server.use(express.urlencoded({ extended: true }));
         this.server.use('/user', userRoutes);
-        this.server.use('/file',fileRoutes);
-        this.server.use('/owner',ownersRoutes)
-        this.server.use('/folder',foldersRoutes)
-        this.server.use('/subfolder',subfolderRoutes)
+        this.server.use('/file', fileRoutes);
+        this.server.use('/owner', ownersRoutes)
+        this.server.use('/folder', foldersRoutes)
+        this.server.use('/subfolder', subfolderRoutes)
     }
     start() {
         this.server.listen(port, () => {
