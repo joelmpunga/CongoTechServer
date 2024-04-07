@@ -35,6 +35,20 @@ export default class usersController {
 
 
 
+    static async deleteUser(req, res) {
+        const id = parseInt(req.params.id);
+        try {
+            const users = new User();
+            const data = await users.delete(id);
+            const response = await users.getAll();
+            res.status(200).json(response);
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    }
+
+
+
 
 
 
