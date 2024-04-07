@@ -11,10 +11,17 @@ import FoldersClasser from './components/FoldersClasser.jsx'
 import FilesBrouillon from './components/FilesBrouillon.jsx'
 import SubFoldersClasser from './components/SubFoldersClasser.jsx'
 import MailsBrouillonAll from './components/MailsBrouillonAll.jsx'
+import SignInSignUpComp from './components/signInSignUpComp/SignInSignUpComp.jsx'
+import InputsForm from './components/signInSignUpComp/InputsForm.jsx'
 const router = createBrowserRouter([
   {
     path: "/login",
-    element: <></>,
+    element: 
+    <>
+      <SignInSignUpComp title1="title 1" title2="title 2" btnName="btnName" titleAdminContact1="titeAdm1" titleAdminContact2="titleAdmin2">
+        <InputsForm labelName="label" htmlFor="label" inputId="inputId" inputType="text" inputPlaceholder="veuillez" />
+      </SignInSignUpComp>
+    </>,
     errorElement: <Error404 />,
   },
   {

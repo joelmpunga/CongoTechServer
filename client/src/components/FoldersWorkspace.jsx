@@ -1,4 +1,4 @@
-import {useEffect,useState} from 'react'
+import { useEffect, useState } from 'react'
 import WorkSpace from './WorkSpace'
 import Folder from '../ui/Folder'
 import HeaderWorkspace from './HeaderWorkspace'
@@ -7,9 +7,9 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 export default function FoldersWorkspace() {
-    const [folders,setFolders] = useState([])
-    const getFolders = async() => await axios.get("http://localhost:3000/folder").then(res=>setFolders(res.data))
-    useEffect(()=>{getFolders()},['folders'])
+    const [folders, setFolders] = useState([])
+    const getFolders = async () => await axios.get("http://localhost:3000/folder").then(res => setFolders(res.data))
+    useEffect(() => { getFolders() }, ['folders'])
     console.log(folders);
     const id = 1;
     console.log(folders);
