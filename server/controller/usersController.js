@@ -74,6 +74,32 @@ export default class usersController {
         }
     }
 
+    static async getProfile(req, res) {
+        // Assuming a token is sent in the Authorization header
+        const token = req.headers.authorization;
+
+        if (!token) {
+            return res.status(401).json({ message: 'Missing token' });
+        }
+
+        // Verify token
+        jwt.verify(token, SECRET_KEY, async (err, decoded) => {
+            if (err) {
+                return res.status(401).json({ message: 'Invalid token' });
+            }
+
+            try {
+                const user = await User.getById(decoded.userId);
+                if (!user) {
+                    return res.status(404).json({ message: 'User not found' });
+                }
+                res.json({ user: { id: user.id, email: user.email } });
+            } catch (error) {
+                res.status(500).json(error);
+            }
+        });
+    }
+
 
 
 
