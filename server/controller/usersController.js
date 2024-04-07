@@ -49,6 +49,33 @@ export default class usersController {
 
 
 
+    static async login(req, res) {
+        const { email, password } = req.body;
+
+        try {
+            const user = await User.getByEmail(email);
+            if (!user) {
+                return res.status(401).json({ message: 'Invalid email or password' });
+            }
+
+            // Compare hashed password
+            const passwordMatch = await bcrypt.compare(password, user.password);
+
+            if (!passwordMatch) {
+                return res.status(401).json({ message: 'Invalid email or password' });
+            }
+
+            // Passwords match, generate JWT
+            const token = jwt.sign({ userId: user.id, email: user.email }, SECRET_KEY, { expiresIn: '1h' });
+
+            res.json({ token });
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    }
+
+
+
 
 
 
