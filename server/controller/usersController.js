@@ -22,7 +22,21 @@ export default class usersController {
     }
 
 
+    static async getAllUsers(req, res) {
+        try {
+            const users = new User();
+            const data = await users.getAll();
+            res.status(200).json(data);
+            return data;
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    }
 
 
-    
+
+
+
+
+
 }
