@@ -6,7 +6,7 @@ export default function Menu({ title, children, iconeLeft, iconeRightOff, iconeR
         setActived(!actived)
     }
     return (
-        <div className="mx-8 my-5 h-full text-fontSize-extra-large p-4 rounded-sm  bg-black hover:bg-blue-900">
+        <div className="mx-8 my-5 text-fontSize-extra-large p-4 rounded-xl  bg-black hover:bg-blue-900">
             {
                 actived ?
                     <div>
@@ -26,7 +26,7 @@ export default function Menu({ title, children, iconeLeft, iconeRightOff, iconeR
                         {title}
                         {hasManyMenuItems ?
                             <img src={iconeRightOff} alt="iconOff" />
-                            : hasNumberCount ? <div className="bg-blue-500 rounded-md min-w-10 px-2">{number}</div> : ""}
+                            : hasNumberCount ? <div className="bg-blue-500 h-10 rounded-md min-w-10 px-2">{number}</div> : ""}
                     </h2>
             }
         </div>

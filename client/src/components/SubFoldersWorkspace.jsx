@@ -1,9 +1,18 @@
-import React from 'react'
+import {useState,useEffect} from 'react'
 import WorkSpace from './WorkSpace'
 import Folder from '../ui/Folder'
 import HeaderWorkspace from './HeaderWorkspace'
 import ItemLinkPage from '../ui/ItemLinkPage'
-export default function SubFoldersWorkspace({ idFolder }) {
+import { Link, useParams } from 'react-router-dom'
+import axios from 'axios'
+export default function SubFoldersWorkspace() {
+    //const id = location.pathname.match(/[0-9]$/)[0];
+    const params = useParams()
+    console.log(params.id);
+    const [subFolders,setSubFolders] = useState([])
+    const getSubFolders = async() => await axios.get("http://localhost:3000/subfolder/"+params.id).then(res=>setSubFolders(res.data))
+    useEffect(()=>{getSubFolders()},['subFolders'])
+    console.log(subFolders);
     return (
         <>
             <HeaderWorkspace title="Sous dossiers" message="Parcourez les sous dossiers">
@@ -11,12 +20,14 @@ export default function SubFoldersWorkspace({ idFolder }) {
                 <ItemLinkPage title="Dossiers" path="/folders" />
             </HeaderWorkspace>
             <WorkSpace message="Parcourez les sous dossiers">
-                <Folder title="Folder 1" />
-                <Folder title="Folder 2" />
-                <Folder title="Folder 3" />
-                <Folder title="Folder 4" />
-                <Folder title="Folder 5" />
-                <Folder title="Folder 6" />
+                {
+                    subFolders.map(subFolder => (
+                        <Link key={subFolder.id} to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }}>
+                            <Folder title={subFolder.titre} id={subFolder.id} />
+                        </Link>
+                    ))
+                }
+                
             </WorkSpace>
         </>
     )
