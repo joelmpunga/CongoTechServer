@@ -11,6 +11,7 @@ import FoldersClasser from './components/FoldersClasser.jsx'
 import FilesBrouillon from './components/FilesBrouillon.jsx'
 import SubFoldersClasser from './components/SubFoldersClasser.jsx'
 import MailsBrouillonAll from './components/MailsBrouillonAll.jsx'
+import OwnerListDocs from './components/OwnerListDocs.jsx'
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -75,7 +76,7 @@ const router = createBrowserRouter([
 ]);
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    {/* <App /> */}
-    <RouterProvider router={router} />
+    <OwnerListDocs />
+    {/* <RouterProvider router={router} /> */}
   </React.StrictMode>
 )
