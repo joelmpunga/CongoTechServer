@@ -86,7 +86,23 @@ export default class filesController {
 
     static async uploadFile(req, res) {
         // try {
-        const { description, idOwner, idUser } = req.body
+        const Authorization = req.headers.authorization;
+        const token = Authorization.split(' ')[1]
+        const idUser = '';
+        jwt.verify(token, SECRET_KEY, async (err, decoded) => {
+            if (err) {
+                return res.status(401).json({ message: 'Invalid token' });
+            }
+            try {
+                idUser = decoded.userId;
+                console.log(decoded);
+                console.log(idUser);
+                if (!idUser) return res.status(401).json({ message: 'Coordonnées invalide' });
+            } catch (error) {
+                res.status(500).json(error);
+            }
+        });
+        const { description, idOwner } = req.body
         //const __dirname = path.dirname('/home/joelmpunga/mail-retrieval-app/index.js');
         const buffer = await readChunk('./server/public/files/' + req.file.filename, { length: 4100 });
         const type = await fileTypeFromBuffer(buffer);

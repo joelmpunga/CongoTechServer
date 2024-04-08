@@ -11,6 +11,11 @@ export default function ArchDocs() {
     const [descOwner, setDescOwner] = useState('')
     const [nameDoss, setNameDoss] = useState('')
     const [typeOwner,setTypeOwner] = useState('')
+    const [owners, setOwners] = useState([])
+    const [selectedOwner, setSelectedOwner] = useState('')
+    const [nameDocs, setNameDocs] = useState('')
+    const [docsDesc,setDocsDesc] = useState('')
+    const [file,setFile] = useState([])
     const handleChangeType = (event) => {
         setTypeOwner(event.target.value)
     }
@@ -20,6 +25,25 @@ export default function ArchDocs() {
     const handleChangeName = (event) => {
         setNameDoss(event.target.value)
     }
+    const handleChangeSelectedOwner = (event) => {
+        setSelectedOwner(event.target.value)
+    }
+    const handleChangeNameDocs = (event) => {
+        setNameDocs(event.target.value)
+    }
+    const handleChangeDocDesc = (event) => {
+        setDocsDesc(event.target.value)
+    }
+
+    const getAllOwners = async(event) => {
+        await axios.get('http://localhost:3000/owner').then((res) =>{setOwners(res.data)})
+    }
+
+    console.log("le fichier",file);
+    useEffect(() => {
+        getAllOwners()
+    },['owners'])
+    console.log(owners);
     useEffect((event) => {
         handleChangeDesc
         handleChangeName
@@ -28,9 +52,24 @@ export default function ArchDocs() {
     const handleSubmit = (event) => {
         event.preventDefault()
         axios.post('http://localhost:3000/owner/create', {
-            nom: nameDoss,
+            name: nameDocs,
+            description: docsDesc,
+            idOwner: selectedOwner
+        }).then(res => {
+            if (res.status === 200) {
+                window.location.href = '/archive'
+            }
+        })
+    }
+    const handleSubmitDocument = (event) => {
+        event.preventDefault()
+        const token = localStorage.getItem('token')
+        axios.post('http://localhost:3000/file/upload', {
             description: descOwner,
-            type: typeOwner
+            type: typeOwner,
+            headers : {
+                "Authorization": "Bearer " + token
+            }
         }).then(res => {
             if (res.status === 200) {
                 window.location.href = '/archive'
@@ -48,18 +87,18 @@ export default function ArchDocs() {
             </div>
             <div className="flex">
                 <div className="w-[650px]">
-                    <ArchDocComp   >
+                    <ArchDocComp onSubmit={handleSubmitDocument} >
                         <Title title='Information du document' />
-                        <Inputs attName='Nom à attribuer au document' >
-                            <CbxInput ownNametypeDoc='Nom du proprietaire' >
+                            <CbxInput ownNametypeDoc='Nom du proprietaire' onChange={handleChangeType} >
                                 <option value=""></option>
-                                <option value="">Entreprise</option>
-                                <option value="">Particulier</option>
+                                {
+                                    owners.map(owner => (
+                                        <option key={owner.id} value={owner.id}>{owner.nom}</option>
+                                    ))
+                                }
                             </CbxInput>
-                        </Inputs>
-                        <DragComponent />
+                        <DragComponent file={file}/>
                     </ArchDocComp>
-
                 </div>
                 <div className="w-[650px]">
                     <ArchDocComp ownNametypeDoc='Type du proprietaire' attName='Nom' onChange={handleChangeDesc} onSubmit={handleSubmit}>

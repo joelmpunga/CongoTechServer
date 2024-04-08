@@ -10,9 +10,9 @@ const storage = multer.diskStorage({
         cb(null, uploadDir);
     },
     filename: (req, file, cb) => {
-        const timestamp = Date.now();
-        const extname = path.extname(file.originalname);
-        cb(null, `file_${timestamp}${extname}`);
+        //const timestamp = Date.now();
+        //const extname = path.extname(file.originalname);
+        cb(null, file.originalname)
     }
 });
 const upload = multer({ storage: storage })
