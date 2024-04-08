@@ -20,15 +20,20 @@ export default function ArchDocs() {
     const handleChangeName = (event) => {
         setNameDoss(event.target.value)
     }
+    useEffect((event) => {
+        handleChangeDesc
+        handleChangeName
+        handleChangeType
+    },['typeOwner', 'nameDoss', 'descOwner'])
     const handleSubmit = (event) => {
         event.preventDefault()
-        axios.post('http://localhost:3000/owner/add', {
-            name: nameDoss,
+        axios.post('http://localhost:3000/owner/create', {
+            nom: nameDoss,
             description: descOwner,
             type: typeOwner
         }).then(res => {
-            console.log(res.data.token)
             if (res.status === 200) {
+                window.location.href = '/archive'
             }
         })
     }
@@ -46,7 +51,7 @@ export default function ArchDocs() {
                     <ArchDocComp   >
                         <Title title='Information du document' />
                         <Inputs attName='Nom à attribuer au document' >
-                            <CbxInput ownNametypeDoc='Nom du proprietaire' onChange={handleChangeDesc}>
+                            <CbxInput ownNametypeDoc='Nom du proprietaire' >
                                 <option value=""></option>
                                 <option value="">Entreprise</option>
                                 <option value="">Particulier</option>
@@ -57,13 +62,13 @@ export default function ArchDocs() {
 
                 </div>
                 <div className="w-[650px]">
-                    <ArchDocComp ownNametypeDoc='Type du proprietaire' attName='Nom' >
+                    <ArchDocComp ownNametypeDoc='Type du proprietaire' attName='Nom' onChange={handleChangeDesc} onSubmit={handleSubmit}>
                         <Title title='Ajouter un propriétaire' />
                         <Inputs attName='Nom à attribuer au document' onChange={handleChangeName}>
-                            <CbxInput ownNametypeDoc='Type du proprietaire' >
+                            <CbxInput ownNametypeDoc='Type du proprietaire' onChange={handleChangeType}>
                                 <option value=""></option>
-                                <option value="">Entreprise</option>
-                                <option value="">Particulier</option>
+                                <option value="Entreprise">Entreprise</option>
+                                <option value="Particulier">Particulier</option>
                             </CbxInput>
                         </Inputs>
                     </ArchDocComp>
