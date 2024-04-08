@@ -11,8 +11,9 @@ export default function CreatFolder() {
     const [descFold, setDescFold] = useState('')
     const [subDescFold, setDescSubFold] = useState('')
     const [nomFold, setNomFold] = useState('')
-    const [nomFold, setNomFold] = useState('')
+    const [nomSubFold, setNomSubFold] = useState('')
     const [folders,setFolders] = useState([])
+    const [parentFolder, setParentFolder] = useState('')
     const handleChangeDescriptionFolder = (event) => {
         setDescFold(event.target.value)
     }
@@ -21,6 +22,12 @@ export default function CreatFolder() {
     }
     const handleChangeNomFolder = (event) => {
         setNomFold(event.target.value)
+    }
+    const handleChangeNomSubFolder = (event) => {
+        setNomSubFold(event.target.value)
+    }
+    const handleChangeParentSubFolder = (event) => {
+        setParentFolder(event.target.value)
     }
     const getAllFolders = async (event) => {
         await axios.get('http://localhost:3000/folder/').then(res => setFolders(res.data))
@@ -36,11 +43,23 @@ export default function CreatFolder() {
             }
         })
     }
+    const handleSubmitSubFolder = (event) => {
+        event.preventDefault()
+        axios.post('http://localhost:3000/subfolder/create', {
+            description: subDescFold,
+            titre: nomSubFold,
+            idFolder: parentFolder
+        }).then(res => {
+            console.log(res.data, res.status);
+            if (res.status === 200) {
+                window.location.href = '/createfolder'
+            }
+        })
+    }
     useEffect(() => {
         handleChangeDescriptionFolder
         handleChangeNomFolder
-        handleSubmitFolder
-        
+        handleSubmitFolder     
 
     },['descFold','nomFold'])
 
@@ -48,7 +67,8 @@ export default function CreatFolder() {
         getAllFolders()
     },['folders'])
 
-    console.log(folders);
+
+    console.log(subDescFold,nomSubFold,parentFolder);
     return (
         <>
             <div className="m-5 flex flex-row justify-between w-[1250px]">
@@ -57,10 +77,10 @@ export default function CreatFolder() {
             </div>
             <div className="flex">
                 <div className="w-[650px]">
-                    <ArchDocComp   >
+                    <ArchDocComp onChange={handleChangeDescriptionSubFolder} onSubmit = {handleSubmitSubFolder}  >
                         <Title title='Création d’un sous dossier' />
-                        <Inputs attName='Nom du sous dossier' >
-                            <CbxInput ownNametypeDoc='Nom du dossier parent'>
+                        <Inputs attName='Nom du sous dossier' onChange={handleChangeNomSubFolder}>
+                            <CbxInput ownNametypeDoc='Nom du dossier parent' onChange={handleChangeParentSubFolder}>
                                 <option value=""></option>
                                 {
                                     folders.map(folder => (

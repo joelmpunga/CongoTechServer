@@ -4,7 +4,7 @@ export default class foldersController {
     static async createSubFolder(req, res) {
           try {
             const { titre, description,idFolder } = req.body;
-            const subfolder = new SubFolder(titre, description,idFolder);
+            const subfolder = new SubFolder(titre, description,parseInt(idFolder));
             const data = await subfolder.create();
             const response = await subfolder.getAll()
             res.status(200).json(response)
