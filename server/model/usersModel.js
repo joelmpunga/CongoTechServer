@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 export default class User {
-    constructor(nom,postnom,email,password,role) {
+    constructor(nom, postnom, email, password, role) {
         this.nom = nom;
         this.postnom = postnom;
         this.email = email;
@@ -20,14 +20,33 @@ export default class User {
         }).then()
         return query;
     }
-    async getAll(){
+    async getAll() {
         const query = await prisma.user.findMany().then()
         return query
     }
 
-    async delete(id){
+    async getUserByEmail(email) {
+        const query = await prisma.user.findFirst({
+            where:
+            {
+                email: email
+            }
+        }).then()
+        return query
+    }
+
+    async getById(userId){
+        const query = await prisma.user.findUnique({
+            where: {
+                id: userId
+            }
+        }).then()
+        return query
+    }
+
+    async delete(id) {
         const query = await prisma.user.delete({
-            where:{
+            where: {
                 id: id
             }
         }).then()

@@ -16,13 +16,18 @@ export default function SideBarSecretaire() {
       </Menu>
       <Menu title="Profil" hasManyMenuItems={false} hasNumberCount={false} iconeRightOff="../src/assets/images/chevron-down.svg" iconeRightOn="../src/assets/images/chevron-up.svg" iconeLeft="../src/assets/images/user-alt-4.svg" />
       <Menu title="Dossiers" hasManyMenuItems={true} hasNumberCount={false} iconeRightOff="../src/assets/images/chevron-down.svg" iconeRightOn="../src/assets/images/chevron-up.svg" iconeLeft="../src/assets/images/list-alt.svg">
-        <ItemMenu actived={true} title="Création" />
+        <Link to="/createfolder">
+          <ItemMenu actived={true} title="Création" />
+        </Link>
         <Link to="/folder">
           <ItemMenu actived={true} title="Dossiers" />
         </Link>
       </Menu>
+
       <Menu title="Documents" hasManyMenuItems={true} hasNumberCount={false} iconeRightOff="../src/assets/images/chevron-down.svg" iconeRightOn="../src/assets/images/chevron-up.svg" iconeLeft="../src/assets/images/page.svg">
-        <ItemMenu actived={true} title="Archiver" />
+        <Link to="/archive">
+          <ItemMenu actived={true} title="Archiver" />
+        </Link>
         <Link to="/file/draft">
           <ItemMenu actived={true} title="Brouillon des Docs" />
         </Link>
@@ -30,6 +35,6 @@ export default function SideBarSecretaire() {
       <Link to="/mailsdraft">
         <Menu title="Gestions des Emails" hasManyMenuItems={false} hasNumberCount={true} iconeRightOff="../src/assets/images/chevron-down.svg" iconeRightOn="../src/assets/images/chevron-up.svg" iconeLeft="../src/assets/images/envelope.svg" number="6" />
       </Link>
-    </div>
+    </div >
   )
 }

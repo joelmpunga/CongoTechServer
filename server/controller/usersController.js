@@ -52,31 +52,33 @@ export default class usersController {
     static async login(req, res) {
         const { email, password } = req.body;
 
-        try {
-            const user = await User.getByEmail(email);
-            if (!user) {
-                return res.status(401).json({ message: 'Invalid email or password' });
-            }
-
-            // Compare hashed password
-            const passwordMatch = await bcrypt.compare(password, user.password);
-
-            if (!passwordMatch) {
-                return res.status(401).json({ message: 'Invalid email or password' });
-            }
-
-            // Passwords match, generate JWT
-            const token = jwt.sign({ userId: user.id, email: user.email }, SECRET_KEY, { expiresIn: '1h' });
-
-            res.json({ token });
-        } catch (error) {
-            res.status(500).json(error);
+        // try {
+        const users = new User();
+        const user = await users.getUserByEmail(email);
+        console.log(user);
+        if (!user) {
+            return res.status(401).json({ message: 'Invalid email or password' });
         }
+        // Compare hashed password
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        console.log(passwordMatch);
+        if (!passwordMatch) {
+            return res.status(401).json({ message: 'Invalid email or password' });
+        }
+
+        // Passwords match, generate JWT
+        const token = jwt.sign({ userId: user.id, email: user.email }, SECRET_KEY, { expiresIn: '1h' });
+        res.status(200).json({token });
+        // } catch (error) {
+        //     res.status(500).json(error);
+        // }
     }
 
     static async getProfile(req, res) {
         // Assuming a token is sent in the Authorization header
-        const token = req.headers.authorization;
+        const Authorization = req.headers.authorization;
+        const token = Authorization.split(' ')[1]
+        console.log(token);
 
         if (!token) {
             return res.status(401).json({ message: 'Missing token' });
@@ -89,11 +91,14 @@ export default class usersController {
             }
 
             try {
-                const user = await User.getById(decoded.userId);
+                const users = new User();
+                const user = await users.getById(decoded.userId);
+                console.log(decoded);
+                console.log(user);
                 if (!user) {
                     return res.status(404).json({ message: 'User not found' });
                 }
-                res.json({ user: { id: user.id, email: user.email } });
+                res.json({ user: { id: user.id, role: user.role } });
             } catch (error) {
                 res.status(500).json(error);
             }

@@ -13,20 +13,17 @@ import SubFoldersClasser from './components/SubFoldersClasser.jsx'
 import MailsBrouillonAll from './components/MailsBrouillonAll.jsx'
 import SignInSignUpComp from './components/signInSignUpComp/SignInSignUpComp.jsx'
 import InputsForm from './components/signInSignUpComp/InputsForm.jsx'
+import Login from './components/signInSignUpComp/Login.jsx'
+import SignUp from './components/signInSignUpComp/SignUp.jsx'
+import ArchDocs from './components/archDoc/ArchDocs.jsx'
+import CreatFolder from './components/CreatFolder.jsx'
 const router = createBrowserRouter([
   {
     path: "/login",
-    element: 
-    <>
-      <SignInSignUpComp title1="title 1" title2="title 2" btnName="btnName" titleAdminContact1="titeAdm1" titleAdminContact2="titleAdmin2">
-        <InputsForm labelName="label" htmlFor="label" inputId="inputId" inputType="text" inputPlaceholder="veuillez" />
-      </SignInSignUpComp>
-    </>,
-    errorElement: <Error404 />,
-  },
-  {
-    path: "/register",
-    element: <></>,
+    element:
+      <>
+        <Login />
+      </>,
     errorElement: <Error404 />,
   },
   {
@@ -36,6 +33,16 @@ const router = createBrowserRouter([
       {
         path: "/folder",
         element: <FoldersWorkspace />,
+        errorElement: <Error404 />,
+      },
+      {
+        path: "/archive",
+        element: <ArchDocs />,
+        errorElement: <Error404 />,
+      },
+      {
+        path: "/createfolder",
+        element: <CreatFolder />,
         errorElement: <Error404 />,
       },
       {
@@ -71,6 +78,11 @@ const router = createBrowserRouter([
       {
         path: "/mailsdraft",
         element: <MailsBrouillonAll />,
+        errorElement: <Error404 />,
+      },
+      {
+        path: "/register",
+        element: <><SignUp/></>,
         errorElement: <Error404 />,
       },
       {
