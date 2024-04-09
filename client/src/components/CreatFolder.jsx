@@ -82,9 +82,11 @@ export default function CreatFolder() {
                     <div className="w-[650px] border border-gray-200 shadow-md">
                         <Title title='Création d’un sous dossier' />
 
-                        <ArchDocComp onChange={handleChangeDescriptionSubFolder} onSubmit={handleSubmitSubFolder}  >
+                        <ArchDocComp onChange={handleChangeDescriptionSubFolder} onSubmit={handleSubmitSubFolder}
+                          className=" bg-gray-200 resize-none p-5 w-full h-42 my-5 border-1  border-blue outline-none"
+                        >
                             <Inputs attName='Nom du sous dossier' onChange={handleChangeNomSubFolder}>
-                                <CbxInput ownNametypeDoc='Nom du dossier parent' onChange={handleChangeParentSubFolder}>
+                                <CbxInput ownNametypeDoc='Nom du dossier parent' onChange={handleChangeParentSubFolder} className='w-[300px] h-14'>
                                     <option value=""></option>
                                     {
                                         folders.map(folder => (
@@ -97,7 +99,9 @@ export default function CreatFolder() {
                     </div>
                     <div className="w-[650px] border border-gray-200 shadow-md">
                         <Title title='Ajouter un propriétaire' />
-                        <ArchDocComp ownNametypeDoc='Type du proprietaire' attName='Nom' onChange={handleChangeDescriptionFolder} onSubmit={handleSubmitFolder}>
+                        <ArchDocComp ownNametypeDoc='Type du proprietaire' attName='Nom' onChange={handleChangeDescriptionFolder} onSubmit={handleSubmitFolder}
+                        className=" bg-gray-200 resize-none p-5 w-full h-42 my-5 border-1  border-blue outline-none"
+                        >
                             <Inputs attName='Nom du dossier ' onChange={handleChangeNomFolder} />
                         </ArchDocComp>
                     </div>

@@ -16,7 +16,7 @@ export default function ArchDocComp({ title, dragDrop, ownNametypeDoc, attName, 
                 {children}
             </div>
             <div>
-                <p>Decription</p>
+                <p className="mt-3">Decription</p>
                 <div >
                     <textarea className={className} name="" id="" cols="30" rows="10" onChange={onChange}>
                     </textarea>
