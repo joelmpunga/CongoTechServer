@@ -7,7 +7,7 @@ import Title from "./Title";
 
 
 
-export default function ArchDocComp({ title, dragDrop, ownNametypeDoc, attName, children, onChange,onSubmit }) {
+export default function ArchDocComp({ title, dragDrop, ownNametypeDoc, attName, children, onChange,onSubmit, className }) {
 
     const [value, setValue] = useState('Candidature')
     return (
@@ -18,7 +18,7 @@ export default function ArchDocComp({ title, dragDrop, ownNametypeDoc, attName, 
             <div>
                 <p>Decription</p>
                 <div >
-                    <textarea className=" bg-gray-200 resize-none p-5 w-full h-42 my-5 border-1  border-blue outline-none" name="" id="" cols="30" rows="10" onChange={onChange}>
+                    <textarea className={className} name="" id="" cols="30" rows="10" onChange={onChange}>
                     </textarea>
                 </div>
             </div>

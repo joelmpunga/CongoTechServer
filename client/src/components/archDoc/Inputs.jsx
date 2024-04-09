@@ -3,7 +3,7 @@ import cbxInput from './comboBox/CbxInput'
 export default function Inputs({ ownNametypeDoc, attName, children, onChange }) {
     return (
         <div>
-            <div className="flex flex-row pt-3 my-5 justify-start gap-5 w-[100%]">
+            <div className="flex flex-row justify-start gap-5 w-[100%]">
 
                 {children}
 

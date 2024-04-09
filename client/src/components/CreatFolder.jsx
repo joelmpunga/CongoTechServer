@@ -12,7 +12,7 @@ export default function CreatFolder() {
     const [subDescFold, setDescSubFold] = useState('')
     const [nomFold, setNomFold] = useState('')
     const [nomSubFold, setNomSubFold] = useState('')
-    const [folders,setFolders] = useState([])
+    const [folders, setFolders] = useState([])
     const [parentFolder, setParentFolder] = useState('')
     const handleChangeDescriptionFolder = (event) => {
         setDescFold(event.target.value)
@@ -59,43 +59,48 @@ export default function CreatFolder() {
     useEffect(() => {
         handleChangeDescriptionFolder
         handleChangeNomFolder
-        handleSubmitFolder     
+        handleSubmitFolder
 
-    },['descFold','nomFold'])
+    }, ['descFold', 'nomFold'])
 
-    useEffect(()=>{
+    useEffect(() => {
         getAllFolders()
-    },['folders'])
+    }, ['folders'])
 
 
-    console.log(subDescFold,nomSubFold,parentFolder);
+    console.log(subDescFold, nomSubFold, parentFolder);
     return (
         <>
-            <div className="m-5 flex flex-row justify-between w-[1250px]">
+            <div className="m-5 flex flex-row justify-between w-creen">
                 <h2 className="">Créer un dossier et un sous-dossier</h2>
                 <p>Dashboard / dossier</p>
             </div>
-            <div className="flex">
-                <div className="w-[650px]">
-                    <ArchDocComp onChange={handleChangeDescriptionSubFolder} onSubmit = {handleSubmitSubFolder}  >
+
+            <div className="flex ">
+
+                <div className="flex gap-10 w-full justify-center items-center">
+                    <div className="w-[650px] border border-gray-200 shadow-md">
                         <Title title='Création d’un sous dossier' />
-                        <Inputs attName='Nom du sous dossier' onChange={handleChangeNomSubFolder}>
-                            <CbxInput ownNametypeDoc='Nom du dossier parent' onChange={handleChangeParentSubFolder}>
-                                <option value=""></option>
-                                {
-                                    folders.map(folder => (
-                                        <option key={folder.id} value={folder.id}>{folder.titre}</option>
-                                    ))
-                                }
-                            </CbxInput>
-                        </Inputs>
-                    </ArchDocComp>
-                </div>
-                <div className="w-[650px]">
-                    <ArchDocComp ownNametypeDoc='Type du proprietaire' attName='Nom' onChange={handleChangeDescriptionFolder} onSubmit = {handleSubmitFolder}>
+
+                        <ArchDocComp onChange={handleChangeDescriptionSubFolder} onSubmit={handleSubmitSubFolder}  >
+                            <Inputs attName='Nom du sous dossier' onChange={handleChangeNomSubFolder}>
+                                <CbxInput ownNametypeDoc='Nom du dossier parent' onChange={handleChangeParentSubFolder}>
+                                    <option value=""></option>
+                                    {
+                                        folders.map(folder => (
+                                            <option key={folder.id} value={folder.id}>{folder.titre}</option>
+                                        ))
+                                    }
+                                </CbxInput>
+                            </Inputs>
+                        </ArchDocComp>
+                    </div>
+                    <div className="w-[650px] border border-gray-200 shadow-md">
                         <Title title='Ajouter un propriétaire' />
-                        <Inputs attName='Nom du dossier ' onChange={handleChangeNomFolder} />
-                    </ArchDocComp>
+                        <ArchDocComp ownNametypeDoc='Type du proprietaire' attName='Nom' onChange={handleChangeDescriptionFolder} onSubmit={handleSubmitFolder}>
+                            <Inputs attName='Nom du dossier ' onChange={handleChangeNomFolder} />
+                        </ArchDocComp>
+                    </div>
                 </div>
             </div>
         </>

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 export default function SideBarSecretaire() {
   return (
-    <div className='bg-custom-dark-blue min-h-[876px] w-[500px] text-[20px] font-bold'>
+    <div className='bg-custom-dark-blue min-h-screen w-[430px] text-[20px] font-bold'>
       <LogoSideBar />
       <Menu title="Rapports & Statistiques" hasManyMenuItems={true} hasNumberCount={false} iconeRightOff="../src/assets/images/chevron-down.svg" iconeRightOn="../src/assets/images/chevron-up.svg" iconeLeft="../src/assets/images/Group.svg">
         <ItemMenu actived={true} title="Documents" />
