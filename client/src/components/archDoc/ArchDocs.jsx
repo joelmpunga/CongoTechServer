@@ -49,12 +49,12 @@ export default function ArchDocs() {
         handleChangeName
         handleChangeType
     }, ['typeOwner', 'nameDoss', 'descOwner'])
-    const handleSubmit = (event) => {
+    const handleSubmitOwner = (event) => {
         event.preventDefault()
         axios.post('http://localhost:3000/owner/create', {
-            name: nameDocs,
-            description: docsDesc,
-            idOwner: selectedOwner
+            nom: nameDoss,
+            description: descOwner,
+            type: typeOwner
         }).then(res => {
             if (res.status === 200) {
                 window.location.href = '/archive'
@@ -104,7 +104,7 @@ export default function ArchDocs() {
                 </div>
                 <div className="w-[650px] border border-gray-200 shadow-md">
                     <Title title='Ajouter un propriétaire' />
-                    <ArchDocComp ownNametypeDoc='Type du proprietaire' attName='Nom' onChange={handleChangeDesc} onSubmit={handleSubmit}
+                    <ArchDocComp ownNametypeDoc='Type du proprietaire' attName='Nom' onChange={handleChangeDesc} onSubmit={handleSubmitOwner}
                     className=" bg-gray-200 resize-none p-5 w-full h-42 my-5 border-1  border-blue outline-none"
                     >
                         <Inputs attName='Nom à attribuer au document' onChange={handleChangeName}>
