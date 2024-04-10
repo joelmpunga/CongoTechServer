@@ -37,6 +37,7 @@ export default app.server
 
 
 
+//DATABASE_URL="postgresql://usermail:mailtest&2024@localhost:5432/mailtest"
 
 // model User {
 //     id        Int        @id @default(autoincrement())
