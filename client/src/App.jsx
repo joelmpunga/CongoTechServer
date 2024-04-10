@@ -25,9 +25,9 @@ function App({ children }) {
   }
   return (
     <>
-      <div className='flex gap-0 w-7/7'>
+      <div className='flex gap-0 w-full'>
         <SideBarSecretaire />
-        <div className='flex flex-col gap-6 w-full relative'>
+        <div className='flex flex-col gap-6 w-full'>
           <Header hasSearch={true} name="John Doe" title="Secretariat" />
           {
             children

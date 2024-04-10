@@ -6,6 +6,7 @@ export default function DragComponent() {
   function uploadFiles(files) {
     // Limit to one file upload
     if (ownerLicense.length > 0) {
+      
       alert("You can only upload one file at a time.");
       return;
     }

@@ -31,7 +31,15 @@ export function CustomDragDrop({
             return formats.some((format) => file.type.endsWith(`/${format}`));
         });
 
+        
+
+
+
+
+
+
         if (ownerLicense.length >= count) {
+            
             showAlert(
                 "warning",
                 "Maximum Files",
@@ -39,6 +47,10 @@ export function CustomDragDrop({
             );
             return;
         }
+
+
+
+
         if (!allFilesValid) {
             showAlert(
                 "warning",
