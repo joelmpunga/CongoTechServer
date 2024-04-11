@@ -20,13 +20,95 @@ export default function SubFoldersWorkspace() {
                 <ItemLinkPage title="Dossiers" path="/folders" />
             </HeaderWorkspace>
             <WorkSpace message="Parcourez les sous dossiers">
-                {
+              <div className='flex flex-wrap w-[100%] overflow-x-auto h-[70%]'>
+              {
                     subFolders.map(subFolder => (
-                        <Link key={subFolder.id} to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }}>
+                        <Link key={subFolder.id} to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }} className='flex flex-row'>
                             <Folder title={subFolder.titre} id={subFolder.id} />
                         </Link>
                     ))
                 }
+
+{
+                    subFolders.map(subFolder => (
+                        <Link key={subFolder.id} to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }} className='flex flex-row'>
+                            <Folder title={subFolder.titre} id={subFolder.id} />
+                        </Link>
+                    ))
+                }
+
+{
+                    subFolders.map(subFolder => (
+                        <Link key={subFolder.id} to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }} className='flex flex-row'>
+                            <Folder title={subFolder.titre} id={subFolder.id} />
+                        </Link>
+                    ))
+                }
+
+
+{
+                    subFolders.map(subFolder => (
+                        <Link key={subFolder.id} to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }} className='flex flex-row'>
+                            <Folder title={subFolder.titre} id={subFolder.id} />
+                        </Link>
+                    ))
+                }
+
+
+{
+                    subFolders.map(subFolder => (
+                        <Link key={subFolder.id} to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }} className='flex flex-row'>
+                            <Folder title={subFolder.titre} id={subFolder.id} />
+                        </Link>
+                    ))
+                }  {
+                    subFolders.map(subFolder => (
+                        <Link key={subFolder.id} to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }} className='flex flex-row'>
+                            <Folder title={subFolder.titre} id={subFolder.id} />
+                        </Link>
+                    ))
+                }  {
+                    subFolders.map(subFolder => (
+                        <Link key={subFolder.id} to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }} className='flex flex-row'>
+                            <Folder title={subFolder.titre} id={subFolder.id} />
+                        </Link>
+                    ))
+                }  {
+                    subFolders.map(subFolder => (
+                        <Link key={subFolder.id} to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }} className='flex flex-row'>
+                            <Folder title={subFolder.titre} id={subFolder.id} />
+                        </Link>
+                    ))
+                }  {
+                    subFolders.map(subFolder => (
+                        <Link key={subFolder.id} to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }} className='flex flex-row'>
+                            <Folder title={subFolder.titre} id={subFolder.id} />
+                        </Link>
+                    ))
+                }  {
+                    subFolders.map(subFolder => (
+                        <Link key={subFolder.id} to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }} className='flex flex-row'>
+                            <Folder title={subFolder.titre} id={subFolder.id} />
+                        </Link>
+                    ))
+                }
+
+{
+                    subFolders.map(subFolder => (
+                        <Link key={subFolder.id} to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }} className='flex flex-row'>
+                            <Folder title={subFolder.titre} id={subFolder.id} />
+                        </Link>
+                    ))
+                }
+
+{
+                    subFolders.map(subFolder => (
+                        <Link key={subFolder.id} to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }} className='flex flex-row'>
+                            <Folder title={subFolder.titre} id={subFolder.id} />
+                        </Link>
+                    ))
+                }
+              </div>
                 
             </WorkSpace>
         </>

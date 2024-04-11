@@ -14,7 +14,7 @@ export function CustomDragDrop({
     const dropContainer = useRef(null);
     const [dragging, setDragging] = useState(false);
     const fileRef = useRef(null);
-    
+
 
     function handleDrop(e, type) {
         let files;
@@ -31,7 +31,15 @@ export function CustomDragDrop({
             return formats.some((format) => file.type.endsWith(`/${format}`));
         });
 
+        
+
+
+
+
+
+
         if (ownerLicense.length >= count) {
+            
             showAlert(
                 "warning",
                 "Maximum Files",
@@ -39,6 +47,10 @@ export function CustomDragDrop({
             );
             return;
         }
+
+
+
+
         if (!allFilesValid) {
             showAlert(
                 "warning",
@@ -148,10 +160,6 @@ export function CustomDragDrop({
             width: 450
         });
     }
-
-
-
-
     return (
         <>
 
@@ -210,28 +218,25 @@ export function CustomDragDrop({
 
 
                 {
-                    !ownerLicense.length>0 && <div className="flex-1 flex flex-col h-auto">
-                    <div className="mx-auto text-gray-400 mb-2">
-                        <FaUpload size={18} />
-                    </div>
-                    <div className="text-[12px] font-normal text-gray-500">
+                    !ownerLicense.length > 0 && <div className="flex-1 flex flex-col h-auto">
+                        <div className="mx-auto text-gray-400 mb-2">
+                            <FaUpload size={18} />
+                        </div>
+                        <div className="text-[12px] font-normal text-gray-500">
 
-                        <span
-                            className="text-[#4070f4] cursor-pointer"
+                            <span
+                                className="text-[#4070f4] cursor-pointer"
 
-                        >
-                            Click to upload
-                        </span>{" "}
-                        or drag and drop
+                            >
+                                Click to upload
+                            </span>{" "}
+                            or drag and drop
+                        </div>
+                        <div className="text-[10px] font-normal text-gray-500">
+                            Pdf, files PNG, JPG or JPEG
+                        </div>
                     </div>
-                    <div className="text-[10px] font-normal text-gray-500">
-                        Pdf, files PNG, JPG or JPEG
-                    </div>
-                </div>
                 }
-
-
-
             </label>
             <input
                 className="opacity-0 hidden h-full"
@@ -246,12 +251,8 @@ export function CustomDragDrop({
                     setToggle(!toggle);
 
                 }}
-                
+
             />
-
-
-
-
         </>
     );
 }

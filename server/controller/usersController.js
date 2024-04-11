@@ -1,41 +1,114 @@
-import User from '../model/usersModel.js'
-export default class usersController {
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import User from '../model/usersModel.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
+const SECRET_KEY = process.env.SECRET_KEY;
+
+export default class usersController {
     static async createUser(req, res) {
         try {
             const { nom, postnom, email, password, role } = req.body;
-            const user = new User(nom, postnom, email, password, role);
+            const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
+
+            const user = new User(nom, postnom, email, hashedPassword, role);
             const data = await user.signup();
-            const response = await user.getAll()
+            const response = await user.getAll();
             res.status(200).json(response);
-        }
-        catch (error) {
+        } catch (error) {
             res.status(500).json(error);
-        }        
+        }
     }
 
+
     static async getAllUsers(req, res) {
-        // try{
+        try {
             const users = new User();
-            const data = await users.getAll()
+            const data = await users.getAll();
             res.status(200).json(data);
-            return data
-        // }
-        // catch (error) {
+            return data;
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    }
+
+
+
+    static async deleteUser(req, res) {
+        const id = parseInt(req.params.id);
+        try {
+            const users = new User();
+            const data = await users.delete(id);
+            const response = await users.getAll();
+            res.status(200).json(response);
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    }
+
+
+
+    static async login(req, res) {
+        const { email, password } = req.body;
+
+        // try {
+        const users = new User();
+        const user = await users.getUserByEmail(email);
+        console.log(user);
+        if (!user) {
+            return res.status(401).json({ message: 'Invalid email or password' });
+        }
+        // Compare hashed password
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        console.log(passwordMatch);
+        if (!passwordMatch) {
+            return res.status(401).json({ message: 'Invalid email or password' });
+        }
+
+        // Passwords match, generate JWT
+        const token = jwt.sign({ userId: user.id, email: user.email }, SECRET_KEY, { expiresIn: '1h' });
+        res.status(200).json({token });
+        // } catch (error) {
         //     res.status(500).json(error);
         // }
     }
 
-    static async deleteUser(req,res){
-        const id = parseInt(req.params.id);
-        try{
-            const users = new User();
-            const data = await users.delete(id)
-            const response = await users.getAll()
-            res.status(200).json(response);
+    static async getProfile(req, res) {
+        // Assuming a token is sent in the Authorization header
+        const Authorization = req.headers.authorization;
+        const token = Authorization.split(' ')[1]
+        console.log(token);
+
+        if (!token) {
+            return res.status(401).json({ message: 'Missing token' });
         }
-        catch (error) {
-            res.status(500).json(error);
-        }
+
+        // Verify token
+        jwt.verify(token, SECRET_KEY, async (err, decoded) => {
+            if (err) {
+                return res.status(401).json({ message: 'Invalid token' });
+            }
+
+            try {
+                const users = new User();
+                const user = await users.getById(decoded.userId);
+                console.log(decoded);
+                console.log(user);
+                if (!user) {
+                    return res.status(404).json({ message: 'User not found' });
+                }
+                res.json({ user: { id: user.id, role: user.role } });
+            } catch (error) {
+                res.status(500).json(error);
+            }
+        });
     }
+
+
+
+
+
+
+
 }

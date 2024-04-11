@@ -7,15 +7,15 @@ export default function Header({ hasSearch, name, title }) {
     }
     return (
         <div className='flex flex-col w-[100%] gap-2'>
-            <div className='bg-white flex justify-between mx-20'>
+            <div className='bg-white flex justify-between mx-10 mt-5'>
                 {
                     hasSearch &&
                     <div className='flex w-[100%] gap-4'>
                         <img src="../src/assets/images/search2.svg" alt="search" width={30} height={30} />
-                        <input className='my-auto outline-none' placeholder="Type for search" />
+                        <input className='mx-5 outline-none w-full' placeholder="Type for search" />
                     </div>
                 }
-                <div className='flex gap-6'>
+                <div className='flex gap-5'>
                     <div>
                         <h2>{name}</h2>
                         <h3>{title}</h3>
@@ -27,7 +27,7 @@ export default function Header({ hasSearch, name, title }) {
                 </div>
             </div>
             {
-                disconnect && <button className="bg-blue-500 text-white min-w-[5rem] mx-[93%] h-10 rounded-2xl p-2">Log Out</button>
+                disconnect && <button className="bg-blue-500 text-white min-w-[5rem] mx-[93%] h-10 rounded p-2 absolute top-20 left-0 ">Log Out</button>
             }
         </div>
     )
