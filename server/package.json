@@ -13,8 +13,9 @@
     "chai": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "express": "^4.19.1",
+    "express": "^4.19.2",
     "file-type": "^19.0.0",
+    "imapflow": "^1.0.158",
     "jsonwebtoken": "^9.0.2",
     "mocha": "^10.3.0",
     "multer": "^1.4.5-lts.1",
@@ -22,6 +23,7 @@
     "path": "^0.12.7",
     "prisma": "^5.11.0",
     "read-chunk": "^4.0.3",
+    "server": "file:",
     "supertest": "^6.3.4"
   },
   "devDependencies": {

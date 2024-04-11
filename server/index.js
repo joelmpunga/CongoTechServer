@@ -8,6 +8,8 @@ import subfolderRoutes from './routes/subFolderRoutes.js';
 const port = 3000 || process.env.PORT
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
+import emailRoutes from './routes/EmailRoutes.js';
+
 class App {
     constructor() {
         this.server = express();
@@ -15,6 +17,11 @@ class App {
         this.server.use(cors())
         this.server.use(express.urlencoded({ extended: true }));
         this.server.use('/user', userRoutes);
+        this.server.use('/file',fileRoutes);
+        this.server.use('/owner',ownersRoutes)
+        this.server.use('/folder',foldersRoutes)
+        this.server.use('/subfolder',subfolderRoutes)
+        this.server.use('/emails', emailRoutes)
         this.server.use('/file', fileRoutes);
         this.server.use('/owner', ownersRoutes)
         this.server.use('/folder', foldersRoutes)
