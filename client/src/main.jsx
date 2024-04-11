@@ -18,6 +18,7 @@ import SignUp from './components/signInSignUpComp/SignUp.jsx'
 import ArchDocs from './components/archDoc/ArchDocs.jsx'
 import CreatFolder from './components/CreatFolder.jsx'
 import OwnerListDocs from './components/OwnerListDocs.jsx'
+import UserList from './components/UserList.jsx'
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -87,8 +88,13 @@ const router = createBrowserRouter([
         errorElement: <Error404 />,
       },
       {
-        path: "/OwnerList",
+        path: "/ownerlist",
         element: <><OwnerListDocs/></>,
+        errorElement: <Error404 />,
+      },
+      {
+        path: "/userlist",
+        element: <><UserList/></>,
         errorElement: <Error404 />,
       },
       {
