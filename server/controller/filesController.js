@@ -2,10 +2,11 @@ import File from '../model/filesModel.js'
 import multer from 'multer'
 import express from 'express';
 import path from 'path';
+import jwt from 'jsonwebtoken'
 const __dirname = path.dirname('/home/joelmpunga/Documents/MyAllProjects/ArchivageFECProject/server');
 
 console.log(__dirname);
-
+const SECRET_KEY = process.env.SECRET_KEY
 import { fileTypeFromBuffer } from 'file-type';
 import { readChunk } from 'read-chunk';
 import { PrismaClient } from '@prisma/client';
@@ -86,6 +87,22 @@ export default class filesController {
 
     static async uploadFile(req, res) {
         // try {
+        // const Authorization = req.headers.authorization;
+        // const token = Authorization.split(' ')[1]
+        // const idUser = '';
+        // jwt.verify(token, SECRET_KEY, async (err, decoded) => {
+        //     if (err) {
+        //         return res.status(401).json({ message: 'Invalid token' });
+        //     }
+        //     try {
+        //         idUser = decoded.userId;
+        //         console.log(decoded);
+        //         console.log(idUser);
+        //         if (!idUser) return res.status(401).json({ message: 'Coordonnées invalide' });
+        //     } catch (error) {
+        //         res.status(500).json(error);
+        //     }
+        // });
         const { description, idOwner, idUser } = req.body
         //const __dirname = path.dirname('/home/joelmpunga/mail-retrieval-app/index.js');
         const buffer = await readChunk('./server/public/files/' + req.file.filename, { length: 4100 });

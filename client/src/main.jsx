@@ -11,16 +11,20 @@ import FoldersClasser from './components/FoldersClasser.jsx'
 import FilesBrouillon from './components/FilesBrouillon.jsx'
 import SubFoldersClasser from './components/SubFoldersClasser.jsx'
 import MailsBrouillonAll from './components/MailsBrouillonAll.jsx'
+import SignInSignUpComp from './components/signInSignUpComp/SignInSignUpComp.jsx'
+import InputsForm from './components/signInSignUpComp/InputsForm.jsx'
+import Login from './components/signInSignUpComp/Login.jsx'
+import SignUp from './components/signInSignUpComp/SignUp.jsx'
+import ArchDocs from './components/archDoc/ArchDocs.jsx'
+import CreatFolder from './components/CreatFolder.jsx'
 import OwnerListDocs from './components/OwnerListDocs.jsx'
 const router = createBrowserRouter([
   {
     path: "/login",
-    element: <></>,
-    errorElement: <Error404 />,
-  },
-  {
-    path: "/register",
-    element: <></>,
+    element:
+      <>
+        <Login />
+      </>,
     errorElement: <Error404 />,
   },
   {
@@ -30,6 +34,16 @@ const router = createBrowserRouter([
       {
         path: "/folder",
         element: <FoldersWorkspace />,
+        errorElement: <Error404 />,
+      },
+      {
+        path: "/archive",
+        element: <ArchDocs />,
+        errorElement: <Error404 />,
+      },
+      {
+        path: "/createfolder",
+        element: <CreatFolder />,
         errorElement: <Error404 />,
       },
       {
@@ -53,7 +67,7 @@ const router = createBrowserRouter([
         errorElement: <Error404 />,
       },
       {
-        path: "/subfolderclasser",
+        path: "/subfolderclasser/:id",
         element: <SubFoldersClasser />,
         errorElement: <Error404 />,
       },
@@ -68,6 +82,16 @@ const router = createBrowserRouter([
         errorElement: <Error404 />,
       },
       {
+        path: "/register",
+        element: <><SignUp/></>,
+        errorElement: <Error404 />,
+      },
+      {
+        path: "/OwnerList",
+        element: <><OwnerListDocs/></>,
+        errorElement: <Error404 />,
+      },
+      {
         path: '*',
         element: <Error404 />,
       },
@@ -76,7 +100,7 @@ const router = createBrowserRouter([
 ]);
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    
+    {/* <App /> */}
     <RouterProvider router={router} />
   </React.StrictMode>
 )

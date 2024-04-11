@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function InputsForm({labelName, htmlFor, inputId, inputType, inputPlaceholder,}) {
+export default function InputsForm({labelName, htmlFor, inputId, inputType, inputPlaceholder,onChange}) {
     return (
         <div>
             <label className="block text-gray-500 text-sm font-adamina mb-2" htmlFor={htmlFor}>
@@ -11,6 +11,7 @@ export default function InputsForm({labelName, htmlFor, inputId, inputType, inpu
                 id={inputId}
                 type={inputType}
                 placeholder={inputPlaceholder}
+                onChange={onChange}
             />
 
         </div>

@@ -1,10 +1,18 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import WorkSpace from './WorkSpace'
 import Folder from '../ui/Folder'
 import HeaderWorkspace from './HeaderWorkspace'
 import ItemLinkPage from '../ui/ItemLinkPage'
 import BouttonIcon from '../ui/BouttonIcon'
+import axios from 'axios'
+import { Link, useParams } from 'react-router-dom'
 export default function SubFoldersClasser({ idFolder }) {
+    const params = useParams()
+    console.log(params.id);
+    const [subFolders, setSubFolders] = useState([])
+    const getSubFolders = async () => await axios.get("http://localhost:3000/subfolder/" + params.id).then(res => setSubFolders(res.data))
+    useEffect(() => { getSubFolders() }, ['subFolders'])
+    console.log(subFolders);
     return (
         <>
             <HeaderWorkspace title="Sous dossiers" message="Parcourez les sous dossiers">
@@ -12,16 +20,20 @@ export default function SubFoldersClasser({ idFolder }) {
                 <ItemLinkPage title="Dossiers" path="/folders" />
             </HeaderWorkspace>
             <WorkSpace message="Parcourez les sous dossiers">
-                <Folder title="Folder 1" isToClass = {true}/>
-                <Folder title="Folder 2" isToClass = {true}/>
-                <Folder title="Folder 3" isToClass = {true}/>
-                <Folder title="Folder 4" isToClass = {true}/>
-                <Folder title="Folder 5" isToClass = {true}/>
-                <Folder title="Folder 6" isToClass = {true}/>
+                {
+                    subFolders.map(subFolder => (
+                        <Link key={subFolder.id} to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }}>
+                            <Folder title={subFolder.titre} id={subFolder.id} isToClass={true} />
+                        </Link>
+                    ))
+                }
             </WorkSpace>
-            <div className='w-[95%] flex justify-end gap-2'>
-                <BouttonIcon imageUrl="../src/assets/images/cancel-btn.svg" msg="Annuler" taille="h-10 w-10"/>
-            </div>
+            <Link to="/file/draft">
+
+                <div className='w-[95%] flex justify-end gap-2'>
+                    <BouttonIcon imageUrl="../src/assets/images/cancel-btn.svg" msg="Annuler" taille="h-10 w-10" />
+                </div>
+            </Link>
         </>
     )
 }
