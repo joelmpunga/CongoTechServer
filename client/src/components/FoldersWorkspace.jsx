@@ -22,7 +22,7 @@ export default function FoldersWorkspace() {
                 <ItemLinkPage title="Dashboard" path="/dashboard" />
             </HeaderWorkspace>
             <WorkSpace message="Parcourez les dossiers">
-                <div className='w-[1500px]'>
+                <div className='flex flex-wrap w-[100%] overflow-x-auto h-[70%]'>
                     {
                         folders.map(folder => (
                             <Link key={folder.id} to={{ pathname: `/subfolder/${folder.id}`, state: { id: folder.id } }}>
@@ -30,6 +30,8 @@ export default function FoldersWorkspace() {
                             </Link>
                         ))
                     }
+
+                    
                 </div>
             </WorkSpace>
         </>
