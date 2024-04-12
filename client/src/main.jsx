@@ -63,12 +63,12 @@ const router = createBrowserRouter([
         errorElement: <Error404 />,
       },
       {
-        path: "/folderclasser",
+        path: "/folderclasser/:id",
         element: <FoldersClasser />,
         errorElement: <Error404 />,
       },
       {
-        path: "/subfolderclasser/:id",
+        path: "/subfolderclasser/:id/:idFile",
         element: <SubFoldersClasser />,
         errorElement: <Error404 />,
       },

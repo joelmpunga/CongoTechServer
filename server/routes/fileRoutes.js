@@ -6,6 +6,7 @@ const router = express.Router()
 import fileConst from '../controller/filesController.js'
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
+        console.log("multer",req)
         const uploadDir = './server/public/files/';
         cb(null, uploadDir);
     },

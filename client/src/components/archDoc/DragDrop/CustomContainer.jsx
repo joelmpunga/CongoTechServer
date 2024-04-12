@@ -73,11 +73,12 @@ export function CustomDragDrop({
         if (files && files.length) {
             const nFiles = files.map(async (file) => {
                 const base64String = await convertFileBase64(file);
+                console.table("Swal file",file);
                 return {
                     name: file.name,
-                    photo: base64String,
+                    file: base64String,
                     type: file.type,
-                    size: file.size
+                    size: file.size,
                 };
             });
 

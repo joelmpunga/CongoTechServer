@@ -8,7 +8,9 @@ import axios from 'axios'
 import { Link, useParams } from 'react-router-dom'
 export default function SubFoldersClasser({ idFolder }) {
     const params = useParams()
-    console.log(params.id);
+    console.log(params);
+    const id = params.id
+    const idFile = params.idFile
     const [subFolders, setSubFolders] = useState([])
     const getSubFolders = async () => await axios.get("http://localhost:3000/subfolder/" + params.id).then(res => setSubFolders(res.data))
     useEffect(() => { getSubFolders() }, ['subFolders'])
@@ -22,9 +24,9 @@ export default function SubFoldersClasser({ idFolder }) {
             <WorkSpace message="Parcourez les sous dossiers">
                 {
                     subFolders.map(subFolder => (
-                        <Link key={subFolder.id} to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }}>
-                            <Folder title={subFolder.titre} id={subFolder.id} isToClass={true} />
-                        </Link>
+                        //<Link  to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }}>
+                            <Folder key={subFolder.id} title={subFolder.titre} id={subFolder.id} isToClass={true} idFile = {idFile} idSub={subFolder.id}/>
+                        //</Link>
                     ))
                 }
             </WorkSpace>

@@ -6,10 +6,13 @@ import Folder from '../ui/Folder'
 import BouttonPagination from '../ui/BouttonPagination'
 import Popup from './Popup'
 import BouttonIcon from '../ui/BouttonIcon'
-import { Link } from 'react-router-dom'
+import { Link,useParams } from 'react-router-dom'
 import axios from 'axios'
 
 export default function FoldersClasser() {
+    const param = useParams()
+    const idFile = param.id
+    console.log(idFile);
     const [folders, setFolders] = useState([])
     const getFolders = async () => await axios.get("http://localhost:3000/folder").then(res => setFolders(res.data))
     useEffect(() => { getFolders() }, ['folders'])
@@ -22,8 +25,8 @@ export default function FoldersClasser() {
                     <div className='w-[1500px]'>
                     {
                         folders.map(folder => (
-                            <Link key={folder.id} to={{ pathname: `/subfolderclasser/${folder.id}`, state: { id: folder.id } }}>
-                                <Folder title={folder.titre} id={folder.id} />
+                            <Link key={folder.id} to={{ pathname: `/subfolderclasser/${folder.id}/${idFile}`, state: { id: folder.id,idFile:idFile } }}>
+                                <Folder title={folder.titre} id={folder.id}/>
                             </Link>
                         ))
                     }
