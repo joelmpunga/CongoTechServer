@@ -5,6 +5,7 @@ import fileRoutes from './routes/fileRoutes.js';
 import ownersRoutes from './routes/ownerRoutes.js';
 import foldersRoutes from './routes/folderRoutes.js';
 import subfolderRoutes from './routes/subFolderRoutes.js';
+import session from 'express-session'
 const port = 3000 || process.env.PORT
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
@@ -16,6 +17,15 @@ class App {
         this.server.use(express.json());
         this.server.use(cors())
         this.server.use(express.urlencoded({ extended: true }));
+        this.server.use(session({
+            secret: process.env.SECRET_KEY,
+            resave: false,
+            saveUninitialized: false,
+            cookie: {
+                maxAge: 1000 * 60 * 60,
+                secure: false,
+              }
+        }));
         this.server.use('/user', userRoutes);
         this.server.use('/file',fileRoutes);
         this.server.use('/owner',ownersRoutes)

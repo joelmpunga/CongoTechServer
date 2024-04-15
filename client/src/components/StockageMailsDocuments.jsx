@@ -34,6 +34,13 @@ export default function StockageMailsDocuments() {
                         </tr>
                     ))
                 }
+
+                {/* <Mail title="Mail" data={data} />
+                <File title="File.png" />
+                <Mail title="Mail" data={data} />
+                <File title="File.png" />
+                <Mail title="Mail" data={data} />
+                <File title="File.png" /> */}
             </WorkSpace>
         </div>
     )
