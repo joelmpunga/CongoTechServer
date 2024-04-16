@@ -3829,7 +3829,7 @@ react-refresh@^0.14.0:
 
 react-router-dom@^6.22.3:
   version "6.22.3"
-  resolved "https://registry.npmjs.org/react-router-dom/-/react-router-dom-6.22.3.tgz"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.22.3.tgz#9781415667fd1361a475146c5826d9f16752a691"
   integrity sha512-7ZILI7HjcE+p31oQvwbokjk6OA/bnFxrhJ19n82Ex9Ph8fNAq+Hm/7KchpMGlTgWhUxRHMMCut+vEtNpWpowKw==
   dependencies:
     "@remix-run/router" "1.15.3"
@@ -4151,6 +4151,7 @@ serve-static@1.15.0:
     cors "^2.8.5"
     dotenv "^16.4.5"
     express "^4.19.2"
+    express-session "^1.18.0"
     file-type "^19.0.0"
     imapflow "^1.0.158"
     jsonwebtoken "^9.0.2"
@@ -4160,7 +4161,7 @@ serve-static@1.15.0:
     path "^0.12.7"
     prisma "^5.11.0"
     read-chunk "^4.0.3"
-    server "file:../../../.cache/yarn/v6/npm-server-1.0.0-cad61b08-968b-4d92-8c09-939ccd6af498-1713205681765/node_modules/server"
+    server "file:../../../.cache/yarn/v6/npm-server-1.0.0-80d54c0e-a73e-4f5d-9032-00aa1598c2c6-1713211784795/node_modules/server"
     supertest "^6.3.4"
 
 set-blocking@^2.0.0:
