@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { createBrowserRouter, Outlet, RouterProvider, BrowserRouter } from 'react-router-dom'
+import { MyProvider } from './contexts/MyContext';
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
@@ -11,8 +12,6 @@ import FoldersClasser from './components/FoldersClasser.jsx'
 import FilesBrouillon from './components/FilesBrouillon.jsx'
 import SubFoldersClasser from './components/SubFoldersClasser.jsx'
 import MailsBrouillonAll from './components/MailsBrouillonAll.jsx'
-import SignInSignUpComp from './components/signInSignUpComp/SignInSignUpComp.jsx'
-import InputsForm from './components/signInSignUpComp/InputsForm.jsx'
 import Login from './components/signInSignUpComp/Login.jsx'
 import SignUp from './components/signInSignUpComp/SignUp.jsx'
 import ArchDocs from './components/archDoc/ArchDocs.jsx'
@@ -24,17 +23,17 @@ const router = createBrowserRouter([
     path: "/login",
     element:
       <>
-        <Login />
+        <MyProvider><Login /></MyProvider>
       </>,
-    errorElement: <Error404 />,
+    errorElement: <MyProvider><Error404 /></MyProvider>,
   },
   {
     path: '/',
-    element: <App><Outlet /></App>,
+    element: <MyProvider><App ><Outlet /></App></MyProvider>,
     children: [
       {
         path: "/folder",
-        element: <FoldersWorkspace />,
+        element:  <FoldersWorkspace  />,
         errorElement: <Error404 />,
       },
       {
@@ -63,43 +62,43 @@ const router = createBrowserRouter([
         errorElement: <Error404 />,
       },
       {
-        path: "/folderclasser",
+        path: "/folderclasser/:id",
         element: <FoldersClasser />,
         errorElement: <Error404 />,
       },
       {
-        path: "/subfolderclasser/:id",
-        element: <SubFoldersClasser />,
-        errorElement: <Error404 />,
+        path: "/subfolderclasser/:id/:idFile",
+        element: <><SubFoldersClasser /></>,
+        errorElement: <><Error404 /></>,
       },
       {
         path: "/file/:id",
-        element: <StockageMailsDocuments />,
-        errorElement: <Error404 />,
+        element: <><StockageMailsDocuments /></>,
+        errorElement: <><Error404 /></>,
       },
       {
         path: "/mailsdraft",
-        element: <MailsBrouillonAll />,
-        errorElement: <Error404 />,
+        element: <><MailsBrouillonAll /></>,
+        errorElement: <><Error404 /></>,
       },
       {
         path: "/register",
-        element: <><SignUp/></>,
-        errorElement: <Error404 />,
+        element: <><SignUp /></>,
+        errorElement: <><Error404 /></>,
       },
       {
         path: "/ownerlist",
-        element: <><OwnerListDocs/></>,
-        errorElement: <Error404 />,
+        element: <><OwnerListDocs /></>,
+        errorElement: <><Error404 /></>,
       },
       {
         path: "/userlist",
-        element: <><UserList/></>,
-        errorElement: <Error404 />,
+        element: <><UserList /></>,
+        errorElement: <><Error404 /></>,
       },
       {
         path: '*',
-        element: <Error404 />,
+        errorElement: <><Error404 /></>,
       },
     ]
   },

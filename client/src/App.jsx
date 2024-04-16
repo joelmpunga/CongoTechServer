@@ -1,3 +1,4 @@
+import { Children, useState } from 'react'
 import FilesBrouillon from './components/FilesBrouillon'
 import FoldersClasser from './components/FoldersClasser'
 import FoldersWorkspace from './components/FoldersWorkspace'
@@ -15,9 +16,16 @@ import WorkSpace from './components/WorkSpace'
 import File from './ui/File'
 import Folder from './ui/Folder'
 import ItemLinkPage from './ui/ItemLinkPage'
+import { useMyContext } from './contexts/MyContext'
+import { useNavigate } from 'react-router-dom'
 
 
-function App({ children }) {
+function App({ children,getUserData }) {
+  const { isAuthenticated, updateIsAuthenticated,role,updateRole,nom,updateNom,postnom,updatePostNom } = useMyContext();
+  const navigate = useNavigate()
+  if(!isAuthenticated){
+    navigate("/login");
+  }
   const data = {
     name: 'Joel MPUNGA',
     date: '2021-01-01',
@@ -28,7 +36,7 @@ function App({ children }) {
       <div className='flex gap-0 w-full fixed'>
         <SideBarSecretaire />
         <div className='flex flex-col gap-6 w-full'>
-          <Header hasSearch={true} name="John Doe" title="Secretariat" />
+          <Header hasSearch={true} name= {nom + " " + postnom} title={role} />
           {
             children
           }

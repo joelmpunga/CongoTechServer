@@ -6,4 +6,5 @@ router.post('/signup',user.createUser)
 router.delete('/delete/:id',user.deleteUser)
 router.post('/login',user.login)
 router.get('/profile',user.getProfile)
+router.get('/logout',user.logout)
 export default router

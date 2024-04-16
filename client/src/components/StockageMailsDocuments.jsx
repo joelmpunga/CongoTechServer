@@ -1,4 +1,4 @@
-import {useState,useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import Mail from './Mail'
 import File from '../ui/File'
 import HeaderWorkspace from './HeaderWorkspace'
@@ -14,11 +14,11 @@ export default function StockageMailsDocuments() {
         "address": "joelmpunga@gmail.com"
     }
     const params = useParams()
-    console.log(params.id);
-    const [files,setFiles] = useState([])
-    const getFiles = async() => await axios.get("http://localhost:3000/file/"+params.id).then(res=>setFiles(res.data))
-    useEffect(()=>{getFiles()},['files'])
-    console.log(files);
+    const id = parseInt(params.id)
+    const [files, setFiles] = useState([])
+    const getFiles = async () => await axios.get("http://localhost:3000/file/" + id).then(res => setFiles(res.data))
+    useEffect(() => { getFiles() }, ['files'])
+    console.table(files);
     return (
         <div>
             <HeaderWorkspace title="Documents & Mails" message="Parcourez les fichiers et mails">
@@ -27,14 +27,20 @@ export default function StockageMailsDocuments() {
                 <ItemLinkPage title="Sous Dossiers" path="/subfolders" />
             </HeaderWorkspace>
             <WorkSpace message="Parcourez les sous dossiers">
-                <Mail title="Mail" data={data} />
+                {
+                    files.map(file => (
+                        <tr key={file.id}>
+                            <File id={file.id} title={file.name} />
+                        </tr>
+                    ))
+                }
+
+                {/* <Mail title="Mail" data={data} />
                 <File title="File.png" />
                 <Mail title="Mail" data={data} />
                 <File title="File.png" />
                 <Mail title="Mail" data={data} />
-                <File title="File.png" />
-                <Mail title="Mail" data={data} />
-                <File title="File.png" />
+                <File title="File.png" /> */}
             </WorkSpace>
         </div>
     )

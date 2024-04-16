@@ -105,6 +105,8 @@ export default class filesController {
         // });
         const { description, idOwner, idUser } = req.body
         //const __dirname = path.dirname('/home/joelmpunga/mail-retrieval-app/index.js');
+        console.log(req.file)
+        console.log(req.body);
         const buffer = await readChunk('./server/public/files/' + req.file.filename, { length: 4100 });
         const type = await fileTypeFromBuffer(buffer);
         const file = new File()

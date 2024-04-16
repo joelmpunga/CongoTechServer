@@ -66,13 +66,40 @@ export default class usersController {
             return res.status(401).json({ message: 'Invalid email or password' });
         }
 
+        // Save the role in session 
+
+        req.session.role = user.role;
+        req.session.userId = user.id;
+        req.session.email = user.email;
+        req.session.nom = user.nom;
+        req.session.postnom = user.postnom;
+
+        const userInfos = {
+            role : req.session.role,
+            nom : req.session.nom,
+            postnom : req.session.postnom
+        }
+
+        console.log("sessions infos", userInfos);
+
+
         // Passwords match, generate JWT
         const token = jwt.sign({ userId: user.id, email: user.email }, SECRET_KEY, { expiresIn: '1h' });
-        res.status(200).json({token });
+        res.status(200).json({token,userInfos });
         // } catch (error) {
         //     res.status(500).json(error);
         // }
     }
+
+    static async logout (req, res) {
+        req.session.destroy((err) => {
+            if(err) {
+                return res.status(500).json("Une erreur serveur s'est produite "+err)
+            } else {
+                res.status(200).json("Logout done Successfully")
+            }
+        });
+    };
 
     static async getProfile(req, res) {
         // Assuming a token is sent in the Authorization header
@@ -104,6 +131,8 @@ export default class usersController {
             }
         });
     }
+
+
 
 
 

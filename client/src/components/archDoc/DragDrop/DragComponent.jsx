@@ -1,8 +1,9 @@
 import { CustomDragDrop } from "./CustomContainer";
 import { useState,useEffect } from "react";
 
-export default function DragComponent() {
+export default function DragComponent({getFile}) {
   const [ownerLicense, setOwnerLicense] = useState([]);
+  getFile(ownerLicense)
   function uploadFiles(files) {
     // Limit to one file upload
     if (ownerLicense.length > 0) {

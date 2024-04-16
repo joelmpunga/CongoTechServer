@@ -1,9 +1,17 @@
 import { useState, useEffect } from 'react'
+import { useMyContext } from '../contexts/MyContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function Header({ hasSearch, name, title }) {
     const [disconnect, setDisconnect] = useState(false)
+    const navigate = useNavigate()
+    const { isAuthenticated, updateIsAuthenticated, role, updateRole, nom, updateNom, postnom, updatePostNom } = useMyContext();
     const handleClick = () => {
         setDisconnect(!disconnect)
+    }
+    const handleLogout = () => {
+        updateIsAuthenticated(false)
+        navigate('/login')
     }
     return (
         <div className='flex flex-col w-[100%] gap-2'>
@@ -27,7 +35,7 @@ export default function Header({ hasSearch, name, title }) {
                 </div>
             </div>
             {
-                disconnect && <button className="bg-blue-500 text-white min-w-[5rem] mx-[93%] h-10 rounded p-2 absolute top-20 left-0 ">Log Out</button>
+                disconnect && <button className="bg-blue-500 text-white min-w-[5rem] mx-[93%] h-10 rounded p-2 absolute top-20 left-0 " onClick={handleLogout}>Log Out</button>
             }
         </div>
     )
