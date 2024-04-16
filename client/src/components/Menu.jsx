@@ -26,7 +26,7 @@ export default function Menu({ title, children, iconeLeft, iconeRightOff, iconeR
                         {title}
                         {hasManyMenuItems ?
                             <img src={iconeRightOff} alt="iconOff" />
-                            : hasNumberCount ? <div className="bg-blue-500 h-10 rounded-md min-w-10 px-2">{number}</div> : ""}
+                            : hasNumberCount ? <div className="bg-blue-500 h-7 rounded-md min-w-6 px-3 py-auto my-auto">{number}</div> : ""}
                     </h2>
             }
         </div>

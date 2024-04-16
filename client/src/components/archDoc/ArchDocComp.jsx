@@ -8,8 +8,6 @@ import Title from "./Title";
 
 
 export default function ArchDocComp({ title, dragDrop, ownNametypeDoc, attName, children, onChange,onSubmit, className }) {
-
-    const [value, setValue] = useState('Candidature')
     return (
         <div className="flex flex-col m-5">
             <div >

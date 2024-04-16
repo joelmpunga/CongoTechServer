@@ -6,10 +6,14 @@ import CbxInput from "./comboBox/CbxInput";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useMyContext } from "../../contexts/MyContext";
 
 export default function ArchDocs() {
     const navigate = useNavigate();
+    const { isAuthenticated, updateIsAuthenticated } = useMyContext();
+    if (!isAuthenticated) {
+        navigate('/login')
+    }
     const [descOwner, setDescOwner] = useState('')
     const [nameOwner, setNameOwner] = useState('')
     const [typeOwner, setTypeOwner] = useState('')
