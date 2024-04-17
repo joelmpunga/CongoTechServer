@@ -176,12 +176,33 @@ export default class filesController {
             const files = new File();
             const id = req.params.id;
             const data = await files.download(id)
+            console.log(data);
+            if (!data) {
+                return res.status(404).send('File not found');
+            }
+            //res.sendFile(path.join(__dirname, data.path));
+            res.download(path.join(__dirname, data.path));
+            //res.json(data.path)
+            return data.path
+        }
+        catch (error) {
+            res.status(500).json(error);
+        }
+    }
+
+    static async showFile(req, res) {
+        try {
+            const files = new File();
+            const id = req.params.id;
+            const data = await files.download(id)
+            console.log(data);
             if (!data) {
                 return res.status(404).send('File not found');
             }
             res.sendFile(path.join(__dirname, data.path));
             //res.download(data.path);
-            return data
+            //res.json(data.path)
+            return data.path
         }
         catch (error) {
             res.status(500).json(error);
@@ -207,7 +228,7 @@ export default class filesController {
             const files = new File();
             const data = await files.delete(id)
             const response = await files.getAll()
-            res.status(200).json(response);
+            res.status(200).json(data);
         }
         catch (error) {
             res.status(500).json(error);

@@ -8,11 +8,6 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 
 export default function StockageMailsDocuments() {
-    const data = {
-        "name": "Joel MPUNGA",
-        "date": "2021-05-20",
-        "address": "joelmpunga@gmail.com"
-    }
     const params = useParams()
     const id = parseInt(params.id)
     const [files, setFiles] = useState([])
