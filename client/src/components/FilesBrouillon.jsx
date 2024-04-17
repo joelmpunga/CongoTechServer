@@ -50,7 +50,7 @@ export default function FilesBrouillon() {
                         nextLabel={"Suivant"}
                         breakLabel={"..."}
                         pageCount={Math.ceil(files.length / itemsPerPage)} // Calcul du nombre total de pages
-                        marginPagesDisplayed={1}
+                        marginPagesDisplayed={2}
                         pageRangeDisplayed={5}
                         onPageChange={handlePageClick}
                         containerClassName={"flex justify-end gap-6 text-[20px] px-5"}
