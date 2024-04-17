@@ -11,7 +11,15 @@ export default function Header({ hasSearch, name, title }) {
     }
     const handleLogout = () => {
         updateIsAuthenticated(false)
+        unsetLocalStorage()
         navigate('/login')
+    }
+    const unsetLocalStorage = () => {
+        localStorage.removeItem('token')
+        localStorage.removeItem('isAuthenticated')
+        localStorage.removeItem('role')
+        localStorage.removeItem('nom')
+        localStorage.removeItem('postnom')
     }
     return (
         <div className='flex flex-col w-[100%] gap-2'>

@@ -21,15 +21,14 @@ import { useNavigate } from 'react-router-dom'
 
 
 function App({ children,getUserData }) {
-  const { isAuthenticated, updateIsAuthenticated,role,updateRole,nom,updateNom,postnom,updatePostNom } = useMyContext();
+  //const { isAuthenticated, updateIsAuthenticated,role,updateRole,nom,updateNom,postnom,updatePostNom } = useMyContext();
+  const nom = localStorage.getItem('nom');
+  const postnom = localStorage.getItem('postnom');
+  const role = localStorage.getItem('role');
+  const isAuthenticated = localStorage.getItem('isAuthenticated');
   const navigate = useNavigate()
   if(!isAuthenticated){
     navigate("/login");
-  }
-  const data = {
-    name: 'Joel MPUNGA',
-    date: '2021-01-01',
-    address: 'joelmpunga@gmail.com',
   }
   return (
     <>

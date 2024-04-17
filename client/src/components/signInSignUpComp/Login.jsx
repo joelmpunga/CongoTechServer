@@ -8,13 +8,17 @@ import { useMyContext } from '../../contexts/MyContext';
 
 export default function Login() {
     const navigate = useNavigate();
-    const { isAuthenticated, updateIsAuthenticated, updateRole, updateNom, updatePostNom } = useMyContext();
-    console.log("login", isAuthenticated);
-    if (isAuthenticated === true) {
-        updateIsAuthenticated(true)
+    //const { isAuthenticated, updateIsAuthenticated, updateRole, updateNom, updatePostNom } = useMyContext();
+    const isAuthenticated = localStorage.getItem('isAuthenticated');
+    if (isAuthenticated == true ) {
         navigate('/folder')
     }
-    console.log("login", isAuthenticated);
+    const setLocalStorage = (role,nom,postnom) => {
+        localStorage.setItem('isAuthenticated', true)
+        localStorage.setItem('role', role)
+        localStorage.setItem('nom', nom)
+        localStorage.setItem('postnom', postnom)
+    }
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     // useEffect(()=>{
@@ -48,13 +52,13 @@ export default function Login() {
             if (res.status === 200) {
                 localStorage.setItem('token', res.data.token);
                 console.log("login before", isAuthenticated);
-                updateIsAuthenticated(true);
+                //updateIsAuthenticated(true);
                 console.log("login after", isAuthenticated);
-                updateRole(res.data.userInfos.role)
-                updateNom(res.data.userInfos.nom)
-                updatePostNom(res.data.userInfos.postnom)
+                // updateRole(res.data.userInfos.role)
+                // updateNom(res.data.userInfos.nom)
+                // updatePostNom(res.data.userInfos.postnom)
+                setLocalStorage(res.data.userInfos.role,res.data.userInfos.nom,res.data.userInfos.postnom)
                 if (res.data.userInfos.role === 'SECRETAIRE') {
-
                     navigate('/folder')
                 }
                 else if (res.data.userInfos.role === 'ADMIN') {

@@ -13,9 +13,9 @@ import ReactPaginate from 'react-paginate';
 
 export default function FoldersWorkspace() {
     const { isAuthenticated, updateIsAuthenticated } = useMyContext();
-    console.log("folder", isAuthenticated);
+    const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated')
     const navigate = useNavigate()
-    if (!isAuthenticated) {
+    if (!isAuthenticatedLocalStorage) {
         navigate('/login')
     }
     const [folders, setFolders] = useState([])
