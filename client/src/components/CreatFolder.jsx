@@ -5,9 +5,17 @@ import CbxInput from "./archDoc/comboBox/CbxInput";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import SaveCancelBtns from "./archDoc/SaveCancelBtns";
+import { useNavigate } from "react-router-dom";
+import { useMyContext } from "../contexts/MyContext";
 
 
 export default function CreatFolder() {
+    const { isAuthenticated, updateIsAuthenticated } = useMyContext();
+    console.log("folder", isAuthenticated);
+    const navigate = useNavigate()
+    if (!isAuthenticated) {
+        navigate('/login')
+    }
     const [descFold, setDescFold] = useState('')
     const [subDescFold, setDescSubFold] = useState('')
     const [nomFold, setNomFold] = useState('')

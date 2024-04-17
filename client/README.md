@@ -1,8 +1,42 @@
-# React + Vite
+# Nom du Projet
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Une brève description du projet va ici.
 
-Currently, two official plugins are available:
+## Table des Matières
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Nom du Projet](#nom-du-projet)
+  - [Table des Matières](#table-des-matières)
+  - [Installation](#installation)
+  - [Utilisation](#utilisation)
+  - [Scripts disponibles](#scripts-disponibles)
+  - [Licence](#licence)
+
+## Installation
+
+1. **Cloner le dépôt** :
+
+   ```bash
+   git clone https://github.com/votre-utilisateur/nom-du-projet.git
+
+2. **Installer les dépendances** :
+
+Assurez-vous d'avoir Node.js installé, puis exécutez la commande suivante dans le répertoire du projet :
+
+   ```bash
+   npm install
+
+## Utilisation
+
+Pour démarrer le serveur de développement :
+
+bash
+Copy code
+npm run dev
+
+## Scripts disponibles
+npm run dev : Lance le serveur de développement.
+npm run build : Construit le projet pour la production dans le dossier dist.
+npm run serve : Exécute une prévisualisation du build de production.
+
+## Licence
+Ce projet est sous licence MIT. Pour plus d'informations, consultez le fichier LICENSE.

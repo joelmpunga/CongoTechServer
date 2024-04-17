@@ -8,13 +8,13 @@ import { useMyContext } from '../../contexts/MyContext';
 
 export default function Login() {
     const navigate = useNavigate();
-    const { isAuthenticated, updateIsAuthenticated,updateRole, updateNom, updatePostNom } = useMyContext();
-    console.log("login",isAuthenticated);
-    if (isAuthenticated==true) {
+    const { isAuthenticated, updateIsAuthenticated, updateRole, updateNom, updatePostNom } = useMyContext();
+    console.log("login", isAuthenticated);
+    if (isAuthenticated === true) {
         updateIsAuthenticated(true)
-        navigate('/folder/')
+        navigate('/folder')
     }
-    console.log("login",isAuthenticated);
+    console.log("login", isAuthenticated);
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     // useEffect(()=>{
@@ -47,9 +47,9 @@ export default function Login() {
             console.log(res.data.userInfos)
             if (res.status === 200) {
                 localStorage.setItem('token', res.data.token);
-                console.log("login before",isAuthenticated);
+                console.log("login before", isAuthenticated);
                 updateIsAuthenticated(true);
-                console.log("login after",isAuthenticated);
+                console.log("login after", isAuthenticated);
                 updateRole(res.data.userInfos.role)
                 updateNom(res.data.userInfos.nom)
                 updatePostNom(res.data.userInfos.postnom)
@@ -58,7 +58,7 @@ export default function Login() {
                     navigate('/folder')
                 }
                 else if (res.data.userInfos.role === 'ADMIN') {
-                    window.location.href = '/'
+                    navigate('/')
                 }
                 //pour recuperer le token en localStorage
                 //const local = localStorage.getItem('token')

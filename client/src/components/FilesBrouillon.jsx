@@ -5,7 +5,15 @@ import WorkSpace from './WorkSpace'
 import Pagination from './Pagination'
 import File from '../ui/File'
 import axios from 'axios'
+import { Link, useNavigate } from'react-router-dom'
+import { useMyContext } from '../contexts/MyContext';
 export default function FilesBrouillon() {
+  const { isAuthenticated, updateIsAuthenticated } = useMyContext();
+    console.log("folder", isAuthenticated);
+    const navigate = useNavigate()
+    if (!isAuthenticated) {
+        navigate('/login')
+    }
   const [files,setFiles] = useState([])
     const getFiles = async() => await axios.get("http://localhost:3000/file/draft").then(res=>setFiles(res.data))
     useEffect(()=>{getFiles()},['files'])

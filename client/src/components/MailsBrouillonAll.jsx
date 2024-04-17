@@ -6,8 +6,16 @@ import Folder from '../ui/Folder'
 import MailBrouillon from './MailBrouillon'
 import Pagination from './Pagination'
 import CheckBox from '../ui/CheckBox'
+import { useMyContext } from '../contexts/MyContext'
+import { useNavigate } from 'react-router-dom'
 
 export default function MailsBrouillonAll() {
+    const { isAuthenticated, updateIsAuthenticated } = useMyContext();
+    console.log("folder", isAuthenticated);
+    const navigate = useNavigate()
+    if (!isAuthenticated) {
+        navigate('/login')
+    }
     return (
         <>
             <HeaderWorkspace title="Mails Brouillon" message="Parcourez les mails non classés">

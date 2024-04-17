@@ -8,8 +8,15 @@ import Popup from './Popup'
 import BouttonIcon from '../ui/BouttonIcon'
 import { Link,useParams } from 'react-router-dom'
 import axios from 'axios'
-
+import { useNavigate } from'react-router-dom';
+import { useMyContext } from '../contexts/MyContext';
 export default function FoldersClasser() {
+    const { isAuthenticated, updateIsAuthenticated } = useMyContext();
+    console.log("folder", isAuthenticated);
+    const navigate = useNavigate()
+    if (!isAuthenticated) {
+        navigate('/login')
+    }
     const param = useParams()
     const idFile = param.id
     console.log(idFile);
