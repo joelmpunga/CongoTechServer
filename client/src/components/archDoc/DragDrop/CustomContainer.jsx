@@ -8,13 +8,20 @@ export function CustomDragDrop({
     onUpload,
     onDelete,
     count,
-    formats
+    formats,
+    getFile
 }) {
 
     const dropContainer = useRef(null);
     const [dragging, setDragging] = useState(false);
     const fileRef = useRef(null);
-
+    const [file, setFile] = useState([]);
+    getFile(file)
+    console.table("Swal file",file);
+    const handleChangeFile = (e) => {
+        setFile(e.target.files[0])
+        handleDrop(e, "inputFile")
+    }
 
     function handleDrop(e, type) {
         let files;
@@ -73,12 +80,13 @@ export function CustomDragDrop({
         if (files && files.length) {
             const nFiles = files.map(async (file) => {
                 const base64String = await convertFileBase64(file);
-                console.table("Swal file",file);
                 return {
                     name: file.name,
                     file: base64String,
                     type: file.type,
                     size: file.size,
+                    webkitRelativePath:"",
+                    lastModified: file.lastModified
                 };
             });
 
@@ -246,7 +254,7 @@ export function CustomDragDrop({
                 accept=".pdf, image/*"
                 ref={fileRef}
                 id="forLabel"
-                onChange={(e) => handleDrop(e, "inputFile")}
+                onChange={ handleChangeFile}
                 onClick={() => {
                     fileRef.current.click()
                     setToggle(!toggle);
