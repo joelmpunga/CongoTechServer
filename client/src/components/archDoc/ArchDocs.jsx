@@ -110,7 +110,7 @@ export default function ArchDocs() {
 
             <div className="m-5 flex flex-row justify-between ">
                 <h2>Archiver les documents</h2>
-                <p>Dashboard / Archive</p>
+                <p>Dashboard / Archiver</p>
             </div>
             <div className="flex gap-10 w-full justify-center">
                 <div className="w-[650px] border border-gray-200 shadow-md">
