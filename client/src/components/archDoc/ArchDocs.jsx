@@ -21,7 +21,7 @@ export default function ArchDocs() {
     const [selectedOwner, setSelectedOwner] = useState('')
     const [nameDocs, setNameDocs] = useState('')
     const [docsDesc, setDocsDesc] = useState('')
-    const [file, setFile] = useState("")
+    const [file, setFile] = useState([])
     const [filesInput, setFilesInput] = useState([])
     const handleChangeType = (event) => {
         setTypeOwner(event.target.value)
@@ -64,7 +64,7 @@ export default function ArchDocs() {
             type: typeOwner
         }).then(res => {
             if (res.status === 200) {
-                window.location.href = '/archive'
+                navigate('/archive')
             }
         })
     }
@@ -74,16 +74,15 @@ export default function ArchDocs() {
         console.log(token);
         try {
             const formData = new FormData();
-            formData.append('file', filesInput);
+            formData.append('file', file);
             formData.append('idOwner', parseInt(selectedOwner));
             formData.append('description', docsDesc);
             formData.append('idUser', 1);
       
             // Remplacez l'URL ci-dessous par l'URL de votre serveur
             await axios.post('http://localhost:3000/file/upload', formData).then(res => {
-                    alert(res.status)
                     if (res.status === 201) {
-                        window.location.href = '/archive'
+                        navigate('/archive')
                     }
                 })
           } catch (error) {
@@ -103,14 +102,15 @@ export default function ArchDocs() {
     }
     //console.log(descOwner, nameOwner, typeOwner);
     // console.log(filesInput);
-    console.log(filesInput);
+    console.log("input",filesInput);
+    console.log("swal",file)
     return (
         <>
             {/* tilte, dragDrop, ownNametypeDoc, attName */}
 
             <div className="m-5 flex flex-row justify-between ">
                 <h2>Archiver les documents</h2>
-                <p>Dashboard / Archive</p>
+                <p>Dashboard / Archiver</p>
             </div>
             <div className="flex gap-10 w-full justify-center">
                 <div className="w-[650px] border border-gray-200 shadow-md">
@@ -128,7 +128,6 @@ export default function ArchDocs() {
                                 }
                             </CbxInput>
                             <DragComponent getFile={handleChangeFileDocs} />
-                            <input type="file" name="file" onChange={handleChangeDocInput} />
                         </ArchDocComp>
                     </form>
                 </div>
