@@ -10,8 +10,9 @@ import { useMyContext } from "../../contexts/MyContext";
 
 export default function ArchDocs() {
     const navigate = useNavigate();
-    const { isAuthenticated, updateIsAuthenticated } = useMyContext();
-    if (!isAuthenticated) {
+    //const { isAuthenticated, updateIsAuthenticated } = useMyContext();
+    const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated')
+    if (!isAuthenticatedLocalStorage) {
         navigate('/login')
     }
     const [descOwner, setDescOwner] = useState('')

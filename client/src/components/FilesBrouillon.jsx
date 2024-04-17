@@ -11,7 +11,8 @@ import ReactPaginate from 'react-paginate';
 export default function FilesBrouillon() {
   const { isAuthenticated, updateIsAuthenticated } = useMyContext();
     const navigate = useNavigate()
-    if (!isAuthenticated) {
+    const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated')
+    if (!isAuthenticatedLocalStorage) {
         navigate('/login')
     }
   const [files,setFiles] = useState([])

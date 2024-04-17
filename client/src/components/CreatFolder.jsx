@@ -10,10 +10,9 @@ import { useMyContext } from "../contexts/MyContext";
 
 
 export default function CreatFolder() {
-    const { isAuthenticated, updateIsAuthenticated } = useMyContext();
-    console.log("folder", isAuthenticated);
     const navigate = useNavigate()
-    if (!isAuthenticated) {
+    const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated')
+    if (!isAuthenticatedLocalStorage) {
         navigate('/login')
     }
     const [descFold, setDescFold] = useState('')

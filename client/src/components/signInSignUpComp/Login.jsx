@@ -10,7 +10,7 @@ export default function Login() {
     const navigate = useNavigate();
     //const { isAuthenticated, updateIsAuthenticated, updateRole, updateNom, updatePostNom } = useMyContext();
     const isAuthenticated = localStorage.getItem('isAuthenticated');
-    if (isAuthenticated == true ) {
+    if (isAuthenticated) {
         navigate('/folder')
     }
     const setLocalStorage = (role,nom,postnom) => {

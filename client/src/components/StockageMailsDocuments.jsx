@@ -7,8 +7,14 @@ import WorkSpace from './WorkSpace'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import ReactPaginate from 'react-paginate';
+import { useNavigate } from'react-router-dom';
 
 export default function StockageMailsDocuments() {
+    const navigate = useNavigate()
+    const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated')
+    if (!isAuthenticatedLocalStorage) {
+        navigate('/login')
+    }
     const params = useParams()
     const id = parseInt(params.id)
     const [files, setFiles] = useState([])
