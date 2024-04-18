@@ -5,8 +5,13 @@ import HeaderWorkspace from './HeaderWorkspace'
 import ItemLinkPage from '../ui/ItemLinkPage'
 import BouttonIcon from '../ui/BouttonIcon'
 import axios from 'axios'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams,useNavigate } from 'react-router-dom'
 export default function SubFoldersClasser({ idFolder }) {
+    const navigate = useNavigate()
+    const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated')
+    if (!isAuthenticatedLocalStorage) {
+        navigate('/login')
+    }
     const params = useParams()
     console.log(params);
     const id = params.id

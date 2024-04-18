@@ -1,9 +1,14 @@
 import Menu from './Menu'
 import ItemMenu from '../ui/ItemMenu'
 import LogoSideBar from '../ui/LogoSideBar'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 
 export default function SideBarSecretaire() {
+  const navigate = useNavigate()
+    const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated')
+    if (!isAuthenticatedLocalStorage) {
+        navigate('/login')
+    }
   return (
 
     <div className='bg-custom-dark-blue min-h-screen w-[430px] text-[20px] font-bold'>

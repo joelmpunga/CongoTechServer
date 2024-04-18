@@ -11,10 +11,9 @@ import axios from 'axios'
 import { useNavigate } from'react-router-dom';
 import { useMyContext } from '../contexts/MyContext';
 export default function FoldersClasser() {
-    const { isAuthenticated, updateIsAuthenticated } = useMyContext();
-    console.log("folder", isAuthenticated);
     const navigate = useNavigate()
-    if (!isAuthenticated) {
+    const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated')
+    if (!isAuthenticatedLocalStorage) {
         navigate('/login')
     }
     const param = useParams()

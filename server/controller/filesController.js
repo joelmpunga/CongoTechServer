@@ -4,6 +4,7 @@ import express from 'express';
 import path from 'path';
 import jwt from 'jsonwebtoken'
 const __dirname = path.dirname('/home/joelmpunga/Documents/MyAllProjects/ArchivageFECProject/server');
+import Joi from 'joi'
 
 console.log(__dirname);
 const SECRET_KEY = process.env.SECRET_KEY
@@ -87,6 +88,35 @@ export default class filesController {
 
     static async uploadFile(req, res) {
         // try {
+        const schema = Joi.object({
+            // email: Joi.string().email().required(),
+            // password: Joi.string().min(8).required(),
+            // nom: Joi.string().min(2).required(),
+            // postnom: Joi.string().min(2).required(),
+            idOwner: Joi.number().required(),
+            idUser: Joi.number().required(),
+            description: Joi.string().allow(''),
+            file: Joi.object({
+                fieldname: Joi.string().required(),
+                originalname: Joi.string().required(),
+                encoding: Joi.string().required(),
+                destination: Joi.string().required(),
+                filename: Joi.string().required(),
+                size: Joi.number().max(5 * 1024 * 1024).required(),
+                path: Joi.string().required(),
+                // Valider le type de fichier
+                mimetype: Joi.string().valid('image/jpeg', 'image/png', 'image/jpg', 'application/pdf').required(),
+                // Valider la taille du fichier (max 5 Mo)
+                size: Joi.number().max(5 * 1024 * 1024).required(),
+            }).required(),
+        })
+        const { error, value } = schema.validate({ file: req.file, idOwner: req.body.idOwner, idUser: req.body.idUser, description: req.body.description });
+        console.log(value);
+        if (error) {
+            // Gérer l'erreur de validation
+            console.log(error.details[0].message);
+            return res.status(400).json(error.details[0].message);
+        }
         // const Authorization = req.headers.authorization;
         // const token = Authorization.split(' ')[1]
         // const idUser = '';
@@ -105,8 +135,8 @@ export default class filesController {
         // });
         const { description, idOwner, idUser } = req.body
         //const __dirname = path.dirname('/home/joelmpunga/mail-retrieval-app/index.js');
-        console.log(req.file)
-        console.log(req.body);
+        // console.log(req.file)
+        // console.log(req.body);
         const buffer = await readChunk('./server/public/files/' + req.file.filename, { length: 4100 });
         const type = await fileTypeFromBuffer(buffer);
         const file = new File()

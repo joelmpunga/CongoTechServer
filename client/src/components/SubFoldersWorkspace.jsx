@@ -3,10 +3,14 @@ import WorkSpace from './WorkSpace'
 import Folder from '../ui/Folder'
 import HeaderWorkspace from './HeaderWorkspace'
 import ItemLinkPage from '../ui/ItemLinkPage'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams,useNavigate } from 'react-router-dom'
 import axios from 'axios'
 export default function SubFoldersWorkspace() {
-    //const id = location.pathname.match(/[0-9]$/)[0];
+    const navigate = useNavigate()
+    const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated')
+    if (!isAuthenticatedLocalStorage) {
+        navigate('/login')
+    }
     const params = useParams()
     console.log(params.id);
     const [subFolders, setSubFolders] = useState([])

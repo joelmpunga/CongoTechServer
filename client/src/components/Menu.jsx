@@ -1,6 +1,11 @@
 import { useState } from "react"
-
+import { useNavigate } from "react-router-dom"
 export default function Menu({ title, children, iconeLeft, iconeRightOff, iconeRightOn, hasManyMenuItems, hasNumberCount, number }) {
+    const navigate = useNavigate()
+    const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated')
+    if (!isAuthenticatedLocalStorage) {
+        navigate('/login')
+    }
     const [actived, setActived] = useState(false)
     const handleClick = () => {
         setActived(!actived)
