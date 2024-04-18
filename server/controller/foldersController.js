@@ -1,9 +1,20 @@
 import Folder from '../model/foldersModel.js'
+import Joi from 'joi';
 export default class foldersController {
 
     static async createFolder(req, res) {
          try {
             const { titre,description } = req.body;
+            const schema = Joi.object({
+                titre: Joi.string().required(),
+                description: Joi.string().allow(''),
+            })
+            const { error, value } = schema.validate(req.body);
+            if (error) {
+                // Gérer l'erreur de validation
+                console.log(error.details[0].message);
+                return res.status(400).json(error.details[0].message);
+            }
             const folder = new Folder(titre,description);
             const data = await folder.create();
             const response = await folder.getAll()
