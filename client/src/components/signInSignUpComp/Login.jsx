@@ -4,6 +4,7 @@ import InputsForm from './InputsForm'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import { useMyContext } from '../../contexts/MyContext';
+import PopupAlert from '../../ui/Popup';
 // import jwt_decode from 'jwt-decode'
 
 export default function Login() {
@@ -13,7 +14,7 @@ export default function Login() {
     if (isAuthenticated) {
         navigate('/folder')
     }
-    const setLocalStorage = (role,nom,postnom) => {
+    const setLocalStorage = (role, nom, postnom) => {
         localStorage.setItem('isAuthenticated', true)
         localStorage.setItem('role', role)
         localStorage.setItem('nom', nom)
@@ -21,6 +22,8 @@ export default function Login() {
     }
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [error, setError] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
     // useEffect(()=>{
     //     const token = localStorage.getItem('token')
     //     if(token){
@@ -57,7 +60,7 @@ export default function Login() {
                 // updateRole(res.data.userInfos.role)
                 // updateNom(res.data.userInfos.nom)
                 // updatePostNom(res.data.userInfos.postnom)
-                setLocalStorage(res.data.userInfos.role,res.data.userInfos.nom,res.data.userInfos.postnom)
+                setLocalStorage(res.data.userInfos.role, res.data.userInfos.nom, res.data.userInfos.postnom)
                 if (res.data.userInfos.role === 'SECRETAIRE') {
                     navigate('/folder')
                 }
@@ -67,16 +70,18 @@ export default function Login() {
                 //pour recuperer le token en localStorage
                 //const local = localStorage.getItem('token')
                 //console.log(local);
-            } else {
-                alert("Erreur!", res.data.message)
             }
-        }).catch(err => {
-            console.log(err)
+        }).catch((err) => {
+            setError(true)
+            setErrorMessage(err.response.data.message)
         })
     }
     console.log(email, password);
     return (
         <SignInSignUpComp title1="Renseignez vos informations ci-dessous" title2="Se Connecter" btnName="Se Connecter" titleAdminContact1="Vous n’avez pas de compte?" titleAdminContact2="Contactez l’admin!" onClick={handleSubmit}>
+            {
+                error && <PopupAlert message={errorMessage}/>
+            }
             <InputsForm labelName="Email" htmlFor="Email" inputId="inputId" inputType="text" inputPlaceholder="Entrez votre Email" onChange={handleChangeEmail} />
             <InputsForm labelName="Password" htmlFor="Password" inputId="inputId" inputType="password" inputPlaceholder="8+ Caracteres, Majiscule exigé" onChange={handleChangePassword} />
         </SignInSignUpComp>

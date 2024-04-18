@@ -7,6 +7,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMyContext } from "../../contexts/MyContext";
+import PopupAlert from "../../ui/Popup";
 
 export default function ArchDocs() {
     const navigate = useNavigate();
@@ -24,6 +25,10 @@ export default function ArchDocs() {
     const [docsDesc, setDocsDesc] = useState('')
     const [file, setFile] = useState([])
     const [filesInput, setFilesInput] = useState([])
+    const [errorOwner, setErrorOwner] = useState(false)
+    const [errorMessageOwner, setErrorMessageOwner] = useState('')
+    const [errorDoc, setErrorDoc] = useState(false)
+    const [errorMessageDoc, setErrorMessageDoc] = useState('')
     const handleChangeType = (event) => {
         setTypeOwner(event.target.value)
     }
@@ -58,16 +63,24 @@ export default function ArchDocs() {
         handleChangeType
     }, ['typeOwner', 'nameOwner', 'descOwner'])
     const handleSubmitOwner = (event) => {
-        event.preventDefault()
-        axios.post('http://localhost:3000/owner/create', {
-            nom: nameOwner,
-            description: descOwner,
-            type: typeOwner
-        }).then(res => {
-            if (res.status === 200) {
-                navigate('/archive')
-            }
-        })
+        try{
+            event.preventDefault()
+            axios.post('http://localhost:3000/owner/create', {
+                description: descOwner,
+                nom: nameOwner,
+                type: typeOwner
+            }).then(res => {
+                if (res.status === 200) {
+                    window.location.href = '/createowner'
+                }
+            }).catch(err => {
+                setErrorOwner(true)
+                setErrorMessageOwner(err.response.data)
+            })
+        }
+        catch(err){
+            console.log(err);
+        }
     }
     const handleSubmitDocument = async (event) => {
         event.preventDefault()
@@ -79,16 +92,20 @@ export default function ArchDocs() {
             formData.append('idOwner', parseInt(selectedOwner));
             formData.append('description', docsDesc);
             formData.append('idUser', 1);
-      
+
             // Remplacez l'URL ci-dessous par l'URL de votre serveur
             await axios.post('http://localhost:3000/file/upload', formData).then(res => {
-                    if (res.status === 201) {
-                        navigate('/archive')
-                    }
-                })
-          } catch (error) {
+                if (res.status === 201) {
+                    navigate('/archive')
+                    window.location.href = '/archive'
+                }
+            }).catch((err) => {
+                setErrorDoc(true)
+                setErrorMessageDoc(err.response.data)
+            })
+        } catch (error) {
             console.error('Erreur lors du téléchargement du fichier :', error);
-          }
+        }
         // axios.post('http://localhost:3000/file/upload', {
         //     description: descOwner,
         //     file: filesInput,
@@ -103,8 +120,6 @@ export default function ArchDocs() {
     }
     //console.log(descOwner, nameOwner, typeOwner);
     // console.log(filesInput);
-    console.log("input",filesInput);
-    console.log("swal",file)
     return (
         <>
             {/* tilte, dragDrop, ownNametypeDoc, attName */}
@@ -117,6 +132,9 @@ export default function ArchDocs() {
                 <div className="w-[650px] border border-gray-200 shadow-md">
                     <form action="" encType="multipart/form-data">
                         <Title title='Information du document' />
+                        {
+                            errorDoc && <PopupAlert message={errorMessageDoc} />
+                        }
                         <ArchDocComp onChange={handleChangeDocDesc} onSubmit={handleSubmitDocument}
                             className=" bg-gray-200 resize-none p-5 w-full h-[120px] my-5 border-1  border-blue outline-none"
                         >
@@ -134,6 +152,9 @@ export default function ArchDocs() {
                 </div>
                 <div className="w-[650px] border border-gray-200 shadow-md">
                     <Title title='Ajouter un propriétaire' />
+                    {
+                        errorOwner && <PopupAlert message={errorMessageOwner} />
+                    }
                     <ArchDocComp ownNametypeDoc='Type du proprietaire' attName='Nom' onChange={handleChangeDesc} onSubmit={handleSubmitOwner}
                         className=" bg-gray-200 resize-none p-5 w-full h-42 my-5 border-1  border-blue outline-none"
                     >

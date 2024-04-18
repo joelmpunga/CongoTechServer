@@ -7,7 +7,7 @@ import axios from "axios";
 import SaveCancelBtns from "./archDoc/SaveCancelBtns";
 import { useNavigate } from "react-router-dom";
 import { useMyContext } from "../contexts/MyContext";
-
+import PopupAlert from "../ui/Popup";
 
 export default function CreatFolder() {
     const navigate = useNavigate()
@@ -21,6 +21,10 @@ export default function CreatFolder() {
     const [nomSubFold, setNomSubFold] = useState('')
     const [folders, setFolders] = useState([])
     const [parentFolder, setParentFolder] = useState('')
+    const [errorFolder, setErrorFolder] = useState(false)
+    const [errorMessageFolder, setErrorMessageFolder] = useState('')
+    const [errorSubFolder, setErrorSubFolder] = useState(false)
+    const [errorMessageSubFolder, setErrorMessageSubFolder] = useState('')
     const handleChangeDescriptionFolder = (event) => {
         setDescFold(event.target.value)
     }
@@ -48,6 +52,9 @@ export default function CreatFolder() {
             if (res.status === 200) {
                 window.location.href = '/createfolder'
             }
+        }).catch(err => {
+            setErrorFolder(true)
+            setErrorMessageFolder(err.response.data)
         })
     }
     const handleSubmitSubFolder = (event) => {
@@ -61,6 +68,9 @@ export default function CreatFolder() {
             if (res.status === 200) {
                 window.location.href = '/createfolder'
             }
+        }).catch(err => {
+            setErrorSubFolder(true)
+            setErrorMessageSubFolder(err.response.data)
         })
     }
     useEffect(() => {
@@ -88,7 +98,9 @@ export default function CreatFolder() {
                 <div className="flex gap-10 w-full justify-center items-center">
                     <div className="w-[650px] border border-gray-200 shadow-md">
                         <Title title='Création d’un sous dossier' />
-
+                        {
+                            errorSubFolder && <PopupAlert message={errorMessageSubFolder} />
+                        }
                         <ArchDocComp onChange={handleChangeDescriptionSubFolder} onSubmit={handleSubmitSubFolder}
                           className=" bg-gray-200 resize-none p-5 w-full h-42 my-5 border-1  border-blue outline-none"
                         >
@@ -106,6 +118,9 @@ export default function CreatFolder() {
                     </div>
                     <div className="w-[650px] border border-gray-200 shadow-md">
                         <Title title='Ajouter un propriétaire' />
+                        {
+                            errorFolder && <PopupAlert message={errorMessageFolder} />
+                        }
                         <ArchDocComp ownNametypeDoc='Type du proprietaire' attName='Nom' onChange={handleChangeDescriptionFolder} onSubmit={handleSubmitFolder}
                         className=" bg-gray-200 resize-none p-5 w-full h-42 my-5 border-1  border-blue outline-none"
                         >
