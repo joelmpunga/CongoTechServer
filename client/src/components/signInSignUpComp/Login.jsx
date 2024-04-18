@@ -37,22 +37,28 @@ export default function Login() {
     const validateForm = () => {
         let errors = {};
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
+
         if (!formData.email.match(emailRegex)) {
-          errors.email = 'Email invalid';
+            errors.email = 'Email invalid';
         }
-    
+
         if (formData.password.length < 8) {
-          errors.password = 'Mot de passe incorrect';
+            errors.password = 'Mot de passe incorrect';
         }
-    
+
         setFormErrors(errors);
-    
+
         return Object.keys(errors).length === 0;
-      };
+    };
 
 
-
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
 
 
 
@@ -77,82 +83,45 @@ export default function Login() {
         event.preventDefault()
 
 
+        const isValid = validateForm();
+        if (isValid) {
 
+            console.log(formData);
 
+        } else {
+            // Form is not valid, do not submit
+            console.log('Form has errors, please correct them.');
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        axios.post('http://localhost:3000/user/login', {
-            email: email,
-            password: password
-        }).then(res => {
-            console.log(res.data.userInfos)
-            if (res.status === 200) {
-                localStorage.setItem('token', res.data.token);
-                console.log("login before", isAuthenticated);
-                //updateIsAuthenticated(true);
-                console.log("login after", isAuthenticated);
-                // updateRole(res.data.userInfos.role)
-                // updateNom(res.data.userInfos.nom)
-                // updatePostNom(res.data.userInfos.postnom)
-                setLocalStorage(res.data.userInfos.role, res.data.userInfos.nom, res.data.userInfos.postnom)
-                if (res.data.userInfos.role === 'SECRETAIRE') {
-                    navigate('/folder')
-                }
-                else if (res.data.userInfos.role === 'ADMIN') {
-                    navigate('/')
-                }
-                //pour recuperer le token en localStorage
-                //const local = localStorage.getItem('token')
-                //console.log(local);
-            } else {
-                alert("Erreur!", res.data.message)
-            }
-        }).catch(err => {
-            console.log(err)
-        })
     }
     console.log(email, password);
     return (
         <SignInSignUpComp title1="Renseignez vos informations ci-dessous" title2="Se Connecter" btnName="Se Connecter" titleAdminContact1="Vous n’avez pas de compte?" titleAdminContact2="Contactez l’admin!" onClick={handleSubmit}>
             <InputsForm
                 labelName="Email"
-                htmlFor="Email"
+                // htmlFor="Email"
                 inputId="mailId"
                 inputType="text"
                 inputPlaceholder="Entrez votre Email"
-                onChange={handleChangeEmail}
+                // onChange={handleChangeEmail}
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                msgErr={formErrors.email}
             />
 
 
             <InputsForm
                 labelName="Mot de passe"
-                htmlFor="Password"
+                // htmlFor="Password"
                 inputId="passId"
                 inputType="password"
                 inputPlaceholder="Entrez votre mot de passe"
-                onChange={handleChangePassword}
+                // onChange={handleChangePassword}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                msgErr={formErrors.password}
             />
 
         </SignInSignUpComp>
