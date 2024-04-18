@@ -61,24 +61,21 @@ export default function Login() {
     };
 
 
+    // useEffect(() => {
+    //     handleChangeEmail
+    // }, ['email'])
+    // useEffect(() => {
+    //     handleChangePassword
+    // }, ['password'])
+    // const handleChangeEmail = (event) => {
+    //     setEmail(event.target.value)
+    // }
+    // const handleChangePassword = (event) => {
+    //     setPassword(event.target.value)
+    // }
 
 
 
-
-
-
-    useEffect(() => {
-        handleChangeEmail
-    }, ['email'])
-    useEffect(() => {
-        handleChangePassword
-    }, ['password'])
-    const handleChangeEmail = (event) => {
-        setEmail(event.target.value)
-    }
-    const handleChangePassword = (event) => {
-        setPassword(event.target.value)
-    }
     const handleSubmit = (event) => {
         event.preventDefault()
 
@@ -87,14 +84,42 @@ export default function Login() {
         if (isValid) {
 
             console.log(formData);
+            axios.post('http://localhost:3000/user/login', {
+                email: formData.email,
+                password: formData.password
+            }).then(res => {
+                console.log(res.data.userInfos)
+                if (res.status === 200) {
+                    localStorage.setItem('token', res.data.token);
+                    console.log("login before", isAuthenticated);
+                    //updateIsAuthenticated(true);
+                    console.log("login after", isAuthenticated);
+                    // updateRole(res.data.userInfos.role)
+                    // updateNom(res.data.userInfos.nom)
+                    // updatePostNom(res.data.userInfos.postnom)
+                    setLocalStorage(res.data.userInfos.role, res.data.userInfos.nom, res.data.userInfos.postnom)
+                    if (res.data.userInfos.role === 'SECRETAIRE') {
+                        navigate('/folder')
+                    }
+                    else if (res.data.userInfos.role === 'ADMIN') {
+                        navigate('/')
+                    }
+                    //pour recuperer le token en localStorage
+                    //const local = localStorage.getItem('token')
+                    //console.log(local);
+                } else {
+                    alert("Erreur!", res.data.message)
+                }
+            }).catch(err => {
+                console.log(err)
+            })
 
         } else {
-            // Form is not valid, do not submit
-            console.log('Form has errors, please correct them.');
+            
+            console.log('joel the Form has errors');
         }
 
     }
-    console.log(email, password);
     return (
         <SignInSignUpComp title1="Renseignez vos informations ci-dessous" title2="Se Connecter" btnName="Se Connecter" titleAdminContact1="Vous n’avez pas de compte?" titleAdminContact2="Contactez l’admin!" onClick={handleSubmit}>
             <InputsForm
