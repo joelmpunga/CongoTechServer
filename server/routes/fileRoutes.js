@@ -24,4 +24,5 @@ router.put('/classer/:id',fileConst.classerFile)
 router.get('/:id',fileConst.getFilesByIdSubFolder)
 router.get('/draft',fileConst.getAllDraftsFiles)
 router.delete('/delete/:id',fileConst.deleteFile)
+router.get('/show/:id',fileConst.showFile)
 export default router
