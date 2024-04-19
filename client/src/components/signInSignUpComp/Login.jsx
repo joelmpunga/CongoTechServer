@@ -114,6 +114,9 @@ export default function Login() {
                 console.log(err)
             })
 
+            setFormData({email: '', password: '',});
+            setFormErrors({email: '',password: '',});
+
         } else {
             
             console.log('joel the Form has errors');
