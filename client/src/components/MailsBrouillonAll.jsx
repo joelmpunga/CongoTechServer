@@ -10,10 +10,9 @@ import { useMyContext } from '../contexts/MyContext'
 import { useNavigate } from 'react-router-dom'
 
 export default function MailsBrouillonAll() {
-    const { isAuthenticated, updateIsAuthenticated } = useMyContext();
-    console.log("folder", isAuthenticated);
     const navigate = useNavigate()
-    if (!isAuthenticated) {
+    const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated')
+    if (!isAuthenticatedLocalStorage) {
         navigate('/login')
     }
     return (

@@ -3,12 +3,25 @@ import bcrypt from 'bcrypt';
 import User from '../model/usersModel.js';
 import dotenv from 'dotenv';
 dotenv.config();
+import Joi from 'joi';
 
 const SECRET_KEY = process.env.SECRET_KEY;
 
 export default class usersController {
     static async createUser(req, res) {
         try {
+            const schema = Joi.object({
+                email: Joi.string().email().required(),
+                password: Joi.string().min(8).required(),
+                nom: Joi.string().min(2).required(),
+                postnom: Joi.string().min(2).required(),
+                role: Joi.string().valid('ADMIN', 'SECRETAIRE').default('SECRETAIRE')
+            })
+            const { error, value } = schema.validate(req.body);
+            if (error) {
+                // Gérer l'erreur de validation
+                return res.status(400).json(error.details[0].message);
+            }
             const { nom, postnom, email, password, role } = req.body;
             const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
 
@@ -53,9 +66,19 @@ export default class usersController {
         const { email, password } = req.body;
 
         // try {
+        const schema = Joi.object({
+            email: Joi.string().email().required(),
+            password: Joi.string().min(8).required(),
+        })
+        const { error, value } = schema.validate(req.body);
+        if (error) {
+            // Gérer l'erreur de validation
+            console.log(error.details[0].message);
+            const message = error.details[0].message;
+            return res.status(400).json({ message });
+        }
         const users = new User();
         const user = await users.getUserByEmail(email);
-        console.log(user);
         if (!user) {
             return res.status(401).json({ message: 'Invalid email or password' });
         }
@@ -75,9 +98,9 @@ export default class usersController {
         req.session.postnom = user.postnom;
 
         const userInfos = {
-            role : req.session.role,
-            nom : req.session.nom,
-            postnom : req.session.postnom
+            role: req.session.role,
+            nom: req.session.nom,
+            postnom: req.session.postnom
         }
 
         console.log("sessions infos", userInfos);
@@ -85,16 +108,16 @@ export default class usersController {
 
         // Passwords match, generate JWT
         const token = jwt.sign({ userId: user.id, email: user.email }, SECRET_KEY, { expiresIn: '1h' });
-        res.status(200).json({token,userInfos });
+        res.status(200).json({ token, userInfos });
         // } catch (error) {
         //     res.status(500).json(error);
         // }
     }
 
-    static async logout (req, res) {
+    static async logout(req, res) {
         req.session.destroy((err) => {
-            if(err) {
-                return res.status(500).json("Une erreur serveur s'est produite "+err)
+            if (err) {
+                return res.status(500).json("Une erreur serveur s'est produite " + err)
             } else {
                 res.status(200).json("Logout done Successfully")
             }
