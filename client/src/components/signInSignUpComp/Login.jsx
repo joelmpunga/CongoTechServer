@@ -119,7 +119,7 @@ export default function Login() {
 
         } else {
             
-            console.log('joel the Form has errors');
+            console.log('the Form has errors');
         }
 
     }

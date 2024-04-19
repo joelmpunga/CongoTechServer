@@ -3,7 +3,7 @@ import React from 'react'
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
-const ComboBox = ({ children,onChange, className }) => {
+const ComboBox = ({ children, className, name, msgErr, value, onChange }) => {
 
   const options = ['John doe', 'Joel Mpunga', 'Paulin Ciany']
 
@@ -18,9 +18,12 @@ const ComboBox = ({ children,onChange, className }) => {
     //       <TextField {...params}  variant="outlined" />} 
     //   /> 
     // </div> 
-    <select className={className}  name="" id="" onChange={onChange}>
-      {children}
-    </select>
+    <div className='flex flex-col'>
+      <select className={className} name={name} value={value} id="" onChange={onChange}>
+        {children}
+      </select>
+      <span className='text-red-600 '>{msgErr}</span>
+    </div>
   );
 }
 

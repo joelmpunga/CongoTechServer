@@ -11,6 +11,7 @@ export default function SignUp() {
     firstName: '',
     email: '',
     password: '',
+    selection:'',
   });
 
   const [formErrors, setFormErrors] = useState({
@@ -18,6 +19,7 @@ export default function SignUp() {
     firstName: '',
     email: '',
     password: '',
+    selection:'',
   });
 
   const validateForm = () => {
@@ -42,6 +44,9 @@ export default function SignUp() {
       errors.password = 'Mot de passe doit être d\'au moins 8 caractères';
     }
 
+    if (formData.selection === "") {
+      errors.selection = 'Vous devez selectioner un role';
+    }
     setFormErrors(errors);
 
     return Object.keys(errors).length === 0;
@@ -67,12 +72,14 @@ export default function SignUp() {
         firstName: '',
         email: '',
         password: '',
+        selection:'',
       });
       setFormErrors({
         name: '',
         firstName: '',
         email: '',
         password: '',
+        selection:'',
       });
     } else {
       console.log('joel Le formulaire contient des erreurs');
@@ -80,7 +87,7 @@ export default function SignUp() {
   };
 
   return (
-    <SignInSignUpComp  title2="Créer un compte" btnName="Créer un compte"  onSubmit={handleSubmit}>
+    <SignInSignUpComp title2="Créer un compte" btnName="Créer un compte" onSubmit={handleSubmit}>
 
       <InputsForm
         labelName="Nom"
@@ -130,7 +137,20 @@ export default function SignUp() {
         onChange={handleChange}
       />
 
-      <CbxInput ownNametypeDoc="Role" />
+      <CbxInput
+        name="selection"
+        ownNametypeDoc="Role"
+        msgErr={formErrors.selection}
+        value={formData.selection}
+        onChange={handleChange}
+        className=" h-[70px] shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+
+      >
+        <option value=""></option>
+        <option value="admin">Administrateur</option>
+        <option value="user">Utilisateur</option>
+      </ CbxInput>
+
     </SignInSignUpComp>
   )
 }
