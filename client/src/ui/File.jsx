@@ -27,7 +27,7 @@ export default function File({ title, data, isToClass = false, id }) {
   const showImage = async () => {
     const response = await axios.get("http://localhost:3000/file/download/" + id, {
       responseType: 'arraybuffer'
-    }).then(res=>console.log(res.data))
+    }).then(res => console.log(res.data))
   }
 
   const fetchImage = async () => {
@@ -83,7 +83,9 @@ export default function File({ title, data, isToClass = false, id }) {
             {/* <img src="../src/assets/images/eye.svg" alt="" onClick={fetchImage} /> */}
             <img src="../src/assets/images/eye.svg" alt="" />
           </Link>
-          <img src="../src/assets/images/trash-can-alt-2.svg" alt="" onClick={deleteFile} />
+          <Link>
+            <img src="../src/assets/images/trash-can-alt-2.svg" alt="" onClick={deleteFile} />
+          </Link>
           <a href={"http://localhost:3000/file/download/" + id}><img src="../src/assets/images/download-alt.svg" alt="" /></a>
         </div>
       </div>
