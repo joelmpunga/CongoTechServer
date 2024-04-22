@@ -10,12 +10,15 @@ import { useMyContext } from "../../contexts/MyContext";
 import PopupAlert from "../../ui/Popup";
 
 export default function ArchDocs() {
+
     const navigate = useNavigate();
+
     //const { isAuthenticated, updateIsAuthenticated } = useMyContext();
     const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated')
     if (!isAuthenticatedLocalStorage) {
         navigate('/login')
     }
+    const [ownerErr, setOwnerErr] = useState({ typeErr: '', nameErr: '' })
     const [descOwner, setDescOwner] = useState('')
     const [nameOwner, setNameOwner] = useState('')
     const [typeOwner, setTypeOwner] = useState('')
@@ -32,6 +35,7 @@ export default function ArchDocs() {
     const handleChangeType = (event) => {
         setTypeOwner(event.target.value)
     }
+
     const handleChangeDesc = (event) => {
         setDescOwner(event.target.value)
     }
@@ -62,23 +66,51 @@ export default function ArchDocs() {
         handleChangeName
         handleChangeType
     }, ['typeOwner', 'nameOwner', 'descOwner'])
-    const handleSubmitOwner = (event) => {
-        try{
-            event.preventDefault()
-            axios.post('http://localhost:3000/owner/create', {
-                description: descOwner,
-                nom: nameOwner,
-                type: typeOwner
-            }).then(res => {
-                if (res.status === 200) {
-                    window.location.href = '/createowner'
-                }
-            }).catch(err => {
-                setErrorOwner(true)
-                setErrorMessageOwner(err.response.data)
-            })
+
+
+
+    const validateForm = () => {
+        let errors = {};
+        const nameRegex = /^[a-zA-Z\s]+$/;
+
+        if (typeOwner == '') {
+            errors.typeErr = 'Selectionner le type';
         }
-        catch(err){
+
+        if (!nameOwner.match(nameRegex)) {
+            errors.nameErr = 'Nom invalid';
+        }
+
+        setOwnerErr(errors);
+
+        return Object.keys(errors).length === 0;
+    };
+
+    const handleSubmitOwner = (event) => {
+        try {
+            event.preventDefault()
+            const isValid = validateForm();
+            if (isValid) {
+
+                axios.post('http://localhost:3000/owner/create', {
+                    description: descOwner,
+                    nom: nameOwner,
+                    type: typeOwner
+                }).then(res => {
+                    if (res.status === 200) {
+                        window.location.href = '/archive'
+                    }
+                }).catch(err => {
+                    setErrorOwner(true)
+                    setErrorMessageOwner(err.response.data)
+                })
+
+            }else{
+                console.log('error')
+            }
+
+        }
+        catch (err) {
             console.log(err);
         }
     }
@@ -129,6 +161,8 @@ export default function ArchDocs() {
                 <p>Dashboard / Archiver</p>
             </div>
             <div className="flex gap-10 w-full justify-center">
+
+
                 <div className="w-[650px] border border-gray-200 shadow-md">
                     <form action="" encType="multipart/form-data">
                         <Title title='Information du document' />
@@ -150,6 +184,11 @@ export default function ArchDocs() {
                         </ArchDocComp>
                     </form>
                 </div>
+
+
+
+
+
                 <div className="w-[650px] border border-gray-200 shadow-md">
                     <Title title='Ajouter un propriétaire' />
                     {
@@ -158,8 +197,9 @@ export default function ArchDocs() {
                     <ArchDocComp ownNametypeDoc='Type du proprietaire' attName='Nom' onChange={handleChangeDesc} onSubmit={handleSubmitOwner}
                         className=" bg-gray-200 resize-none p-5 w-full h-42 my-5 border-1  border-blue outline-none"
                     >
-                        <Inputs attName='Nom à attribuer au document' onChange={handleChangeName}>
-                            <CbxInput ownNametypeDoc='Type du proprietaire' className='w-[300px] h-14' onChange={handleChangeType}>
+                        <Inputs errMsg={ownerErr.nameErr} attName='Nom à attribuer au document' onChange={handleChangeName}>
+                            
+                            <CbxInput  msgErr={ownerErr.typeErr} ownNametypeDoc='Type du proprietaire' className='w-[300px] h-14' onChange={handleChangeType}>
                                 <option value=""></option>
                                 <option value="Entreprise">Entreprise</option>
                                 <option value="Particulier">Particulier</option>
@@ -167,6 +207,9 @@ export default function ArchDocs() {
                         </Inputs>
                     </ArchDocComp>
                 </div>
+
+
+
             </div>
         </>
     )
