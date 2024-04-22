@@ -36,11 +36,6 @@ export default function FoldersWorkspace() {
 
     const getFolders = async () => await axios.get("http://localhost:3000/folder").then(res => setFolders(res.data))
     useEffect(() => { getFolders() }, ['folders'])
-    // const getFolders = async () => await axios.get("http://localhost:3000/profile", {
-    //     headers: {
-    //         'Authorization': `Bearer ${token}`
-    //     }
-    // }).then(res => setFolders(res.data))
     return (
         <>
             <Link to="/createfolder">
