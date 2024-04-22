@@ -43,10 +43,8 @@ export default function FoldersWorkspace() {
     // }).then(res => setFolders(res.data))
     return (
         <>
-            <Link to="/createfolder">
-                <button className='bg-blue-600 rounded-2xl w-[150px] h-[50px] ml-10 text-white'>
+            <Link to="/createfolder" className='bg-blue-600 rounded-2xl p-4 w-[100px] h-[50px] ml-10 text-white' >
                     Création
-                </button>
             </Link>
             <HeaderWorkspace title="Dossiers" message="Parcourez les dossiers">
                 <ItemLinkPage title="Dashboard" path="/dashboard" />

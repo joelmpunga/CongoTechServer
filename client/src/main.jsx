@@ -18,6 +18,8 @@ import ArchDocs from './components/archDoc/ArchDocs.jsx'
 import CreatFolder from './components/CreatFolder.jsx'
 import OwnerListDocs from './components/OwnerListDocs.jsx'
 import UserList from './components/UserList.jsx'
+import ChartsBar from './components/ChartsBar.jsx';
+import ChartsDocuments from './components/ChartsDocuments.jsx';
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -94,6 +96,11 @@ const router = createBrowserRouter([
       {
         path: "/userlist",
         element: <><UserList /></>,
+        errorElement: <><Error404 /></>,
+      },
+      {
+        path: "/charts/doc",
+        element: <><ChartsDocuments /></>,
         errorElement: <><Error404 /></>,
       },
       {
