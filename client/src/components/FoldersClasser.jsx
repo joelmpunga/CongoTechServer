@@ -31,7 +31,7 @@ export default function FoldersClasser() {
                     <div className='w-[1500px]'>
                     {
                         folders.map(folder => (
-                            <Link key={folder.id} to={{ pathname: `/subfolderclasser/${folder.id}/${idFile}`, state: { id: folder.id,idFile:idFile } }}>
+                            <Link key={folder.id} to={{ pathname: `/${folder.id}/${idFile}`, state: { id: folder.id,idFile:idFile } }}>
                                 <Folder title={folder.titre} id={folder.id}/>
                             </Link>
                         ))
