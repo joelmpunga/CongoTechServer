@@ -1,6 +1,6 @@
 import React from 'react'
 import { RadialBarChart, RadialBar, Legend, Tooltip } from 'recharts'
-export default function ChartsBarRadial() {
+export default function ChartsBarRadial({title}) {
     const data = [
         {
             "name": "autres",
@@ -36,7 +36,7 @@ export default function ChartsBarRadial() {
     ]
     return (
         <>
-            <h1 className='mx-auto w-[40%]'>Types de documents</h1>
+            <h1 className='mx-auto w-[40%]'>{title}</h1>
             <RadialBarChart
                 width={730}
                 height={250}

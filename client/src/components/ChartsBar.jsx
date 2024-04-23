@@ -1,5 +1,5 @@
 import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts'
-export default function ChartsBar() {
+export default function ChartsBar({title}) {
   const data = [
     {
       "name": "Janv.",
@@ -61,7 +61,7 @@ export default function ChartsBar() {
   ]
   return (
     <>
-      <h1>Documents & Mails</h1>
+      <h1>{title}</h1>
       <BarChart width={730} height={250} data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />

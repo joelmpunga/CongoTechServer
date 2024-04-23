@@ -1,6 +1,6 @@
 import { LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line, } from 'recharts'
 
-export default function ChartsLine() {
+export default function ChartsLine({title}) {
     const data = [
         {
             "name": "Page A",
@@ -47,7 +47,7 @@ export default function ChartsLine() {
     ]
     return (
         <>
-            <h1>Documents des entreprises et particuliers</h1>
+            <h1>{title}</h1>
             <LineChart width={730} height={250} data={data}
                 margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" />

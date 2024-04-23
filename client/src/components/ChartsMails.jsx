@@ -6,18 +6,17 @@ import ChartsArea from './ChartsArea'
 import ChartsComposed from './ChartsComposed'
 import ChartsLine from './ChartsLine'
 
-export default function ChartsDocuments() {
+export default function ChartsMails() {
     return (
         <div className='flex p-5 w-auto'>
             <div>
                 <ChartsBar title="DOCUMENTS Vs EMAIL / Mois"/>
                 <ChartsCell title="Classé Vs Non Classé"/>
-                <ChartsComposed title="DOCUMENTS / Mois"/>
+                <ChartsComposed title="MAILS / Mois"/>
             </div>
             <div>
-                <ChartsBarRadial title="TYPE DE DOCUMENTS"/>
                 <ChartsArea title="DOCUMENTS Vs EMAIL / Années"/>
-                <ChartsLine title="PARTICULIERS VS ENTREPRISES"/>
+                <ChartsLine title="DOCUMENTS Vs EMAIL / Mois"/>
             </div>
         </div>
     )
