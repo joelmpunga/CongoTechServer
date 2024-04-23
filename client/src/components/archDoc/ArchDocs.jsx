@@ -19,6 +19,8 @@ export default function ArchDocs() {
         navigate('/login')
     }
     const [ownerErr, setOwnerErr] = useState({ typeErr: '', nameErr: '' })
+    const [docErr, setDocErr] = useState({ ownerErr: '', fileErr: '' })
+
     const [descOwner, setDescOwner] = useState('')
     const [nameOwner, setNameOwner] = useState('')
     const [typeOwner, setTypeOwner] = useState('')
@@ -69,7 +71,7 @@ export default function ArchDocs() {
 
 
 
-    const validateForm = () => {
+    const validateOwner = () => {
         let errors = {};
         const nameRegex = /^[a-zA-Z\s]+$/;
 
@@ -89,7 +91,7 @@ export default function ArchDocs() {
     const handleSubmitOwner = (event) => {
         try {
             event.preventDefault()
-            const isValid = validateForm();
+            const isValid = validateOwner();
             if (isValid) {
 
                 axios.post('http://localhost:3000/owner/create', {
@@ -105,7 +107,7 @@ export default function ArchDocs() {
                     setErrorMessageOwner(err.response.data)
                 })
 
-            }else{
+            } else {
                 console.log('error')
             }
 
@@ -114,10 +116,31 @@ export default function ArchDocs() {
             console.log(err);
         }
     }
+
+
+    const validateDoc = () => {
+
+        let errors = {};
+        if (selectedOwner == '') {
+            errors.ownerErr = 'Selectionner le type';
+        }
+        console.log(file);
+
+        if (file.length === 0) {
+            errors.fileErr = 'Selectionner un document';
+        }
+
+        setDocErr(errors);
+
+        return Object.keys(errors).length === 0;
+    };
+
+
     const handleSubmitDocument = async (event) => {
         event.preventDefault()
         const token = localStorage.getItem('token')
         console.log(token);
+        const isValid = validateDoc()
         try {
             const formData = new FormData();
             formData.append('file', file);
@@ -125,7 +148,6 @@ export default function ArchDocs() {
             formData.append('description', docsDesc);
             formData.append('idUser', 1);
 
-            // Remplacez l'URL ci-dessous par l'URL de votre serveur
             await axios.post('http://localhost:3000/file/upload', formData).then(res => {
                 if (res.status === 201) {
                     navigate('/archive')
@@ -138,6 +160,13 @@ export default function ArchDocs() {
         } catch (error) {
             console.error('Erreur lors du téléchargement du fichier :', error);
         }
+
+        if (isValid) {
+            console.log('isValid to upload');
+        } else {
+            console.log('failled to upload');
+        }
+
         // axios.post('http://localhost:3000/file/upload', {
         //     description: descOwner,
         //     file: filesInput,
@@ -172,7 +201,7 @@ export default function ArchDocs() {
                         <ArchDocComp onChange={handleChangeDocDesc} onSubmit={handleSubmitDocument}
                             className=" bg-gray-200 resize-none p-5 w-full h-[120px] my-5 border-1  border-blue outline-none"
                         >
-                            <CbxInput ownNametypeDoc='Nom du proprietaire' onChange={handleChangeSelectedOwner} className='w-full h-14' >
+                            <CbxInput msgErr={docErr.ownerErr} ownNametypeDoc='Nom du proprietaire' onChange={handleChangeSelectedOwner} className='w-full h-14' >
                                 <option value=""></option>
                                 {
                                     owners.map(owner => (
@@ -180,7 +209,7 @@ export default function ArchDocs() {
                                     ))
                                 }
                             </CbxInput>
-                            <DragComponent getFile={handleChangeFileDocs} />
+                            <DragComponent errMsg={docErr.fileErr} getFile={handleChangeFileDocs} />
                         </ArchDocComp>
                     </form>
                 </div>
@@ -198,8 +227,8 @@ export default function ArchDocs() {
                         className=" bg-gray-200 resize-none p-5 w-full h-42 my-5 border-1  border-blue outline-none"
                     >
                         <Inputs errMsg={ownerErr.nameErr} attName='Nom à attribuer au document' onChange={handleChangeName}>
-                            
-                            <CbxInput  msgErr={ownerErr.typeErr} ownNametypeDoc='Type du proprietaire' className='w-[300px] h-14' onChange={handleChangeType}>
+
+                            <CbxInput msgErr={ownerErr.typeErr} ownNametypeDoc='Type du proprietaire' className='w-[300px] h-14' onChange={handleChangeType}>
                                 <option value=""></option>
                                 <option value="Entreprise">Entreprise</option>
                                 <option value="Particulier">Particulier</option>
