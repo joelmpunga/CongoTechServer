@@ -15,10 +15,11 @@ export default class usersController {
                 password: Joi.string().min(8).required(),
                 nom: Joi.string().min(2).required(),
                 postnom: Joi.string().min(2).required(),
-                role: Joi.string().valid('ADMIN', 'SECRETAIRE').default('SECRETAIRE')
+                role: Joi.string().valid('ADMIN', 'SECRETAIRE')
             })
             const { error, value } = schema.validate(req.body);
             if (error) {
+                console.log(error);
                 // Gérer l'erreur de validation
                 return res.status(400).json(error.details[0].message);
             }

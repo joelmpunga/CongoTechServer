@@ -10,12 +10,17 @@ import { useMyContext } from "../../contexts/MyContext";
 import PopupAlert from "../../ui/Popup";
 
 export default function ArchDocs() {
+
     const navigate = useNavigate();
+
     //const { isAuthenticated, updateIsAuthenticated } = useMyContext();
     const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated')
     if (!isAuthenticatedLocalStorage) {
         navigate('/login')
     }
+    const [ownerErr, setOwnerErr] = useState({ typeErr: '', nameErr: '' })
+    const [docErr, setDocErr] = useState({ ownerErr: '', fileErr: '' })
+
     const [descOwner, setDescOwner] = useState('')
     const [nameOwner, setNameOwner] = useState('')
     const [typeOwner, setTypeOwner] = useState('')
@@ -32,6 +37,7 @@ export default function ArchDocs() {
     const handleChangeType = (event) => {
         setTypeOwner(event.target.value)
     }
+
     const handleChangeDesc = (event) => {
         setDescOwner(event.target.value)
     }
@@ -62,30 +68,79 @@ export default function ArchDocs() {
         handleChangeName
         handleChangeType
     }, ['typeOwner', 'nameOwner', 'descOwner'])
-    const handleSubmitOwner = (event) => {
-        try{
-            event.preventDefault()
-            axios.post('http://localhost:3000/owner/create', {
-                description: descOwner,
-                nom: nameOwner,
-                type: typeOwner
-            }).then(res => {
-                if (res.status === 200) {
-                    window.location.href = '/createowner'
-                }
-            }).catch(err => {
-                setErrorOwner(true)
-                setErrorMessageOwner(err.response.data)
-            })
+
+
+
+    const validateOwner = () => {
+        let errors = {};
+        const nameRegex = /^[a-zA-Z\s]+$/;
+
+        if (typeOwner == '') {
+            errors.typeErr = 'Selectionner le type';
         }
-        catch(err){
+
+        if (!nameOwner.match(nameRegex)) {
+            errors.nameErr = 'Nom invalid';
+        }
+
+        setOwnerErr(errors);
+
+        return Object.keys(errors).length === 0;
+    };
+
+    const handleSubmitOwner = (event) => {
+        try {
+            event.preventDefault()
+            const isValid = validateOwner();
+            if (isValid) {
+
+                axios.post('http://localhost:3000/owner/create', {
+                    description: descOwner,
+                    nom: nameOwner,
+                    type: typeOwner
+                }).then(res => {
+                    if (res.status === 200) {
+                        window.location.href = '/archive'
+                    }
+                }).catch(err => {
+                    setErrorOwner(true)
+                    setErrorMessageOwner(err.response.data)
+                })
+
+            } else {
+                console.log('error')
+            }
+
+        }
+        catch (err) {
             console.log(err);
         }
     }
+
+
+    const validateDoc = () => {
+
+        let errors = {};
+        if (selectedOwner == '') {
+            errors.ownerErr = 'Selectionner le type';
+        }
+        console.log(file);
+
+        if (file.length === 0) {
+            errors.fileErr = 'Selectionner un document';
+        }
+
+        setDocErr(errors);
+
+        return Object.keys(errors).length === 0;
+    };
+
+
     const handleSubmitDocument = async (event) => {
         event.preventDefault()
         const token = localStorage.getItem('token')
         console.log(token);
+        const isValid = validateDoc()
         try {
             const formData = new FormData();
             formData.append('file', file);
@@ -93,7 +148,6 @@ export default function ArchDocs() {
             formData.append('description', docsDesc);
             formData.append('idUser', 1);
 
-            // Remplacez l'URL ci-dessous par l'URL de votre serveur
             await axios.post('http://localhost:3000/file/upload', formData).then(res => {
                 if (res.status === 201) {
                     navigate('/archive')
@@ -106,6 +160,13 @@ export default function ArchDocs() {
         } catch (error) {
             console.error('Erreur lors du téléchargement du fichier :', error);
         }
+
+        if (isValid) {
+            console.log('isValid to upload');
+        } else {
+            console.log('failled to upload');
+        }
+
         // axios.post('http://localhost:3000/file/upload', {
         //     description: descOwner,
         //     file: filesInput,
@@ -129,6 +190,8 @@ export default function ArchDocs() {
                 <p>Dashboard / Archiver</p>
             </div>
             <div className="flex gap-10 w-full justify-center">
+
+
                 <div className="w-[650px] border border-gray-200 shadow-md">
                     <form action="" encType="multipart/form-data">
                         <Title title='Information du document' />
@@ -138,7 +201,7 @@ export default function ArchDocs() {
                         <ArchDocComp onChange={handleChangeDocDesc} onSubmit={handleSubmitDocument}
                             className=" bg-gray-200 resize-none p-5 w-full h-[120px] my-5 border-1  border-blue outline-none"
                         >
-                            <CbxInput ownNametypeDoc='Nom du proprietaire' onChange={handleChangeSelectedOwner} className='w-full h-14' >
+                            <CbxInput msgErr={docErr.ownerErr} ownNametypeDoc='Nom du proprietaire' onChange={handleChangeSelectedOwner} className='w-full h-14' >
                                 <option value=""></option>
                                 {
                                     owners.map(owner => (
@@ -146,10 +209,15 @@ export default function ArchDocs() {
                                     ))
                                 }
                             </CbxInput>
-                            <DragComponent getFile={handleChangeFileDocs} />
+                            <DragComponent errMsg={docErr.fileErr} getFile={handleChangeFileDocs} />
                         </ArchDocComp>
                     </form>
                 </div>
+
+
+
+
+
                 <div className="w-[650px] border border-gray-200 shadow-md">
                     <Title title='Ajouter un propriétaire' />
                     {
@@ -158,8 +226,9 @@ export default function ArchDocs() {
                     <ArchDocComp ownNametypeDoc='Type du proprietaire' attName='Nom' onChange={handleChangeDesc} onSubmit={handleSubmitOwner}
                         className=" bg-gray-200 resize-none p-5 w-full h-42 my-5 border-1  border-blue outline-none"
                     >
-                        <Inputs attName='Nom à attribuer au document' onChange={handleChangeName}>
-                            <CbxInput ownNametypeDoc='Type du proprietaire' className='w-[300px] h-14' onChange={handleChangeType}>
+                        <Inputs errMsg={ownerErr.nameErr} attName='Nom à attribuer au document' onChange={handleChangeName}>
+
+                            <CbxInput msgErr={ownerErr.typeErr} ownNametypeDoc='Type du proprietaire' className='w-[300px] h-14' onChange={handleChangeType}>
                                 <option value=""></option>
                                 <option value="Entreprise">Entreprise</option>
                                 <option value="Particulier">Particulier</option>
@@ -167,6 +236,9 @@ export default function ArchDocs() {
                         </Inputs>
                     </ArchDocComp>
                 </div>
+
+
+
             </div>
         </>
     )

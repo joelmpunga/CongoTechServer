@@ -9,7 +9,8 @@ export function CustomDragDrop({
     onDelete,
     count,
     formats,
-    getFile
+    getFile,
+    errMsg
 }) {
 
     const dropContainer = useRef(null);
@@ -247,6 +248,7 @@ export function CustomDragDrop({
                     </div>
                 }
             </label>
+            <span className='text-red-600'>{errMsg}</span>
             <input
                 className="opacity-0 hidden h-full"
                 type="file"

@@ -3,7 +3,12 @@ import SignInSignUpComp from './SignInSignUpComp'
 import InputsForm from './InputsForm'
 import CbxInput from '../archDoc/comboBox/CbxInput'
 import { useState } from 'react'
+import PopupAlert from '../../ui/Popup'
+import axios from 'axios'
 export default function SignUp() {
+
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
 
   const [formData, setFormData] = useState({
@@ -11,7 +16,7 @@ export default function SignUp() {
     firstName: '',
     email: '',
     password: '',
-    selection:'',
+    role: '',
   });
 
   const [formErrors, setFormErrors] = useState({
@@ -19,7 +24,7 @@ export default function SignUp() {
     firstName: '',
     email: '',
     password: '',
-    selection:'',
+    role: '',
   });
 
   const validateForm = () => {
@@ -44,8 +49,8 @@ export default function SignUp() {
       errors.password = 'Mot de passe doit être d\'au moins 8 caractères';
     }
 
-    if (formData.selection === "") {
-      errors.selection = 'Vous devez selectioner un role';
+    if (formData.role === "") {
+      errors.role = 'Vous devez selectioner un role';
     }
     setFormErrors(errors);
 
@@ -60,26 +65,43 @@ export default function SignUp() {
     });
   };
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const isValid = validateForm();
+
     if (isValid) {
-      // joel, on peux integret ici
       console.log(formData);
-      // Reset form fields
+
+      axios.post('http://localhost:3000/user/signup', {
+        nom: formData.name,
+        postnom: formData.firstName,
+        email: formData.email,
+        password: formData.password,
+        role: formData.role
+      }).then(res => {
+        console.log(res.data, res.status);
+        if (res.status === 200) {
+          console.log("user created");
+          window.location.href = '/register'
+        }
+      }).catch(err => {
+        setError(true)
+        setErrorMessage(err.response.data.message)
+      })
       setFormData({
         name: '',
         firstName: '',
         email: '',
         password: '',
-        selection:'',
+        role: '',
       });
       setFormErrors({
         name: '',
         firstName: '',
         email: '',
         password: '',
-        selection:'',
+        role: '',
       });
     } else {
       console.log('joel Le formulaire contient des erreurs');
@@ -88,6 +110,10 @@ export default function SignUp() {
 
   return (
     <SignInSignUpComp title2="Créer un compte" btnName="Créer un compte" onSubmit={handleSubmit}>
+
+      {
+        error && <PopupAlert message={errorMessage} />
+      } 
 
       <InputsForm
         labelName="Nom"
@@ -138,17 +164,17 @@ export default function SignUp() {
       />
 
       <CbxInput
-        name="selection"
+        name="role"
         ownNametypeDoc="Role"
-        msgErr={formErrors.selection}
-        value={formData.selection}
+        msgErr={formErrors.role}
+        value={formData.role}
         onChange={handleChange}
         className=" h-[70px] shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
 
       >
         <option value=""></option>
-        <option value="admin">Administrateur</option>
-        <option value="user">Utilisateur</option>
+        <option value="ADMIN">Administrateur</option>
+        <option value="SECRETAIRE">Secretaire</option>
       </ CbxInput>
 
     </SignInSignUpComp>
