@@ -24,17 +24,17 @@ export default function MailsBrouillonAll() {
             <WorkSpace message="Parcourez les mails non classés">
                 <div className='flex flex-col justify-between mx-5 w-full h-[70%]'>
                     <div>
-                        <table   >
+                        <table className='w-full'  >
                             <thead>
-                                <th >
-                                    <td className='w-[5%]'><CheckBox /></td>
-                                    <td className='w-[20%]'>Expediteur</td>
-                                    <td className='w-[50%]'>Sujet</td>
-                                    <td className='w-[15%]'>Date</td>
-                                    <td className='w-[10%]'>Actions</td>
+                                <th className='flex gap-10 w-full text-center '>
+                                    <td ><CheckBox /></td>
+                                    <td >Expediteur</td>
+                                    <td >Sujet</td>
+                                    <td >Date</td>
+                                    <td >Actions</td>
                                 </th>
                             </thead>
-                            <tbody>
+                            <tbody >
                                 <tr>
                                     <MailBrouillon />
                                 </tr>
