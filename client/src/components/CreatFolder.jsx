@@ -90,10 +90,7 @@ export default function CreatFolder() {
     console.log(subDescFold, nomSubFold, parentFolder);
     return (
         <>
-            {/* <div className="m-5 flex flex-row justify-between w-creen">
-                <h2 className="">Créer un dossier et un sous-dossier</h2>
-                <p>Dashboard / dossier</p>
-            </div> */}
+            
             <HeaderWorkspace title="Créer un dossier et un sous-dossier">
                 <ItemLinkPage title="Dashboard" path="/dossier" />
             </HeaderWorkspace>
