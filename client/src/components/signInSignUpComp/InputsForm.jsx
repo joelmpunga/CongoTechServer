@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function InputsForm({labelName, htmlFor, inputId, inputType, inputPlaceholder,onChange, msgErr, value, name}) {
+export default function InputsForm({ labelName, htmlFor, inputId, inputType, inputPlaceholder, onChange, msgErr, value, name }) {
     return (
         <div className='mb-12'>
             <label className="block text-gray-500 text-sm font-adamina mb-2" htmlFor={htmlFor}>
@@ -15,7 +15,7 @@ export default function InputsForm({labelName, htmlFor, inputId, inputType, inpu
                 value={value}
                 name={name}
             />
-             <span className='text-red-600 '>{msgErr}</span>
+            <span className='text-red-600 '>{msgErr}</span>
 
         </div>
     )

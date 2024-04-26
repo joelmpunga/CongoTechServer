@@ -3,7 +3,7 @@ import CheckBox from '../ui/CheckBox'
 
 export default function MailBrouillon() {
     return (
-        <div className='flex gap-10 text-[20px] text-gray-600 p-4 justify-between'>
+        <div className='flex gap-10 text-[20px] w-full text-gray-600'>
             <td ><CheckBox /></td>
             <td >Ilunga Christan</td>
             <td >Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, explicabo?</td>

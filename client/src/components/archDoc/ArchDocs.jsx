@@ -8,6 +8,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMyContext } from "../../contexts/MyContext";
 import PopupAlert from "../../ui/Popup";
+import HeaderWorkspace from "../HeaderWorkspace";
+import ItemLinkPage from "../../ui/ItemLinkPage";
 
 export default function ArchDocs() {
 
@@ -166,31 +168,16 @@ export default function ArchDocs() {
         } else {
             console.log('failled to upload');
         }
-
-        // axios.post('http://localhost:3000/file/upload', {
-        //     description: descOwner,
-        //     file: filesInput,
-        //     idOwner: parseInt(selectedOwner),
-        //     idUser: 1,
-        // }).then(res => {
-        //     alert(res.status)
-        //     if (res.status === 200) {
-        //         window.location.href = '/archive'
-        //     }
-        // })
     }
-    //console.log(descOwner, nameOwner, typeOwner);
-    // console.log(filesInput);
+
     return (
         <>
-            {/* tilte, dragDrop, ownNametypeDoc, attName */}
 
-            <div className="m-5 flex flex-row justify-between ">
-                <h2>Archiver les documents</h2>
-                <p>Dashboard / Archiver</p>
-            </div>
-            <div className="flex gap-10 w-full justify-center">
 
+            <HeaderWorkspace title="Archiver les documents">
+                <ItemLinkPage title="Dashboard" path="/Archiver" />
+            </HeaderWorkspace>
+            <div className="font-adamina text-[14px] flex gap-16 w-full justify-center mx-auto mt-10">
 
                 <div className="w-[650px] border border-gray-200 shadow-md">
                     <form action="" encType="multipart/form-data">
@@ -226,7 +213,7 @@ export default function ArchDocs() {
                     <ArchDocComp ownNametypeDoc='Type du proprietaire' attName='Nom' onChange={handleChangeDesc} onSubmit={handleSubmitOwner}
                         className=" bg-gray-200 resize-none p-5 w-full h-42 my-5 border-1  border-blue outline-none"
                     >
-                        <Inputs errMsg={ownerErr.nameErr} attName='Nom à attribuer au document' onChange={handleChangeName}>
+                        <Inputs errMsg={ownerErr.nameErr} attName='Nom à attribuer au document' onChange={handleChangeName} placeholder='Nom à attribuer au document'>
 
                             <CbxInput msgErr={ownerErr.typeErr} ownNametypeDoc='Type du proprietaire' className='w-[300px] h-14' onChange={handleChangeType}>
                                 <option value=""></option>

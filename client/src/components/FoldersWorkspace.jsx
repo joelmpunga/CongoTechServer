@@ -38,12 +38,7 @@ export default function FoldersWorkspace() {
     useEffect(() => { getFolders() }, ['folders'])
     return (
         <>
-            <Link to="/createfolder">
-                <button className='bg-blue-600 rounded-2xl w-[150px] h-[50px] ml-10 text-white'>
-                    Création
-                </button>
-            </Link>
-            <HeaderWorkspace title="Dossiers" message="Parcourez les dossiers">
+            <HeaderWorkspace title="Dossiers">
                 <ItemLinkPage title="Dashboard" path="/dashboard" />
             </HeaderWorkspace>
             <WorkSpace message="Parcourez les dossiers">
@@ -57,8 +52,10 @@ export default function FoldersWorkspace() {
                         ))
                     }
 
+
                 </div>
-                <div className='flex'>
+
+                <div className='flex justify-between w-full mx-5'>
                     <ReactPaginate
                         previousLabel={"Précédent"}
                         nextLabel={"Suivant"}
@@ -70,6 +67,15 @@ export default function FoldersWorkspace() {
                         containerClassName={"flex justify-end gap-6 text-[20px]"}
                         activeClassName={"active"}
                     />
+
+                    <div>
+                        <Link to="/createfolder">
+                            <button className='flex flex-row justify-center items-center bg-blue-600 rounded-2xl w-[150px] h-[50px] text-white'>
+                                <img src="src/assets/images/add.svg" alt="" />
+                                <span>Création</span>
+                            </button>
+                        </Link>
+                    </div>
                 </div>
             </WorkSpace>
         </>
