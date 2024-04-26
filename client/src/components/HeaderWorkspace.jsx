@@ -9,8 +9,7 @@ export default function HeaderWorkspace({message,title,children}) {
                     children
                 }
             </LinksPages>
-            <span className='ml-6'> {message} </span>
-            <hr />
+            <span className=''> {message} </span>
         </div>
     )
 }

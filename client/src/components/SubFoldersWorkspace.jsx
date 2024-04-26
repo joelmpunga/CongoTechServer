@@ -19,7 +19,7 @@ export default function SubFoldersWorkspace() {
     console.log(subFolders);
     return (
         <>
-            <HeaderWorkspace title="Sous dossiers" message="Parcourez les sous dossiers">
+            <HeaderWorkspace title="Sous dossiers" >
                 <ItemLinkPage title="Dashboard" path="/dashboard" />
                 <ItemLinkPage title="Dossiers" path="/folders" />
             </HeaderWorkspace>
