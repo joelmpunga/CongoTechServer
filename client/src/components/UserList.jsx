@@ -5,6 +5,8 @@ import axios from "axios";
 import ItemLinkPage from "../ui/ItemLinkPage";
 import HeaderWorkspace from "./HeaderWorkspace";
 import ReactPaginate from "react-paginate";
+import NextBtn from "./nextPrevBtns/NextBtn";
+import PrevBtn from "./nextPrevBtns/PrevBtn";
 export default function UserList() {
     const [currentPage, setCurrentPage] = useState(0);
     const [itemsPerPage] = useState(10); // Nombre d'éléments à afficher par page
@@ -81,10 +83,10 @@ export default function UserList() {
 
 
                 </UserOwnerListComp>
-                <div className='flex justify-between w-full mx-5'>
+                <div className='flex flex-row-reverse mx-6'>
                     <ReactPaginate
-                        previousLabel={"Précédent"}
-                        nextLabel={"Suivant"}
+                        previousLabel={<PrevBtn/>}
+                        nextLabel={<NextBtn/>}
                         breakLabel={"..."}
                         pageCount={Math.ceil(users.length / itemsPerPage)} // Calcul du nombre total de pages
                         marginPagesDisplayed={2}
