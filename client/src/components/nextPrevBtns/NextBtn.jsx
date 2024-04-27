@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function NextBtn() {
+    
   return (
     <div>
         <button className=' bg-blue-500 w-[37px] h-[47px] rounded flex justify-center items-center drop-shadow-xl'>
