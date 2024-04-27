@@ -7,7 +7,7 @@ import WorkSpace from './WorkSpace'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import ReactPaginate from 'react-paginate';
-import { useNavigate } from'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function StockageMailsDocuments() {
     const navigate = useNavigate()
@@ -19,46 +19,49 @@ export default function StockageMailsDocuments() {
     const id = parseInt(params.id)
     const [files, setFiles] = useState([])
 
-  const [currentPage, setCurrentPage] = useState(0);
-  const [itemsPerPage] = useState(5); // Nombre d'éléments à afficher par page
-  // Fonction pour obtenir les éléments de la page actuelle
-  const getCurrentPageData = () => {
-      const startIndex = currentPage * itemsPerPage;
-      const endIndex = startIndex + itemsPerPage;
-      return files.slice(startIndex, endIndex);
-  };
+    const [currentPage, setCurrentPage] = useState(0);
+    const [itemsPerPage] = useState(5); // Nombre d'éléments à afficher par page
+    // Fonction pour obtenir les éléments de la page actuelle
+    const getCurrentPageData = () => {
+        const startIndex = currentPage * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        return files.slice(startIndex, endIndex);
+    };
 
-  const handlePageClick = (data) => {
-      const selectedPage = data.selected;
-      setCurrentPage(selectedPage);
-  };
+    const handlePageClick = (data) => {
+        const selectedPage = data.selected;
+        setCurrentPage(selectedPage);
+    };
     const getFiles = async () => await axios.get("http://localhost:3000/file/" + id).then(res => setFiles(res.data))
     useEffect(() => { getFiles() }, ['files'])
     console.table(files);
     return (
         <div>
-            <HeaderWorkspace title="Documents & Mails" message="Parcourez les fichiers et mails">
+            <HeaderWorkspace title="Documents & Mails" >
                 <ItemLinkPage title="Dashboard" path="/dashboard" />
                 <ItemLinkPage title="Dossiers" path="/folders" />
                 <ItemLinkPage title="Sous Dossiers" path="/subfolders" />
             </HeaderWorkspace>
-            <WorkSpace message="Parcourez les sous dossiers">
-                {
+            <WorkSpace message="Parcourez les fichiers et mails">
+             <div className='w-[100%] h-[70%]'>
+             <div className='flex flex-wrap '>
+               {
                     getCurrentPageData().map(file => (
                         <tr key={file.id}>
                             <File id={file.id} title={file.name} />
                         </tr>
                     ))
                 }
+               </div>
 
                 {/* <Mail title="Mail" data={data} />
                 <File title="File.png" />
                 <Mail title="Mail" data={data} />
                 <File title="File.png" />
                 <Mail title="Mail" data={data} />
-                <File title="File.png" /> */}
-            </WorkSpace>
-            <div className='flex'>
+                <File title="File.png" />*/}
+
+                <div className='flex'>
                     <ReactPaginate
                         previousLabel={"Précédent"}
                         nextLabel={"Suivant"}
@@ -71,6 +74,9 @@ export default function StockageMailsDocuments() {
                         activeClassName={"active"}
                     />
                 </div>
+             </div>
+            </WorkSpace>
+
         </div>
     )
 }

@@ -21,7 +21,7 @@ export default function FoldersWorkspace() {
     const [folders, setFolders] = useState([])
     //fonctions pour la pagination
     const [currentPage, setCurrentPage] = useState(0);
-    const [itemsPerPage] = useState(5); // Nombre d'éléments à afficher par page
+    const [itemsPerPage] = useState(10); // Nombre d'éléments à afficher par page
     // Fonction pour obtenir les éléments de la page actuelle
     const getCurrentPageData = () => {
         const startIndex = currentPage * itemsPerPage;
@@ -38,6 +38,7 @@ export default function FoldersWorkspace() {
     useEffect(() => { getFolders() }, ['folders'])
     return (
         <>
+
             <HeaderWorkspace title="Dossiers">
                 <ItemLinkPage title="Dashboard" path="/dashboard" />
             </HeaderWorkspace>
