@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import ContainerFolderFile from './ContainerFolderFile'
 import BouttonIcon from './BouttonIcon'
-import { Link, useNavigate,useLocation } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
 import LinesEllipsis from 'react-lines-ellipsis';
 
@@ -73,7 +73,9 @@ export default function File({ title, data, isToClass = false, id }) {
           />
         </h3>
         <div className='flex gap-3 mx-auto max-w-[40%] text-wrap'>
-          {/* <img src="../src/assets/images/eye.svg" alt="" onClick={getFiles}/> */}
+          <Link to = {"http://localhost:3000/file/show/" + id}>
+            <img src="../src/assets/images/eye.svg" alt="" />
+          </Link>
           <img src="../src/assets/images/trash-can-alt-2.svg" alt="" onClick={deleteFile} />
           <a href={"http://localhost:3000/file/download/" + id}><img src="../src/assets/images/download-alt.svg" alt="" /></a>
         </div>
