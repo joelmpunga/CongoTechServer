@@ -92,7 +92,7 @@ export default function ArchDocs() {
             formData.append('idOwner', parseInt(selectedOwner));
             formData.append('description', docsDesc);
             formData.append('idUser', 1);
-
+            console.log(formData);
             // Remplacez l'URL ci-dessous par l'URL de votre serveur
             await axios.post('http://localhost:3000/file/upload', formData).then(res => {
                 if (res.status === 201) {

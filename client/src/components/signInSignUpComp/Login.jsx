@@ -33,12 +33,20 @@ export default function Login() {
     //         }
     //     }
     // },['token'])
+
+    useEffect(() => {
+        const isAuthenticated = localStorage.getItem('isAuthenticated');
+        if (isAuthenticated) {
+            navigate('/folder')
+        }        
+    }, [navigate]);
+
     useEffect(() => {
         handleChangeEmail
-    }, ['email'])
+    }, [email])
     useEffect(() => {
         handleChangePassword
-    }, ['password'])
+    }, [password])
     const handleChangeEmail = (event) => {
         setEmail(event.target.value)
     }
@@ -80,7 +88,7 @@ export default function Login() {
     return (
         <SignInSignUpComp title1="Renseignez vos informations ci-dessous" title2="Se Connecter" btnName="Se Connecter" titleAdminContact1="Vous n’avez pas de compte?" titleAdminContact2="Contactez l’admin!" onClick={handleSubmit}>
             {
-                error && <PopupAlert message={errorMessage}/>
+                error && <PopupAlert message={errorMessage} />
             }
             <InputsForm labelName="Email" htmlFor="Email" inputId="inputId" inputType="text" inputPlaceholder="Entrez votre Email" onChange={handleChangeEmail} />
             <InputsForm labelName="Password" htmlFor="Password" inputId="inputId" inputType="password" inputPlaceholder="8+ Caracteres, Majiscule exigé" onChange={handleChangePassword} />
