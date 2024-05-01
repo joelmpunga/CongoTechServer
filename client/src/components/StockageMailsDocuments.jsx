@@ -8,6 +8,8 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import ReactPaginate from 'react-paginate';
 import { useNavigate } from 'react-router-dom';
+import NextBtn from './nextPrevBtns/NextBtn'
+import PrevBtn from './nextPrevBtns/PrevBtn'
 
 export default function StockageMailsDocuments() {
     const navigate = useNavigate()
@@ -36,15 +38,16 @@ export default function StockageMailsDocuments() {
     useEffect(() => { getFiles() }, ['files'])
     console.table(files);
     return (
-        <div>
+        <>
             <HeaderWorkspace title="Documents & Mails" >
                 <ItemLinkPage title="Dashboard" path="/dashboard" />
                 <ItemLinkPage title="Dossiers" path="/folders" />
                 <ItemLinkPage title="Sous Dossiers" path="/subfolders" />
             </HeaderWorkspace>
+
             <WorkSpace message="Parcourez les fichiers et mails">
-             <div className='w-[100%] h-[70%]'>
-             <div className='flex flex-wrap '>
+             
+             <div className='flex flex-wrap w-[100%] overflow-x-auto h-[70%]'>
                {
                     getCurrentPageData().map(file => (
                         <tr key={file.id}>
@@ -61,10 +64,10 @@ export default function StockageMailsDocuments() {
                 <Mail title="Mail" data={data} />
                 <File title="File.png" />*/}
 
-                <div className='flex'>
+                <div className='flex w-full mx-5'>
                     <ReactPaginate
-                        previousLabel={"Précédent"}
-                        nextLabel={"Suivant"}
+                        previousLabel={<PrevBtn/>}
+                        nextLabel={<NextBtn/>}
                         breakLabel={"..."}
                         pageCount={Math.ceil(files.length / itemsPerPage)} // Calcul du nombre total de pages
                         marginPagesDisplayed={2}
@@ -74,9 +77,9 @@ export default function StockageMailsDocuments() {
                         activeClassName={"active"}
                     />
                 </div>
-             </div>
+             
             </WorkSpace>
 
-        </div>
+        </>
     )
 }
