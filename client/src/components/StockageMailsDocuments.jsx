@@ -12,6 +12,8 @@ import NextBtn from './nextPrevBtns/NextBtn'
 import PrevBtn from './nextPrevBtns/PrevBtn'
 
 export default function StockageMailsDocuments() {
+    const [isVisible, setIsVisible] = useState(false);
+    const [position, setPosition] = useState({ x: 0, y: 0 });
     const navigate = useNavigate()
     const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated')
     if (!isAuthenticatedLocalStorage) {
@@ -22,7 +24,7 @@ export default function StockageMailsDocuments() {
     const [files, setFiles] = useState([])
 
     const [currentPage, setCurrentPage] = useState(0);
-    const [itemsPerPage] = useState(5); // Nombre d'éléments à afficher par page
+    const [itemsPerPage] = useState(12); // Nombre d'éléments à afficher par page
     // Fonction pour obtenir les éléments de la page actuelle
     const getCurrentPageData = () => {
         const startIndex = currentPage * itemsPerPage;
@@ -37,6 +39,19 @@ export default function StockageMailsDocuments() {
     const getFiles = async () => await axios.get("http://localhost:3000/file/" + id).then(res => setFiles(res.data))
     useEffect(() => { getFiles() }, ['files'])
     console.table(files);
+
+    const showMenu = (e) => {
+        e.preventDefault();
+        setIsVisible(true);
+        setPosition({ x: e.clientX, y: e.clientY });
+    };
+
+    const hideMenu = () => {
+        setIsVisible(false);
+    };
+    const gOnclick = () => {
+        hideMenu()
+    }
     return (
         <>
             <HeaderWorkspace title="Documents & Mails" >
@@ -45,17 +60,31 @@ export default function StockageMailsDocuments() {
                 <ItemLinkPage title="Sous Dossiers" path="/subfolders" />
             </HeaderWorkspace>
 
-            <WorkSpace message="Parcourez les fichiers et mails">
-             
-             <div className='flex flex-wrap w-[100%] overflow-x-auto h-[70%]'>
-               {
-                    getCurrentPageData().map(file => (
-                        <tr key={file.id}>
-                            <File id={file.id} title={file.name} />
-                        </tr>
-                    ))
-                }
-               </div>
+            <WorkSpace onClick={gOnclick} message="Parcourez les fichiers et mails">
+
+                <div className='flex flex-wrap w-[100%] overflow-x-auto h-[70%]'>
+                    {isVisible && (
+                        <div
+                            className="absolute bg-white border border-gray-300 p-2 shadow-md"
+                            style={{ left: position.x, top: position.y }}
+                        >
+                            <ul>
+                                <li className="cursor-pointer py-2 px-4 hover:bg-gray-100" >Ouvrir</li>
+                                <li className="cursor-pointer py-2 px-4 hover:bg-gray-100" >Renomer</li>
+                                <li className="cursor-pointer py-2 px-4 hover:bg-gray-100" >Supprimer</li>
+                                <li className="cursor-pointer py-2 px-4 hover:bg-gray-100" >Télécharger</li>
+                                <li className="cursor-pointer py-2 px-4 hover:bg-gray-100" >Détails du Fichier</li>
+                            </ul>
+                        </div>
+                    )}
+                    {
+                        getCurrentPageData().map(file => (
+                            <tr key={file.id}>
+                                <File onContextMenu={showMenu} id={file.id} title={file.name} />
+                            </tr>
+                        ))
+                    }
+                </div>
 
                 {/* <Mail title="Mail" data={data} />
                 <File title="File.png" />
@@ -66,8 +95,8 @@ export default function StockageMailsDocuments() {
 
                 <div className='flex w-full mx-5'>
                     <ReactPaginate
-                        previousLabel={<PrevBtn/>}
-                        nextLabel={<NextBtn/>}
+                        previousLabel={<PrevBtn />}
+                        nextLabel={<NextBtn />}
                         breakLabel={"..."}
                         pageCount={Math.ceil(files.length / itemsPerPage)} // Calcul du nombre total de pages
                         marginPagesDisplayed={2}
@@ -77,7 +106,7 @@ export default function StockageMailsDocuments() {
                         activeClassName={"active"}
                     />
                 </div>
-             
+
             </WorkSpace>
 
         </>

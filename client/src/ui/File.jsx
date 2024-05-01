@@ -5,7 +5,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
 import LinesEllipsis from 'react-lines-ellipsis';
 
-export default function File({ title, data, isToClass = false, id }) {
+export default function File({ title, data, isToClass = false, id, onContextMenu }) {
   const location = useLocation();
   const actualUrl = location.pathname;
   const navigate = useNavigate()
@@ -53,7 +53,7 @@ export default function File({ title, data, isToClass = false, id }) {
   // };
   return (
     <ContainerFolderFile>
-      <div className='flex'>
+      <div onContextMenu={onContextMenu} className='flex'>
         <img src="../src/assets/images/icon-file.png" alt="" width={120} height={120} />
         {
           isToClass &&
