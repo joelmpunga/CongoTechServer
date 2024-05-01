@@ -10,7 +10,7 @@ import ReactPaginate from 'react-paginate';
 import { useNavigate } from 'react-router-dom';
 import NextBtn from './nextPrevBtns/NextBtn'
 import PrevBtn from './nextPrevBtns/PrevBtn'
-
+import { Link } from 'react-router-dom'
 export default function StockageMailsDocuments() {
     const [isVisible, setIsVisible] = useState(false);
     const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -79,11 +79,16 @@ export default function StockageMailsDocuments() {
                     )}
                     {
                         getCurrentPageData().map(file => (
-                            <tr key={file.id}>
-                                <File onContextMenu={showMenu} id={file.id} title={file.name} />
+
+                            <tr onContextMenu={showMenu} key={file.id}>
+                                
+                                <File id={file.id} title={file.name} />
                             </tr>
+                            
                         ))
+                       
                     }
+                  
                 </div>
 
                 {/* <Mail title="Mail" data={data} />
