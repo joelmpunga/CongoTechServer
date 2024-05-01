@@ -54,7 +54,7 @@ export default function File({ title, data, isToClass = false, id }) {
   return (
     <ContainerFolderFile>
       <div className='flex'>
-        <img src="../src/assets/images/icon-file.png" alt="" width={150} height={150} />
+        <img src="../src/assets/images/icon-file.png" alt="" width={120} height={120} />
         {
           isToClass &&
           <Link key={id} to={{ pathname: `/folderclasser/${id}`, state: { id: id } }} className='flex flex-row'>
@@ -62,8 +62,8 @@ export default function File({ title, data, isToClass = false, id }) {
           </Link>
         }
       </div>
-      <div className='flex flex-col my-4'>
-        <h3 className='mx-auto max-w-[90%] text-wrap '>
+      <div className='flex flex-col'>
+        <h3 className='mx-auto max-w-[100%] '>
           <LinesEllipsis
             text={title}
             maxLine="1"
@@ -71,8 +71,9 @@ export default function File({ title, data, isToClass = false, id }) {
             trimRight
             basedOn="letters"
           />
+         
         </h3>
-        <div className='flex gap-3 mx-auto max-w-[40%] text-wrap'>
+        <div className='flex gap-3 mx-auto max-w-[100%] text-wrap'>
           <Link to = {"http://localhost:3000/file/show/" + id}>
             <img src="../src/assets/images/eye.svg" alt="" />
           </Link>

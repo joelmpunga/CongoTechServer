@@ -11,7 +11,7 @@ export default function SideBarSecretaire() {
     }
   return (
 
-    <div className='bg-custom-dark-blue min-h-screen w-[430px] text-[20px] font-bold'>
+    <div className='bg-black min-h-screen w-[430px] text-[20px] font-bold'>
       <LogoSideBar />
       <div className='overflow-x-hidden h-[70%]'>
 
