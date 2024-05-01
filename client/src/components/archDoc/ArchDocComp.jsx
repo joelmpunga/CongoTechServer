@@ -7,7 +7,7 @@ import Title from "./Title";
 
 
 
-export default function ArchDocComp({ title, dragDrop, ownNametypeDoc, attName, children, onChange,onSubmit, className }) {
+export default function ArchDocComp({ title, dragDrop, ownNametypeDoc, attName, children, onChange, onSubmit, className }) {
     return (
         <div className="flex flex-col m-5">
             <div >

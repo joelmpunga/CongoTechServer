@@ -12,6 +12,8 @@ import ReactPaginate from 'react-paginate';
 
 
 export default function FoldersWorkspace() {
+    const [isVisible, setIsVisible] = useState(false);
+    const [position, setPosition] = useState({ x: 0, y: 0 });
     const { isAuthenticated, updateIsAuthenticated } = useMyContext();
     const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated')
     const navigate = useNavigate()
@@ -36,6 +38,18 @@ export default function FoldersWorkspace() {
 
     const getFolders = async () => await axios.get("http://localhost:3000/folder").then(res => setFolders(res.data))
     useEffect(() => { getFolders() }, ['folders'])
+
+
+
+    const showMenu = (e) => {
+        e.preventDefault();
+        setIsVisible(true);
+        setPosition({ x: e.clientX, y: e.clientY });
+    };
+
+    const hideMenu = () => {
+        setIsVisible(false);
+    };
     return (
         <>
 
@@ -43,7 +57,20 @@ export default function FoldersWorkspace() {
                 <ItemLinkPage title="Dashboard" path="/dashboard" />
             </HeaderWorkspace>
             <WorkSpace message="Parcourez les dossiers">
-                <div className='flex flex-wrap w-[100%] overflow-x-auto h-[70%]'>
+                <div onContextMenu={showMenu} className='flex flex-wrap w-[100%] overflow-x-auto h-[70%]'>
+                    {isVisible && (
+                        <div
+                            className="absolute bg-white border border-gray-300 p-2 shadow-md"
+                            style={{ left: position.x, top: position.y }}
+                        >
+                            <ul>
+                                <li className="cursor-pointer py-2 px-4 hover:bg-gray-100" >Ouvrir</li>
+                                <li className="cursor-pointer py-2 px-4 hover:bg-gray-100" >Renomer</li>
+                                <li className="cursor-pointer py-2 px-4 hover:bg-gray-100" >Supprimer</li>
+                                <li className="cursor-pointer py-2 px-4 hover:bg-gray-100" >Détails du dossier</li>
+                            </ul>
+                        </div>
+                    )}
 
                     {
                         getCurrentPageData().map(folder => (

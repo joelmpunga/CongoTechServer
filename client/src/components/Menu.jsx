@@ -11,7 +11,7 @@ export default function Menu({ title, children, iconeLeft, iconeRightOff, iconeR
         setActived(!actived)
     }
     return (
-        <div className="mx-8 my-5 text-fontSize-extra-large p-4 rounded-xl  bg-black hover:bg-blue-900">
+        <div className="mx-8 my-5 text-fontSize-extra-large p-4 rounded-xl hover:bg-blue-900 backdrop-blur-sm bg-gray-600 ">
             {
                 actived ?
                     <div>

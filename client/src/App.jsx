@@ -30,7 +30,10 @@ function App({ children,getUserData }) {
   if(!isAuthenticated){
     navigate("/login");
   }
+
+
   return (
+   
     <>
       <div className='flex gap-0 w-full fixed'>
         <SideBarSecretaire />
