@@ -37,7 +37,7 @@ function App({ children, getUserData }) {
     <>
       <div className='flex gap-0 w-full fixed'>
         {
-          role === 'ADMIN' ?<SideBarAdmin /> : <SideBarSecretaire />
+          role==='ADMIN'?<SideBarAdmin />:<SideBarSecretaire />
         }
         {/* <SideBarSecretaire /> */}
         <div className='flex flex-col gap-6 w-full'>
