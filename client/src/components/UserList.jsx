@@ -65,7 +65,11 @@ export default function UserList() {
                                     <td className="px-6 py-4">{user.email}</td>
                                     <td className="px-6 py-4 ">
                                         <div className="">
-                                            <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600">
+                                            <span className={
+                                                user.role === "ADMIN"
+                                                   ? "inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"
+                                                    : "inline-flex items-center gap-1 rounded-full bg-yellow-50 px-2 py-1 text-xs font-semibold text-yellow-600"
+                                            }>
                                                 {user.role}
                                             </span>
 

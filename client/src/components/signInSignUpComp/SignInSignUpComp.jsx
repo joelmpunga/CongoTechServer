@@ -1,7 +1,7 @@
 import React from 'react'
 import { Children } from 'react'
 
-export default function SignInSignUpComp({ children, title1, title2, titleAdminContact1, titleAdminContact2, btnName, onClick, onSubmit }) {
+export default function SignInSignUpComp({ type, children, title1, title2, titleAdminContact1, titleAdminContact2, btnName, onClick, onSubmit }) {
     return (
         <div>
             <div className='flex flex-row w-[100%] h-screen '>
@@ -25,6 +25,7 @@ export default function SignInSignUpComp({ children, title1, title2, titleAdminC
                             <button
                                 className="mb-10 w-full h-[70px] bg-blue-500 hover:bg-blue-700 text-white font-adamina py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                 onClick={onClick}
+                                type={type}
                                 
                                 
                             >

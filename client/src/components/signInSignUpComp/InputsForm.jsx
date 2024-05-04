@@ -15,8 +15,9 @@ export default function InputsForm({ labelName, htmlFor, inputId, inputType, inp
                 value={value}
                 name={name}
             />
-            <span className='text-red-600 '>{msgErr}</span>
-
+            {msgErr
+            && <span className='text-red-600 '>{msgErr}</span>
+            }
         </div>
     )
 }
