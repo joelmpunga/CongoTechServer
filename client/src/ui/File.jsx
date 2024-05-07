@@ -1,56 +1,47 @@
-import { useState, useEffect } from 'react'
-import ContainerFolderFile from './ContainerFolderFile'
-import BouttonIcon from './BouttonIcon'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
-import axios from 'axios'
+import { useState, useEffect } from 'react';
+import ContainerFolderFile from './ContainerFolderFile';
+import BouttonIcon from './BouttonIcon';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
 import LinesEllipsis from 'react-lines-ellipsis';
+import Swal from 'sweetalert2';
 
 export default function File({ title, data, isToClass = false, id, onContextMenu }) {
   const location = useLocation();
   const actualUrl = location.pathname;
-  const navigate = useNavigate()
-  const [imageURL, setImageURL] = useState(null)
+  const navigate = useNavigate();
+  const [imageURL, setImageURL] = useState(null);
+
   const deleteFile = async () => {
-    if (confirm("Etes vous sur de vouloir supprimer ce document ?")) {
-      return await axios.delete("http://localhost:3000/file//delete/" + id).then(res => {
-        if (res.status == 200) {
-          alert("Supprimé avec succes!")
-          navigate(actualUrl)
+    const confirmation = await Swal.fire({
+      title: 'Confirmation',
+      text: 'Etes vous sur de vouloir supprimer ce document ?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui',
+      cancelButtonText: 'Annuler'
+    });
+
+    if (confirmation.isConfirmed) {
+      try {
+        const response = await axios.delete(`http://localhost:3000/file/delete/${id}`);
+        if (response.status === 200) {
+          await Swal.fire('Succès', 'Supprimé avec succès!', 'success');
+          navigate(actualUrl);
+        } else {
+          await Swal.fire('Erreur', 'Une erreur est survenue lors de la suppression', 'error');
         }
-      })
-    }
-    else {
-      alert("Action annulée")
+      } catch (error) {
+        console.error('Error deleting file:', error);
+        await Swal.fire('Erreur', 'Une erreur est survenue lors de la suppression', 'error');
+      }
+    } else {
+      await Swal.fire('Action annulée', '', 'info');
     }
   }
 
-  // const fetchImage = async () => {
-  //   try {
-  //     const response = await axios.get("http://localhost:3000/file/download/" + id, {
-  //       responseType: 'arraybuffer' // Indiquer que la réponse est binaire
-  //     });
-
-
-  //     // Convertir le contenu binaire en une chaîne base64
-  //     const binaryData = new Uint8Array(response.data);
-  //     const CHUNK_SIZE = 8192; // Taille des morceaux
-
-  //     const chunks = [];
-  //     for (let i = 0; i < binaryData.length; i += CHUNK_SIZE) {
-  //       const chunk = binaryData.slice(i, i + CHUNK_SIZE);
-  //       chunks.push(chunk);
-  //     }
-
-  //     const base64Chunks = chunks.map(chunk => btoa(String.fromCharCode(...chunk)));
-  //     const base64Image = base64Chunks.join('');
-  //     // Convertir les données binaires en tableau d'octets
-  //     const imageUrlDecoded = `data:image/png;base64,${base64Image}`;
-  //     setImageURL(imageUrlDecoded);
-  //     console.log(imageUrlDecoded);
-  //   } catch (error) {
-  //     console.error('Erreur lors de la récupération de l\'image:', error);
-  //   }
-  // };
   return (
     <ContainerFolderFile>
       <div onContextMenu={onContextMenu} className='flex'>
@@ -71,16 +62,15 @@ export default function File({ title, data, isToClass = false, id, onContextMenu
             trimRight
             basedOn="letters"
           />
-         
         </h3>
         <div className='flex gap-3 mx-auto max-w-[100%] text-wrap'>
-          <Link to = {"http://localhost:3000/file/show/" + id}>
+          <Link to={`http://localhost:3000/file/show/${id}`}>
             <img src="../src/assets/images/eye.svg" alt="" />
           </Link>
           <img src="../src/assets/images/trash-can-alt-2.svg" alt="" onClick={deleteFile} />
-          <a href={"http://localhost:3000/file/download/" + id}><img src="../src/assets/images/download-alt.svg" alt="" /></a>
+          <a href={`http://localhost:3000/file/download/${id}`}><img src="../src/assets/images/download-alt.svg" alt="" /></a>
         </div>
       </div>
     </ContainerFolderFile>
-  )
+  );
 }

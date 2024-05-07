@@ -23,7 +23,7 @@ export default function Header({ hasSearch, name, title }) {
     }
     return (
         <div className='flex flex-col w-[100%] gap-2'>
-            <div className='bg-white flex justify-between mx-5 mt-5'>
+            <div className='bg-white flex justify-between mx-5 mt-5   shadow-md'>
                 {
                     hasSearch &&
                     <div className='flex w-[100%]'>
