@@ -10,6 +10,7 @@ import { useMyContext } from "../../contexts/MyContext";
 import PopupAlert from "../../ui/Popup";
 import HeaderWorkspace from "../HeaderWorkspace";
 import ItemLinkPage from "../../ui/ItemLinkPage";
+import Swal from "sweetalert2";
 
 export default function ArchDocs() {
 
@@ -138,37 +139,76 @@ export default function ArchDocs() {
     };
 
 
+    const TopNotification = Swal.mixin({
+        toast: true,
+        position: "bottom-end",
+        showConfirmButton: false,
+        timer: 6000,
+        timerProgressBar: true,
+
+    });
+
+    function showAlert(icon, title, text) {
+        Swal.fire({
+            icon: icon,
+            title: title,
+            text: text,
+            showConfirmButton: false,
+            width: 500,
+            timer: 6000
+        });
+    }
+
+
     const handleSubmitDocument = async (event) => {
         event.preventDefault()
         const token = localStorage.getItem('token')
         console.log(token);
         const isValid = validateDoc()
-        try {
-            const formData = new FormData();
-            formData.append('file', file);
-            formData.append('idOwner', parseInt(selectedOwner));
-            formData.append('description', docsDesc);
-            formData.append('idUser', 1);
-
-            await axios.post('http://localhost:3000/file/upload', formData).then(res => {
-                if (res.status === 201) {
-                    navigate('/archive')
-                    window.location.href = '/archive'
-                }
-            }).catch((err) => {
-                setErrorDoc(true)
-                setErrorMessageDoc(err.response.data)
-            })
-        } catch (error) {
-            console.error('Erreur lors du téléchargement du fichier :', error);
-        }
 
         if (isValid) {
-            console.log('isValid to upload');
-        } else {
-            console.log('failled to upload');
+            try {
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('idOwner', parseInt(selectedOwner));
+                formData.append('description', docsDesc);
+                formData.append('idUser', 1);
+
+                await axios.post('http://localhost:3000/file/upload', formData).then(res => {
+                    if (res.status === 201) {
+                        navigate('/archive')
+                        window.location.href = '/archive'
+                        TopNotification.fire({
+                            icon: "success",
+                            title: "Le fichier est archivée"
+                        });
+                    }
+                }).catch((err) => {
+                    setErrorDoc(true)
+                    setErrorMessageDoc(err.response.data)
+                    showAlert(
+                        "warning",
+                        "Erreur",
+                        `Erreur lors du téléchargement du fichier ${err.response.data}`
+                    );
+                })
+            } catch (error) {
+                console.error('Erreur lors du téléchargement du fichier :', error);
+                showAlert(
+                    "warning",
+                    "Erreur",
+                    `Erreur lors du téléchargement du fichier ${error}`
+                );
+
+
+            }
         }
+       
+
+
     }
+
+
 
     return (
         <>

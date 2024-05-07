@@ -9,6 +9,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useMyContext } from '../contexts/MyContext';
 import ItemMenu from '../ui/ItemMenu'
 import ReactPaginate from 'react-paginate';
+import ActionBtns from './ActionBtns'
 
 
 export default function FoldersWorkspace() {
@@ -98,10 +99,11 @@ export default function FoldersWorkspace() {
 
                     <div>
                         <Link to="/createfolder">
-                            <button className='flex flex-row justify-center items-center bg-blue-600 rounded-2xl w-[150px] h-[50px] text-white'>
-                                <img src="src/assets/images/add.svg" alt="" />
-                                <span>Création</span>
-                            </button>
+                            <ActionBtns
+                            className='flex flex-row justify-center items-center bg-blue-600 rounded-2xl w-[150px] h-[50px] text-white'
+                            src="src/assets/images/add.svg"
+                            label="Création"
+                            />
                         </Link>
                     </div>
                 </div>
