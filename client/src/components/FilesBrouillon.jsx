@@ -30,35 +30,39 @@ export default function FilesBrouillon() {
     setCurrentPage(selectedPage);
   };
   const getFiles = async () => await axios.get("http://localhost:3000/file/draft").then(res => setFiles(res.data))
-  useEffect(() => { getFiles() }, ['files'])
+  useEffect(() => { getFiles() }, [files])
   return (
     <>
-      <HeaderWorkspace title="Dossiers" message="Parcourez les dossiers">
-        <ItemLinkPage title="Dashboard" path="/dashboard" />
+      <HeaderWorkspace title="Brouillon des Documents">
+        <ItemLinkPage title="Dashboard / Brouillon" path="/documents" />
       </HeaderWorkspace>
-      <WorkSpace message="Parcourez les dossiers">
-        {
-          getCurrentPageData().map(file => (
-            <tr key={file.id}>
-              <File id={file.id} title={file.name} isToClass={true} />
-            </tr>
-          ))
-        }
+      <WorkSpace message="Parcourez les dossiers créés">
+        <div className='flex flex-wrap w-[100%] overflow-x-auto h-[70%]'>
+          {
+            getCurrentPageData().map(file => (
+              <tr key={file.id}>
+                <File id={file.id} title={file.name} isToClass={true} />
+              </tr>
+            ))
+          }
+        </div>
+
+        <div className='flex'>
+          <ReactPaginate
+            previousLabel={"Précédent"}
+            nextLabel={"Suivant"}
+            breakLabel={"..."}
+            pageCount={Math.ceil(files.length / itemsPerPage)} // Calcul du nombre total de pages
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={handlePageClick}
+            containerClassName={"flex justify-end gap-6 text-[20px] px-5"}
+            activeClassName={"active"}
+          />
+        </div>
       </WorkSpace>
-      <div className='flex'>
-        <ReactPaginate
-          previousLabel={"Précédent"}
-          nextLabel={"Suivant"}
-          breakLabel={"..."}
-          pageCount={Math.ceil(files.length / itemsPerPage)} // Calcul du nombre total de pages
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={handlePageClick}
-          containerClassName={"flex justify-end gap-6 text-[20px] px-5"}
-          activeClassName={"active"}
-        />
-      </div>
-      <Pagination />
+
+      {/* <Pagination/> */}
     </>
   )
 }

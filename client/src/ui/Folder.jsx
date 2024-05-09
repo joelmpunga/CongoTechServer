@@ -7,18 +7,20 @@ import LinesEllipsis from 'react-lines-ellipsis';
 import { useNavigate } from 'react-router-dom'
 
 
-export default function Folder({ title, taille, isToClass = false, idFile, idSub }) {
+export default function Folder({ title, taille, isToClass = false, idFile, idSub, onContextMenu}) {
     const navigate = useNavigate()
     const onClickClasser = async () => {
         await axios.put(`http://localhost:3000/file/classer/${idFile}`, { idSub }).then(() => {
             navigate(`/file/draft`)
         });
     }
+
+  
     return (
-        <ContainerFolderFile >
+        <ContainerFolderFile onContextMenu={onContextMenu} >
             <img src="../src/assets/images/icon-folder.png" alt="" width={150} height={150} />
             <div className='flex'>
-                <h3 className='mx-auto max-w-[40%] '>
+                <h3 className='max-w-[100%] '>
                     <LinesEllipsis
                         text={title}
                         maxLine="1"
@@ -31,6 +33,7 @@ export default function Folder({ title, taille, isToClass = false, idFile, idSub
                     isToClass && <Link to="" onClick={onClickClasser}> <BouttonIcon imageUrl="../src/assets/images/Ok-icon.svg" msg="Classer" taille="w-6 h-6" /></Link>
                 }
             </div>
+
         </ContainerFolderFile>
     )
 }

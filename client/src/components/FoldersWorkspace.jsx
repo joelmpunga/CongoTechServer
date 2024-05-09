@@ -9,9 +9,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useMyContext } from '../contexts/MyContext';
 import ItemMenu from '../ui/ItemMenu'
 import ReactPaginate from 'react-paginate';
+import ActionBtns from './ActionBtns'
 
 
 export default function FoldersWorkspace() {
+    const [isVisible, setIsVisible] = useState(false);
+    const [position, setPosition] = useState({ x: 0, y: 0 });
     const { isAuthenticated, updateIsAuthenticated } = useMyContext();
     const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated')
     const navigate = useNavigate()
@@ -21,7 +24,7 @@ export default function FoldersWorkspace() {
     const [folders, setFolders] = useState([])
     //fonctions pour la pagination
     const [currentPage, setCurrentPage] = useState(0);
-    const [itemsPerPage] = useState(5); // Nombre d'éléments à afficher par page
+    const [itemsPerPage] = useState(10); // Nombre d'éléments à afficher par page
     // Fonction pour obtenir les éléments de la page actuelle
     const getCurrentPageData = () => {
         const startIndex = currentPage * itemsPerPage;
@@ -36,23 +39,39 @@ export default function FoldersWorkspace() {
 
     const getFolders = async () => await axios.get("http://localhost:3000/folder").then(res => setFolders(res.data))
     useEffect(() => { getFolders() }, ['folders'])
-    // const getFolders = async () => await axios.get("http://localhost:3000/profile", {
-    //     headers: {
-    //         'Authorization': `Bearer ${token}`
-    //     }
-    // }).then(res => setFolders(res.data))
+
+
+
+    const showMenu = (e) => {
+        e.preventDefault();
+        setIsVisible(true);
+        setPosition({ x: e.clientX, y: e.clientY });
+    };
+
+    const hideMenu = () => {
+        setIsVisible(false);
+    };
     return (
         <>
-            <Link to="/createfolder">
-                <button className='bg-blue-600 rounded-2xl w-[150px] h-[50px] ml-10 text-white'>
-                    Création
-                </button>
-            </Link>
-            <HeaderWorkspace title="Dossiers" message="Parcourez les dossiers">
+
+            <HeaderWorkspace title="Dossiers">
                 <ItemLinkPage title="Dashboard" path="/dashboard" />
             </HeaderWorkspace>
             <WorkSpace message="Parcourez les dossiers">
-                <div className='flex flex-wrap w-[100%] overflow-x-auto h-[70%]'>
+                <div onContextMenu={showMenu} className='flex flex-wrap w-[100%] overflow-x-auto h-[70%]'>
+                    {isVisible && (
+                        <div
+                            className="absolute bg-white border border-gray-300 p-2 shadow-md"
+                            style={{ left: position.x, top: position.y }}
+                        >
+                            <ul>
+                                <li className="cursor-pointer py-2 px-4 hover:bg-gray-100" >Ouvrir</li>
+                                <li className="cursor-pointer py-2 px-4 hover:bg-gray-100" >Renomer</li>
+                                <li className="cursor-pointer py-2 px-4 hover:bg-gray-100" >Supprimer</li>
+                                <li className="cursor-pointer py-2 px-4 hover:bg-gray-100" >Détails du dossier</li>
+                            </ul>
+                        </div>
+                    )}
 
                     {
                         getCurrentPageData().map(folder => (
@@ -62,8 +81,10 @@ export default function FoldersWorkspace() {
                         ))
                     }
 
+
                 </div>
-                <div className='flex'>
+
+                <div className='flex justify-between w-full mx-5'>
                     <ReactPaginate
                         previousLabel={"Précédent"}
                         nextLabel={"Suivant"}
@@ -75,6 +96,16 @@ export default function FoldersWorkspace() {
                         containerClassName={"flex justify-end gap-6 text-[20px]"}
                         activeClassName={"active"}
                     />
+
+                    <div>
+                        <Link to="/createfolder">
+                            <ActionBtns
+                            className='flex flex-row justify-center items-center bg-blue-600 rounded-2xl w-[150px] h-[50px] text-white'
+                            src="src/assets/images/add.svg"
+                            label="Création"
+                            />
+                        </Link>
+                    </div>
                 </div>
             </WorkSpace>
         </>

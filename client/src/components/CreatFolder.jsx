@@ -8,6 +8,8 @@ import SaveCancelBtns from "./archDoc/SaveCancelBtns";
 import { useNavigate } from "react-router-dom";
 import { useMyContext } from "../contexts/MyContext";
 import PopupAlert from "../ui/Popup";
+import HeaderWorkspace from "./HeaderWorkspace";
+import ItemLinkPage from "../ui/ItemLinkPage";
 
 export default function CreatFolder() {
     const navigate = useNavigate()
@@ -88,14 +90,14 @@ export default function CreatFolder() {
     console.log(subDescFold, nomSubFold, parentFolder);
     return (
         <>
-            <div className="m-5 flex flex-row justify-between w-creen">
-                <h2 className="">Créer un dossier et un sous-dossier</h2>
-                <p>Dashboard / dossier</p>
-            </div>
+            
+            <HeaderWorkspace title="Créer un dossier et un sous-dossier">
+                <ItemLinkPage title="Dashboard" path="/dossier" />
+            </HeaderWorkspace>
 
-            <div className="flex ">
+            <div className="flex mx-auto mt-10 ">
 
-                <div className="flex gap-10 w-full justify-center items-center">
+                <div className="flex gap-16 w-full justify-center items-center">
                     <div className="w-[650px] border border-gray-200 shadow-md">
                         <Title title='Création d’un sous dossier' />
                         {

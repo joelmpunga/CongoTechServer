@@ -23,20 +23,23 @@ export default function Header({ hasSearch, name, title }) {
     }
     return (
         <div className='flex flex-col w-[100%] gap-2'>
-            <div className='bg-white flex justify-between mx-10 mt-5'>
+            <div className='bg-white flex justify-between mx-5 mt-5   shadow-md'>
                 {
                     hasSearch &&
-                    <div className='flex w-[100%] gap-4'>
+                    <div className='flex w-[100%]'>
                         <img src="../src/assets/images/search2.svg" alt="search" width={30} height={30} />
-                        <input className='mx-5 outline-none w-full' placeholder="Type for search" />
+                        <input className=' mx-5 outline-none w-full' placeholder="Rechercher" />
                     </div>
                 }
-                <div className='flex gap-5'>
-                    <div>
-                        <h2>{name}</h2>
-                        <h3>{title}</h3>
+                <div className='flex'>
+                    <div className='flex'>
+                        <div>
+                            <span>{name} </span>
+                            <span>{title}</span>
+                        </div>
+                        <img src="../src/assets/images/avatar.svg" alt="" />
                     </div>
-                    <img src="../src/assets/images/avatar.svg" alt="" />
+                    
                     {
                         !disconnect ? <img src="../src/assets/images/chevron-down.svg" alt="log out" onClick={handleClick} /> : <img src="../src/assets/images/chevron-up-black.svg" alt="log out" onClick={handleClick} />
                     }
