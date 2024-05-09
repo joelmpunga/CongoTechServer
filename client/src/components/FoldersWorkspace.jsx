@@ -58,25 +58,13 @@ export default function FoldersWorkspace() {
                 <ItemLinkPage title="Dashboard" path="/dashboard" />
             </HeaderWorkspace>
             <WorkSpace message="Parcourez les dossiers">
-                <div onContextMenu={showMenu} className='flex flex-wrap w-[100%] overflow-x-auto h-[70%]'>
-                    {isVisible && (
-                        <div
-                            className="absolute bg-white border border-gray-300 p-2 shadow-md"
-                            style={{ left: position.x, top: position.y }}
-                        >
-                            <ul>
-                                <li className="cursor-pointer py-2 px-4 hover:bg-gray-100" >Ouvrir</li>
-                                <li className="cursor-pointer py-2 px-4 hover:bg-gray-100" >Renomer</li>
-                                <li className="cursor-pointer py-2 px-4 hover:bg-gray-100" >Supprimer</li>
-                                <li className="cursor-pointer py-2 px-4 hover:bg-gray-100" >Détails du dossier</li>
-                            </ul>
-                        </div>
-                    )}
+                <div  className='flex flex-wrap w-[100%] overflow-x-auto h-[70%]'>
+                    
 
                     {
                         getCurrentPageData().map(folder => (
                             <Link key={folder.id} to={{ pathname: `/subfolder/${folder.id}`, state: { id: folder.id } }}>
-                                <Folder title={folder.titre} id={folder.id} />
+                                <Folder onContextMenu={showMenu} isVisible={isVisible} position={position} title={folder.titre} id={folder.id} />
                             </Link>
                         ))
                     }
