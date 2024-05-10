@@ -30,7 +30,7 @@ export default function FilesBrouillon() {
     setCurrentPage(selectedPage);
   };
   const getFiles = async () => await axios.get("http://localhost:3000/file/draft").then(res => setFiles(res.data))
-  useEffect(() => { getFiles() }, ['files'])
+  useEffect(() => { getFiles() }, [files])
   return (
     <>
       <HeaderWorkspace title="Brouillon des Documents">

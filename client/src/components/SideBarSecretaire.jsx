@@ -6,10 +6,10 @@ import { Link,useNavigate } from 'react-router-dom'
 
 export default function SideBarSecretaire() {
   const navigate = useNavigate()
-    const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated')
-    if (!isAuthenticatedLocalStorage) {
-        navigate('/login')
-    }
+  const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated')
+  if (!isAuthenticatedLocalStorage) {
+    navigate('/login')
+  }
   return (
 
     <div className='bg-black min-h-screen w-[430px] text-[20px] font-bold'>
@@ -17,10 +17,18 @@ export default function SideBarSecretaire() {
       <div className='overflow-x-hidden h-[70%]'>
 
         <Menu title="Rapports & Statistiques" hasManyMenuItems={true} hasNumberCount={false} iconeRightOff="../src/assets/images/chevron-down.svg" iconeRightOn="../src/assets/images/chevron-up.svg" iconeLeft="../src/assets/images/Group.svg">
-          <ItemMenu actived={true} title="Documents" />
-          <ItemMenu actived={true} title="Emails" />
-          <ItemMenu actived={true} title="Utilisteurs" />
-          <ItemMenu actived={true} title="Clients" />
+          <Link to="/charts/doc">
+            <ItemMenu actived={true} title="Documents" />
+          </Link>
+          <Link to="/charts/mail">
+            <ItemMenu actived={true} title="Emails" />
+          </Link>
+          <Link to="/charts/user">
+            <ItemMenu actived={true} title="Utilisteurs" />
+          </Link>
+          <Link to="/charts/client">
+            <ItemMenu actived={true} title="Clients" />
+          </Link>
         </Menu>
         
         <Link to="/folder">

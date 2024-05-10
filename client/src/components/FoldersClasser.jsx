@@ -71,7 +71,7 @@ export default function FoldersClasser() {
             TopNotification.fire({
                 icon: "success",
                 title: "Archiver un ou plusieurs e-mails",
-                text: "Le(s) e-mails sont copiés avec succes dans le presse-papiers, veuillez selectionner le dossiers  et ensuite le sous dossier. S’ils n’existent, veuillez annuler et les créer d’abord",
+                text: "Le(s) e-mails sont copiés avec succes dans le presse-papiers, veuillez selectionner le dossiers et ensuite le sous dossier. S’ils n’existent, veuillez annuler et les créer d’abord",
                 width: 500,
                 height: 300,
                 timer: 6000
