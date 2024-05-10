@@ -40,9 +40,9 @@ export default function ChartsArea({ title }) {
         },
     ]
     return (
-        <>
-            <h1>{title}</h1>
-            <AreaChart width={730} height={250} data={data}
+        <div className='shadow-2xl h-[40Opx]'>
+            <h1 className='text-[24px] text-blue-700 border p-2'>{title}</h1>
+            <hr />            <AreaChart width={730} height={250} data={data}
                 margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                 <defs>
                     <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
@@ -61,6 +61,6 @@ export default function ChartsArea({ title }) {
                 <Area type="monotone" dataKey="uv" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
                 <Area type="monotone" dataKey="pv" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
             </AreaChart>
-        </>
+        </div>
     )
 }

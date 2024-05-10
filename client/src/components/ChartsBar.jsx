@@ -60,8 +60,9 @@ export default function ChartsBar({title}) {
     }
   ]
   return (
-    <>
-      <h1>{title}</h1>
+    <div className='shadow-2xl h-[40Opx]'>
+      <h1 className='text-[24px] text-blue-700 border p-2'>{title}</h1>
+      <hr/>
       <BarChart width={730} height={250} data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
@@ -71,7 +72,7 @@ export default function ChartsBar({title}) {
         <Bar dataKey="doc" fill="#8884d8" />
         <Bar dataKey="email" fill="#82ca9d" />
       </BarChart>
-    </>
+    </div>
 
   )
 }

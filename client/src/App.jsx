@@ -20,22 +20,28 @@ import { useMyContext } from './contexts/MyContext'
 import { useNavigate } from 'react-router-dom'
 
 
-function App({ children,getUserData }) {
+function App({ children, getUserData }) {
   //const { isAuthenticated, updateIsAuthenticated,role,updateRole,nom,updateNom,postnom,updatePostNom } = useMyContext();
   const nom = localStorage.getItem('nom');
   const postnom = localStorage.getItem('postnom');
   const role = localStorage.getItem('role');
   const isAuthenticated = localStorage.getItem('isAuthenticated');
   const navigate = useNavigate()
-  if(!isAuthenticated){
+  if (!isAuthenticated) {
     navigate("/login");
   }
+
+
   return (
+
     <>
       <div className='flex gap-0 w-full fixed'>
-        <SideBarSecretaire />
+        {
+          role==='ADMIN'?<SideBarAdmin />:<SideBarSecretaire />
+        }
+        {/* <SideBarSecretaire /> */}
         <div className='flex flex-col gap-6 w-full'>
-          <Header hasSearch={true} name= {nom + " " + postnom} title={role} />
+          <Header hasSearch={true} name={nom + " " + postnom} title={role} />
           {
             children
           }

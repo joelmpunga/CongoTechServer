@@ -209,7 +209,7 @@ export default class filesController {
                 return res.status(404).send('File not found');
             }
             //res.sendFile(path.join(__dirname, data.path));
-            res.download(path.join(__dirname, data.path));
+            res.download(path.join(process.cwd(), data.path));
             //res.json(data.path)
             return data.path
         }
@@ -227,7 +227,7 @@ export default class filesController {
             if (!data) {
                 return res.status(404).send('File not found');
             }
-            res.sendFile(path.join(__dirname, data.path));
+            res.sendFile(path.join(process.cwd(), data.path));
             //res.download(data.path);
             //res.json(data.path)
             return data.path

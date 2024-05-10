@@ -1,14 +1,7 @@
 import React from 'react'
 import { RadialBarChart, RadialBar, Legend, Tooltip } from 'recharts'
-export default function ChartsBarRadial({title}) {
+export default function ChartsBarRadial({ title }) {
     const data = [
-        {
-            "name": "autres",
-            "uv": 31.47,
-            "pv": 2400,
-            "fill": "#8884d8"
-        },
-
         {
             "name": "png",
             "uv": 8.22,
@@ -35,8 +28,9 @@ export default function ChartsBarRadial({title}) {
         }
     ]
     return (
-        <>
-            <h1 className='mx-auto w-[40%]'>{title}</h1>
+        <div className='shadow-2xl h-[40Opx]'>
+            <h1 className='text-[24px] text-blue-700 border p-2'>{title}</h1>
+            <hr />            
             <RadialBarChart
                 width={730}
                 height={250}
@@ -50,6 +44,6 @@ export default function ChartsBarRadial({title}) {
                 <Legend iconSize={10} width={120} height={140} layout='vertical' verticalAlign='middle' align="right" />
                 <Tooltip />
             </RadialBarChart>
-        </>
+        </div>
     )
 }

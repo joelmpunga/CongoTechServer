@@ -1,8 +1,8 @@
 import React from 'react'
 
-export default function ContainerFolderFile({children}) {
+export default function ContainerFolderFile({children, onContextMenu}) {
   return (
-    <div className='bg-gray-200 rounded-3xl w-[15rem] h-[15rem] m-8 p-6 hover:bg-gray-300'>
+    <div onContextMenu={onContextMenu} className='flex flex-col justify-center items-center bg-gray-200 rounded-3xl w-[13rem] h-[13rem] m-5 p-4 hover:bg-gray-300'>
       {
         children
       }
