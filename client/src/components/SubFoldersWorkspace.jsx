@@ -5,6 +5,9 @@ import HeaderWorkspace from './HeaderWorkspace'
 import ItemLinkPage from '../ui/ItemLinkPage'
 import { Link, useParams,useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import ReactPaginate from 'react-paginate';
+import ActionBtns from './ActionBtns'
+
 export default function SubFoldersWorkspace() {
     const navigate = useNavigate()
     const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated')
@@ -17,6 +20,20 @@ export default function SubFoldersWorkspace() {
     const getSubFolders = async () => await axios.get("http://localhost:3000/subfolder/" + params.id).then(res => setSubFolders(res.data))
     useEffect(() => { getSubFolders() }, ['subFolders'])
     console.log(subFolders);
+        //fonctions pour la pagination
+        const [currentPage, setCurrentPage] = useState(0);
+        const [itemsPerPage] = useState(10); // Nombre d'éléments à afficher par page
+        // Fonction pour obtenir les éléments de la page actuelle
+        const getCurrentPageData = () => {
+            const startIndex = currentPage * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            return subFolders.slice(startIndex, endIndex);
+        };
+    
+        const handlePageClick = (data) => {
+            const selectedPage = data.selected;
+            setCurrentPage(selectedPage);
+        };
     return (
         <>
             <HeaderWorkspace title="Sous dossiers" >
@@ -32,6 +49,30 @@ export default function SubFoldersWorkspace() {
                             </Link>
                         ))
                     }
+                </div>
+
+                <div className='flex justify-between w-full mx-5'>
+                    <ReactPaginate
+                        previousLabel={"Précédent"}
+                        nextLabel={"Suivant"}
+                        breakLabel={"..."}
+                        pageCount={Math.ceil(subFolders.length / itemsPerPage)} // Calcul du nombre total de pages
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={5}
+                        onPageChange={handlePageClick}
+                        containerClassName={"flex justify-end gap-6 text-[20px]"}
+                        activeClassName={"active"}
+                    />
+
+                    <div>
+                        <Link to="/createfolder">
+                            <ActionBtns
+                            className='flex flex-row justify-center items-center bg-blue-600 rounded-2xl w-[150px] h-[50px] text-white'
+                            src="../src/assets/images/add.svg"
+                            label="Création"
+                            />
+                        </Link>
+                    </div>
                 </div>
             </WorkSpace>
         </>

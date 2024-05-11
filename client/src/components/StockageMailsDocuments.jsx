@@ -12,6 +12,7 @@ import NextBtn from './nextPrevBtns/NextBtn'
 import PrevBtn from './nextPrevBtns/PrevBtn'
 import { Link } from 'react-router-dom'
 import { useMyContext } from '../contexts/MyContext'
+import ActionBtns from './ActionBtns'
 export default function StockageMailsDocuments() {
     const { idfile, handleCloseContextMenu, contextMenuVisible, contextMenuPosition } = useMyContext();
 
@@ -40,8 +41,8 @@ export default function StockageMailsDocuments() {
     const getFiles = async () => await axios.get("http://localhost:3000/file/" + id).then(res => setFiles(res.data))
     useEffect(() => { getFiles() }, ['files'])
     console.table(files);
-    
-    
+
+
     return (
         <>
             <HeaderWorkspace title="Documents & Mails" >
@@ -66,7 +67,7 @@ export default function StockageMailsDocuments() {
                                 <Link to={`http://localhost:3000/file/show/${idfile}`}>
                                     <span className="flex gap-4 py-1 px-1 hover:bg-gray-100 cursor-pointer"><img src="../src/assets/images/eye.svg" alt="" /> Ouvrir</span>
                                 </Link>
-                                
+
 
                             </div>
                         </div>
@@ -106,18 +107,28 @@ export default function StockageMailsDocuments() {
                 <Mail title="Mail" data={data} />
                 <File title="File.png" />*/}
 
-                <div className='flex w-full mx-5'>
+                <div className='flex justify-between w-full mx-5'>
                     <ReactPaginate
-                        previousLabel={<PrevBtn />}
-                        nextLabel={<NextBtn />}
+                        previousLabel={"Précédent"}
+                        nextLabel={"Suivant"}
                         breakLabel={"..."}
                         pageCount={Math.ceil(files.length / itemsPerPage)} // Calcul du nombre total de pages
                         marginPagesDisplayed={2}
                         pageRangeDisplayed={5}
                         onPageChange={handlePageClick}
-                        containerClassName={"flex justify-end gap-6 text-[20px] px-5"}
+                        containerClassName={"flex justify-end gap-6 text-[20px]"}
                         activeClassName={"active"}
                     />
+
+                    <div>
+                        <Link to="/archive">
+                            <ActionBtns
+                                className='flex flex-row justify-center items-center bg-blue-600 rounded-2xl w-[150px] h-[50px] text-white'
+                                src="../src/assets/images/add.svg"
+                                label="Archiver"
+                            />
+                        </Link>
+                    </div>
                 </div>
 
             </WorkSpace>
