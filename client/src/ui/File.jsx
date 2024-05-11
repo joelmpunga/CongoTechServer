@@ -5,12 +5,17 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import LinesEllipsis from 'react-lines-ellipsis';
 import Swal from 'sweetalert2';
+import { useMyContext } from '../contexts/MyContext';
 
-export default function File({ title, data, isToClass = false, id, onContextMenu }) {
+export default function File({ title, data, isToClass = false, id }) {
+  const { setIdFile, handleContextMenu} = useMyContext();
   const location = useLocation();
   const actualUrl = location.pathname;
   const navigate = useNavigate();
   const [imageURL, setImageURL] = useState(null);
+
+  setIdFile(id)
+
 
   const deleteFile = async () => {
     const confirmation = await Swal.fire({
@@ -42,10 +47,30 @@ export default function File({ title, data, isToClass = false, id, onContextMenu
     }
   }
 
+
+  // const [contextMenuVisible, setContextMenuVisible] = useState(false);
+  // const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
+
+  // const handleContextMenu = (e) => {
+  //   e.preventDefault();
+  //   setContextMenuidfileVisible(true);
+  //   setContextMenuPosition({ x: e.clientX, y: e.clientY });
+  // };
+
+  // const handleCloseContextMenu = () => {
+  //   setContextMenuVisible(false);
+  // };
+
+
   return (
     <ContainerFolderFile>
-      <div onContextMenu={onContextMenu} className='flex'>
+      <div className='flex'>
         <img src="../src/assets/images/icon-file.png" alt="" width={120} height={120} />
+        <div id={id} onClick={handleContextMenu}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 40 40"><g fill="white"><path d="M23.112 9.315a3.113 3.113 0 1 1-6.226.002a3.113 3.113 0 0 1 6.226-.002" /><circle cx="20" cy="19.999" r="3.112" /><circle cx="20" cy="30.685" r="3.112" /></g></svg>
+          
+
+        </div>
         {
           isToClass &&
           <Link key={id} to={{ pathname: `/folderclasser/${id}`, state: { id: id } }} className='flex flex-row'>

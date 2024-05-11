@@ -14,7 +14,7 @@ export default function SideBarSecretaire() {
 
     <div className='bg-black min-h-screen w-[430px] text-[20px] font-bold'>
       <LogoSideBar />
-      <div className='overflow-x-hidden h-[70%]'>
+      <div className='flex flex-col gap-7 overflow-x-hidden h-[70%] shadow-lg'>
 
         <Menu title="Rapports & Statistiques" hasManyMenuItems={true} hasNumberCount={false} iconeRightOff="../src/assets/images/chevron-down.svg" iconeRightOn="../src/assets/images/chevron-up.svg" iconeLeft="../src/assets/images/Group.svg">
           <Link to="/charts/doc">

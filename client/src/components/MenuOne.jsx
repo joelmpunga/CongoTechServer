@@ -11,18 +11,18 @@ export default function MenuOne({ title, iconeLeft }) {
         setActived(!actived)
     }
     return (
-        <div className="mx-8 my-5 text-fontSize-extra-large p-4 rounded-xl hover:bg-blue-900 backdrop-blur-sm bg-gray-600 ">
+        <div className="text-fontSize-extra-large p-4 hover:bg-gray-600 backdrop-blur-sm  ">
             {
                 actived ?
                     
-                        <h2 className='flex gap-3 w-[80%] mx-auto text-white' onClick={handleClick}>
+                        <h2 className='flex gap-4 w-[100%] mx-auto text-white' onClick={handleClick}>
                             <img src={iconeLeft} alt="iconMenu" />
                             {title}
 
                         </h2>
                     :
 
-                    <h2 className='flex gap-3 w-[80%] mx-auto text-white' onClick={handleClick}>
+                    <h2 className='flex gap-4 w-[100%] mx-auto text-white' onClick={handleClick}>
                         <img src={iconeLeft} alt="iconMenu" />
                         {title}
 

@@ -11,13 +11,15 @@ export default function Menu({ title, children, iconeLeft, iconeRightOff, iconeR
         setActived(!actived)
     }
     return (
-        <div className="mx-8 my-5 text-fontSize-extra-large p-4 rounded-xl hover:bg-blue-900 backdrop-blur-sm bg-gray-600 ">
+        <div className=" text-fontSize-extra-large p-4 hover:bg-gray-600   backdrop-blur-sm  ">
             {
                 actived ?
                     <div>
-                        <h2 className='flex gap-3 w-[80%] mx-auto text-white' onClick={handleClick}>
-                            <img src={iconeLeft} alt="iconMenu" />
-                            {title}
+                        <h2 className='flex flex-row justify-between w-[100%] text-white' onClick={handleClick}>
+                            <div className="flex gap-4">
+                                <img src={iconeLeft} alt="iconMenu" />
+                                {title}
+                            </div>
                             {hasManyMenuItems ?
                                 <img src={iconeRightOn} alt="iconOn" />
                                 : hasNumberCount ? number : ""}
@@ -26,9 +28,11 @@ export default function Menu({ title, children, iconeLeft, iconeRightOff, iconeR
                             {children}
                         </div>
                     </div> :
-                    <h2 className='flex gap-3 w-[80%] mx-auto text-white' onClick={handleClick}>
-                        <img src={iconeLeft} alt="iconMenu" />
-                        {title}
+                    <h2 className='flex flex-row justify-between w-[100%] text-white' onClick={handleClick}>
+                        <div className="flex gap-4">
+                            <img src={iconeLeft} alt="iconMenu" />
+                            {title}
+                        </div>
                         {hasManyMenuItems ?
                             <img src={iconeRightOff} alt="iconOff" />
                             : hasNumberCount ? <div className="bg-blue-500 h-7 rounded-md min-w-6 px-3 py-auto my-auto">{number}</div> : ""}

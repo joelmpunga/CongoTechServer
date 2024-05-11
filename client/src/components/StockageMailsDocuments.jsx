@@ -11,9 +11,10 @@ import { useNavigate } from 'react-router-dom';
 import NextBtn from './nextPrevBtns/NextBtn'
 import PrevBtn from './nextPrevBtns/PrevBtn'
 import { Link } from 'react-router-dom'
+import { useMyContext } from '../contexts/MyContext'
 export default function StockageMailsDocuments() {
-    const [isVisible, setIsVisible] = useState(false);
-    const [position, setPosition] = useState({ x: 0, y: 0 });
+    const { idfile, handleCloseContextMenu, contextMenuVisible, contextMenuPosition } = useMyContext();
+
     const navigate = useNavigate()
     const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated')
     if (!isAuthenticatedLocalStorage) {
@@ -39,31 +40,38 @@ export default function StockageMailsDocuments() {
     const getFiles = async () => await axios.get("http://localhost:3000/file/" + id).then(res => setFiles(res.data))
     useEffect(() => { getFiles() }, ['files'])
     console.table(files);
-
-    const showMenu = (e) => {
-        e.preventDefault();
-        setIsVisible(true);
-        setPosition({ x: e.clientX, y: e.clientY });
-    };
-
-    const hideMenu = () => {
-        setIsVisible(false);
-    };
-    const gOnclick = () => {
-        hideMenu()
-    }
+    
+    
     return (
         <>
             <HeaderWorkspace title="Documents & Mails" >
                 <ItemLinkPage title="Dashboard" path="/dashboard" />
-                <ItemLinkPage title="Dossiers" path="/folders" />
-                <ItemLinkPage title="Sous Dossiers" path="/subfolders" />
+                <ItemLinkPage title="/ Dossiers" path="/folders" />
+                <ItemLinkPage title="/ Sous Dossiers" path="/subfolders" />
             </HeaderWorkspace>
 
-            <WorkSpace onClick={gOnclick} message="Parcourez les fichiers et mails">
+            <WorkSpace message="Parcourez les fichiers et mails">
 
                 <div className='flex flex-wrap w-[100%] overflow-x-auto h-[70%]'>
-                    {isVisible && (
+
+
+
+                    {contextMenuVisible && (
+                        <div
+                            className="fixed bg-white border rounded shadow p-2"
+                            style={{ top: contextMenuPosition.y, left: contextMenuPosition.x }}
+                            onClick={handleCloseContextMenu}
+                        >
+                            <div className='flex flex-col'>
+                                <Link to={`http://localhost:3000/file/show/${idfile}`}>
+                                    <span className="flex gap-4 py-1 px-1 hover:bg-gray-100 cursor-pointer"><img src="../src/assets/images/eye.svg" alt="" /> Ouvrir</span>
+                                </Link>
+                                
+
+                            </div>
+                        </div>
+                    )}
+                    {/* {isVisible && (
                         <div
                             className="absolute bg-white border border-gray-300 p-2 shadow-md"
                             style={{ left: position.x, top: position.y }}
@@ -76,19 +84,19 @@ export default function StockageMailsDocuments() {
                                 <li className="cursor-pointer py-2 px-4 hover:bg-gray-100" >Détails du Fichier</li>
                             </ul>
                         </div>
-                    )}
+                    )} */}
                     {
                         getCurrentPageData().map(file => (
 
-                            <tr onContextMenu={showMenu} key={file.id}>
-                                
+                            <tr key={file.id}>
+
                                 <File id={file.id} title={file.name} />
                             </tr>
-                            
+
                         ))
-                       
+
                     }
-                  
+
                 </div>
 
                 {/* <Mail title="Mail" data={data} />

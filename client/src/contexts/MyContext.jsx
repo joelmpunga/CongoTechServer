@@ -8,6 +8,12 @@ export const MyProvider = ({ children }) => {
   const [nom, setNom] = useState(false);
   const [postnom, setPostnom] = useState(false);
 
+  const [contextMenuVisible, setContextMenuVisible] = useState(false);
+  const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
+
+
+  const [idfile, setIdFile] = useState('');
+
   const updateIsAuthenticated = (newData) => {
     setIsAuthenticated(newData);
   };
@@ -22,8 +28,27 @@ export const MyProvider = ({ children }) => {
   }
 
 
+  
+
+  const handleContextMenu = (e) => {
+    e.preventDefault();
+    setIdFile(e.target)
+    setContextMenuVisible(true);
+    setContextMenuPosition({ x: e.clientX, y: e.clientY });
+  };
+
+  const handleCloseContextMenu = () => {
+    setContextMenuVisible(false);
+  };
+ 
+
+  
+
+
+
+
   return (
-    <MyContext.Provider value={{ isAuthenticated, updateIsAuthenticated,role,updateRole,nom,updateNom,postnom,updatePostNom }}>
+    <MyContext.Provider value={{idfile, setIdFile, handleContextMenu, handleCloseContextMenu, contextMenuVisible, contextMenuPosition, isAuthenticated, updateIsAuthenticated,role,updateRole,nom,updateNom,postnom,updatePostNom }}>
       {children}
     </MyContext.Provider>
   );
