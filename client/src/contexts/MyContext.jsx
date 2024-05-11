@@ -32,7 +32,7 @@ export const MyProvider = ({ children }) => {
 
   const handleContextMenu = (e) => {
     e.preventDefault();
-    setIdFile(e.target)
+    setIdFile(e.id)
     setContextMenuVisible(true);
     setContextMenuPosition({ x: e.clientX, y: e.clientY });
   };
