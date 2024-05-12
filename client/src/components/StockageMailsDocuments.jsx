@@ -12,6 +12,7 @@ import NextBtn from './nextPrevBtns/NextBtn'
 import PrevBtn from './nextPrevBtns/PrevBtn'
 import { Link } from 'react-router-dom'
 import { useMyContext } from '../contexts/MyContext'
+import ActionBtns from './ActionBtns'
 export default function StockageMailsDocuments() {
     const { idfile, handleCloseContextMenu, contextMenuVisible, contextMenuPosition } = useMyContext();
 
@@ -23,7 +24,8 @@ export default function StockageMailsDocuments() {
     const params = useParams()
     const id = parseInt(params.id)
     const [files, setFiles] = useState([])
-
+    const [currentSubFolder, setCurrentSubFolder] = useState([])
+    const [currentFolder, setCurrentFolder] = useState([])
     const [currentPage, setCurrentPage] = useState(0);
     const [itemsPerPage] = useState(12); // Nombre d'éléments à afficher par page
     // Fonction pour obtenir les éléments de la page actuelle
@@ -39,15 +41,24 @@ export default function StockageMailsDocuments() {
     };
     const getFiles = async () => await axios.get("http://localhost:3000/file/" + id).then(res => setFiles(res.data))
     useEffect(() => { getFiles() }, ['files'])
-    console.table(files);
-    
-    
+
+    const getCurrentSubFolder = async () => await axios.get("http://localhost:3000/subfolder/getbyid/" + id).then(res => setCurrentSubFolder(res.data))
+    useEffect(() => {
+        getCurrentSubFolder()
+        getCurrentFolder()
+    }, [])
+
+    const getCurrentFolder = async () => await axios.get("http://localhost:3000/folder/" + ).then(res => setCurrentFolder(res.data))
+    console.table(currentSubFolder);
+    console.table(currentFolder);
+
+
     return (
         <>
             <HeaderWorkspace title="Documents & Mails" >
                 <ItemLinkPage title="Dashboard" path="/dashboard" />
-                <ItemLinkPage title="/ Dossiers" path="/folders" />
-                <ItemLinkPage title="/ Sous Dossiers" path="/subfolders" />
+                <ItemLinkPage title= {"/"+currentFolder.titre} path="/folders" />
+                <ItemLinkPage title= {"/"+currentSubFolder.titre} path="/subfolders" />
             </HeaderWorkspace>
 
             <WorkSpace message="Parcourez les fichiers et mails">
@@ -66,7 +77,7 @@ export default function StockageMailsDocuments() {
                                 <Link to={`http://localhost:3000/file/show/${idfile}`}>
                                     <span className="flex gap-4 py-1 px-1 hover:bg-gray-100 cursor-pointer"><img src="../src/assets/images/eye.svg" alt="" /> Ouvrir</span>
                                 </Link>
-                                
+
 
                             </div>
                         </div>
@@ -106,18 +117,28 @@ export default function StockageMailsDocuments() {
                 <Mail title="Mail" data={data} />
                 <File title="File.png" />*/}
 
-                <div className='flex w-full mx-5'>
+                <div className='flex justify-between w-full mx-5'>
                     <ReactPaginate
-                        previousLabel={<PrevBtn />}
-                        nextLabel={<NextBtn />}
+                        previousLabel={"Précédent"}
+                        nextLabel={"Suivant"}
                         breakLabel={"..."}
                         pageCount={Math.ceil(files.length / itemsPerPage)} // Calcul du nombre total de pages
                         marginPagesDisplayed={2}
                         pageRangeDisplayed={5}
                         onPageChange={handlePageClick}
-                        containerClassName={"flex justify-end gap-6 text-[20px] px-5"}
+                        containerClassName={"flex justify-end gap-6 text-[20px]"}
                         activeClassName={"active"}
                     />
+
+                    <div>
+                        <Link to="/archive">
+                            <ActionBtns
+                                className='flex flex-row justify-center items-center bg-blue-600 rounded-2xl w-[150px] h-[50px] text-white'
+                                src="../src/assets/images/add.svg"
+                                label="Archiver"
+                            />
+                        </Link>
+                    </div>
                 </div>
 
             </WorkSpace>

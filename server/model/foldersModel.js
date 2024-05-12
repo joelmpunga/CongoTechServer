@@ -19,6 +19,15 @@ export default class Folder {
         return query
     }
 
+    async getById(id){
+        const query = await prisma.folder.findFirst({
+            where:{
+                id: id,
+            }
+        }).then()
+        return query
+    }
+
     async delete(id){
         const query = await prisma.folder.delete({
             where:{
