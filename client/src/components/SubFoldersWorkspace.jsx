@@ -17,9 +17,16 @@ export default function SubFoldersWorkspace() {
     const params = useParams()
     console.log(params.id);
     const [subFolders, setSubFolders] = useState([])
+    const [currentFolder,setCurrentFolder] = useState([])
     const getSubFolders = async () => await axios.get("http://localhost:3000/subfolder/" + params.id).then(res => setSubFolders(res.data))
-    useEffect(() => { getSubFolders() }, ['subFolders'])
-    console.log(subFolders);
+    const getCurrentFolder = async () => await axios.get("http://localhost:3000/folder/" + params.id).then(res => setCurrentFolder(res.data))
+    useEffect(() => { 
+        getSubFolders() 
+    }, [subFolders])
+    useEffect(() => { 
+        getCurrentFolder()
+    }, [currentFolder])
+    console.log(currentFolder);
         //fonctions pour la pagination
         const [currentPage, setCurrentPage] = useState(0);
         const [itemsPerPage] = useState(10); // Nombre d'éléments à afficher par page
@@ -38,7 +45,7 @@ export default function SubFoldersWorkspace() {
         <>
             <HeaderWorkspace title="Sous dossiers" >
                 <ItemLinkPage title="Dashboard" path="/dashboard" />
-                <ItemLinkPage title="Dossiers" path="/folders" />
+                <ItemLinkPage title= {"/"+currentFolder.titre} path="/folders" />
             </HeaderWorkspace>
             <WorkSpace message="Parcourez les sous dossiers">
                 <div className='flex flex-wrap w-[100%] overflow-x-auto h-[70%]'>

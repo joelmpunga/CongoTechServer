@@ -20,6 +20,16 @@ export default class SubFolder extends Folder {
         const request = await prisma.subFolder.findMany()
         return request
     }
+
+    async getById(id){
+        const query = await prisma.subFolder.findFirst({
+            where:{
+                id: parseInt(id),
+            }
+        }).then()
+        return query
+    }
+
     async getAllByIdFolder(id) {
         const request = await prisma.subFolder.findMany(
             {

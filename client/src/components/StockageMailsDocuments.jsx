@@ -24,7 +24,8 @@ export default function StockageMailsDocuments() {
     const params = useParams()
     const id = parseInt(params.id)
     const [files, setFiles] = useState([])
-
+    const [currentSubFolder, setCurrentSubFolder] = useState([])
+    const [currentFolder, setCurrentFolder] = useState([])
     const [currentPage, setCurrentPage] = useState(0);
     const [itemsPerPage] = useState(12); // Nombre d'éléments à afficher par page
     // Fonction pour obtenir les éléments de la page actuelle
@@ -40,15 +41,24 @@ export default function StockageMailsDocuments() {
     };
     const getFiles = async () => await axios.get("http://localhost:3000/file/" + id).then(res => setFiles(res.data))
     useEffect(() => { getFiles() }, ['files'])
-    console.table(files);
+
+    const getCurrentSubFolder = async () => await axios.get("http://localhost:3000/subfolder/getbyid/" + id).then(res => setCurrentSubFolder(res.data))
+    useEffect(() => {
+        getCurrentSubFolder()
+        getCurrentFolder()
+    }, [])
+
+    const getCurrentFolder = async () => await axios.get("http://localhost:3000/folder/" + ).then(res => setCurrentFolder(res.data))
+    console.table(currentSubFolder);
+    console.table(currentFolder);
 
 
     return (
         <>
             <HeaderWorkspace title="Documents & Mails" >
                 <ItemLinkPage title="Dashboard" path="/dashboard" />
-                <ItemLinkPage title="/ Dossiers" path="/folders" />
-                <ItemLinkPage title="/ Sous Dossiers" path="/subfolders" />
+                <ItemLinkPage title= {"/"+currentFolder.titre} path="/folders" />
+                <ItemLinkPage title= {"/"+currentSubFolder.titre} path="/subfolders" />
             </HeaderWorkspace>
 
             <WorkSpace message="Parcourez les fichiers et mails">
