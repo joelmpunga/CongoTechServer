@@ -102,12 +102,10 @@ export default class filesController {
                 encoding: Joi.string().required(),
                 destination: Joi.string().required(),
                 filename: Joi.string().required(),
-                size: Joi.number().max(5 * 1024 * 1024).required(),
+                size: Joi.number().max(8 * 1024 * 1024).required(),
                 path: Joi.string().required(),
                 // Valider le type de fichier
                 mimetype: Joi.string().valid('image/jpeg', 'image/png', 'image/jpg', 'application/pdf').required(),
-                // Valider la taille du fichier (max 5 Mo)
-                size: Joi.number().max(5 * 1024 * 1024).required(),
             }).required(),
         })
         const { error, value } = schema.validate({ file: req.file, idOwner: req.body.idOwner, idUser: req.body.idUser, description: req.body.description });
@@ -133,7 +131,7 @@ export default class filesController {
         //         res.status(500).json(error);
         //     }
         // });
-        const { description, idOwner, idUser } = req.body
+        const { description, idOwner, idUser,idSubFolder } = req.body
         //const __dirname = path.dirname('/home/joelmpunga/mail-retrieval-app/index.js');
         // console.log(req.file)
         // console.log(req.body);
@@ -146,7 +144,10 @@ export default class filesController {
                 path: req.file.destination.substring(1) + req.file.filename,
                 description: description,
                 idUser: parseInt(idUser),
-                idOwner: parseInt(idOwner)
+                idOwner: parseInt(idOwner),
+            }
+            if (idSubFolder) {
+                data.idSubFolder = parseInt(idSubFolder)
             }
             file.upload(data)
             res.status(201).json({ "message": "Uploaded successfully" });

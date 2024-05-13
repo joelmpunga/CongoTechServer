@@ -18,6 +18,11 @@ import ArchDocs from './components/archDoc/ArchDocs.jsx'
 import CreatFolder from './components/CreatFolder.jsx'
 import OwnerListDocs from './components/OwnerListDocs.jsx'
 import UserList from './components/UserList.jsx'
+import ChartsBar from './components/ChartsBar.jsx';
+import ChartsDocuments from './components/ChartsDocuments.jsx';
+import ChartsMails from './components/ChartsMails.jsx';
+import ChartsClient from './components/ChartsClient.jsx';
+import ChartsUser from './components/ChartsUsers.jsx';
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -67,7 +72,7 @@ const router = createBrowserRouter([
         errorElement: <Error404 />,
       },
       {
-        path: "/subfolderclasser/:id/:idFile",
+        path: "/:id/:idFile",
         element: <><SubFoldersClasser /></>,
         errorElement: <><Error404 /></>,
       },
@@ -94,6 +99,26 @@ const router = createBrowserRouter([
       {
         path: "/userlist",
         element: <><UserList /></>,
+        errorElement: <><Error404 /></>,
+      },
+      {
+        path: "/charts/doc",
+        element: <><ChartsDocuments /></>,
+        errorElement: <><Error404 /></>,
+      },
+      {
+        path: "/charts/mail",
+        element: <><ChartsMails /></>,
+        errorElement: <><Error404 /></>,
+      },
+      {
+        path: "/charts/client",
+        element: <><ChartsClient /></>,
+        errorElement: <><Error404 /></>,
+      },
+      {
+        path: "/charts/user",
+        element: <><ChartsUser /></>,
         errorElement: <><Error404 /></>,
       },
       {

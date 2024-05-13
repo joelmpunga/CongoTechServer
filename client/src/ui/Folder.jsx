@@ -7,7 +7,7 @@ import LinesEllipsis from 'react-lines-ellipsis';
 import { useNavigate } from 'react-router-dom'
 
 
-export default function Folder({ title, taille, isToClass = false, idFile, idSub, onContextMenu}) {
+export default function Folder({title, taille, isToClass = false, idFile, idSub, isVisible, position, onContextMenu }) {
     const navigate = useNavigate()
     const onClickClasser = async () => {
         await axios.put(`http://localhost:3000/file/classer/${idFile}`, { idSub }).then(() => {
@@ -15,25 +15,43 @@ export default function Folder({ title, taille, isToClass = false, idFile, idSub
         });
     }
 
-  
-    return (
-        <ContainerFolderFile onContextMenu={onContextMenu} >
-            <img src="../src/assets/images/icon-folder.png" alt="" width={150} height={150} />
-            <div className='flex'>
-                <h3 className='max-w-[100%] '>
-                    <LinesEllipsis
-                        text={title}
-                        maxLine="1"
-                        ellipsis="..."
-                        trimRight
-                        basedOn="letters"
-                    />
-                </h3>
-                {
-                    isToClass && <Link to="" onClick={onClickClasser}> <BouttonIcon imageUrl="../src/assets/images/Ok-icon.svg" msg="Classer" taille="w-6 h-6" /></Link>
-                }
-            </div>
 
-        </ContainerFolderFile>
+    return (
+      
+
+            <ContainerFolderFile onContextMenu={onContextMenu}  >
+            {isVisible && (
+                <div
+                    className="absolute bg-white border border-gray-300 p-2 shadow-md"
+                    style={{ left: position.x, top: position.y }}
+                >
+                    <ul>
+                        <li className="cursor-pointer py-2 px-4 hover:bg-gray-100" >Ouvrir</li>
+                        <li className="cursor-pointer py-2 px-4 hover:bg-gray-100" >Renomer</li>
+                        <li className="cursor-pointer py-2 px-4 hover:bg-gray-100" >Supprimer</li>
+                        <li className="cursor-pointer py-2 px-4 hover:bg-gray-100" >Détails du dossier</li>
+                    </ul>
+                </div>
+            )}
+
+                <img src="../src/assets/images/icon-folder.png" alt="" width={150} height={150} />
+                <div className='flex'>
+                    <h3 className='max-w-[100%] '>
+                        <LinesEllipsis
+                            text={title}
+                            maxLine="1"
+                            ellipsis="..."
+                            trimRight
+                            basedOn="letters"
+                        />
+                    </h3>
+                    {
+                        isToClass && <Link to="" onClick={onClickClasser}> <BouttonIcon imageUrl="../src/assets/images/Ok-icon.svg" msg="Classer" taille="w-6 h-6" /></Link>
+                    }
+                </div>
+
+            </ContainerFolderFile>
+     
+
     )
 }
