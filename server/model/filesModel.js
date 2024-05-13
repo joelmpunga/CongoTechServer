@@ -7,13 +7,26 @@ export default class File {
         this.description = description;
     }
     async upload(file) {
+        if (file.idSubFolder) {
+            const request = await prisma.document.create({
+                data: {
+                    name: file.name,
+                    path: file.path,
+                    description: file.description,
+                    idUser: file.idUser,
+                    idOwner: file.idOwner,
+                    subFolderId: file.idSubFolder
+                }
+            }).then()
+            return request;
+        }
         const request = await prisma.document.create({
             data: {
                 name: file.name,
                 path: file.path,
                 description: file.description,
-                idUser:file.idUser,
-                idOwner:file.idOwner
+                idUser: file.idUser,
+                idOwner: file.idOwner
             }
         }).then()
         return request;
@@ -58,13 +71,13 @@ export default class File {
             }
         }).then()
     }
-    async classer(id,idSub){
+    async classer(id, idSub) {
         const query = await prisma.document.update({
             where: {
                 id: parseInt(id),
             },
-            data:{
-                subFolderId:parseInt(idSub)
+            data: {
+                subFolderId: parseInt(idSub)
             }
         }).then()
         return query;
