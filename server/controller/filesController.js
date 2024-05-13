@@ -131,7 +131,7 @@ export default class filesController {
         //         res.status(500).json(error);
         //     }
         // });
-        const { description, idOwner, idUser } = req.body
+        const { description, idOwner, idUser,idSubFolder } = req.body
         //const __dirname = path.dirname('/home/joelmpunga/mail-retrieval-app/index.js');
         // console.log(req.file)
         // console.log(req.body);
@@ -144,7 +144,10 @@ export default class filesController {
                 path: req.file.destination.substring(1) + req.file.filename,
                 description: description,
                 idUser: parseInt(idUser),
-                idOwner: parseInt(idOwner)
+                idOwner: parseInt(idOwner),
+            }
+            if (idSubFolder) {
+                data.idSubFolder = parseInt(idSubFolder)
             }
             file.upload(data)
             res.status(201).json({ "message": "Uploaded successfully" });
