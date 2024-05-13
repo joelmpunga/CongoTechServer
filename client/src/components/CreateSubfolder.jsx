@@ -9,7 +9,8 @@ import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 
 export default function CreateSubfolder({ classValue }) {
-    const idfile = useParams
+    const params = useParams()
+    const id = parseInt(params.id)
     const navigate = useNavigate()
     const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated')
     if (!isAuthenticatedLocalStorage) {
@@ -25,66 +26,32 @@ export default function CreateSubfolder({ classValue }) {
     const [errorMessageFolder, setErrorMessageFolder] = useState('')
     const [errorSubFolder, setErrorSubFolder] = useState(false)
     const [errorMessageSubFolder, setErrorMessageSubFolder] = useState('')
-    const handleChangeDescriptionFolder = (event) => {
-        setDescFold(event.target.value)
-    }
 
 
-    const handleChangeDescriptionSubFolder = (event) => {
-        setDescSubFold(event.target.value)
-    }
-    const handleChangeNomFolder = (event) => {
-        setNomFold(event.target.value)
-    }
+
+
     const handleChangeNomSubFolder = (event) => {
         setNomSubFold(event.target.value)
     }
-
-    const getAllFolders = async (event) => {
-        await axios.get('http://localhost:3000/folder/').then(res => setFolders(res.data))
-    }
-    const handleSubmitFolder = (event) => {
-        event.preventDefault()
-        axios.post('http://localhost:3000/folder/create', {
-            
-            description: descFold,
-            titre: nomFold
-        }).then(res => {
-            if (res.status === 200) {
-                window.location.href = '/createfolder'
-            }
-        }).catch(err => {
-            setErrorFolder(true)
-            setErrorMessageFolder(err.response.data)
-        })
+    const handleChangeDescriptionSubFolder = (event) => {
+        setDescSubFold(event.target.value)
     }
     const handleSubmitSubFolder = (event) => {
         event.preventDefault()
         axios.post('http://localhost:3000/subfolder/create', {
             description: subDescFold,
             titre: nomSubFold,
-            idFolder: parentFolder
+            idFolder: id
         }).then(res => {
             console.log(res.data, res.status);
             if (res.status === 200) {
-                window.location.href = '/createfolder'
+                window.location.href = '/subfolder/'+id
             }
         }).catch(err => {
             setErrorSubFolder(true)
             setErrorMessageSubFolder(err.response.data)
         })
     }
-    useEffect(() => {
-        handleChangeDescriptionFolder
-        handleChangeNomFolder
-        handleSubmitFolder
-
-    }, ['descFold', 'nomFold'])
-
-    useEffect(() => {
-        getAllFolders()
-    }, ['folders'])
-
 
 
     return (

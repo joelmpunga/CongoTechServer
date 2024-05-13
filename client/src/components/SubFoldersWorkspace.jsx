@@ -27,7 +27,7 @@ export default function SubFoldersWorkspace() {
     useEffect(() => { 
         getCurrentFolder()
     }, [currentFolder])
-    console.log(currentFolder);
+    // console.log(currentFolder);
         //fonctions pour la pagination
         const [currentPage, setCurrentPage] = useState(0);
         const [itemsPerPage] = useState(10); // Nombre d'éléments à afficher par page
