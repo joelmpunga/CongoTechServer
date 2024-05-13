@@ -12,6 +12,7 @@ import ReactPaginate from 'react-paginate';
 import ActionBtns from './ActionBtns'
 
 
+
 export default function FoldersWorkspace() {
     const [isVisible, setIsVisible] = useState(false);
     const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -58,9 +59,10 @@ export default function FoldersWorkspace() {
                 <ItemLinkPage title="Dashboard" path="/dashboard" />
             </HeaderWorkspace>
             <WorkSpace message="Parcourez les dossiers">
+
                 <div  className='flex flex-wrap w-[100%] overflow-x-auto h-[70%]'>
                     
-
+                    
                     {
                         getCurrentPageData().map(folder => (
                             <Link key={folder.id} to={{ pathname: `/subfolder/${folder.id}`, state: { id: folder.id } }}>

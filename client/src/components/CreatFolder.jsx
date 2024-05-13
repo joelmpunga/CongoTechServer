@@ -41,6 +41,7 @@ export default function CreatFolder() {
     }
     const handleChangeParentSubFolder = (event) => {
         setParentFolder(event.target.value)
+        
     }
     const getAllFolders = async (event) => {
         await axios.get('http://localhost:3000/folder/').then(res => setFolders(res.data))

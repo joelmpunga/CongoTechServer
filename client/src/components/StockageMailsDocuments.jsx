@@ -48,7 +48,7 @@ export default function StockageMailsDocuments() {
         getCurrentFolder()
     }, [])
 
-    const getCurrentFolder = async () => await axios.get("http://localhost:3000/folder/" + ).then(res => setCurrentFolder(res.data))
+    const getCurrentFolder = async () => await axios.get("http://localhost:3000/folder/").then(res => setCurrentFolder(res.data))
     console.table(currentSubFolder);
     console.table(currentFolder);
 
@@ -133,6 +133,7 @@ export default function StockageMailsDocuments() {
                     <div>
                         <Link to="/archive">
                             <ActionBtns
+                                
                                 className='flex flex-row justify-center items-center bg-blue-600 rounded-2xl w-[150px] h-[50px] text-white'
                                 src="../src/assets/images/add.svg"
                                 label="Archiver"
