@@ -77,12 +77,12 @@ export default function Header({ hasSearch, name, title }) {
                     </div>
                 }
                 <div className='flex'>
-                    <div className='flex'>
-                        <div className='flex w-[100%]'>
-                            <span className='text-gray-500 text-[20px] w-[100%]'>{name} </span>
-                            <span>{title}</span>
+                    <div className='flex gap-8 w-[600px]'>
+                        <div className='flex gap-1 w-[400px]'>
+                            <span className='text-gray-600 text-[23px] font-bold w-[50%]'>{name}</span>
+                            <span className='text-gray-500 text-[15px] w-[50%]'>{title}</span>
                         </div>
-                        <img src="../src/assets/images/avatar.svg" alt="" onClick={showVisible} className='rounded-3xl' />
+                        <img src="../src/assets/images/avatar-profil.svg" alt="" onClick={showVisible} className='rounded-3xl w-12 h-12'/>
                         {
                             visibleProfil && (
                                 <div className='text-[20px] flex flex-col bg-slate-100 gap-6 mt-14 -ml-[10%] absolute shadow-2xl border border-blue-300 p-4 profil-class'>
