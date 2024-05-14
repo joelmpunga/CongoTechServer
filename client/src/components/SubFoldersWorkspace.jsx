@@ -7,6 +7,7 @@ import { Link, useParams,useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import ReactPaginate from 'react-paginate';
 import ActionBtns from './ActionBtns'
+import CreateSubfolder from './CreateSubfolder'
 
 export default function SubFoldersWorkspace() {
     const navigate = useNavigate()
@@ -26,7 +27,7 @@ export default function SubFoldersWorkspace() {
     useEffect(() => { 
         getCurrentFolder()
     }, [currentFolder])
-    console.log(currentFolder);
+    // console.log(currentFolder);
         //fonctions pour la pagination
         const [currentPage, setCurrentPage] = useState(0);
         const [itemsPerPage] = useState(10); // Nombre d'éléments à afficher par page
@@ -41,6 +42,11 @@ export default function SubFoldersWorkspace() {
             const selectedPage = data.selected;
             setCurrentPage(selectedPage);
         };
+        const[classValue, setclassValue] = useState('hidden');
+        const onClick = () => {
+            setclassValue('absolute flex flex-row absolute inset-0 justify-center items-center')
+            
+        }
     return (
         <>
             <HeaderWorkspace title="Sous dossiers" >
@@ -48,7 +54,9 @@ export default function SubFoldersWorkspace() {
                 <ItemLinkPage title= {"/"+currentFolder.titre} path="/folders" />
             </HeaderWorkspace>
             <WorkSpace message="Parcourez les sous dossiers">
-                <div className='flex flex-wrap w-[100%] overflow-x-auto h-[70%]'>
+            
+                <div className='relative flex flex-wrap w-[100%] overflow-x-auto h-[70%]'>
+                <CreateSubfolder classValue={classValue} />
                     {
                         subFolders.map(subFolder => (
                             <Link key={subFolder.id} to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }} className='flex flex-row'>
@@ -72,13 +80,14 @@ export default function SubFoldersWorkspace() {
                     />
 
                     <div>
-                        <Link to="/createfolder">
+                        
                             <ActionBtns
+                            onClick={onClick}
                             className='flex flex-row justify-center items-center bg-blue-600 rounded-2xl w-[150px] h-[50px] text-white'
                             src="../src/assets/images/add.svg"
                             label="Création"
                             />
-                        </Link>
+                       
                     </div>
                 </div>
             </WorkSpace>

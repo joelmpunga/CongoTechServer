@@ -385,6 +385,7 @@ export default function StockageMailsDocuments() {
                     <div>
                         <button onClick={openModal}>
                             <ActionBtns
+                                
                                 className='flex flex-row justify-center items-center bg-blue-600 rounded-2xl w-[150px] h-[50px] text-white'
                                 src="../src/assets/images/add.svg"
                                 label="Archiver"
