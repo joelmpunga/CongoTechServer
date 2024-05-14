@@ -12,11 +12,10 @@ export default function SideBarSecretaire() {
   }
   return (
 
-    <div className='bg-black min-h-screen w-[430px] text-[20px] font-bold'>
+    <div className='bg-gray-700 min-h-screen w-[430px] text-[20px] font-bold'>
       <LogoSideBar />
-      <div className='flex flex-col gap-7 overflow-x-hidden h-[70%] shadow-lg'>
-
-        <Menu title="Rapports & Statistiques" hasManyMenuItems={true} hasNumberCount={false} iconeRightOff="../src/assets/images/chevron-down.svg" iconeRightOn="../src/assets/images/chevron-up.svg" iconeLeft="../src/assets/images/Group.svg">
+      <div className='flex flex-col gap-2 overflow-x-hidden h-[70%]'>
+        <Menu title="Statistiques" hasManyMenuItems={true} hasNumberCount={false} iconeRightOff="../src/assets/images/chevron-down.svg" iconeRightOn="../src/assets/images/chevron-up.svg" iconeLeft="../src/assets/images/Group.svg">
           <Link to="/charts/doc">
             <ItemMenu actived={true} title="Documents" />
           </Link>

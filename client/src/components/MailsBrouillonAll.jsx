@@ -17,12 +17,12 @@ export default function MailsBrouillonAll() {
         navigate('/login')
     }
     return (
-        <>
+        <div className='bg-white shadow-2xl mx-6 h-[670px]'>
             <HeaderWorkspace title="Brouillon des E-mails">
                 <ItemLinkPage title="Dashboard" path="/brouillon" />
             </HeaderWorkspace>
             <WorkSpace message="Parcourez les mails non classés">
-                <div className='flex flex-col justify-between mx-5 w-full h-[70%]'>
+                <div className='flex flex-col overflow-x-auto justify-between mx-5 w-full h-[470px]'>
                     <div>
                         <table className='w-full'  >
                             <thead>
@@ -69,6 +69,6 @@ export default function MailsBrouillonAll() {
                 </div>
             </WorkSpace>
             {/* <Pagination /> */}
-        </>
+        </div>
     )
 }

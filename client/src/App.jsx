@@ -30,17 +30,14 @@ function App({ children, getUserData }) {
   if (!isAuthenticated) {
     navigate("/login");
   }
-
-
   return (
-
     <>
       <div className='flex gap-0 w-full fixed'>
         {
           role==='ADMIN'?<SideBarAdmin />:<SideBarSecretaire />
         }
         {/* <SideBarSecretaire /> */}
-        <div className='flex flex-col gap-6 w-full'>
+        <div className='flex flex-col w-full bg-slate-200'>
           <Header hasSearch={true} name={nom + " " + postnom} title={role} />
           {
             children

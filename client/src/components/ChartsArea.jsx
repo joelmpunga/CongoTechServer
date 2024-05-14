@@ -40,7 +40,7 @@ export default function ChartsArea({ title }) {
         },
     ]
     return (
-        <div className='shadow-2xl h-[40Opx]'>
+        <div className='shadow-2xl h-[40Opx] bg-white'>
             <h1 className='text-[24px] text-blue-700 border p-2'>{title}</h1>
             <hr />            <AreaChart width={730} height={250} data={data}
                 margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>

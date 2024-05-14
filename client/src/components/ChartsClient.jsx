@@ -8,7 +8,7 @@ import ChartsLine from './ChartsLine'
 
 export default function ChartsClient() {
     return (
-        <div className='flex p-5 w-auto'>
+        <div className='flex p-5 w-auto bg-white'>
             <div>
                 <ChartsArea title="Particulier VS Entreprise / Par Mois"/>
                 <ChartsComposed title="Client / Par Mois" />

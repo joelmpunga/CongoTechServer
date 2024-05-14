@@ -16,7 +16,7 @@ export default function Menu({ title, children, iconeLeft, iconeRightOff, iconeR
                 actived ?
                     <div>
                         <h2 className='flex flex-row justify-between w-[100%] text-white' onClick={handleClick}>
-                            <div className="flex gap-4">
+                            <div className="flex gap-1">
                                 <img src={iconeLeft} alt="iconMenu" />
                                 {title}
                             </div>
@@ -29,7 +29,7 @@ export default function Menu({ title, children, iconeLeft, iconeRightOff, iconeR
                         </div>
                     </div> :
                     <h2 className='flex flex-row justify-between w-[100%] text-white' onClick={handleClick}>
-                        <div className="flex gap-4">
+                        <div className="flex gap-1">
                             <img src={iconeLeft} alt="iconMenu" />
                             {title}
                         </div>

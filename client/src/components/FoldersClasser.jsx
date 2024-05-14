@@ -41,7 +41,7 @@ export default function FoldersClasser() {
     };
 
     const navigate = useNavigate();
-    
+
     useEffect(() => {
         const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated');
         if (!isAuthenticatedLocalStorage) {
@@ -80,12 +80,12 @@ export default function FoldersClasser() {
     }, [folders]);
 
     return (
-        <>
+        <div className='bg-white shadow-2xl overflow-x-auto mx-6 h-[650px]'>
             <HeaderWorkspace title="Classer Dossiers">
                 <ItemLinkPage title="Dashboard" path="/dashboard" />
             </HeaderWorkspace>
             <WorkSpace message="Séléctionnez le dossier parent oû coller">
-                <div className='flex flex-wrap w-[100%] overflow-x-auto h-[70%]'>
+                <div className='flex flex-wrap w-[100%] overflow-x-auto h-[430px]'>
                     {
                         getCurrentPageData().map(folder => (
                             <Link key={folder.id} to={{ pathname: `/subfolderclasser/${folder.id}/${idFile}`, state: { id: folder.id, idFile: idFile } }}>
@@ -119,7 +119,7 @@ export default function FoldersClasser() {
                     </div>
                 </div>
             </WorkSpace>
-            {/* <Popup /> */ }
-        </>
+            {/* <Popup /> */}
+        </div>
     );
 }
