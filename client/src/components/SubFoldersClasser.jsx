@@ -21,7 +21,7 @@ export default function SubFoldersClasser({ idFolder }) {
     useEffect(() => { getSubFolders() }, ['subFolders'])
     console.log(subFolders);
     return (
-        <>
+        <div className='bg-white shadow-2xl mx-6 h-[670px]'>
             <HeaderWorkspace title="Sous dossiers" message="Parcourez les sous dossiers">
                 <ItemLinkPage title="Dashboard" path="/dashboard" />
                 <ItemLinkPage title="Dossiers" path="/folders" />
@@ -41,6 +41,6 @@ export default function SubFoldersClasser({ idFolder }) {
                     <BouttonIcon imageUrl="../src/assets/images/cancel-btn.svg" msg="Annuler" taille="h-10 w-10" />
                 </div>
             </Link>
-        </>
+        </div>
     )
 }

@@ -40,8 +40,6 @@ export default function FoldersWorkspace() {
     const getFolders = async () => await axios.get("http://localhost:3000/folder").then(res => setFolders(res.data))
     useEffect(() => { getFolders() }, ['folders'])
 
-
-
     const showMenu = (e) => {
         e.preventDefault();
         setIsVisible(true);
@@ -52,15 +50,12 @@ export default function FoldersWorkspace() {
         setIsVisible(false);
     };
     return (
-        <>
-
+        <div className='bg-white shadow-2xl mx-6 h-[650px]'>
             <HeaderWorkspace title="Dossiers">
                 <ItemLinkPage title="Dashboard" path="/dashboard" />
             </HeaderWorkspace>
             <WorkSpace message="Parcourez les dossiers">
-                <div  className='flex flex-wrap w-[100%] overflow-x-auto h-[70%]'>
-                    
-
+                <div className='flex flex-wrap w-[100%] overflow-x-auto h-[450px]'>
                     {
                         getCurrentPageData().map(folder => (
                             <Link key={folder.id} to={{ pathname: `/subfolder/${folder.id}`, state: { id: folder.id } }}>
@@ -68,10 +63,7 @@ export default function FoldersWorkspace() {
                             </Link>
                         ))
                     }
-
-
                 </div>
-
                 <div className='flex justify-between w-full mx-5'>
                     <ReactPaginate
                         previousLabel={"Précédent"}
@@ -84,18 +76,17 @@ export default function FoldersWorkspace() {
                         containerClassName={"flex justify-end gap-6 text-[20px]"}
                         activeClassName={"active"}
                     />
-
                     <div>
                         <Link to="/createfolder">
                             <ActionBtns
-                            className='flex flex-row justify-center items-center bg-blue-600 rounded-2xl w-[150px] h-[50px] text-white'
-                            src="src/assets/images/add.svg"
-                            label="Création"
+                                className='flex flex-row justify-center items-center bg-blue-600 rounded-2xl w-[150px] h-[50px] text-white'
+                                src="src/assets/images/add.svg"
+                                label="Création"
                             />
                         </Link>
                     </div>
                 </div>
             </WorkSpace>
-        </>
+        </div>
     )
 }

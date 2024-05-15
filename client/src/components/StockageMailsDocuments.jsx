@@ -250,8 +250,8 @@ export default function StockageMailsDocuments() {
 
                 await axios.post('http://localhost:3000/file/upload', formData).then(res => {
                     if (res.status === 201) {
-                        navigate('/file/'+id)
-                        window.location.href = '/file/'+id
+                        navigate('/file/' + id)
+                        window.location.href = '/file/' + id
                         TopNotification.fire({
                             icon: "success",
                             title: "Le fichier est archivée"
@@ -279,15 +279,14 @@ export default function StockageMailsDocuments() {
     console.log("OPEN", isOpen);
 
     return (
-        <>
+        <div className='bg-white shadow-2xl mx-6 h-[650px]'>
             <HeaderWorkspace title="Documents & Mails" >
                 <ItemLinkPage title="Dashboard" path="/dashboard" />
                 <ItemLinkPage title={"/" + currentFolder.titre} path="/folders" />
                 <ItemLinkPage title={"/" + currentSubFolder.titre} path="/subfolders" />
             </HeaderWorkspace>
             <WorkSpace message="Parcourez les fichiers et mails">
-
-                <div className='flex flex-wrap w-[100%] overflow-x-auto h-[70%]'>
+                <div className='flex flex-wrap w-[100%] overflow-x-auto h-[445px]'>
                     {/* Modal */}
                     {isOpen && (
                         <div className="bg-gray-100 shadow-2xl p-4 w-[35%] ml-[45%] -mt-[7%] absolute modal-content" onClick={handleBackgroundClick}>
@@ -395,6 +394,6 @@ export default function StockageMailsDocuments() {
 
             </WorkSpace>
 
-        </>
+        </div>
     )
 }

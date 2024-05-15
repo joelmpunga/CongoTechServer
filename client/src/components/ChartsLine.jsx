@@ -75,7 +75,7 @@ export default function ChartsLine({ title }) {
         }
     ]
     return (
-        <div className='shadow-2xl h-[40Opx]'>
+        <div className='shadow-2xl h-[40Opx] bg-white'>
             <h1 className='text-[24px] text-blue-700 border p-2'>{title}</h1>
             <hr />
             <LineChart width={730} height={250} data={data}

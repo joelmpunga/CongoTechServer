@@ -211,15 +211,13 @@ export default function ArchDocs() {
 
 
     return (
-        <>
-
-
+        <div className='bg-white shadow-2xl mx-6 h-[730px]'>
             <HeaderWorkspace title="Archiver les documents">
                 <ItemLinkPage title="Dashboard" path="/Archiver" />
             </HeaderWorkspace>
-            <div className="font-adamina text-[14px] flex gap-16 w-full justify-center mx-auto mt-10">
+            <div className="font-adamina text-[14px] overflow-x-auto flex gap-16 w-full justify-center mx-auto mt-10">
 
-                <div className="w-[650px] border border-gray-200 shadow-md">
+                <div className="w-[660px] border border-gray-200 shadow-md">
                     <form action="" encType="multipart/form-data">
                         <Title title='Information du document' />
                         {
@@ -240,11 +238,6 @@ export default function ArchDocs() {
                         </ArchDocComp>
                     </form>
                 </div>
-
-
-
-
-
                 <div className="w-[650px] border border-gray-200 shadow-md">
                     <Title title='Ajouter un propriétaire' />
                     {
@@ -263,11 +256,8 @@ export default function ArchDocs() {
                         </Inputs>
                     </ArchDocComp>
                 </div>
-
-
-
             </div>
-        </>
+        </div>
     )
 }
 
