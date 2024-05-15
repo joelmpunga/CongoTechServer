@@ -67,11 +67,11 @@ export default function Header({ hasSearch, name, title }) {
         localStorage.removeItem('postnom')
     }
     return (
-        <div className='flex flex-col w-[100%] h-[150px]'>
-            <div className='bg-white flex justify-between'>
+        <div className='flex flex-col w-[100%] h-[100px]'>
+            <div className='bg-white flex justify-between gap-1'>
                 {
                     hasSearch &&
-                    <div className='flex w-[100%] px-4'>
+                    <div className='flex w-[100%]'>
                         <img src="../src/assets/images/search2.svg" alt="search" width={30} height={30} />
                         <input className='bg-white mx-5 outline-none w-full' placeholder="Rechercher" />
                     </div>
