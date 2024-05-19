@@ -68,18 +68,18 @@ export default function Header({ hasSearch, name, title }) {
     }
     return (
         <div className='flex flex-col w-[100%] h-[100px]'>
-            <div className='bg-white flex justify-between gap-1'>
+            <div className='bg-white h-[75px] flex flex-row justify-center items-center'>
                 {
                     hasSearch &&
-                    <div className='flex w-[100%]'>
-                        <img src="../src/assets/images/search2.svg" alt="search" width={30} height={30} />
-                        <input className='bg-white mx-5 outline-none w-full' placeholder="Rechercher" />
+                    <div className='h-12 flex flex-row justify-center items-center mx-5 w-[100%] rounded-full bg-[#E2E8F0]'>
+                        <img className='ml-5' src="../src/assets/images/search2.svg" alt="search" width={30} height={30} />
+                        <input className='bg-[#E2E8F0] mx-5 outline-none w-full ' placeholder="Rechercher" />
                     </div>
                 }
-                <div className='flex'>
-                    <div className='flex gap-8 w-[600px]'>
-                        <div className='flex gap-1 w-[400px]'>
-                            <span className='text-gray-600 text-[23px] font-bold w-[50%]'>{name}</span>
+                <div className='flex flex-row  w-70 mr-5'>
+                    <div className='flex flex-row gap-2 w-60'>
+                        <div className='flex flex-col  '>
+                            <span className='text-gray-600 text-[23px] font-bold '>{name}</span>
                             <span className='text-gray-500 text-[15px] w-[50%]'>{title}</span>
                         </div>
                         <img src="../src/assets/images/avatar-profil.svg" alt="" onClick={showVisible} className='rounded-3xl w-12 h-12'/>
