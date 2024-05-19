@@ -51,12 +51,12 @@ export default function FoldersWorkspace() {
         setIsVisible(false);
     };
     return (
-        <div className='bg-white shadow-2xl mx-6 h-[650px]'>
+        <div className='bg-white shadow-2xl mx-6 h-[800px]'>
             <HeaderWorkspace title="Dossiers">
                 <ItemLinkPage title="Dashboard" path="/dashboard" />
             </HeaderWorkspace>
             <WorkSpace message="Parcourez les dossiers">
-                <div className='flex flex-wrap w-[100%] overflow-x-auto h-[450px]'>
+                <div className='flex flex-wrap w-[100%] overflow-x-auto h-[590px]'>
                     {
                         getCurrentPageData().map(folder => (
                             <Link key={folder.id} to={{ pathname: `/subfolder/${folder.id}`, state: { id: folder.id } }}>

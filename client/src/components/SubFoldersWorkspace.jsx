@@ -28,33 +28,37 @@ export default function SubFoldersWorkspace() {
         getCurrentFolder()
     }, [currentFolder])
     // console.log(currentFolder);
-        //fonctions pour la pagination
-        const [currentPage, setCurrentPage] = useState(0);
-        const [itemsPerPage] = useState(10); // Nombre d'éléments à afficher par page
-        // Fonction pour obtenir les éléments de la page actuelle
-        const getCurrentPageData = () => {
-            const startIndex = currentPage * itemsPerPage;
-            const endIndex = startIndex + itemsPerPage;
-            return subFolders.slice(startIndex, endIndex);
-        };
-    
-        const handlePageClick = (data) => {
-            const selectedPage = data.selected;
-            setCurrentPage(selectedPage);
-        };
-        const[classValue, setclassValue] = useState('hidden');
-        const onClick = () => {
-            setclassValue('absolute flex flex-row absolute inset-0 justify-center items-center')
-            
-        }
+    //fonctions pour la pagination
+    const [currentPage, setCurrentPage] = useState(0);
+    const [itemsPerPage] = useState(10); // Nombre d'éléments à afficher par page
+    // Fonction pour obtenir les éléments de la page actuelle
+    const getCurrentPageData = () => {
+        const startIndex = currentPage * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        return subFolders.slice(startIndex, endIndex);
+    };
+
+    const handlePageClick = (data) => {
+        const selectedPage = data.selected;
+        setCurrentPage(selectedPage);
+    };
+    const [classValue, setclassValue] = useState('hidden');
+    const onClick = () => {
+        setclassValue('absolute bg-[#70726e7c] flex flex-row absolute inset-0 justify-center items-center')
+
+    }
+
+    const annuler = () => {
+        setclassValue('hidden')
+    }
     return (
-        <div className='bg-white shadow-2xl mx-6 h-[650px]'>
+        <div className='bg-white shadow-2xl mx-6 h-[800px]'>
             <HeaderWorkspace title="Sous dossiers" >
                 <ItemLinkPage title="Dashboard" path="/dashboard" />
                 <ItemLinkPage title={"/" + currentFolder.titre} path="/folders" />
             </HeaderWorkspace>
             <WorkSpace message="Parcourez les sous dossiers">
-                <div className='relative flex flex-wrap w-[100%] overflow-x-auto h-[450px]'>
+                <div className='relative flex flex-wrap w-[100%] overflow-x-auto h-[600px]'>
                     {
                         subFolders.map(subFolder => (
                             <Link key={subFolder.id} to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }} className='flex flex-row'>
@@ -63,7 +67,7 @@ export default function SubFoldersWorkspace() {
                         ))
                     }
                 </div>
-
+                <CreateSubfolder classValue={classValue} annuler={annuler} />
                 <div className='flex justify-between w-full mx-5'>
                     <ReactPaginate
                         previousLabel={"Précédent"}
@@ -77,14 +81,14 @@ export default function SubFoldersWorkspace() {
                         activeClassName={"active"}
                     />
                     <div>
-                        
-                            <ActionBtns
+
+                        <ActionBtns
                             onClick={onClick}
                             className='flex flex-row justify-center items-center bg-blue-600 rounded-2xl w-[150px] h-[50px] text-white'
                             src="../src/assets/images/add.svg"
                             label="Création"
-                            />
-                       
+                        />
+
                     </div>
                 </div>
             </WorkSpace>

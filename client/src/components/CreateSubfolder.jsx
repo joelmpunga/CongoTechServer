@@ -8,7 +8,7 @@ import { useMyContext } from '../contexts/MyContext'
 import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 
-export default function CreateSubfolder({ classValue }) {
+export default function CreateSubfolder({ classValue, annuler }) {
     const params = useParams()
     const id = parseInt(params.id)
     const navigate = useNavigate()
@@ -57,13 +57,14 @@ export default function CreateSubfolder({ classValue }) {
     return (
         <div className={classValue}>
             
-                <div className="w-[650px] border border-gray-200 shadow-md mx-auto my-auto">
+                <div className="w-[650px] border bg-white border-gray-200 shadow-md mx-auto my-auto">
                     <Title title='Création d’un sous dossier' />
 
                     <ArchDocComp 
                     onChange={handleChangeDescriptionSubFolder} 
                     onSubmit={handleSubmitSubFolder}
                     className=" bg-gray-200 resize-none p-5 w-full h-32 my-5 border-1  border-blue outline-none"
+                    annuler={annuler}
                     >
                         <Inputs attName='Nom du sous dossier' onChange={handleChangeNomSubFolder}>
 
