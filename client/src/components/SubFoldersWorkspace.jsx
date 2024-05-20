@@ -88,7 +88,6 @@ export default function SubFoldersWorkspace() {
                             src="../src/assets/images/add.svg"
                             label="Création"
                         />
-
                     </div>
                 </div>
             </WorkSpace>

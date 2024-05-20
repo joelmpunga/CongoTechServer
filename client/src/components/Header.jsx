@@ -37,7 +37,7 @@ export default function Header({ hasSearch, name, title }) {
             document.removeEventListener('mousedown', handleOutsideClick);
         };
     }, [visibleProfil]);
-    
+
     useEffect(() => {
         const handleOutsideClickLogOut = (e) => {
             if (!e.target.closest('.logout-class') && disconnect) {
@@ -82,7 +82,7 @@ export default function Header({ hasSearch, name, title }) {
                             <span className='text-gray-600 text-[23px] font-bold '>{name}</span>
                             <span className='text-gray-500 text-[15px] w-[50%]'>{title}</span>
                         </div>
-                        <img src="../src/assets/images/avatar-profil.svg" alt="" onClick={showVisible} className='rounded-3xl w-12 h-12'/>
+                        <img src="../src/assets/images/avatar-profil.svg" alt="" onClick={showVisible} className='rounded-3xl w-12 h-12' />
                         {
                             visibleProfil && (
                                 <div className='text-[20px] flex flex-col bg-slate-100 gap-6 mt-14 -ml-[10%] absolute shadow-2xl border border-blue-300 p-4 profil-class'>
@@ -110,7 +110,6 @@ export default function Header({ hasSearch, name, title }) {
                             )
                         }
                     </div>
-
                     {
                         !disconnect ? <img src="../src/assets/images/chevron-down.svg" alt="log out" onClick={showLogOut} /> : <img src="../src/assets/images/chevron-up-black.svg" alt="log out" onClick={showLogOut} />
                     }
