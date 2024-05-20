@@ -28,25 +28,25 @@ export default function SubFoldersWorkspace() {
         getCurrentFolder()
     }, [currentFolder])
     // console.log(currentFolder);
-        //fonctions pour la pagination
-        const [currentPage, setCurrentPage] = useState(0);
-        const [itemsPerPage] = useState(10); // Nombre d'éléments à afficher par page
-        // Fonction pour obtenir les éléments de la page actuelle
-        const getCurrentPageData = () => {
-            const startIndex = currentPage * itemsPerPage;
-            const endIndex = startIndex + itemsPerPage;
-            return subFolders.slice(startIndex, endIndex);
-        };
-    
-        const handlePageClick = (data) => {
-            const selectedPage = data.selected;
-            setCurrentPage(selectedPage);
-        };
-        const[classValue, setclassValue] = useState('hidden');
-        const onClick = () => {
-            setclassValue('absolute flex flex-row absolute inset-0 justify-center items-center')
-            
-        }
+    //fonctions pour la pagination
+    const [currentPage, setCurrentPage] = useState(0);
+    const [itemsPerPage] = useState(10); // Nombre d'éléments à afficher par page
+    // Fonction pour obtenir les éléments de la page actuelle
+    const getCurrentPageData = () => {
+        const startIndex = currentPage * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        return subFolders.slice(startIndex, endIndex);
+    };
+
+    const handlePageClick = (data) => {
+        const selectedPage = data.selected;
+        setCurrentPage(selectedPage);
+    };
+    const [classValue, setclassValue] = useState('hidden');
+    const onClick = () => {
+        setclassValue('absolute flex flex-row absolute inset-0 justify-center items-center')
+
+    }
     return (
         <div className='bg-white shadow-2xl mx-6 h-[650px]'>
             <HeaderWorkspace title="Sous dossiers" >
@@ -77,14 +77,13 @@ export default function SubFoldersWorkspace() {
                         activeClassName={"active"}
                     />
                     <div>
-                        
-                            <ActionBtns
+
+                        <ActionBtns
                             onClick={onClick}
                             className='flex flex-row justify-center items-center bg-blue-600 rounded-2xl w-[150px] h-[50px] text-white'
                             src="../src/assets/images/add.svg"
                             label="Création"
-                            />
-                       
+                        />
                     </div>
                 </div>
             </WorkSpace>

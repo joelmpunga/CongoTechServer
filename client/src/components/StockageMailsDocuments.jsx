@@ -316,9 +316,6 @@ export default function StockageMailsDocuments() {
                         </div>
                     )}
                     {/* End modal */}
-
-
-
                     {contextMenuVisible && (
                         <div
                             className="fixed bg-white border rounded shadow p-2"
@@ -329,8 +326,6 @@ export default function StockageMailsDocuments() {
                                 <Link to={`http://localhost:3000/file/show/${idfile}`}>
                                     <span className="flex gap-4 py-1 px-1 hover:bg-gray-100 cursor-pointer"><img src="../src/assets/images/eye.svg" alt="" /> Ouvrir</span>
                                 </Link>
-
-
                             </div>
                         </div>
                     )}
@@ -350,25 +345,18 @@ export default function StockageMailsDocuments() {
                     )} */}
                     {
                         getCurrentPageData().map(file => (
-
                             <tr key={file.id}>
-
                                 <File id={file.id} title={file.name} />
                             </tr>
-
                         ))
-
                     }
-
                 </div>
-
                 {/* <Mail title="Mail" data={data} />
                 <File title="File.png" />
                 <Mail title="Mail" data={data} />
                 <File title="File.png" />
                 <Mail title="Mail" data={data} />
                 <File title="File.png" />*/}
-
                 <div className='flex justify-between w-full mx-5'>
                     <ReactPaginate
                         previousLabel={"Précédent"}
@@ -384,7 +372,6 @@ export default function StockageMailsDocuments() {
                     <div>
                         <button onClick={openModal}>
                             <ActionBtns
-                                
                                 className='flex flex-row justify-center items-center bg-blue-600 rounded-2xl w-[150px] h-[50px] text-white'
                                 src="../src/assets/images/add.svg"
                                 label="Archiver"
@@ -392,9 +379,7 @@ export default function StockageMailsDocuments() {
                         </button>
                     </div>
                 </div>
-
             </WorkSpace>
-
         </div>
     )
 }
