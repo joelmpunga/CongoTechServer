@@ -90,7 +90,7 @@ export default function CreatFolder() {
 
     console.log(subDescFold, nomSubFold, parentFolder);
     return (
-        <div className='bg-white shadow-2xl mx-6 h-[700px]'>       
+        <div className='bg-white shadow-2xl mx-6 h-[800px]'>       
             <HeaderWorkspace title="Créer un dossier et un sous-dossier">
                 <ItemLinkPage title="Dashboard" path="/dossier" />
             </HeaderWorkspace>

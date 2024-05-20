@@ -279,14 +279,14 @@ export default function StockageMailsDocuments() {
     console.log("OPEN", isOpen);
 
     return (
-        <div className='bg-white shadow-2xl mx-6 h-[650px]'>
+        <div className='bg-white shadow-2xl mx-6 h-[800px]'>
             <HeaderWorkspace title="Documents & Mails" >
                 <ItemLinkPage title="Dashboard" path="/dashboard" />
                 <ItemLinkPage title={"/" + currentFolder.titre} path="/folders" />
                 <ItemLinkPage title={"/" + currentSubFolder.titre} path="/subfolders" />
             </HeaderWorkspace>
             <WorkSpace message="Parcourez les fichiers et mails">
-                <div className='flex flex-wrap w-[100%] overflow-x-auto h-[445px]'>
+                <div className='flex flex-wrap w-[100%] overflow-x-auto h-[600px]'>
                     {/* Modal */}
                     {isOpen && (
                         <div className="bg-gray-100 shadow-2xl p-4 w-[35%] ml-[45%] -mt-[7%] absolute modal-content" onClick={handleBackgroundClick}>

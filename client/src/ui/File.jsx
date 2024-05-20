@@ -63,7 +63,7 @@ export default function File({ title, data, isToClass = false, id }) {
 
 
   return (
-    <ContainerFolderFile>
+    <ContainerFolderFile id={id}>
       <div className='flex'>
         <img src="../src/assets/images/icon-file.png" alt="" width={120} height={120} />
         <div id={id} onClick={handleContextMenu}>

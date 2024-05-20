@@ -80,12 +80,12 @@ export default function FoldersClasser() {
     }, [folders]);
 
     return (
-        <div className='bg-white shadow-2xl overflow-x-auto mx-6 h-[650px]'>
+        <div className='bg-white shadow-2xl overflow-x-auto mx-6 h-[800px]'>
             <HeaderWorkspace title="Classer Dossiers">
                 <ItemLinkPage title="Dashboard" path="/dashboard" />
             </HeaderWorkspace>
             <WorkSpace message="Séléctionnez le dossier parent oû coller">
-                <div className='flex flex-wrap w-[100%] overflow-x-auto h-[430px]'>
+                <div className='flex flex-wrap w-[100%] overflow-x-auto h-[600px]'>
                     {
                         getCurrentPageData().map(folder => (
                             <Link key={folder.id} to={{ pathname: `/subfolderclasser/${folder.id}/${idFile}`, state: { id: folder.id, idFile: idFile } }}>

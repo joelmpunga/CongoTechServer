@@ -211,7 +211,7 @@ export default function ArchDocs() {
 
 
     return (
-        <div className='bg-white shadow-2xl mx-6 h-[730px]'>
+        <div className='bg-white shadow-2xl mx-6 h-[800px]'>
             <HeaderWorkspace title="Archiver les documents">
                 <ItemLinkPage title="Dashboard" path="/Archiver" />
             </HeaderWorkspace>

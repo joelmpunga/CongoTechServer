@@ -7,7 +7,7 @@ import Title from "./Title";
 
 
 
-export default function ArchDocComp({ title, dragDrop, ownNametypeDoc, attName, children, onChange, onSubmit, className }) {
+export default function ArchDocComp({ title, dragDrop, ownNametypeDoc, attName, children, onChange, onSubmit, className, annuler }) {
     return (
         <div className="flex flex-col m-5">
             <div >
@@ -20,7 +20,7 @@ export default function ArchDocComp({ title, dragDrop, ownNametypeDoc, attName, 
                     </textarea>
                 </div>
             </div>
-            <SaveCancelBtns onSubmit={onSubmit} />
+            <SaveCancelBtns annuler={annuler} onSubmit={onSubmit} />
         </div>
     )
 }

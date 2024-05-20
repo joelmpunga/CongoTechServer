@@ -1,15 +1,23 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+
+
 export default function Menu({ title, children, iconeLeft, iconeRightOff, iconeRightOn, hasManyMenuItems, hasNumberCount, number }) {
     const navigate = useNavigate()
     const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated')
     if (!isAuthenticatedLocalStorage) {
         navigate('/login')
     }
+    const [borderLeft, setBorderLeft] = useState("border-l-8")
     const [actived, setActived] = useState(false)
     const handleClick = () => {
         setActived(!actived)
     }
+    // if (hasManyMenuItems) {
+    //     setBorderLeft("border-l-8")
+    // } else {
+    //     setBorderLeft("")
+    // }
     return (
         <div className=" text-fontSize-extra-large p-4 hover:bg-gray-600   backdrop-blur-sm  ">
             {
