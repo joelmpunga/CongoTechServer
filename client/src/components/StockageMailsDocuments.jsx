@@ -276,8 +276,6 @@ export default function StockageMailsDocuments() {
             }
         }
     }
-    console.log("OPEN", isOpen);
-
     return (
         <div className='bg-white shadow-2xl mx-6 h-[800px]'>
             <HeaderWorkspace title="Documents & Mails" >
@@ -289,7 +287,7 @@ export default function StockageMailsDocuments() {
                 <div className='flex flex-wrap w-[100%] overflow-x-auto h-[600px]'>
                     {/* Modal */}
                     {isOpen && (
-                        <div className="bg-gray-100 shadow-2xl p-4 w-[35%] ml-[45%] -mt-[7%] absolute modal-content" onClick={handleBackgroundClick}>
+                        <div className="bg-gray-100 shadow-2xl p-4 w-[35%] fixed bottom-0 right-0 modal-content" onClick={handleBackgroundClick}>
                             <button className="text-[30px]" onClick={closeModal}>&times;</button>
                             <div className="font-adamina text-[14px] flex w-full justify-end mx-auto mt-10">
                                 <div className="w-[650px] border border-gray-200 shadow-md">

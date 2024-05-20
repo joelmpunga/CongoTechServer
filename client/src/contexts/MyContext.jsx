@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-
+import { useEffect } from 'react';
 const MyContext = createContext();
 
 export const MyProvider = ({ children }) => {
@@ -25,10 +25,7 @@ export const MyProvider = ({ children }) => {
   }
   const updatePostNom = (newData) => {
     setPostnom(newData);
-  }
-
-
-  
+  }  
 
   const handleContextMenu = (e) => {
     e.preventDefault();
@@ -40,6 +37,24 @@ export const MyProvider = ({ children }) => {
   const handleCloseContextMenu = () => {
     setContextMenuVisible(false);
   };
+
+  useEffect(() => {
+    const handleClose = (e) => {
+        if (!e.target.closest('.logout-class') && contextMenuVisible) {
+          handleCloseContextMenu();
+        }
+    };
+
+    if (contextMenuVisible) {
+        document.addEventListener('mousedown', handleClose);
+    }
+
+    return () => {
+        document.removeEventListener('mousedown', handleClose);
+    };
+}, [contextMenuVisible]);
+
+
  
 
   

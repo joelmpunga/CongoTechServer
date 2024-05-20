@@ -216,7 +216,6 @@ export default function ArchDocs() {
                 <ItemLinkPage title="Dashboard" path="/Archiver" />
             </HeaderWorkspace>
             <div className="font-adamina text-[14px] overflow-x-auto flex gap-16 w-full justify-center mx-auto mt-10">
-
                 <div className="w-[660px] border border-gray-200 shadow-md">
                     <form action="" encType="multipart/form-data">
                         <Title title='Information du document' />
