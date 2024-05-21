@@ -15,9 +15,6 @@ export default function SubFoldersWorkspace() {
     if (!isAuthenticatedLocalStorage) {
         navigate('/login')
     }
-    const handleBackClick2 = () => {
-        navigate(-2);
-    };
     const handleBackClick1 = () => {
         navigate(-1);
     };

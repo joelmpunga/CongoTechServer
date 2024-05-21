@@ -5,7 +5,7 @@ import Inputs from "./Inputs";
 import CbxInput from "./comboBox/CbxInput";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMyContext } from "../../contexts/MyContext";
 import PopupAlert from "../../ui/Popup";
 import HeaderWorkspace from "../HeaderWorkspace";
@@ -203,7 +203,7 @@ export default function ArchDocs() {
 
             }
         }
-       
+
 
 
     }
@@ -213,7 +213,9 @@ export default function ArchDocs() {
     return (
         <div className='bg-white shadow-2xl mx-6 h-[800px]'>
             <HeaderWorkspace title="Archiver les documents">
-                <ItemLinkPage title="Dashboard" path="/Archiver" />
+                <Link to="/charts/doc" >
+                    <ItemLinkPage title="Dashboard" path="/charts/doc" />
+                </Link>
             </HeaderWorkspace>
             <div className="font-adamina text-[14px] overflow-x-auto flex gap-16 w-full justify-center mx-auto mt-10">
                 <div className="w-[660px] border border-gray-200 shadow-md">

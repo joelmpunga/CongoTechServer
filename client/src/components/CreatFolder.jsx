@@ -5,7 +5,7 @@ import CbxInput from "./archDoc/comboBox/CbxInput";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import SaveCancelBtns from "./archDoc/SaveCancelBtns";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMyContext } from "../contexts/MyContext";
 import PopupAlert from "../ui/Popup";
 import HeaderWorkspace from "./HeaderWorkspace";
@@ -41,7 +41,7 @@ export default function CreatFolder() {
     }
     const handleChangeParentSubFolder = (event) => {
         setParentFolder(event.target.value)
-        
+
     }
     const getAllFolders = async (event) => {
         await axios.get('http://localhost:3000/folder/').then(res => setFolders(res.data))
@@ -90,9 +90,11 @@ export default function CreatFolder() {
 
     console.log(subDescFold, nomSubFold, parentFolder);
     return (
-        <div className='bg-white shadow-2xl mx-6 h-[800px]'>       
+        <div className='bg-white shadow-2xl mx-6 h-[800px]'>
             <HeaderWorkspace title="Créer un dossier et un sous-dossier">
-                <ItemLinkPage title="Dashboard" path="/dossier" />
+                <Link to="/charts/doc" >
+                    <ItemLinkPage title="Dashboard" path="/charts/doc" />
+                </Link>
             </HeaderWorkspace>
 
             <div className="flex mx-auto mt-10 ">
@@ -104,7 +106,7 @@ export default function CreatFolder() {
                             errorSubFolder && <PopupAlert message={errorMessageSubFolder} />
                         }
                         <ArchDocComp onChange={handleChangeDescriptionSubFolder} onSubmit={handleSubmitSubFolder}
-                          className=" bg-gray-200 resize-none p-5 w-full h-42 my-5 border-1  border-blue outline-none"
+                            className=" bg-gray-200 resize-none p-5 w-full h-42 my-5 border-1  border-blue outline-none"
                         >
                             <Inputs attName='Nom du sous dossier' onChange={handleChangeNomSubFolder}>
                                 <CbxInput ownNametypeDoc='Nom du dossier parent' onChange={handleChangeParentSubFolder} className='w-[300px] h-14'>
@@ -124,7 +126,7 @@ export default function CreatFolder() {
                             errorFolder && <PopupAlert message={errorMessageFolder} />
                         }
                         <ArchDocComp ownNametypeDoc='Type du proprietaire' attName='Nom' onChange={handleChangeDescriptionFolder} onSubmit={handleSubmitFolder}
-                        className=" bg-gray-200 resize-none p-5 w-full h-42 my-5 border-1  border-blue outline-none"
+                            className=" bg-gray-200 resize-none p-5 w-full h-42 my-5 border-1  border-blue outline-none"
                         >
                             <Inputs attName='Nom du dossier ' onChange={handleChangeNomFolder} />
                         </ArchDocComp>
