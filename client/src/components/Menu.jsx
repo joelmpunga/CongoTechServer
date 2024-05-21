@@ -18,8 +18,9 @@ export default function Menu({ title, children, iconeLeft, iconeRightOff, iconeR
     // } else {
     //     setBorderLeft("")
     // }
+    const nn = "border-l-8"
     return (
-        <div className=" text-fontSize-extra-large p-4 hover:bg-gray-600   backdrop-blur-sm  ">
+        <div className={"border-l-8 text-fontSize-extra-large p-4 hover:bg-gray-600 backdrop-blur-sm "+nn}>
             {
                 actived ?
                     <div>

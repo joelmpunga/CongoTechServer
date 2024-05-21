@@ -7,7 +7,7 @@ import LinesEllipsis from 'react-lines-ellipsis';
 import Swal from 'sweetalert2';
 import { useMyContext } from '../contexts/MyContext';
 
-export default function File({ title, data, isToClass = false, id }) {
+export default function File({ title, data, isToClass = false, id, menuContex }) {
   const { setIdFile, handleContextMenu } = useMyContext();
   const location = useLocation();
   const actualUrl = location.pathname;
@@ -74,9 +74,11 @@ export default function File({ title, data, isToClass = false, id }) {
     <ContainerFolderFile onMouseOver={handleHover} onMouseOut={hideHover} id={id}>
       <div className='flex'>
         <img src="../src/assets/images/icon-file.png" alt="" width={120} height={120} className='' />
-        <div id={id} onClick={handleContextMenu}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 40 40"><g fill="black"><path d="M23.112 9.315a3.113 3.113 0 1 1-6.226.002a3.113 3.113 0 0 1 6.226-.002" /><circle cx="20" cy="19.999" r="3.112" /><circle cx="20" cy="30.685" r="3.112" /></g></svg>
-        </div>
+        {
+          menuContex && <div id={id} onClick={handleContextMenu}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 40 40"><g fill="black"><path d="M23.112 9.315a3.113 3.113 0 1 1-6.226.002a3.113 3.113 0 0 1 6.226-.002" /><circle cx="20" cy="19.999" r="3.112" /><circle cx="20" cy="30.685" r="3.112" /></g></svg>
+          </div>
+        }
         {
           isToClass &&
           <Link key={id} to={{ pathname: `/folderclasser/${id}`, state: { id: id } }} className='flex flex-row'>
@@ -84,6 +86,23 @@ export default function File({ title, data, isToClass = false, id }) {
           </Link>
         }
       </div>
+      {
+          isHover && (
+            <div className='absolute outset-0'>
+              <div className='flex gap-5 text-wrap bg-blue-100 -ml-5 rounded-2xl w-[125px] h-[40px] p-2 shadow-xl justify-around'>
+              <Link to={`http://localhost:3000/file/show/${id}`}>
+                <img src="../src/assets/images/eye.svg" alt="" width={30} />
+              </Link>
+              <button>
+                <img src="../src/assets/images/trash-can-alt-2.svg" alt="" onClick={deleteFile} width={30} />
+              </button>
+              <a href={`http://localhost:3000/file/download/${id}`}>
+                <img src="../src/assets/images/download-alt.svg" alt="" width={30} />
+              </a>
+            </div>
+            </div>
+            )
+        }
       <div className='flex flex-col'>
         <h3 className='mx-auto max-w-[100%] '>
           <LinesEllipsis
@@ -94,20 +113,7 @@ export default function File({ title, data, isToClass = false, id }) {
             basedOn="letters"
           />
         </h3>
-        {
-          isHover && (
-            <div className='flex gap-5 text-wrap fixed bg-blue-100 -ml-5 rounded-2xl w-[125px] h-[40px] p-2 shadow-xl justify-around'>
-              <Link to={`http://localhost:3000/file/show/${id}`}>
-                <img src="../src/assets/images/eye.svg" alt="" width={30}/>
-              </Link>
-              <button>
-                <img src="../src/assets/images/trash-can-alt-2.svg" alt="" onClick={deleteFile} width={30} />
-              </button>
-              <a href={`http://localhost:3000/file/download/${id}`}>
-                <img src="../src/assets/images/download-alt.svg" alt="" width={30} />
-              </a>
-            </div>)
-        }
+        
 
       </div>
     </ContainerFolderFile>
