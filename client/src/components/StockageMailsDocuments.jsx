@@ -287,31 +287,34 @@ export default function StockageMailsDocuments() {
                 <div className='flex flex-wrap w-[100%] overflow-x-auto h-[600px]'>
                     {/* Modal */}
                     {isOpen && (
-                        <div className="bg-gray-100 shadow-2xl p-4 w-[35%] fixed bottom-0 right-0 modal-content" onClick={handleBackgroundClick}>
-                            <button className="text-[30px]" onClick={closeModal}>&times;</button>
-                            <div className="font-adamina text-[14px] flex w-full justify-end mx-auto mt-10">
-                                <div className="w-[650px] border border-gray-200 shadow-md">
-                                    <form action="" encType="multipart/form-data">
-                                        {
-                                            errorDoc && <PopupAlert message={errorMessageDoc} />
-                                        }
-                                        <ArchDocComp onChange={handleChangeDocDesc} onSubmit={handleSubmitDocument}
-                                            className=" bg-gray-200 resize-none p-5 w-full h-[120px] my-5 border-1  border-blue outline-none"
-                                        >
-                                            <CbxInput msgErr={docErr.ownerErr} ownNametypeDoc='Nom du proprietaire' onChange={handleChangeSelectedOwner} className='w-full h-14' >
-                                                <option value=""></option>
-                                                {
-                                                    owners.map(owner => (
-                                                        <option key={owner.id} value={owner.id}>{owner.nom}</option>
-                                                    ))
-                                                }
-                                            </CbxInput>
-                                            <DragComponent errMsg={docErr.fileErr} getFile={handleChangeFileDocs} />
-                                        </ArchDocComp>
-                                    </form>
+                        <div className='absolute bg-[#70726e7c] flex flex-row inset-0 justify-center items-center'>
+                            <div className="bg-gray-100 shadow-2xl p-4 w-[35%] modal-content" onClick={handleBackgroundClick}>
+                                <button className="text-[30px]" onClick={closeModal}>&times;</button>
+                                <div className="font-adamina text-[14px] flex w-full justify-end mx-auto mt-10">
+                                    <div className="w-[650px] border border-gray-200 shadow-md">
+                                        <form action="" encType="multipart/form-data">
+                                            {
+                                                errorDoc && <PopupAlert message={errorMessageDoc} />
+                                            }
+                                            <ArchDocComp onChange={handleChangeDocDesc} onSubmit={handleSubmitDocument}
+                                                className=" bg-gray-200 resize-none p-5 w-full h-[120px] my-5 border-1  border-blue outline-none"
+                                            >
+                                                <CbxInput msgErr={docErr.ownerErr} ownNametypeDoc='Nom du proprietaire' onChange={handleChangeSelectedOwner} className='w-full h-14' >
+                                                    <option value=""></option>
+                                                    {
+                                                        owners.map(owner => (
+                                                            <option key={owner.id} value={owner.id}>{owner.nom}</option>
+                                                        ))
+                                                    }
+                                                </CbxInput>
+                                                <DragComponent errMsg={docErr.fileErr} getFile={handleChangeFileDocs} />
+                                            </ArchDocComp>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                     )}
                     {/* End modal */}
                     {contextMenuVisible && (
@@ -344,7 +347,7 @@ export default function StockageMailsDocuments() {
                     {
                         getCurrentPageData().map(file => (
                             <tr key={file.id}>
-                                <File id={file.id} title={file.name} />
+                                <File id={file.id} menuContex={true} title={file.name} />
                             </tr>
                         ))
                     }
