@@ -46,17 +46,50 @@ export default function StockageMailsDocuments() {
         const selectedPage = data.selected;
         setCurrentPage(selectedPage);
     };
-    const getFiles = async () => await axios.get("http://localhost:3000/file/" + id).then(res => setFiles(res.data))
-    useEffect(() => { getFiles() }, ['files'])
-
-    const getCurrentSubFolder = async () => await axios.get("http://localhost:3000/subfolder/getbyid/" + id).then(res => setCurrentSubFolder(res.data))
+    
+    const getFiles = async () => {
+        try {
+            const res = await axios.get("http://localhost:3000/file/" + id);
+            setFiles(res.data);
+        } catch (error) {
+            console.error("Failed to fetch files:", error);
+        }
+    };
+    
     useEffect(() => {
-        getCurrentSubFolder()
-        getCurrentFolder()
-    }, [])
+        getFiles();
+    }, ['files']);
+    
+    const getCurrentSubFolder = async () => {
+        try {
+            const res = await axios.get("http://localhost:3000/subfolder/getbyid/" + id);
+            setCurrentSubFolder(res.data);
+        } catch (error) {
+            console.error("Failed to fetch current subfolder:", error);
+        }
+    };
+    
+    useEffect(() => {
+        getCurrentSubFolder();
+    }, []);
+    
+    const getCurrentFolder = async () => {
+        try {
+            const res = await axios.get("http://localhost:3000/folder/" + currentSubFolder.idFolder);
+            setCurrentFolder(res.data);
+        } catch (error) {
+            console.error("Failed to fetch current folder:", error);
+        }
+    };
+    
+    useEffect(() => {
+        if (currentSubFolder && currentSubFolder.idFolder) {
+            getCurrentFolder();
+        }
+    }, [currentSubFolder]);
+    
 
-    const getCurrentFolder = async () => await axios.get("http://localhost:3000/folder/" + 1).then(res => setCurrentFolder(res.data))
-    console.table(currentSubFolder);
+    console.table("sub folder",currentSubFolder.idFolder);
     console.table(currentFolder);
 
     //for modal
