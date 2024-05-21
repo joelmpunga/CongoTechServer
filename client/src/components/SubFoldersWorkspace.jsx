@@ -68,7 +68,7 @@ export default function SubFoldersWorkspace() {
                 <div className='relative flex flex-wrap w-[100%] overflow-x-auto h-[600px]'>
                     {
                         subFolders.map(subFolder => (
-                            <Link key={subFolder.id} to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }} className='flex flex-row'>
+                            <Link key={subFolder.id} to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }} className='flex flex-row h-5'>
                                 <Folder title={subFolder.titre} id={subFolder.id} />
                             </Link>
                         ))

@@ -91,7 +91,7 @@ export default function CreatFolder() {
     console.log(subDescFold, nomSubFold, parentFolder);
     return (
         <div className='bg-white shadow-2xl mx-6 h-[800px]'>
-            <HeaderWorkspace title="Créer un dossier et un sous-dossier">
+            <HeaderWorkspace title="Créer un dossier">
                 <Link to="/charts/doc" >
                     <ItemLinkPage title="Dashboard" path="/charts/doc" />
                 </Link>
@@ -101,27 +101,7 @@ export default function CreatFolder() {
 
                 <div className="flex gap-16 w-full justify-center items-center">
                     <div className="w-[650px] border border-gray-200 shadow-md">
-                        <Title title='Création d’un sous dossier' />
-                        {
-                            errorSubFolder && <PopupAlert message={errorMessageSubFolder} />
-                        }
-                        <ArchDocComp onChange={handleChangeDescriptionSubFolder} onSubmit={handleSubmitSubFolder}
-                            className=" bg-gray-200 resize-none p-5 w-full h-42 my-5 border-1  border-blue outline-none"
-                        >
-                            <Inputs attName='Nom du sous dossier' onChange={handleChangeNomSubFolder}>
-                                <CbxInput ownNametypeDoc='Nom du dossier parent' onChange={handleChangeParentSubFolder} className='w-[300px] h-14'>
-                                    <option value=""></option>
-                                    {
-                                        folders.map(folder => (
-                                            <option key={folder.id} value={folder.id}>{folder.titre}</option>
-                                        ))
-                                    }
-                                </CbxInput>
-                            </Inputs>
-                        </ArchDocComp>
-                    </div>
-                    <div className="w-[650px] border border-gray-200 shadow-md">
-                        <Title title='Ajouter un propriétaire' />
+                        <Title title='Ajouter un dossier' />
                         {
                             errorFolder && <PopupAlert message={errorMessageFolder} />
                         }
