@@ -53,7 +53,9 @@ export default function FoldersWorkspace() {
     return (
         <div className='bg-white shadow-2xl mx-6 h-[800px]'>
             <HeaderWorkspace title="Dossiers">
-                <ItemLinkPage title="Dashboard" path="/dashboard" />
+                <Link to="/charts/doc" >
+                    <ItemLinkPage title="Dashboard" path="/charts/doc" />
+                </Link>
             </HeaderWorkspace>
             <WorkSpace message="Parcourez les dossiers">
                 <div className='flex flex-wrap w-[100%] overflow-x-auto h-[590px]'>

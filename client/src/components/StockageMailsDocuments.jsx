@@ -28,6 +28,15 @@ export default function StockageMailsDocuments() {
     if (!isAuthenticatedLocalStorage) {
         navigate('/login')
     }
+
+    const handleBackClick2 = () => {
+        navigate(-2);
+    };
+
+    const handleBackClick1 = () => {
+        navigate(-1);
+    };
+
     const params = useParams()
     const id = parseInt(params.id)
     const [files, setFiles] = useState([])
@@ -46,7 +55,7 @@ export default function StockageMailsDocuments() {
         const selectedPage = data.selected;
         setCurrentPage(selectedPage);
     };
-    
+
     const getFiles = async () => {
         try {
             const res = await axios.get("http://localhost:3000/file/" + id);
@@ -55,11 +64,11 @@ export default function StockageMailsDocuments() {
             console.error("Failed to fetch files:", error);
         }
     };
-    
+
     useEffect(() => {
         getFiles();
     }, ['files']);
-    
+
     const getCurrentSubFolder = async () => {
         try {
             const res = await axios.get("http://localhost:3000/subfolder/getbyid/" + id);
@@ -68,11 +77,11 @@ export default function StockageMailsDocuments() {
             console.error("Failed to fetch current subfolder:", error);
         }
     };
-    
+
     useEffect(() => {
         getCurrentSubFolder();
     }, []);
-    
+
     const getCurrentFolder = async () => {
         try {
             const res = await axios.get("http://localhost:3000/folder/" + currentSubFolder.idFolder);
@@ -81,15 +90,15 @@ export default function StockageMailsDocuments() {
             console.error("Failed to fetch current folder:", error);
         }
     };
-    
+
     useEffect(() => {
         if (currentSubFolder && currentSubFolder.idFolder) {
             getCurrentFolder();
         }
     }, [currentSubFolder]);
-    
 
-    console.table("sub folder",currentSubFolder.idFolder);
+
+    console.table("sub folder", currentSubFolder.idFolder);
     console.table(currentFolder);
 
     //for modal
@@ -312,9 +321,15 @@ export default function StockageMailsDocuments() {
     return (
         <div className='bg-white shadow-2xl mx-6 h-[800px]'>
             <HeaderWorkspace title="Documents & Mails" >
-                <ItemLinkPage title="Dashboard" path="/dashboard" />
-                <ItemLinkPage title={"/" + currentFolder.titre} path="/folders" />
-                <ItemLinkPage title={"/" + currentSubFolder.titre} path="/subfolders" />
+                <Link to="/charts/doc" >
+                    <ItemLinkPage title="Dashboard" path="/charts/doc" />
+                </Link>
+                <Link to="#" onClick={handleBackClick2} >
+                    <ItemLinkPage title={"/" + currentFolder.titre} />
+                </Link>
+                <Link to="#" onClick={handleBackClick1} >
+                    <ItemLinkPage title={"/" + currentSubFolder.titre} path="/subfolders" />
+                </Link>
             </HeaderWorkspace>
             <WorkSpace message="Parcourez les fichiers et mails">
                 <div className='flex flex-wrap w-[100%] overflow-x-auto h-[600px]'>
