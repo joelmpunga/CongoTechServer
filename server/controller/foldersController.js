@@ -39,6 +39,7 @@ export default class foldersController {
 
     static async getByIdFolders(req, res) {
         const id = parseInt(req.params.id);
+        console.log("contr : id",req.params.id);
         const folder = new Folder();
         const data = await folder.getById(id).then()
         res.status(200).json(data);

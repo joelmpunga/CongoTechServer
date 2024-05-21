@@ -5,13 +5,19 @@ import HeaderWorkspace from './HeaderWorkspace'
 import ItemLinkPage from '../ui/ItemLinkPage'
 import BouttonIcon from '../ui/BouttonIcon'
 import axios from 'axios'
-import { Link, useParams,useNavigate } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 export default function SubFoldersClasser({ idFolder }) {
     const navigate = useNavigate()
     const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated')
     if (!isAuthenticatedLocalStorage) {
         navigate('/login')
     }
+    const handleBackClick1 = () => {
+        navigate(-1);
+    };
+    const handleBackClick2 = () => {
+        navigate(-2);
+    };
     const params = useParams()
     console.log(params);
     const id = params.id
@@ -23,14 +29,21 @@ export default function SubFoldersClasser({ idFolder }) {
     return (
         <>
             <HeaderWorkspace title="Sous dossiers" message="Parcourez les sous dossiers">
-                <ItemLinkPage title="Dashboard" path="/dashboard" />
-                <ItemLinkPage title="Dossiers" path="/folders" />
+                <Link to="/charts/doc" >
+                    <ItemLinkPage title="Dashboard" path="/charts/doc" />
+                </Link>
+                <Link to="#" onClick={handleBackClick2} >
+                    <ItemLinkPage title="/Brouillon" />
+                </Link>
+                <Link to="#" onClick={handleBackClick1} >
+                    <ItemLinkPage title="/Dossiers" path="/folders" />
+                </Link>
             </HeaderWorkspace>
             <WorkSpace message="Parcourez les sous dossiers">
                 {
                     subFolders.map(subFolder => (
-                        //<Link  to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }}>
-                            <Folder key={subFolder.id} title={subFolder.titre} id={subFolder.id} isToClass={true} idFile = {idFile} idSub={subFolder.id}/>
+                        //<Link key={subFolder.id}  to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }}>
+                        <Folder key={subFolder.id} title={subFolder.titre} id={subFolder.id} isToClass={true} idFile={idFile} idSub={subFolder.id} />
                         //</Link>
                     ))
                 }

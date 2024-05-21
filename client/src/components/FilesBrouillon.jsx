@@ -32,12 +32,14 @@ export default function FilesBrouillon() {
   const getFiles = async () => await axios.get("http://localhost:3000/file/draft").then(res => setFiles(res.data))
   useEffect(() => { getFiles() }, [files])
   return (
-    <>
+    <div className='bg-white shadow-2xl mx-6 h-[800px] py-2'>
       <HeaderWorkspace title="Brouillon des Documents">
-        <ItemLinkPage title="Dashboard / Brouillon" path="/documents" />
+        <Link to="/charts/doc" >
+          <ItemLinkPage title="Dashboard" path="/charts/doc" />
+        </Link>
       </HeaderWorkspace>
       <WorkSpace message="Parcourez les dossiers créés">
-        <div className='flex flex-wrap w-[100%] overflow-x-auto h-[70%]'>
+        <div className='flex flex-wrap w-[100%] overflow-x-auto h-[600px]'>
           {
             getCurrentPageData().map(file => (
               <tr key={file.id}>
@@ -63,6 +65,6 @@ export default function FilesBrouillon() {
       </WorkSpace>
 
       {/* <Pagination/> */}
-    </>
+    </div>
   )
 }
