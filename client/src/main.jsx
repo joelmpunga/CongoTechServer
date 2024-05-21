@@ -71,6 +71,7 @@ const router = createBrowserRouter([
         element: <FoldersClasser />,
         errorElement: <Error404 />,
       },
+      // this path manage the class of the sub folder
       {
         path: "/:id/:idFile",
         element: <><SubFoldersClasser /></>,

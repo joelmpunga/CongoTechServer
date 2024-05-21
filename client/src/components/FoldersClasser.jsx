@@ -88,7 +88,7 @@ export default function FoldersClasser() {
                 <div className='flex flex-wrap w-[100%] overflow-x-auto h-[600px]'>
                     {
                         getCurrentPageData().map(folder => (
-                            <Link key={folder.id} to={{ pathname: `/subfolderclasser/${folder.id}/${idFile}`, state: { id: folder.id, idFile: idFile } }}>
+                            <Link key={folder.id} to={{ pathname: `/${folder.id}/${idFile}`, state: { id: folder.id, idFile: idFile } }}>
                                 <Folder title={folder.titre} id={folder.id} />
                             </Link>
                         ))
