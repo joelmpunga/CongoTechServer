@@ -74,22 +74,22 @@ export default function File({ title, data, isToClass = false, id, menuContex })
     <ContainerFolderFile onMouseOver={handleHover} onMouseOut={hideHover} id={id}>
       <div className='flex'>
         <img src="../src/assets/images/icon-file.png" alt="" width={120} height={120} className='' />
-        {
+        {/* {
           menuContex && <div id={id} onClick={handleContextMenu}>
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 40 40"><g fill="black"><path d="M23.112 9.315a3.113 3.113 0 1 1-6.226.002a3.113 3.113 0 0 1 6.226-.002" /><circle cx="20" cy="19.999" r="3.112" /><circle cx="20" cy="30.685" r="3.112" /></g></svg>
           </div>
-        }
-        {
+        } */}
+        {/* {
           isToClass &&
           <Link key={id} to={{ pathname: `/folderclasser/${id}`, state: { id: id } }} className='flex flex-row'>
             <BouttonIcon imageUrl="../src/assets/images/Ok-icon.svg" msg="Classer" taille="w-6 h-6" />
           </Link>
-        }
+        } */}
       </div>
       {
-          isHover && (
-            <div className='absolute outset-0'>
-              <div className='flex gap-5 text-wrap bg-blue-100 -ml-5 rounded-2xl w-[125px] h-[40px] p-2 shadow-xl justify-around'>
+        isHover && (
+          <div className='absolute outset-0'>
+            <div className='flex gap-5 text-wrap bg-blue-100 -ml-5 rounded-2xl w-[170px] h-[40px] p-2 shadow-xl justify-around'>
               <Link to={`http://localhost:3000/file/show/${id}`}>
                 <img src="../src/assets/images/eye.svg" alt="" width={30} />
               </Link>
@@ -99,10 +99,27 @@ export default function File({ title, data, isToClass = false, id, menuContex })
               <a href={`http://localhost:3000/file/download/${id}`}>
                 <img src="../src/assets/images/download-alt.svg" alt="" width={30} />
               </a>
+
+              {
+                isToClass &&
+                <Link key={id} to={{ pathname: `/folderclasser/${id}`, state: { id: id } }} className=''>
+                  {/* <BouttonIcon imageUrl="../src/assets/images/Ok-icon.svg" msg="Classer" taille="w-6 h-6" /> */}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="gray" d="m12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14zM5 8v11h14V8zm0 13q-.825 0-1.412-.587T3 19V6.525q0-.35.113-.675t.337-.6L4.7 3.725q.275-.35.687-.538T6.25 3h11.5q.45 0 .863.188t.687.537l1.25 1.525q.225.275.338.6t.112.675V19q0 .825-.587 1.413T19 21zm.4-15h13.2l-.85-1H6.25zm6.6 7.5" /></svg>
+
+                </Link>
+              }
+
+              {
+                menuContex && <div id={id} onClick={handleContextMenu}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 40 40"><g fill="black"><path d="M23.112 9.315a3.113 3.113 0 1 1-6.226.002a3.113 3.113 0 0 1 6.226-.002" /><circle cx="20" cy="19.999" r="3.112" /><circle cx="20" cy="30.685" r="3.112" /></g></svg>
+                </div>
+              }
+
+
             </div>
-            </div>
-            )
-        }
+          </div>
+        )
+      }
       <div className='flex flex-col'>
         <h3 className='mx-auto max-w-[100%] '>
           <LinesEllipsis
@@ -113,7 +130,7 @@ export default function File({ title, data, isToClass = false, id, menuContex })
             basedOn="letters"
           />
         </h3>
-        
+
 
       </div>
     </ContainerFolderFile>
