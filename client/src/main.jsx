@@ -52,11 +52,6 @@ const router = createBrowserRouter([
         errorElement: <Error404 />,
       },
       {
-        path: "/folder/subfolder",
-        element: <SubFoldersWorkspace />,
-        errorElement: <Error404 />,
-      },
-      {
         path: "subfolder/:id",
         element: <SubFoldersWorkspace />,
         errorElement: <Error404 />,

@@ -7,7 +7,7 @@ import MailBrouillon from './MailBrouillon'
 import Pagination from './Pagination'
 import CheckBox from '../ui/CheckBox'
 import { useMyContext } from '../contexts/MyContext'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import ReactPaginate from 'react-paginate'
 
 export default function MailsBrouillonAll() {
@@ -19,7 +19,9 @@ export default function MailsBrouillonAll() {
     return (
         <div className='bg-white shadow-2xl mx-6 h-[670px]'>
             <HeaderWorkspace title="Brouillon des E-mails">
-                <ItemLinkPage title="Dashboard" path="/brouillon" />
+                <Link to="/charts/doc" >
+                    <ItemLinkPage title="Dashboard" path="/charts/doc" />
+                </Link>
             </HeaderWorkspace>
             <WorkSpace message="Parcourez les mails non classés">
                 <div className='flex flex-col overflow-x-auto justify-between mx-5 w-full h-[470px]'>

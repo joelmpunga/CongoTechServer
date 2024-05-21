@@ -82,7 +82,12 @@ export default function FoldersClasser() {
     return (
         <div className='bg-white shadow-2xl overflow-x-auto mx-6 h-[800px]'>
             <HeaderWorkspace title="Classer Dossiers">
-                <ItemLinkPage title="Dashboard" path="/dashboard" />
+                <Link to="/charts/doc" >
+                    <ItemLinkPage title="Dashboard" path="/charts/doc" />
+                </Link>
+                <Link to="/file/draft" >
+                    <ItemLinkPage title="/Brouillon" path="/file/draft" />
+                </Link>
             </HeaderWorkspace>
             <WorkSpace message="Séléctionnez le dossier parent oû coller">
                 <div className='flex flex-wrap w-[100%] overflow-x-auto h-[600px]'>

@@ -15,6 +15,9 @@ export default function SubFoldersWorkspace() {
     if (!isAuthenticatedLocalStorage) {
         navigate('/login')
     }
+    const handleBackClick1 = () => {
+        navigate(-1);
+    };
     const params = useParams()
     console.log(params.id);
     const [subFolders, setSubFolders] = useState([])
@@ -54,8 +57,12 @@ export default function SubFoldersWorkspace() {
     return (
         <div className='bg-white shadow-2xl mx-6 h-[800px]'>
             <HeaderWorkspace title="Sous dossiers" >
-                <ItemLinkPage title="Dashboard" path="/dashboard" />
-                <ItemLinkPage title={"/" + currentFolder.titre} path="/folders" />
+                <Link to="/charts/doc" >
+                    <ItemLinkPage title="Dashboard" path="/charts/doc" />
+                </Link>
+                <Link to="#" onClick={handleBackClick1} >
+                    <ItemLinkPage title={"/" + currentFolder.titre} />
+                </Link>
             </HeaderWorkspace>
             <WorkSpace message="Parcourez les sous dossiers">
                 <div className='relative flex flex-wrap w-[100%] overflow-x-auto h-[600px]'>
