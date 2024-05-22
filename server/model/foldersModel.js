@@ -20,7 +20,6 @@ export default class Folder {
     }
 
     async getById(id){
-        console.log("model : id",id);
         const query = await prisma.folder.findFirst({
             where:{
                 id: id,

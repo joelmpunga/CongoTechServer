@@ -133,11 +133,17 @@ export default class filesController {
         // });
         const { description, idOwner, idUser,idSubFolder } = req.body
         //const __dirname = path.dirname('/home/joelmpunga/mail-retrieval-app/index.js');
-        // console.log(req.file)
+        //console.log(req.file)
         // console.log(req.body);
         const buffer = await readChunk('./server/public/files/' + req.file.filename, { length: 4100 });
         const type = await fileTypeFromBuffer(buffer);
         const file = new File()
+        const checkFileExists = await file.isNameFileExists(req.file.filename);
+        console.log("IS EXISTS: " , checkFileExists);
+        if(checkFileExists !== null) {
+            console.log("Exists", checkFileExists);
+            return res.status(404).json({ "message": "File name already exists" });
+        }
         if (type !== null && (type.ext === 'pdf' || type.ext === 'docx' || type.ext === 'jpg' || type.ext === 'png' || type.ext === 'jpeg')) {
             const data = {
                 name: req.file.filename,

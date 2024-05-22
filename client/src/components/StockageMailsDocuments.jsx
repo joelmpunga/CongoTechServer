@@ -299,15 +299,23 @@ export default function StockageMailsDocuments() {
                             title: "Le fichier est archivée"
                         });
                     }
+                    else if (res.status ===404){
+                        showAlert(
+                            "warning",
+                            "Erreur",
+                            `Fichier Existant, choisir un autre fichier à archiver ${res.data.message}`
+                        );
+                    }
                 }).catch((err) => {
                     setErrorDoc(true)
                     setErrorMessageDoc(err.response.data)
-                    showAlert(
-                        "warning",
-                        "Erreur",
-                        `Erreur lors du téléchargement du fichier ${err.response.data}`
-                    );
-                })
+                    TopNotification.fire({
+                        icon: "success",
+                        title: "Fichier Existant"
+                    });
+                    window.location.href = '/file/' + id
+                }                
+            )
             } catch (error) {
                 console.error('Erreur lors du téléchargement du fichier :', error);
                 showAlert(
@@ -315,6 +323,7 @@ export default function StockageMailsDocuments() {
                     "Erreur",
                     `Erreur lors du téléchargement du fichier ${error}`
                 );
+                window.location.href = '/file/' + id
             }
         }
     }
