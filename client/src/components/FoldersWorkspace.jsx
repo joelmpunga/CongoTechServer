@@ -137,61 +137,66 @@ export default function FoldersWorkspace() {
 
     //end modal
     return (
-        <div className='bg-white shadow-2xl mx-6 h-[800px]'>
-            <HeaderWorkspace title="Dossiers">
-                <Link to="/charts/doc" >
-                    <ItemLinkPage title="Dashboard" path="/charts/doc" />
-                </Link>
-            </HeaderWorkspace>
-            <WorkSpace message="Parcourez les dossiers">
-                <div className='flex flex-wrap w-[100%] overflow-x-auto h-[590px]'>
-                    {/* Modal */}
-                    {isOpen && (
-                        <div className="absolute bg-[#70726e7c] flex flex-row inset-0 justify-center items-center">
-                            <div className="bg-gray-100 shadow-2xl p-4 w-[35%] modal-content" onClick={handleBackgroundClick}>
-                                <Title title='Ajouter un dossier' />
-                                {
-                                    errorFolder && <PopupAlert message={errorMessageFolder} />
-                                }
-                                <ArchDocComp ownNametypeDoc='Type du proprietaire' attName='Nom' onChange={handleChangeDescriptionFolder} onSubmit={handleSubmitFolder}
-                                    className=" bg-gray-200 resize-none p-5 w-full h-42 my-5 border-1  border-blue outline-none"
-                                >
-                                    <Inputs attName='Nom du dossier ' onChange={handleChangeNomFolder} />
-                                </ArchDocComp>
+        <div className='flex flex-col gap-4 mx-3' >
+            <div className='bg-white shadow-2xl py-3'>
+                <HeaderWorkspace title="Dossiers">
+                    <Link to="/charts/doc" >
+                        <ItemLinkPage title="Dashboard" path="/charts/doc" />
+                    </Link>
+                </HeaderWorkspace>
+            </div>
+            <div className='bg-white shadow-2xl h-[700px]'>
+
+                <WorkSpace message="Parcourez les dossiers">
+                    <div className='flex flex-wrap w-[100%] overflow-x-auto h-[580px]'>
+                        {/* Modal */}
+                        {isOpen && (
+                            <div className="absolute bg-[#70726e7c] flex flex-row inset-0 justify-center items-center">
+                                <div className="bg-gray-100 shadow-2xl p-4 w-[35%] modal-content" onClick={handleBackgroundClick}>
+                                    <Title title='Ajouter un dossier' />
+                                    {
+                                        errorFolder && <PopupAlert message={errorMessageFolder} />
+                                    }
+                                    <ArchDocComp ownNametypeDoc='Type du proprietaire' attName='Nom' onChange={handleChangeDescriptionFolder} onSubmit={handleSubmitFolder}
+                                        className=" bg-gray-200 resize-none p-5 w-full h-42 my-5 border-1  border-blue outline-none"
+                                    >
+                                        <Inputs attName='Nom du dossier ' onChange={handleChangeNomFolder} />
+                                    </ArchDocComp>
+                                </div>
                             </div>
-                        </div>
-                    )}
-                    {/* End modal */}
-                    {
-                        getCurrentPageData().map(folder => (
-                            <Link key={folder.id} to={{ pathname: `/subfolder/${folder.id}`, state: { id: folder.id } }} className='h-5'>
-                                <Folder onContextMenu={showMenu} isVisible={isVisible} position={position} title={folder.titre} id={folder.id} />
-                            </Link>
-                        ))
-                    }
-                </div>
-                <div className='flex justify-between w-full mx-5'>
-                    <ReactPaginate
-                        previousLabel={"Précédent"}
-                        nextLabel={"Suivant"}
-                        breakLabel={"..."}
-                        pageCount={Math.ceil(folders.length / itemsPerPage)} // Calcul du nombre total de pages
-                        marginPagesDisplayed={2}
-                        pageRangeDisplayed={5}
-                        onPageChange={handlePageClick}
-                        containerClassName={"flex justify-end gap-6 text-[20px]"}
-                        activeClassName={"active"}
-                    />
-                    <div>
-                        <ActionBtns
-                            className='flex flex-row justify-center items-center bg-blue-600 rounded-2xl w-[150px] h-[50px] text-white'
-                            onClick={openModal}
-                            src="src/assets/images/add.svg"
-                            label="Création"
-                        />
+                        )}
+                        {/* End modal */}
+                        {
+                            getCurrentPageData().map(folder => (
+                                <Link key={folder.id} to={{ pathname: `/subfolder/${folder.id}`, state: { id: folder.id } }} className='h-5'>
+                                    <Folder onContextMenu={showMenu} isVisible={isVisible} position={position} title={folder.titre} id={folder.id} />
+                                </Link>
+                            ))
+                        }
                     </div>
-                </div>
-            </WorkSpace>
+                    <div className='flex justify-between w-full mx-5'>
+                        <ReactPaginate
+                            previousLabel={"Précédent"}
+                            nextLabel={"Suivant"}
+                            breakLabel={"..."}
+                            pageCount={Math.ceil(folders.length / itemsPerPage)} // Calcul du nombre total de pages
+                            marginPagesDisplayed={2}
+                            pageRangeDisplayed={5}
+                            onPageChange={handlePageClick}
+                            containerClassName={"flex justify-end gap-6 text-[20px]"}
+                            activeClassName={"active"}
+                        />
+                        <div>
+                            <ActionBtns
+                                className='flex flex-row justify-center items-center bg-blue-600 rounded-2xl w-[150px] h-[50px] text-white'
+                                onClick={openModal}
+                                src="src/assets/images/add.svg"
+                                label="Création"
+                            />
+                        </div>
+                    </div>
+                </WorkSpace>
+            </div>
         </div>
     )
 }

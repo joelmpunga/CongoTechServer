@@ -55,49 +55,55 @@ export default function SubFoldersWorkspace() {
         setclassValue('hidden')
     }
     return (
-        <div className='bg-white shadow-2xl mx-6 h-[800px]'>
-            <HeaderWorkspace title="Sous dossiers" >
-                <Link to="/charts/doc" >
-                    <ItemLinkPage title="Dashboard" path="/charts/doc" />
-                </Link>
-                <Link to="#" onClick={handleBackClick1} >
-                    <ItemLinkPage title={"/" + currentFolder.titre} />
-                </Link>
-            </HeaderWorkspace>
-            <WorkSpace message="Parcourez les sous dossiers">
-                <div className='relative flex flex-wrap w-[100%] overflow-x-auto h-[600px]'>
-                    {
-                        subFolders.map(subFolder => (
-                            <Link key={subFolder.id} to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }} className='flex flex-row h-5'>
-                                <Folder title={subFolder.titre} id={subFolder.id} />
-                            </Link>
-                        ))
-                    }
-                </div>
-                <CreateSubfolder classValue={classValue} annuler={annuler} />
-                <div className='flex justify-between w-full mx-5'>
-                    <ReactPaginate
-                        previousLabel={"Précédent"}
-                        nextLabel={"Suivant"}
-                        breakLabel={"..."}
-                        pageCount={Math.ceil(subFolders.length / itemsPerPage)} // Calcul du nombre total de pages
-                        marginPagesDisplayed={2}
-                        pageRangeDisplayed={5}
-                        onPageChange={handlePageClick}
-                        containerClassName={"flex justify-end gap-6 text-[20px]"}
-                        activeClassName={"active"}
-                    />
-                    <div>
+        <div className='flex flex-col gap-4 mx-3' >
+            <div className='bg-white shadow-2xl py-3'>
+                <HeaderWorkspace title="Sous dossiers" >
+                    <Link to="/charts/doc" >
+                        <ItemLinkPage title="Dashboard" path="/charts/doc" />
+                    </Link>
+                    <Link to="#" onClick={handleBackClick1} >
+                        <ItemLinkPage title={"/" + currentFolder.titre} />
+                    </Link>
+                </HeaderWorkspace>
 
-                        <ActionBtns
-                            onClick={onClick}
-                            className='flex flex-row justify-center items-center bg-blue-600 rounded-2xl w-[150px] h-[50px] text-white'
-                            src="../src/assets/images/add.svg"
-                            label="Création"
-                        />
+            </div>
+            <div className='bg-white shadow-2xl h-[700px]'>
+
+                <WorkSpace message="Parcourez les sous dossiers">
+                    <div className='relative flex flex-wrap w-[100%] overflow-x-auto h-[580px]'>
+                        {
+                            subFolders.map(subFolder => (
+                                <Link key={subFolder.id} to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }} className='flex flex-row h-5'>
+                                    <Folder title={subFolder.titre} id={subFolder.id} />
+                                </Link>
+                            ))
+                        }
                     </div>
-                </div>
-            </WorkSpace>
+                    <CreateSubfolder classValue={classValue} annuler={annuler} />
+                    <div className='flex justify-between w-full mx-5 '>
+                        <ReactPaginate
+                            previousLabel={"Précédent"}
+                            nextLabel={"Suivant"}
+                            breakLabel={"..."}
+                            pageCount={Math.ceil(subFolders.length / itemsPerPage)} // Calcul du nombre total de pages
+                            marginPagesDisplayed={2}
+                            pageRangeDisplayed={5}
+                            onPageChange={handlePageClick}
+                            containerClassName={"flex justify-end gap-6 text-[20px]"}
+                            activeClassName={"active"}
+                        />
+                        <div>
+
+                            <ActionBtns
+                                onClick={onClick}
+                                className='flex flex-row justify-center items-center bg-blue-600 rounded-2xl w-[150px] h-[50px] text-white'
+                                src="../src/assets/images/add.svg"
+                                label="Création"
+                            />
+                        </div>
+                    </div>
+                </WorkSpace>
+            </div>
         </div>
     )
 }
