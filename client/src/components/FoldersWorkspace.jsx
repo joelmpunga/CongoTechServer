@@ -137,18 +137,18 @@ export default function FoldersWorkspace() {
 
     //end modal
     return (
-        <div className='flex flex-col gap-4 mx-3' >
-            <div className='bg-white shadow-2xl py-3'>
+        <div className='flex flex-col gap-10 mx-3' >
+            <div className=''>
                 <HeaderWorkspace title="Dossiers">
                     <Link to="/charts/doc" >
                         <ItemLinkPage title="Dashboard" path="/charts/doc" />
                     </Link>
                 </HeaderWorkspace>
             </div>
-            <div className='bg-white shadow-2xl h-[700px]'>
+            <div className='bg-white shadow-2xl h-[700px] rounded-lg'>
 
                 <WorkSpace message="Parcourez les dossiers">
-                    <div className='flex flex-wrap w-[100%] overflow-x-auto h-[580px]'>
+                    <div className='flex flex-wrap w-[100%] overflow-x-auto h-[580px] '>
                         {/* Modal */}
                         {isOpen && (
                             <div className="absolute bg-[#70726e7c] flex flex-row inset-0 justify-center items-center">

@@ -54,20 +54,22 @@ export default function SubFoldersWorkspace() {
     const annuler = () => {
         setclassValue('hidden')
     }
+    // console.log(currentFolder);
     return (
-        <div className='flex flex-col gap-4 mx-3' >
-            <div className='bg-white shadow-2xl py-3'>
+        <div className='flex flex-col gap-10 mx-3' >
+            <div className=''>
                 <HeaderWorkspace title="Sous dossiers" >
                     <Link to="/charts/doc" >
                         <ItemLinkPage title="Dashboard" path="/charts/doc" />
                     </Link>
-                    <Link to="#" onClick={handleBackClick1} >
+                    {/* <Link to="#" onClick={handleBackClick1} >
                         <ItemLinkPage title={"/" + currentFolder.titre} />
-                    </Link>
+                    </Link> */}
+                    <span className='text-gray'>{"/" + currentFolder.titre}</span>
                 </HeaderWorkspace>
 
             </div>
-            <div className='bg-white shadow-2xl h-[700px]'>
+            <div className='bg-white shadow-2xl h-[700px] rounded-lg'>
 
                 <WorkSpace message="Parcourez les sous dossiers">
                     <div className='relative flex flex-wrap w-[100%] overflow-x-auto h-[580px]'>

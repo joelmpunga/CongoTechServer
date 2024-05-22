@@ -270,7 +270,7 @@ export default function StockageMailsDocuments() {
             text: text,
             showConfirmButton: false,
             width: 500,
-            timer: 6000
+            timer: 3000
         });
     }
 
@@ -335,8 +335,8 @@ export default function StockageMailsDocuments() {
     }
     return (
 
-        <div className='flex flex-col gap-4 mx-3' >
-            <div className='bg-white shadow-2xl py-3'>
+        <div className='flex flex-col gap-10 mx-3' >
+            <div className=''>
                 <HeaderWorkspace title="Documents & Mails" >
                     <Link to="/charts/doc" >
                         <ItemLinkPage title="Dashboard" path="/charts/doc" />
@@ -351,7 +351,7 @@ export default function StockageMailsDocuments() {
 
 
             </div>
-            <div className='bg-white shadow-2xl h-[700px]'>
+            <div className='bg-white shadow-2xl h-[700px] rounded-lg'>
 
                 <WorkSpace message="Parcourez les fichiers et mails">
                     <div className='flex flex-wrap w-[100%] overflow-flex-auto h-[580px]'>

@@ -59,8 +59,8 @@ export default function SubFoldersClasser({ idFolder }) {
 
     return (
         
-            <div className='flex flex-col gap-4 mx-3' >
-                <div className='bg-white shadow-2xl py-3'>
+            <div className='flex flex-col gap-10 mx-3' >
+                <div className=''>
                     <HeaderWorkspace title="Sous dossiers" >
                         <Link to="/charts/doc" >
                             <ItemLinkPage title="Dashboard" path="/charts/doc" />
@@ -73,7 +73,7 @@ export default function SubFoldersClasser({ idFolder }) {
                         </Link>
                     </HeaderWorkspace>
                 </div>
-                <div className='bg-white shadow-2xl h-[700px]'>
+                <div className='bg-white shadow-2xl h-[700px] rounded-lg'>
                     <WorkSpace message="Parcourez les sous dossiers">
                         <div className='flex flex-wrap w-[100%] overflow-x-auto h-[580px]'>
                             {/* {

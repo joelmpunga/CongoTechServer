@@ -80,8 +80,8 @@ export default function FoldersClasser() {
     }, [folders]);
 
     return (
-        <div className='flex flex-col gap-4 mx-3' >
-            <div className='bg-white shadow-2xl py-3'>
+        <div className='flex flex-col gap-10 mx-3' >
+            <div className=''>
                 <HeaderWorkspace title="Classer Dossiers">
                     <Link to="/charts/doc" >
                         <ItemLinkPage title="Dashboard" path="/charts/doc" />
@@ -92,7 +92,7 @@ export default function FoldersClasser() {
                 </HeaderWorkspace>
 
             </div>
-            <div className='bg-white shadow-2xl overflow-x-auto h-[700px]'>
+            <div className='bg-white shadow-2xl overflow-x-auto h-[700px] rounded-lg'>
                
                 <WorkSpace message="Séléctionnez le dossier parent oû coller">
                     <div className='flex flex-wrap w-[100%] overflow-x-auto h-[580px]'>

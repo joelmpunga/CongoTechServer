@@ -17,7 +17,7 @@ export default function MailsBrouillonAll() {
         navigate('/login')
     }
     return (
-        <div className='flex flex-col gap-4 mx-3' >
+        <div className='flex flex-col gap-10 mx-3' >
             <div className='bg-white shadow-2xl py-3'>
                 <HeaderWorkspace title="Brouillon des E-mails">
                     <Link to="/charts/doc" >
@@ -26,7 +26,7 @@ export default function MailsBrouillonAll() {
                 </HeaderWorkspace>
 
             </div>
-            <div className='bg-white shadow-2xl h-[700px]'>
+            <div className='bg-white shadow-2xl h-[700px] rounded-lg'>
 
                 <WorkSpace message="Parcourez les mails non classés">
                     <div className='flex flex-col justify-between w-[100%] overflow-flex-auto mx-6 h-[580px]'>
