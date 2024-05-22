@@ -310,7 +310,7 @@ export default function StockageMailsDocuments() {
                     setErrorDoc(true)
                     setErrorMessageDoc(err.response.data)
                     TopNotification.fire({
-                        icon: "success",
+                        icon: "warning",
                         title: "Fichier Existant"
                     });
                     window.location.href = '/file/' + id
