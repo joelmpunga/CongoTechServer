@@ -45,11 +45,18 @@ export default function FilesBrouillon() {
         <WorkSpace message="Parcourez les documents">
           <div className='flex flex-wrap w-[100%] overflow-x-auto h-[580px]'>
             {
-              getCurrentPageData().map(file => (
-                <tr key={file.id}>
-                  <File id={file.id} title={file.name} isToClass={true} />
-                </tr>
-              ))
+              files.length === 0 ? (
+                <div className="px-80 py-20">
+                  <img src="../src/assets/images/empty_file.gif" className='w-80 h-80' alt="" />
+                  <h1 className='text-gray-700 text-[20px]'>Aucun fichiers trouvés!</h1>
+                </div>
+              ) : (
+                getCurrentPageData().map(file => (
+                  <tr key={file.id}>
+                    <File id={file.id} title={file.name} isToClass={true} />
+                  </tr>
+                ))
+              )
             }
           </div>
 

@@ -167,11 +167,18 @@ export default function FoldersWorkspace() {
                         )}
                         {/* End modal */}
                         {
-                            getCurrentPageData().map(folder => (
-                                <Link key={folder.id} to={{ pathname: `/subfolder/${folder.id}`, state: { id: folder.id } }} className='h-5'>
-                                    <Folder onContextMenu={showMenu} isVisible={isVisible} position={position} title={folder.titre} id={folder.id} />
-                                </Link>
-                            ))
+                            folders.length === 0 ? (
+                                <div className="px-80 py-20">
+                                    <img src="../src/assets/images/empty_file.gif" className='w-80 h-80' alt="" />
+                                    <h1 className='text-gray-700 text-[20px]'>Aucun fichiers trouvés!</h1>
+                                </div>
+                            ) : (
+                                getCurrentPageData().map(folder => (
+                                    <Link key={folder.id} to={{ pathname: `/subfolder/${folder.id}`, state: { id: folder.id } }} className='h-5'>
+                                        <Folder onContextMenu={showMenu} isVisible={isVisible} position={position} title={folder.titre} id={folder.id} />
+                                    </Link>
+                                ))
+                            )
                         }
                     </div>
                     <div className='flex justify-between w-full mx-5'>

@@ -58,7 +58,7 @@ export default function SubFoldersWorkspace() {
     return (
         <div className='flex flex-col gap-10 mx-3' >
             <div className=''>
-                <HeaderWorkspace title="Sous dossiers" actualPage={currentFolder.titre}>
+                <HeaderWorkspace title=" Sous dossiers" actualPage={currentFolder.titre}>
                     <Link to="/charts/doc" >
                         <ItemLinkPage title="Dashboard" path="/charts/doc" />
                     </Link>
@@ -70,11 +70,18 @@ export default function SubFoldersWorkspace() {
                 <WorkSpace message="Parcourez les sous dossiers">
                     <div className='relative flex flex-wrap w-[100%] overflow-x-auto h-[580px]'>
                         {
-                            subFolders.map(subFolder => (
-                                <Link key={subFolder.id} to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }} className='flex flex-row h-5'>
-                                    <Folder title={subFolder.titre} id={subFolder.id} />
-                                </Link>
-                            ))
+                            subFolders.length === 0 ? (
+                                <div className="px-80 py-20">
+                                    <img src="../src/assets/images/empty_file.gif" className='w-80 h-80' alt="" />
+                                    <h1 className='text-gray-700 text-[20px]'>Aucun fichiers trouvés!</h1>
+                                </div>
+                            ) : (
+                                subFolders.map(subFolder => (
+                                    <Link key={subFolder.id} to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }} className='flex flex-row h-5'>
+                                        <Folder title={subFolder.titre} id={subFolder.id} />
+                                    </Link>
+                                ))
+                            )
                         }
                     </div>
                     <CreateSubfolder classValue={classValue} annuler={annuler} />

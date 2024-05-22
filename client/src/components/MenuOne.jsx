@@ -11,7 +11,7 @@ export default function MenuOne({ title, iconeLeft }) {
         setActived(!actived)
     }
     return (
-        <div className="text-fontSize-extra-large p-4 hover:bg-gray-600 backdrop-blur-sm  ">
+        <div className={(actived ? "border-l-8" : "") + " text-fontSize-extra-large p-4 hover:bg-gray-600 backdrop-blur-sm "}>
             {
                 actived ?
                     

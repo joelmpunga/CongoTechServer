@@ -8,7 +8,7 @@ export default function LinksPages({ title, children,actualPage }) {
                 {
                     children
                 }
-                <span className='text-gray-600'> {"/"+actualPage} </span>
+                <span className='text-gray-600'> {" / "+actualPage} </span>
             </div>
         </div>
     )

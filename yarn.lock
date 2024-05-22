@@ -4014,6 +4014,11 @@ react-lines-ellipsis@^0.15.4:
   resolved "https://registry.npmjs.org/react-lines-ellipsis/-/react-lines-ellipsis-0.15.4.tgz"
   integrity sha512-bIcoVRulN6RdBb9QByRPan7vDjxJv4jhII9eMs5ZkCK4QYEbPiY+8g+IM7/B0kb8UbRRRgR7KwpPWI9j8d2FYg==
 
+react-loading-skeleton@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/react-loading-skeleton/-/react-loading-skeleton-3.4.0.tgz#c71a3a17259d08e4064974aa0b07f150a09dfd57"
+  integrity sha512-1oJEBc9+wn7BbkQQk7YodlYEIjgeR+GrRjD+QXkVjwZN7LGIcAFHrx4NhT7UHGBxNY1+zax3c+Fo6XQM4R7CgA==
+
 react-paginate@^8.2.0:
   version "8.2.0"
   resolved "https://registry.npmjs.org/react-paginate/-/react-paginate-8.2.0.tgz"
@@ -4397,7 +4402,7 @@ serve-static@1.15.0:
     prisma "^5.11.0"
     react-router-dom "^6.22.3"
     read-chunk "^4.0.3"
-    server "file:../../../.cache/yarn/v6/npm-server-1.0.0-cc764f10-d7c3-47ce-9298-6d3e10ce7cfa-1715286059120/node_modules/server"
+    server "file:../../../.cache/yarn/v6/npm-server-1.0.0-2b3ada00-20aa-44b8-9930-cfc8550500b1-1716411137707/node_modules/server"
     supertest "^6.3.4"
 
 set-blocking@^2.0.0:

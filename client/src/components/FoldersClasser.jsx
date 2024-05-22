@@ -93,15 +93,22 @@ export default function FoldersClasser() {
 
             </div>
             <div className='bg-white shadow-2xl overflow-x-auto h-[700px] rounded-lg'>
-               
+
                 <WorkSpace message="Séléctionnez le dossier parent oû coller">
                     <div className='flex flex-wrap w-[100%] overflow-x-auto h-[580px]'>
                         {
-                            getCurrentPageData().map(folder => (
-                                <Link key={folder.id} to={{ pathname: `/${folder.id}/${idFile}`, state: { id: folder.id, idFile: idFile } }}>
-                                    <Folder title={folder.titre} id={folder.id} />
-                                </Link>
-                            ))
+                            folders.length === 0 ? (
+                                <div className="px-80 py-20">
+                                    <img src="../src/assets/images/empty_file.gif" className='w-80 h-80' alt="" />
+                                    <h1 className='text-gray-700 text-[20px]'>Aucun fichiers trouvés!</h1>
+                                </div>
+                            ) : (
+                                getCurrentPageData().map(folder => (
+                                    <Link key={folder.id} to={{ pathname: `/${folder.id}/${idFile}`, state: { id: folder.id, idFile: idFile } }}>
+                                        <Folder title={folder.titre} id={folder.id} />
+                                    </Link>
+                                ))
+                            )
                         }
                     </div>
 
