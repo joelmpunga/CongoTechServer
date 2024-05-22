@@ -64,6 +64,15 @@ export default class File {
         return request
     }
 
+    async isNameFileExists(name) {
+        const request = await prisma.document.findFirst({
+            where: {
+                name: name
+            }
+        }).then()
+        return request
+    }
+
     async delete(id) {
         const request = await prisma.document.delete({
             where: {
