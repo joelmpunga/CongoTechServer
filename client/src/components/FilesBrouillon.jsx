@@ -34,7 +34,7 @@ export default function FilesBrouillon() {
   return (
     <div className='flex flex-col gap-10 mx-3' >
       <div className=''>
-        <HeaderWorkspace title="Brouillon des Documents">
+        <HeaderWorkspace title="Brouillon des Documents" actualPage="Brouillon des Documents">
           <Link to="/charts/doc" >
             <ItemLinkPage title="Dashboard" path="/charts/doc" />
           </Link>

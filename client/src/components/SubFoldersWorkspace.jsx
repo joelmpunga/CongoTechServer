@@ -58,14 +58,10 @@ export default function SubFoldersWorkspace() {
     return (
         <div className='flex flex-col gap-10 mx-3' >
             <div className=''>
-                <HeaderWorkspace title="Sous dossiers" >
+                <HeaderWorkspace title="Sous dossiers" actualPage={currentFolder.titre}>
                     <Link to="/charts/doc" >
                         <ItemLinkPage title="Dashboard" path="/charts/doc" />
                     </Link>
-                    {/* <Link to="#" onClick={handleBackClick1} >
-                        <ItemLinkPage title={"/" + currentFolder.titre} />
-                    </Link> */}
-                    <span className='text-gray'>{"/" + currentFolder.titre}</span>
                 </HeaderWorkspace>
 
             </div>

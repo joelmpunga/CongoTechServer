@@ -337,19 +337,14 @@ export default function StockageMailsDocuments() {
 
         <div className='flex flex-col gap-10 mx-3' >
             <div className=''>
-                <HeaderWorkspace title="Documents & Mails" >
+                <HeaderWorkspace title="Documents & Mails" actualPage={currentSubFolder.titre} >
                     <Link to="/charts/doc" >
                         <ItemLinkPage title="Dashboard" path="/charts/doc" />
                     </Link>
-                    <Link to="#" onClick={handleBackClick2} >
+                    <Link to="#" onClick={handleBackClick1} >
                         <ItemLinkPage title={"/" + currentFolder.titre} />
                     </Link>
-                    <Link to="#" onClick={handleBackClick1} >
-                        <ItemLinkPage title={"/" + currentSubFolder.titre} path="/subfolders" />
-                    </Link>
                 </HeaderWorkspace>
-
-
             </div>
             <div className='bg-white shadow-2xl h-[700px] rounded-lg'>
 

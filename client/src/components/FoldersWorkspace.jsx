@@ -139,7 +139,7 @@ export default function FoldersWorkspace() {
     return (
         <div className='flex flex-col gap-10 mx-3' >
             <div className=''>
-                <HeaderWorkspace title="Dossiers">
+                <HeaderWorkspace title="Dossiers" actualPage="Dossiers">
                     <Link to="/charts/doc" >
                         <ItemLinkPage title="Dashboard" path="/charts/doc" />
                     </Link>

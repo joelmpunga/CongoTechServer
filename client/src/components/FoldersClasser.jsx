@@ -82,7 +82,7 @@ export default function FoldersClasser() {
     return (
         <div className='flex flex-col gap-10 mx-3' >
             <div className=''>
-                <HeaderWorkspace title="Classer Dossiers">
+                <HeaderWorkspace title="Classer Dossiers" actualPage="Classement dossiers">
                     <Link to="/charts/doc" >
                         <ItemLinkPage title="Dashboard" path="/charts/doc" />
                     </Link>

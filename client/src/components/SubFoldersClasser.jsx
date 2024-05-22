@@ -61,7 +61,7 @@ export default function SubFoldersClasser({ idFolder }) {
         
             <div className='flex flex-col gap-10 mx-3' >
                 <div className=''>
-                    <HeaderWorkspace title="Sous dossiers" >
+                    <HeaderWorkspace title="Sous dossiers" actualPage="Classement sous-dossiers">
                         <Link to="/charts/doc" >
                             <ItemLinkPage title="Dashboard" path="/charts/doc" />
                         </Link>
