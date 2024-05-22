@@ -113,7 +113,7 @@ export default function SignUp() {
 
       {
         error && <PopupAlert message={errorMessage} />
-      } 
+      }
 
       <InputsForm
         labelName="Nom"

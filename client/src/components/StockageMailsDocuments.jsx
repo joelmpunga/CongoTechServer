@@ -292,14 +292,14 @@ export default function StockageMailsDocuments() {
 
                 await axios.post('http://localhost:3000/file/upload', formData).then(res => {
                     if (res.status === 201) {
-                        navigate('/file/' + id)
-                        window.location.href = '/file/' + id
+                        // navigate('/file/' + id)
+                        // window.location.href = '/file/' + id
                         TopNotification.fire({
                             icon: "success",
                             title: "Le fichier est archivée"
                         });
                     }
-                    else if (res.status ===404){
+                    else if (res.status === 404) {
                         showAlert(
                             "warning",
                             "Erreur",
@@ -307,15 +307,21 @@ export default function StockageMailsDocuments() {
                         );
                     }
                 }).catch((err) => {
-                    setErrorDoc(true)
-                    setErrorMessageDoc(err.response.data)
-                    TopNotification.fire({
-                        icon: "warning",
-                        title: "Fichier Existant"
-                    });
-                    window.location.href = '/file/' + id
-                }                
-            )
+                    // setErrorDoc(true)
+                    // setErrorMessageDoc(err.response.data)
+                    // TopNotification.fire({
+                    //     icon: "warning",
+                    //     title: "Fichier Existant"
+                    // });
+                    // window.location.href = '/file/' + id
+                    showAlert(
+                        "warning",
+                        "Erreur",
+                        "Fichier Existant"
+                    );
+                    // navigate('/file/' + id)
+                }
+                )
             } catch (error) {
                 console.error('Erreur lors du téléchargement du fichier :', error);
                 showAlert(
