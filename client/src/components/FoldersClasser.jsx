@@ -80,51 +80,62 @@ export default function FoldersClasser() {
     }, [folders]);
 
     return (
-        <div className='bg-white shadow-2xl overflow-x-auto mx-6 h-[800px]'>
-            <HeaderWorkspace title="Classer Dossiers">
-                <Link to="/charts/doc" >
-                    <ItemLinkPage title="Dashboard" path="/charts/doc" />
-                </Link>
-                <Link to="/file/draft" >
-                    <ItemLinkPage title="/Brouillon" path="/file/draft" />
-                </Link>
-            </HeaderWorkspace>
-            <WorkSpace message="Séléctionnez le dossier parent oû coller">
-                <div className='flex flex-wrap w-[100%] overflow-x-auto h-[600px]'>
-                    {
-                        getCurrentPageData().map(folder => (
-                            <Link key={folder.id} to={{ pathname: `/${folder.id}/${idFile}`, state: { id: folder.id, idFile: idFile } }}>
-                                <Folder title={folder.titre} id={folder.id} />
-                            </Link>
-                        ))
-                    }
-                </div>
+        <div className='flex flex-col gap-4 mx-3' >
+            <div className='bg-white shadow-2xl py-3'>
+                <HeaderWorkspace title="Classer Dossiers">
+                    <Link to="/charts/doc" >
+                        <ItemLinkPage title="Dashboard" path="/charts/doc" />
+                    </Link>
+                    <Link to="/file/draft" >
+                        <ItemLinkPage title="/Brouillon" path="/file/draft" />
+                    </Link>
+                </HeaderWorkspace>
 
-                <div className='flex justify-between items-center w-full mx-5'>
-                    <ReactPaginate
-                        previousLabel={"Précédent"}
-                        nextLabel={"Suivant"}
-                        breakLabel={"..."}
-                        pageCount={Math.ceil(folders.length / itemsPerPage)} // Calcul du nombre total de pages
-                        marginPagesDisplayed={2}
-                        pageRangeDisplayed={5}
-                        onPageChange={handlePageClick}
-                        containerClassName={"flex justify-end gap-6 text-[20px]"}
-                        activeClassName={"active"}
-                    />
+            </div>
+            <div className='bg-white shadow-2xl overflow-x-auto h-[700px]'>
+               
+                <WorkSpace message="Séléctionnez le dossier parent oû coller">
+                    <div className='flex flex-wrap w-[100%] overflow-x-auto h-[580px]'>
+                        {
+                            getCurrentPageData().map(folder => (
+                                <Link key={folder.id} to={{ pathname: `/${folder.id}/${idFile}`, state: { id: folder.id, idFile: idFile } }}>
+                                    <Folder title={folder.titre} id={folder.id} />
+                                </Link>
+                            ))
+                        }
+                    </div>
 
-                    <div>
-                        <Link to="/file/draft">
+                    <div className='flex justify-between items-center w-full mx-5'>
+                        <ReactPaginate
+                            previousLabel={"Précédent"}
+                            nextLabel={"Suivant"}
+                            breakLabel={"..."}
+                            pageCount={Math.ceil(folders.length / itemsPerPage)} // Calcul du nombre total de pages
+                            marginPagesDisplayed={2}
+                            pageRangeDisplayed={5}
+                            onPageChange={handlePageClick}
+                            containerClassName={"flex justify-end gap-6 text-[20px]"}
+                            activeClassName={"active"}
+                        />
+
+                        <div>
+                            {/* <Link to="/file/draft">
                             <ActionBtns
                                 className='flex flex-row justify-center items-center bg-red-600 rounded-2xl w-[150px] h-[50px] text-white'
                                 src="../src/assets/images/cancel-btn.svg"
                                 label="Annuler"
                             />
-                        </Link>
+                        </Link> */}
+
+                            <Link to="/file/draft" className='flex flex-row gap-4 justify-center items-center bg-red-600 rounded-2xl w-[150px] h-[50px] text-white'>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 2048 2048"><path fill="white" d="m1115 1024l690 691l-90 90l-691-690l-691 690l-90-90l690-691l-690-691l90-90l691 690l691-690l90 90z" /></svg>
+                                <span>Annuler</span>
+                            </Link>
+                        </div>
                     </div>
-                </div>
-            </WorkSpace>
-            {/* <Popup /> */}
+                </WorkSpace>
+                {/* <Popup /> */}
+            </div>
         </div>
     );
 }

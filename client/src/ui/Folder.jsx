@@ -35,8 +35,9 @@ export default function Folder({ title, taille, isToClass = false, idFile, idSub
                 )}
 
                 <img src="../src/assets/images/icon-folder.png" alt="" width={150} height={150} />
-                <div className='flex'>
-                    <h3 className='max-w-[100%] '>
+                {
+                    !isToClass &&  <div className=''>
+                    <h3 className=''>
                         <LinesEllipsis
                             text={title}
                             maxLine="1"
@@ -45,10 +46,28 @@ export default function Folder({ title, taille, isToClass = false, idFile, idSub
                             basedOn="letters"
                         />
                     </h3>
-                    {
-                        isToClass && <Link to="" onClick={onClickClasser}> <BouttonIcon imageUrl="../src/assets/images/Ok-icon.svg" msg="Classer" taille="w-6 h-6" /></Link>
-                    }
                 </div>
+                }
+                {
+                    isToClass &&
+                    <div className='flex flex-row gap-5 justify-end w-40'>
+                        <div className=''>
+                            <h3 className=''>
+                                <LinesEllipsis
+                                    text={title}
+                                    maxLine="1"
+                                    ellipsis="..."
+                                    trimRight
+                                    basedOn="letters"
+                                />
+                            </h3>
+                        </div>
+                        <div>
+                            <Link to="" onClick={onClickClasser}> <BouttonIcon imageUrl="../src/assets/images/Ok-icon.svg" taille="w-6 h-6" /></Link>
+
+                        </div>
+                    </div>
+                }
 
             </ContainerFolderFile>
         </>

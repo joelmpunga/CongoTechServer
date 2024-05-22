@@ -32,39 +32,44 @@ export default function FilesBrouillon() {
   const getFiles = async () => await axios.get("http://localhost:3000/file/draft").then(res => setFiles(res.data))
   useEffect(() => { getFiles() }, [files])
   return (
-    <div className='bg-white shadow-2xl mx-6 h-[800px] py-2'>
-      <HeaderWorkspace title="Brouillon des Documents">
-        <Link to="/charts/doc" >
-          <ItemLinkPage title="Dashboard" path="/charts/doc" />
-        </Link>
-      </HeaderWorkspace>
-      <WorkSpace message="Parcourez les dossiers créés">
-        <div className='flex flex-wrap w-[100%] overflow-x-auto h-[600px]'>
-          {
-            getCurrentPageData().map(file => (
-              <tr key={file.id}>
-                <File id={file.id} title={file.name} isToClass={true} />
-              </tr>
-            ))
-          }
-        </div>
+    <div className='flex flex-col gap-4 mx-3' >
+      <div className='bg-white shadow-2xl py-3'>
+        <HeaderWorkspace title="Brouillon des Documents">
+          <Link to="/charts/doc" >
+            <ItemLinkPage title="Dashboard" path="/charts/doc" />
+          </Link>
+        </HeaderWorkspace>
+      </div>
+      <div className='bg-white shadow-2xl h-[700px] py-2'>
 
-        <div className='flex'>
-          <ReactPaginate
-            previousLabel={"Précédent"}
-            nextLabel={"Suivant"}
-            breakLabel={"..."}
-            pageCount={Math.ceil(files.length / itemsPerPage)} // Calcul du nombre total de pages
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
-            onPageChange={handlePageClick}
-            containerClassName={"flex justify-end gap-6 text-[20px] px-5"}
-            activeClassName={"active"}
-          />
-        </div>
-      </WorkSpace>
+        <WorkSpace message="Parcourez les documents">
+          <div className='flex flex-wrap w-[100%] overflow-x-auto h-[580px]'>
+            {
+              getCurrentPageData().map(file => (
+                <tr key={file.id}>
+                  <File id={file.id} title={file.name} isToClass={true} />
+                </tr>
+              ))
+            }
+          </div>
 
-      {/* <Pagination/> */}
+          <div className='flex'>
+            <ReactPaginate
+              previousLabel={"Précédent"}
+              nextLabel={"Suivant"}
+              breakLabel={"..."}
+              pageCount={Math.ceil(files.length / itemsPerPage)} // Calcul du nombre total de pages
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={handlePageClick}
+              containerClassName={"flex justify-end gap-6 text-[20px] px-5"}
+              activeClassName={"active"}
+            />
+          </div>
+        </WorkSpace>
+
+        {/* <Pagination/> */}
+      </div>
     </div>
   )
 }

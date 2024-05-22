@@ -211,53 +211,59 @@ export default function ArchDocs() {
 
 
     return (
-        <div className='bg-white shadow-2xl mx-6 h-[800px]'>
-            <HeaderWorkspace title="Archiver les documents">
-                <Link to="/charts/doc" >
-                    <ItemLinkPage title="Dashboard" path="/charts/doc" />
-                </Link>
-            </HeaderWorkspace>
-            <div className="font-adamina text-[14px] overflow-x-auto flex gap-16 w-full justify-center mx-auto mt-10">
-                <div className="w-[660px] border border-gray-200 shadow-md">
-                    <form action="" encType="multipart/form-data">
-                        <Title title='Information du document' />
-                        {
-                            errorDoc && <PopupAlert message={errorMessageDoc} />
-                        }
-                        <ArchDocComp onChange={handleChangeDocDesc} onSubmit={handleSubmitDocument}
-                            className=" bg-gray-200 resize-none p-5 w-full h-[120px] my-5 border-1  border-blue outline-none"
-                        >
-                            <CbxInput msgErr={docErr.ownerErr} ownNametypeDoc='Nom du proprietaire' onChange={handleChangeSelectedOwner} className='w-full h-14' >
-                                <option value=""></option>
-                                {
-                                    owners.map(owner => (
-                                        <option key={owner.id} value={owner.id}>{owner.nom}</option>
-                                    ))
-                                }
-                            </CbxInput>
-                            <DragComponent errMsg={docErr.fileErr} getFile={handleChangeFileDocs} />
-                        </ArchDocComp>
-                    </form>
-                </div>
-                <div className="w-[650px] border border-gray-200 shadow-md">
-                    <Title title='Ajouter un propriétaire' />
-                    {
-                        errorOwner && <PopupAlert message={errorMessageOwner} />
-                    }
-                    <ArchDocComp ownNametypeDoc='Type du proprietaire' attName='Nom' onChange={handleChangeDesc} onSubmit={handleSubmitOwner}
-                        className=" bg-gray-200 resize-none p-5 w-full h-42 my-5 border-1  border-blue outline-none"
-                    >
-                        <Inputs errMsg={ownerErr.nameErr} attName='Nom à attribuer au document' onChange={handleChangeName} placeholder='Nom à attribuer au document'>
+        <div className='flex flex-col gap-4 mx-3' >
+            <div className='bg-white shadow-2xl py-3'>
+                <HeaderWorkspace title="Archiver les documents">
+                    <Link to="/charts/doc" >
+                        <ItemLinkPage title="Dashboard" path="/charts/doc" />
+                    </Link>
+                </HeaderWorkspace>
+            </div>
+            <div className='bg-white shadow-2xl h-[700px]'>
 
-                            <CbxInput msgErr={ownerErr.typeErr} ownNametypeDoc='Type du proprietaire' className='w-[300px] h-14' onChange={handleChangeType}>
-                                <option value=""></option>
-                                <option value="Entreprise">Entreprise</option>
-                                <option value="Particulier">Particulier</option>
-                            </CbxInput>
-                        </Inputs>
-                    </ArchDocComp>
+                <div className="font-adamina text-[14px] overflow-x-auto flex gap-16 w-full justify-center mx-auto mt-10">
+                    <div className="w-[660px] border border-gray-200 shadow-md">
+                        <form action="" encType="multipart/form-data">
+                            <Title title='Information du document' />
+                            {
+                                errorDoc && <PopupAlert message={errorMessageDoc} />
+                            }
+                            <ArchDocComp onChange={handleChangeDocDesc} onSubmit={handleSubmitDocument}
+                                className=" bg-gray-200 resize-none p-5 w-full h-[120px] my-5 border-1  border-blue outline-none"
+                            >
+                                <CbxInput msgErr={docErr.ownerErr} ownNametypeDoc='Nom du proprietaire' onChange={handleChangeSelectedOwner} className='w-full h-14' >
+                                    <option value=""></option>
+                                    {
+                                        owners.map(owner => (
+                                            <option key={owner.id} value={owner.id}>{owner.nom}</option>
+                                        ))
+                                    }
+                                </CbxInput>
+                                <DragComponent errMsg={docErr.fileErr} getFile={handleChangeFileDocs} />
+                            </ArchDocComp>
+                        </form>
+                    </div>
+                    <div className="w-[650px] border border-gray-200 shadow-md">
+                        <Title title='Ajouter un propriétaire' />
+                        {
+                            errorOwner && <PopupAlert message={errorMessageOwner} />
+                        }
+                        <ArchDocComp ownNametypeDoc='Type du proprietaire' attName='Nom' onChange={handleChangeDesc} onSubmit={handleSubmitOwner}
+                            className=" bg-gray-200 resize-none p-5 w-full h-42 my-5 border-1  border-blue outline-none"
+                        >
+                            <Inputs errMsg={ownerErr.nameErr} attName='Nom à attribuer au document' onChange={handleChangeName} placeholder='Nom à attribuer au document'>
+
+                                <CbxInput msgErr={ownerErr.typeErr} ownNametypeDoc='Type du proprietaire' className='w-[300px] h-14' onChange={handleChangeType}>
+                                    <option value=""></option>
+                                    <option value="Entreprise">Entreprise</option>
+                                    <option value="Particulier">Particulier</option>
+                                </CbxInput>
+                            </Inputs>
+                        </ArchDocComp>
+                    </div>
                 </div>
             </div>
+
         </div>
     )
 }
