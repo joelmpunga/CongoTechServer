@@ -73,7 +73,7 @@ export default function StockageMailsDocuments() {
     useEffect(() => {
         setTimeout(() => {
             getFiles();
-        }, 4000);
+        }, 3000);
     }, [files]);
 
     const getCurrentSubFolder = async () => {
