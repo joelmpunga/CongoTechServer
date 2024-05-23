@@ -106,7 +106,7 @@ export default function FoldersClasser() {
                         {
                             loading ? (
                                 <>
-                                  <div className="flex gap-4 px-6 py-4">
+                                  <div className="flex gap-10 px-6 py-4">
                                     <Skeleton height={200} width={200} borderRadius={20} />
                                     <Skeleton height={200} width={200} borderRadius={20} />
                                     <Skeleton height={200} width={200} borderRadius={20} />
@@ -114,7 +114,7 @@ export default function FoldersClasser() {
                                     <Skeleton height={200} width={200} borderRadius={20} />
                                     <Skeleton height={200} width={200} borderRadius={20} />
                                   </div>
-                                  <div className="flex gap-4 px-6 py-4">
+                                  <div className="flex gap-10 px-6 py-4">
                                     <Skeleton height={200} width={200} borderRadius={20} />
                                     <Skeleton height={200} width={200} borderRadius={20} />
                                     <Skeleton height={200} width={200} borderRadius={20} />
