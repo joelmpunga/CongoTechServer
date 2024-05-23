@@ -12,6 +12,9 @@ import { useMyContext } from '../contexts/MyContext';
 import ReactPaginate from 'react-paginate';
 import ActionBtns from './ActionBtns';
 import Swal from 'sweetalert2';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+
 
 export default function FoldersClasser() {
     const TopNotification = Swal.mixin({
@@ -53,14 +56,18 @@ export default function FoldersClasser() {
     const idFile = param.id;
 
     const [folders, setFolders] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const getFolders = async () => {
             try {
                 const res = await axios.get("http://localhost:3000/folder");
                 setFolders(res.data);
+                setLoading(false);
+
             } catch (error) {
                 console.error("Error fetching folders:", error);
+                setLoading(false);
             }
         };
         getFolders();
@@ -82,7 +89,7 @@ export default function FoldersClasser() {
     return (
         <div className='flex flex-col gap-10 mx-3' >
             <div className=''>
-                <HeaderWorkspace title="Classer Dossiers">
+                <HeaderWorkspace title="Classer Dossiers" actualPage="Classement dossiers">
                     <Link to="/charts/doc" >
                         <ItemLinkPage title="Dashboard" path="/charts/doc" />
                     </Link>
@@ -93,15 +100,42 @@ export default function FoldersClasser() {
 
             </div>
             <div className='bg-white shadow-2xl overflow-x-auto h-[700px] rounded-lg'>
-               
+
                 <WorkSpace message="Séléctionnez le dossier parent oû coller">
                     <div className='flex flex-wrap w-[100%] overflow-x-auto h-[580px]'>
                         {
-                            getCurrentPageData().map(folder => (
-                                <Link key={folder.id} to={{ pathname: `/${folder.id}/${idFile}`, state: { id: folder.id, idFile: idFile } }}>
-                                    <Folder title={folder.titre} id={folder.id} />
-                                </Link>
-                            ))
+                            loading ? (
+                                <>
+                                  <div className="flex gap-4 px-6 py-4">
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                  </div>
+                                  <div className="flex gap-4 px-6 py-4">
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                  </div>
+                                </>
+                              ) :
+                            folders.length === 0 ? (
+                                <div className="px-80 py-20">
+                                    <img src="../src/assets/images/empty_file.gif" className='w-80 h-80' alt="" />
+                                    <h1 className='text-gray-700 text-[20px]'>Aucun fichiers trouvés!</h1>
+                                </div>
+                            ) : (
+                                getCurrentPageData().map(folder => (
+                                    <Link key={folder.id} to={{ pathname: `/${folder.id}/${idFile}`, state: { id: folder.id, idFile: idFile } }}>
+                                        <Folder title={folder.titre} id={folder.id} />
+                                    </Link>
+                                ))
+                            )
                         }
                     </div>
 

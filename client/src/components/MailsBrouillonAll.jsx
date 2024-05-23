@@ -19,7 +19,7 @@ export default function MailsBrouillonAll() {
     return (
         <div className='flex flex-col gap-10 mx-3' >
             <div className='bg-white shadow-2xl py-3'>
-                <HeaderWorkspace title="Brouillon des E-mails">
+                <HeaderWorkspace title="Brouillon des E-mails" actualPage="Brouillon Emails">
                     <Link to="/charts/doc" >
                         <ItemLinkPage title="Dashboard" path="/charts/doc" />
                     </Link>

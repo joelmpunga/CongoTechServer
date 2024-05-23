@@ -20,6 +20,8 @@ import Inputs from "./archDoc/Inputs";
 import CbxInput from "./archDoc/comboBox/CbxInput";
 import PopupAlert from "../ui/Popup";
 import Swal from "sweetalert2";
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 export default function StockageMailsDocuments() {
     const { idfile, handleCloseContextMenu, contextMenuVisible, contextMenuPosition } = useMyContext();
 
@@ -40,6 +42,7 @@ export default function StockageMailsDocuments() {
     const params = useParams()
     const id = parseInt(params.id)
     const [files, setFiles] = useState([])
+    const [loading, setLoading] = useState(true);
     const [currentSubFolder, setCurrentSubFolder] = useState([])
     const [currentFolder, setCurrentFolder] = useState([])
     const [currentPage, setCurrentPage] = useState(0);
@@ -60,14 +63,18 @@ export default function StockageMailsDocuments() {
         try {
             const res = await axios.get("http://localhost:3000/file/" + id);
             setFiles(res.data);
+            setLoading(false);
         } catch (error) {
             console.error("Failed to fetch files:", error);
+            setLoading(false);
         }
     };
 
     useEffect(() => {
-        getFiles();
-    }, ['files']);
+        setTimeout(() => {
+            getFiles();
+        }, 3000);
+    }, [files]);
 
     const getCurrentSubFolder = async () => {
         try {
@@ -337,19 +344,14 @@ export default function StockageMailsDocuments() {
 
         <div className='flex flex-col gap-10 mx-3' >
             <div className=''>
-                <HeaderWorkspace title="Documents & Mails" >
+                <HeaderWorkspace title="Documents & Mails" actualPage={currentSubFolder.titre} >
                     <Link to="/charts/doc" >
                         <ItemLinkPage title="Dashboard" path="/charts/doc" />
                     </Link>
-                    <Link to="#" onClick={handleBackClick2} >
-                        <ItemLinkPage title={"/" + currentFolder.titre} />
-                    </Link>
                     <Link to="#" onClick={handleBackClick1} >
-                        <ItemLinkPage title={"/" + currentSubFolder.titre} path="/subfolders" />
+                        <ItemLinkPage title={"/ " + currentFolder.titre} />
                     </Link>
                 </HeaderWorkspace>
-
-
             </div>
             <div className='bg-white shadow-2xl h-[700px] rounded-lg'>
 
@@ -414,12 +416,40 @@ export default function StockageMailsDocuments() {
                             </ul>
                         </div>
                     )} */}
+
                         {
-                            getCurrentPageData().map(file => (
-                                <tr key={file.id}>
-                                    <File id={file.id} menuContex={true} title={file.name} />
-                                </tr>
-                            ))
+                            loading ? (
+                                <>
+                                    <div className="flex gap-4 px-6 py-4">
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                    </div>
+                                    <div className="flex gap-4 px-6 py-4">
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                    </div>
+                                </>
+                            ) :
+                                files.length === 0 ? (
+                                    <div className="px-80 py-20">
+                                        <img src="../src/assets/images/empty_file.gif" className='w-80 h-80' alt="" />
+                                        <h1 className='text-gray-700 text-[20px]'>Aucun fichiers trouvés!</h1>
+                                    </div>
+                                ) : (
+                                    getCurrentPageData().map(file => (
+                                        <tr key={file.id}>
+                                            <File id={file.id} menuContex={true} title={file.name} />
+                                        </tr>
+                                    ))
+                                )
                         }
                     </div>
                     {/* <Mail title="Mail" data={data} />

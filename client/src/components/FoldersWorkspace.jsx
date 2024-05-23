@@ -14,6 +14,8 @@ import Title from './archDoc/Title'
 import PopupAlert from '../ui/Popup'
 import ArchDocComp from './archDoc/ArchDocComp'
 import Inputs from './archDoc/Inputs'
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 
 
@@ -27,6 +29,7 @@ export default function FoldersWorkspace() {
         navigate('/login')
     }
     const [folders, setFolders] = useState([])
+    const [loading, setLoading] = useState(true);
     //fonctions pour la pagination
     const [currentPage, setCurrentPage] = useState(0);
     const [itemsPerPage] = useState(10); // Nombre d'éléments à afficher par page
@@ -75,7 +78,12 @@ export default function FoldersWorkspace() {
     }
 
     const getAllFolders = async (event) => {
-        await axios.get('http://localhost:3000/folder/').then(res => setFolders(res.data))
+        await axios.get('http://localhost:3000/folder/').then(
+            res => {
+                setFolders(res.data)
+                setLoading(false);
+
+            })
     }
     const handleSubmitFolder = (event) => {
         event.preventDefault()
@@ -139,7 +147,7 @@ export default function FoldersWorkspace() {
     return (
         <div className='flex flex-col gap-10 mx-3' >
             <div className=''>
-                <HeaderWorkspace title="Dossiers">
+                <HeaderWorkspace title="Dossiers" actualPage="Dossiers">
                     <Link to="/charts/doc" >
                         <ItemLinkPage title="Dashboard" path="/charts/doc" />
                     </Link>
@@ -166,12 +174,39 @@ export default function FoldersWorkspace() {
                             </div>
                         )}
                         {/* End modal */}
-                        {
-                            getCurrentPageData().map(folder => (
-                                <Link key={folder.id} to={{ pathname: `/subfolder/${folder.id}`, state: { id: folder.id } }} className='h-5'>
-                                    <Folder onContextMenu={showMenu} isVisible={isVisible} position={position} title={folder.titre} id={folder.id} />
-                                </Link>
-                            ))
+                        {loading ? (
+                            <>
+                                <div className="flex gap-4 px-6 py-4">
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                </div>
+                                <div className="flex gap-4 px-6 py-4">
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                </div>
+                            </>
+                        ) :
+
+                            folders.length === 0 ? (
+                                <div className="px-80 py-20">
+                                    <img src="../src/assets/images/empty_file.gif" className='w-80 h-80' alt="" />
+                                    <h1 className='text-gray-700 text-[20px]'>Aucun fichiers trouvés!</h1>
+                                </div>
+                            ) : (
+                                getCurrentPageData().map(folder => (
+                                    <Link key={folder.id} to={{ pathname: `/subfolder/${folder.id}`, state: { id: folder.id } }} className='h-5'>
+                                        <Folder onContextMenu={showMenu} isVisible={isVisible} position={position} title={folder.titre} id={folder.id} />
+                                    </Link>
+                                ))
+                            )
                         }
                     </div>
                     <div className='flex justify-between w-full mx-5'>

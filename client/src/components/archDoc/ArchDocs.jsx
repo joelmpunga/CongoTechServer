@@ -213,7 +213,7 @@ export default function ArchDocs() {
     return (
         <div className='flex flex-col gap-4 mx-3' >
             <div className='bg-white shadow-2xl py-3'>
-                <HeaderWorkspace title="Archiver les documents">
+                <HeaderWorkspace title="Archiver les documents" actualPage="Archiver les documents">
                     <Link to="/charts/doc" >
                         <ItemLinkPage title="Dashboard" path="/charts/doc" />
                     </Link>

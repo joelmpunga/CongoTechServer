@@ -8,6 +8,8 @@ import axios from 'axios'
 import ReactPaginate from 'react-paginate';
 import ActionBtns from './ActionBtns'
 import CreateSubfolder from './CreateSubfolder'
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 export default function SubFoldersWorkspace() {
     const navigate = useNavigate()
@@ -21,9 +23,18 @@ export default function SubFoldersWorkspace() {
     const params = useParams()
     console.log(params.id);
     const [subFolders, setSubFolders] = useState([])
+    const [loading, setLoading] = useState(true);
     const [currentFolder, setCurrentFolder] = useState([])
-    const getSubFolders = async () => await axios.get("http://localhost:3000/subfolder/" + params.id).then(res => setSubFolders(res.data))
-    const getCurrentFolder = async () => await axios.get("http://localhost:3000/folder/" + params.id).then(res => setCurrentFolder(res.data))
+    const getSubFolders = async () => await axios.get("http://localhost:3000/subfolder/" + params.id).then(
+        res => {
+            setSubFolders(res.data)
+            setLoading(false);
+        })
+    const getCurrentFolder = async () => await axios.get("http://localhost:3000/folder/" + params.id).then(
+        res => {
+            setCurrentFolder(res.data)
+            setLoading(false);
+        })
     useEffect(() => {
         getSubFolders()
     }, [subFolders])
@@ -58,14 +69,10 @@ export default function SubFoldersWorkspace() {
     return (
         <div className='flex flex-col gap-10 mx-3' >
             <div className=''>
-                <HeaderWorkspace title="Sous dossiers" >
+                <HeaderWorkspace title=" Sous dossiers" actualPage={currentFolder.titre}>
                     <Link to="/charts/doc" >
                         <ItemLinkPage title="Dashboard" path="/charts/doc" />
                     </Link>
-                    {/* <Link to="#" onClick={handleBackClick1} >
-                        <ItemLinkPage title={"/" + currentFolder.titre} />
-                    </Link> */}
-                    <span className='text-gray'>{"/" + currentFolder.titre}</span>
                 </HeaderWorkspace>
 
             </div>
@@ -74,11 +81,38 @@ export default function SubFoldersWorkspace() {
                 <WorkSpace message="Parcourez les sous dossiers">
                     <div className='relative flex flex-wrap w-[100%] overflow-x-auto h-[580px]'>
                         {
-                            subFolders.map(subFolder => (
-                                <Link key={subFolder.id} to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }} className='flex flex-row h-5'>
-                                    <Folder title={subFolder.titre} id={subFolder.id} />
-                                </Link>
-                            ))
+                            loading ? (
+                                <>
+                                    <div className="flex gap-4 px-6 py-4">
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                    </div>
+                                    <div className="flex gap-4 px-6 py-4">
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                    </div>
+                                </>
+                            ) :
+                            subFolders.length === 0 ? (
+                                <div className="px-80 py-20">
+                                    <img src="../src/assets/images/empty_file.gif" className='w-80 h-80' alt="" />
+                                    <h1 className='text-gray-700 text-[20px]'>Aucun fichiers trouvés!</h1>
+                                </div>
+                            ) : (
+                                subFolders.map(subFolder => (
+                                    <Link key={subFolder.id} to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }} className='flex flex-row h-5'>
+                                        <Folder title={subFolder.titre} id={subFolder.id} />
+                                    </Link>
+                                ))
+                            )
                         }
                     </div>
                     <CreateSubfolder classValue={classValue} annuler={annuler} />

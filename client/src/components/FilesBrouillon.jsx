@@ -8,6 +8,9 @@ import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import { useMyContext } from '../contexts/MyContext';
 import ReactPaginate from 'react-paginate';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+
 export default function FilesBrouillon() {
   const { isAuthenticated, updateIsAuthenticated } = useMyContext();
   const navigate = useNavigate()
@@ -16,6 +19,7 @@ export default function FilesBrouillon() {
     navigate('/login')
   }
   const [files, setFiles] = useState([])
+  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage] = useState(5); // Nombre d'éléments à afficher par page
   // Fonction pour obtenir les éléments de la page actuelle
@@ -29,12 +33,17 @@ export default function FilesBrouillon() {
     const selectedPage = data.selected;
     setCurrentPage(selectedPage);
   };
-  const getFiles = async () => await axios.get("http://localhost:3000/file/draft").then(res => setFiles(res.data))
+  const getFiles = async () => await axios.get("http://localhost:3000/file/draft").then(
+    res => {
+      setFiles(res.data)
+      setLoading(false);
+    }
+  )
   useEffect(() => { getFiles() }, [files])
   return (
     <div className='flex flex-col gap-10 mx-3' >
       <div className=''>
-        <HeaderWorkspace title="Brouillon des Documents">
+        <HeaderWorkspace title="Brouillon des Documents" actualPage="Brouillon des Documents">
           <Link to="/charts/doc" >
             <ItemLinkPage title="Dashboard" path="/charts/doc" />
           </Link>
@@ -45,11 +54,39 @@ export default function FilesBrouillon() {
         <WorkSpace message="Parcourez les documents">
           <div className='flex flex-wrap w-[100%] overflow-x-auto h-[580px]'>
             {
-              getCurrentPageData().map(file => (
-                <tr key={file.id}>
-                  <File id={file.id} title={file.name} isToClass={true} />
-                </tr>
-              ))
+              loading ? (
+                <>
+                  <div className="flex gap-4 px-6 py-4">
+                    <Skeleton height={200} width={200} borderRadius={20} />
+                    <Skeleton height={200} width={200} borderRadius={20} />
+                    <Skeleton height={200} width={200} borderRadius={20} />
+                    <Skeleton height={200} width={200} borderRadius={20} />
+                    <Skeleton height={200} width={200} borderRadius={20} />
+                    <Skeleton height={200} width={200} borderRadius={20} />
+                  </div>
+                  <div className="flex gap-4 px-6 py-4">
+                    <Skeleton height={200} width={200} borderRadius={20} />
+                    <Skeleton height={200} width={200} borderRadius={20} />
+                    <Skeleton height={200} width={200} borderRadius={20} />
+                    <Skeleton height={200} width={200} borderRadius={20} />
+                    <Skeleton height={200} width={200} borderRadius={20} />
+                    <Skeleton height={200} width={200} borderRadius={20} />
+                  </div>
+                </>
+              ) :
+
+                files.length === 0 ? (
+                  <div className="px-80 py-20">
+                    <img src="../src/assets/images/empty_file.gif" className='w-80 h-80' alt="" />
+                    <h1 className='text-gray-700 text-[20px]'>Aucun fichiers trouvés!</h1>
+                  </div>
+                ) : (
+                  getCurrentPageData().map(file => (
+                    <tr key={file.id}>
+                      <File id={file.id} title={file.name} isToClass={true} />
+                    </tr>
+                  ))
+                )
             }
           </div>
 
