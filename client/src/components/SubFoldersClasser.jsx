@@ -8,6 +8,9 @@ import axios from 'axios'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import ActionBtns from './ActionBtns'
 import ReactPaginate from 'react-paginate'
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+
 export default function SubFoldersClasser({ idFolder }) {
     const navigate = useNavigate()
     const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated')
@@ -25,7 +28,12 @@ export default function SubFoldersClasser({ idFolder }) {
     const id = params.id
     const idFile = params.idFile
     const [subFolders, setSubFolders] = useState([])
-    const getSubFolders = async () => await axios.get("http://localhost:3000/subfolder/" + params.id).then(res => setSubFolders(res.data))
+    const [loading, setLoading] = useState(true);
+    const getSubFolders = async () => await axios.get("http://localhost:3000/subfolder/" + params.id).then(
+        res => {
+            setSubFolders(res.data);
+            setLoading(false);
+        })
     useEffect(() => { getSubFolders() }, ['subFolders'])
 
 
@@ -85,18 +93,38 @@ export default function SubFoldersClasser({ idFolder }) {
                             } */}
 
                         {
-                            subFolders.length === 0 ? (
-                                <div className="px-80 py-20">
-                                    <img src="../src/assets/images/empty_file.gif" className='w-80 h-80' alt="" />
-                                    <h1 className='text-gray-700 text-[20px]'>Aucun fichiers trouvés!</h1>
-                                </div>
-                            ) : (
-                                getCurrentPageData().map(subFolder => (
-                                    //<Link key={subFolder.id}  to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }}>
-                                    <Folder key={subFolder.id} title={subFolder.titre} id={subFolder.id} isToClass={true} idFile={idFile} idSub={subFolder.id} />
-                                    //</Link>
-                                ))
-                            )
+                            loading ? (
+                                <>
+                                    <div className="flex gap-4 px-6 py-4">
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                    </div>
+                                    <div className="flex gap-4 px-6 py-4">
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                        <Skeleton height={200} width={200} borderRadius={20} />
+                                    </div>
+                                </>
+                            ) :
+                                subFolders.length === 0 ? (
+                                    <div className="px-80 py-20">
+                                        <img src="../src/assets/images/empty_file.gif" className='w-80 h-80' alt="" />
+                                        <h1 className='text-gray-700 text-[20px]'>Aucun fichiers trouvés!</h1>
+                                    </div>
+                                ) : (
+                                    getCurrentPageData().map(subFolder => (
+                                        //<Link key={subFolder.id}  to={{ pathname: `/file/${subFolder.id}`, state: { id: subFolder.id } }}>
+                                        <Folder key={subFolder.id} title={subFolder.titre} id={subFolder.id} isToClass={true} idFile={idFile} idSub={subFolder.id} />
+                                        //</Link>
+                                    ))
+                                )
                         }
                     </div>
 

@@ -12,6 +12,9 @@ import { useMyContext } from '../contexts/MyContext';
 import ReactPaginate from 'react-paginate';
 import ActionBtns from './ActionBtns';
 import Swal from 'sweetalert2';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+
 
 export default function FoldersClasser() {
     const TopNotification = Swal.mixin({
@@ -53,14 +56,18 @@ export default function FoldersClasser() {
     const idFile = param.id;
 
     const [folders, setFolders] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const getFolders = async () => {
             try {
                 const res = await axios.get("http://localhost:3000/folder");
                 setFolders(res.data);
+                setLoading(false);
+
             } catch (error) {
                 console.error("Error fetching folders:", error);
+                setLoading(false);
             }
         };
         getFolders();
@@ -97,6 +104,26 @@ export default function FoldersClasser() {
                 <WorkSpace message="Séléctionnez le dossier parent oû coller">
                     <div className='flex flex-wrap w-[100%] overflow-x-auto h-[580px]'>
                         {
+                            loading ? (
+                                <>
+                                  <div className="flex gap-4 px-6 py-4">
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                  </div>
+                                  <div className="flex gap-4 px-6 py-4">
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                  </div>
+                                </>
+                              ) :
                             folders.length === 0 ? (
                                 <div className="px-80 py-20">
                                     <img src="../src/assets/images/empty_file.gif" className='w-80 h-80' alt="" />
