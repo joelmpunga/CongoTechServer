@@ -64,6 +64,13 @@ export default function MailsBrouillonAll() {
                                 <MailBrouillon />
                                 <MailBrouillon />
                                 <MailBrouillon />
+                                <MailBrouillon />
+                                <MailBrouillon />
+                                <MailBrouillon />
+                                <MailBrouillon />
+                                <MailBrouillon />
+                                
+                                
                                 {/* <MailBrouillon allcheck={valChck} />
                                 <MailBrouillon allcheck={valChck}/>
                                 <MailBrouillon allcheck={valChck}/>

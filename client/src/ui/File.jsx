@@ -6,6 +6,7 @@ import axios from 'axios';
 import LinesEllipsis from 'react-lines-ellipsis';
 import Swal from 'sweetalert2';
 import { useMyContext } from '../contexts/MyContext';
+import Modal from './Modal';
 
 export default function File({ title, data, isToClass = false, id, menuContex }) {
   const { setIdFile, handleContextMenu } = useMyContext();
@@ -70,9 +71,27 @@ export default function File({ title, data, isToClass = false, id, menuContex })
   // };
 
 
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <ContainerFolderFile onMouseOver={handleHover} onMouseOut={hideHover} id={id}>
       <div className='flex'>
+
+        <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+          <iframe
+            src={`http://localhost:3000/file/show/${id}`}
+            className="w-full h-full"
+
+          ></iframe>
+        </Modal>
         <img src="../src/assets/images/icon-file.png" alt="" width={120} height={120} className='' />
         {/* {
           menuContex && <div id={id} onClick={handleContextMenu}>
@@ -90,9 +109,11 @@ export default function File({ title, data, isToClass = false, id, menuContex })
         isHover && (
           <div className='absolute outset-0'>
             <div className='flex gap-5 text-wrap bg-blue-100 m-5 rounded-2xl w-[170px] h-[40px] p-2 shadow-xl justify-around items-center'>
-              <Link to={`http://localhost:3000/file/show/${id}`}>
+
+
+              <button onClick={handleOpenModal} type="button">
                 <img src="../src/assets/images/eye.svg" alt="" width={30} />
-              </Link>
+              </button>
               <button>
                 <img src="../src/assets/images/trash-can-alt-2.svg" alt="" onClick={deleteFile} width={30} />
               </button>
