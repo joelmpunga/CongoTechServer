@@ -1,7 +1,7 @@
 import React from 'react'
 import CheckBox from '../ui/CheckBox'
 
-export default function MailBrouillon({allChk}) {
+export default function MailBrouillon({ allChk }) {
     return (
         <tbody className="divide-y divide-gray-100 border-t border-gray-100">
             <tr className="hover:bg-gray-50">
