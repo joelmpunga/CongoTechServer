@@ -13,8 +13,8 @@ export default class ChartsDocuments {
         }).then()
         return request
     }
-    async getDocumentDate(date){
-        const orders = await prisma.$queryRaw(`SELECT * FROM document WHERE dataField LIKE '%-04-%'`).then();
-        return orders
-    }
+    // async getDocumentDate(date){
+    //     const orders = await prisma.$queryRaw(`SELECT * FROM document WHERE dataField LIKE '%-04-%'`).then();
+    //     return orders
+    // }
 }
