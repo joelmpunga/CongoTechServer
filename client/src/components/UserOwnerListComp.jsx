@@ -1,5 +1,5 @@
 
-export default function UserOwnerListComp({thtypePostNom, thDecrEmail, thStatusRole, children }) {
+export default function UserOwnerListComp({thtypePostNom, thDecrEmail, thStatusRole, children, Nom }) {
 
 
     return (
@@ -8,7 +8,7 @@ export default function UserOwnerListComp({thtypePostNom, thDecrEmail, thStatusR
                 <table className="w-full border-collapse bg-white text-left text-sm text-gray-500">
                     <thead className="bg-gray-50">
                         <tr>
-                            <th scope="col" className="px-6 py-4 font-medium text-gray-900">Nom</th>
+                            <th scope="col" className="px-6 py-4 font-medium text-gray-900">{Nom}</th>
                             <th scope="col" className="px-6 py-4 font-medium text-gray-900">{thtypePostNom}</th>
                             <th scope="col" className="px-6 py-4 font-medium text-gray-900">{thDecrEmail}</th>
                             <th scope="col" className="px-6 py-4 font-medium text-gray-900">{thStatusRole}</th>
