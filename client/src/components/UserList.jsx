@@ -44,6 +44,7 @@ export default function UserList() {
                     thtypePostNom="Post-nom"
                     thDecrEmail="E-mail"
                     thStatusRole="Role"
+                    Nom="Nom"
                 >
 
                     <tbody className="divide-y divide-gray-100 border-t border-gray-100">

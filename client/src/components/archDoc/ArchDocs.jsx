@@ -211,15 +211,15 @@ export default function ArchDocs() {
 
 
     return (
-        <div className='flex flex-col gap-4 mx-3' >
-            <div className='bg-white shadow-2xl py-3'>
+        <div className='flex flex-col gap-10 mx-3' >
+            <div className=''>
                 <HeaderWorkspace title="Archiver les documents" actualPage="Archiver les documents">
                     <Link to="/charts/doc" >
                         <ItemLinkPage title="Dashboard" path="/charts/doc" />
                     </Link>
                 </HeaderWorkspace>
             </div>
-            <div className='bg-white shadow-2xl h-[700px]'>
+            <div className='bg-white shadow-2xl h-[700px] rounded-lg'>
 
                 <div className="font-adamina text-[14px] overflow-x-auto flex gap-16 w-full justify-center mx-auto mt-10">
                     <div className="w-[660px] border border-gray-200 shadow-md">
