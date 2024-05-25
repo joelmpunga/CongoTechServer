@@ -37,7 +37,6 @@ export default function ChartsDocuments() {
         getOwnersParticulier()
         getOwnersEntreprise()
     }, [])
-    console.log(ownersEntreprise);
 
     return (
         <div className='flex gap-5 p-5 w-auto overflow-x-auto h-[760px]'>

@@ -37,4 +37,31 @@ export default class ChartsDocumentsController {
         //     res.status(500).json(error);
         // }
     }
+
+    static async getNumberDocMonth(req, res) {
+        // try{
+        const chartsDocuments = new ChartsDocuments();
+        const month = req.params.month
+        const currentYear = new Date().getFullYear();
+        const data = await chartsDocuments.getDocumentMonth(currentYear+"-"+month+"-").then()
+        res.status(200).json(data);
+        return data
+        // }
+        // catch (error) {
+        //     res.status(500).json(error);
+        // }
+    }
+
+    static async getNumberDocYear(req, res) {
+        // try{
+        const chartsDocuments = new ChartsDocuments();
+        const year = req.params.year
+        const data = await chartsDocuments.getDocumentYear(year).then()
+        res.status(200).json(data);
+        return data
+        // }
+        // catch (error) {
+        //     res.status(500).json(error);
+        // }
+    }
 }

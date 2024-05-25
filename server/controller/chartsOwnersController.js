@@ -26,11 +26,9 @@ export default class ChartsUsersController {
 
     static async getNumberEntreprise(req, res) {
         // try{
-        console.log("Controller Entreprise");
         const chartsOwners = new ChartsOwners();
         const data = await chartsOwners.getAllEntreprise()
         res.status(200).json(data)
-        console.log(data);
         return data
         // } catch(err) {
         //     res.status(500).json(err)
