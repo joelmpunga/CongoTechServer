@@ -16,8 +16,10 @@ const Modal = ({ isOpen, onClose, children }) => {
 
                     </button>
                 </div>
-                <div className="h-full">
+                <div className='h-full w-full flex fles-row justify-center items-center'>
+
                     {children}
+
                 </div>
 
             </div>

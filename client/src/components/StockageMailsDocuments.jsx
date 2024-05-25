@@ -105,8 +105,8 @@ export default function StockageMailsDocuments() {
     }, [currentSubFolder]);
 
 
-    console.table("sub folder", currentSubFolder.idFolder);
-    console.table(currentFolder);
+    // console.table("sub folder", currentSubFolder.idFolder);
+    // console.table(currentFolder);
 
     //for modal
 
@@ -249,7 +249,7 @@ export default function StockageMailsDocuments() {
         if (selectedOwner == '') {
             errors.ownerErr = 'Selectionner le type';
         }
-        console.log(file);
+        // console.log(file);
 
         if (file.length === 0) {
             errors.fileErr = 'Selectionner un document';
@@ -285,7 +285,7 @@ export default function StockageMailsDocuments() {
     const handleSubmitDocument = async (event) => {
         event.preventDefault()
         const token = localStorage.getItem('token')
-        console.log(token);
+        // console.log(token);
         const isValid = validateDoc()
 
         if (isValid) {
@@ -330,7 +330,7 @@ export default function StockageMailsDocuments() {
                 }
                 )
             } catch (error) {
-                console.error('Erreur lors du téléchargement du fichier :', error);
+                // console.error('Erreur lors du téléchargement du fichier :', error);
                 showAlert(
                     "warning",
                     "Erreur",
@@ -446,7 +446,7 @@ export default function StockageMailsDocuments() {
                                 ) : (
                                     getCurrentPageData().map(file => (
                                         <tr key={file.id}>
-                                            <File id={file.id} menuContex={true} title={file.name} />
+                                            <File data={file} id={file.id} menuContex={true} title={file.name} />
                                         </tr>
                                     ))
                                 )
