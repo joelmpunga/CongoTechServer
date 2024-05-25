@@ -1,44 +1,89 @@
 import { AreaChart, XAxis, YAxis, CartesianGrid, Tooltip, Area } from 'recharts'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 export default function ChartsArea({ title }) {
-    const data = [
+    const [currentYearData, setCurrentYearData] = useState([])
+    const [currentYearUndo1, setCurrentYearUndo1] = useState([])
+    const [currentYearUndo2, setCurrentYearUndo2] = useState([])
+    const [currentYearUndo3, setCurrentYearUndo3] = useState([])
+    const [currentYearUndo4, setCurrentYearUndo4] = useState([])
+    const [currentYearUndo5, setCurrentYearUndo5] = useState([])
+
+    const getNumberCurrentYear = async () => await axios.get("http://localhost:3000/charts/document/year/" + currentYear).then(res => setCurrentYearData(res.data))
+    const getNumberCurrentYearUndo1 = async () => await axios.get("http://localhost:3000/charts/document/year/" + (currentYear - 1)).then(res => setCurrentYearUndo1(res.data))
+    const getNumberCurrentYearUndo2 = async () => await axios.get("http://localhost:3000/charts/document/year/" + (currentYear - 2)).then(res => setCurrentYearUndo2(res.data))
+    const getNumberCurrentYearUndo3 = async () => await axios.get("http://localhost:3000/charts/document/year/" + (currentYear - 3)).then(res => setCurrentYearUndo3(res.data))
+    const getNumberCurrentYearUndo4 = async () => await axios.get("http://localhost:3000/charts/document/year/" + (currentYear - 4)).then(res => setCurrentYearUndo4(res.data))
+    const getNumberCurrentYearUndo5 = async () => await axios.get("http://localhost:3000/charts/document/year/" + (currentYear - 5)).then(res => setCurrentYearUndo5(res.data))
+
+    useEffect(() => {
+        getNumberCurrentYear()
+        getNumberCurrentYearUndo1()
+        getNumberCurrentYearUndo2()
+        getNumberCurrentYearUndo3()
+        getNumberCurrentYearUndo4()
+        getNumberCurrentYearUndo5()
+    })
+
+    const currentYear = new Date().getFullYear();
+    const data = []
+
+    if (currentYearUndo5.length > 0) {
+        data.push(
+            {
+                "name": currentYear - 5,
+                "doc": currentYearUndo5.length,
+                "email": 0,
+            }
+        )
+    }
+
+    if (currentYearUndo4.length > 0) {
+        data.push(
+            {
+                "name": currentYear - 4,
+                "doc": currentYearUndo4.length,
+                "email": 0,
+            }
+        )
+    }
+
+    if (currentYearUndo3.length > 0) {
+        data.push(
+            {
+                "name": currentYear - 3,
+                "doc": currentYearUndo3.length,
+                "email": 0,
+            }
+        )
+    }
+
+    if (currentYearUndo2.length > 0) {
+        data.push(
+            {
+                "name": currentYear - 2,
+                "doc": currentYearUndo2.length,
+                "email": 0,
+            }
+        )
+    }
+
+    data.push(
         {
-            "name": "2019",
-            "uv": 4000,
-            "pv": 2400,
-            "amt": 2400
-        },
+            "name": currentYear - 1,
+            "doc": currentYearUndo1.length,
+            "email": 0,
+        }
+    )
+    data.push(
         {
-            "name": "2020",
-            "uv": 3000,
-            "pv": 1398,
-            "amt": 2210
-        },
-        {
-            "name": "2021",
-            "uv": 2000,
-            "pv": 9800,
-            "amt": 2290
-        },
-        {
-            "name": "2022",
-            "uv": 2780,
-            "pv": 3908,
-            "amt": 2000
-        },
-        {
-            "name": "2023",
-            "uv": 1890,
-            "pv": 4800,
-            "amt": 2181
-        },
-        {
-            "name": "2024",
-            "uv": 2390,
-            "pv": 3800,
-            "amt": 2500
-        },
-    ]
+            "name": currentYear,
+            "doc": currentYearData.length,
+            "email": 38,
+        }
+    )
+
     return (
         <div className='shadow-2xl h-[40Opx] bg-white'>
             <h1 className='text-[24px] text-blue-700 border p-2'>{title}</h1>
@@ -58,8 +103,8 @@ export default function ChartsArea({ title }) {
                 <YAxis />
                 <CartesianGrid strokeDasharray="3 3" />
                 <Tooltip />
-                <Area type="monotone" dataKey="uv" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
-                <Area type="monotone" dataKey="pv" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
+                <Area type="monotone" dataKey="doc" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
+                <Area type="monotone" dataKey="email" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
             </AreaChart>
         </div>
     )

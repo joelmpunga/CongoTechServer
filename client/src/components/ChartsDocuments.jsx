@@ -37,7 +37,6 @@ export default function ChartsDocuments() {
         getOwnersParticulier()
         getOwnersEntreprise()
     }, [])
-    console.log(ownersEntreprise);
 
     return (
         <div className='flex gap-5 p-5 w-auto overflow-x-auto h-[760px]'>
@@ -55,7 +54,7 @@ export default function ChartsDocuments() {
                     <CardChart title="CLIENTS" number={owners.length} descriptions="clients" subStat={true} stat1={ownersEntreprise.length} titleStat1 = "Entreprise(s)" stat2={ownersParticulier.length} titleStat2 = "Particulier(s)"/>
                 </div>
                 <ChartsBarRadial title="TYPE DE DOCUMENTS" />
-                <ChartsLine title="PARTICULIERS VS ENTREPRISES" />
+                <ChartsLine title="CLIENTS" />
             </div>
         </div>
     )
