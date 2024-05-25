@@ -25,6 +25,7 @@ function App({ children, getUserData }) {
   const nom = localStorage.getItem('nom');
   const postnom = localStorage.getItem('postnom');
   const role = localStorage.getItem('role');
+  const email = localStorage.getItem('email');
   const isAuthenticated = localStorage.getItem('isAuthenticated');
   const navigate = useNavigate()
   if (!isAuthenticated) {
@@ -38,7 +39,7 @@ function App({ children, getUserData }) {
         }
         {/* <SideBarSecretaire /> */}
         <div className='flex flex-col w-full bg-slate-200'>
-          <Header hasSearch={true} name={nom + " " + postnom} title={role} />
+          <Header hasSearch={true} email={email} name={nom + " " + postnom} title={role} />
           {
             children
           }

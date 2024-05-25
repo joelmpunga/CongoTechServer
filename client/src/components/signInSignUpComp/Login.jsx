@@ -14,11 +14,12 @@ export default function Login() {
     if (isAuthenticated) {
         navigate('/folder')
     }
-    const setLocalStorage = (role, nom, postnom) => {
+    const setLocalStorage = (role, nom, postnom, email) => {
         localStorage.setItem('isAuthenticated', true)
         localStorage.setItem('role', role)
         localStorage.setItem('nom', nom)
         localStorage.setItem('postnom', postnom)
+        localStorage.setItem('email', email)
     }
     // const [email, setEmail] = useState('')
     // const [password, setPassword] = useState('')
@@ -109,7 +110,7 @@ export default function Login() {
             // Submit the form, for now just log the data
             axios.post('http://localhost:3000/user/login', formData
                ).then(res => {
-                console.log(res.data.userInfos)
+                // console.log(res.data.userInfos)
                 if (res.status === 200) {
                     localStorage.setItem('token', res.data.token);
                     console.log("login before", isAuthenticated);
@@ -118,6 +119,7 @@ export default function Login() {
                     // updateRole(res.data.userInfos.role)
                     // updateNom(res.data.userInfos.nom)
                     // updatePostNom(res.data.userInfos.postnom)
+                    // console.log(res.data.userInfos);
                     setLocalStorage(res.data.userInfos.role, res.data.userInfos.nom, res.data.userInfos.postnom)
                     if (res.data.userInfos.role === 'SECRETAIRE') {
                         navigate('/folder')

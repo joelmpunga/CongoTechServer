@@ -83,7 +83,7 @@ export default function FilesBrouillon() {
                 ) : (
                   getCurrentPageData().map(file => (
                     <tr key={file.id}>
-                      <File id={file.id} title={file.name} isToClass={true} />
+                      <File data={file}  id={file.id} title={file.name} isToClass={true} />
                     </tr>
                   ))
                 )

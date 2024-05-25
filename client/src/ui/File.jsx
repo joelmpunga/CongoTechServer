@@ -18,11 +18,11 @@ export default function File({ title, data, isToClass = false, id, menuContex })
 
   useEffect(() => {
     setIdFile(id);
-    determineFileType(data.name);
+    determineFileType(data);
   }, [id, data, setIdFile]);
 
   const determineFileType = (fileName) => {
-    const extension = fileName.split('.').pop().toLowerCase();
+    const extension = (fileName.name).split('.').pop().toLowerCase();
     if (['jpg', 'jpeg', 'png'].includes(extension)) {
       setFileType('image');
     } else {
