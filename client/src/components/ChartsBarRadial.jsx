@@ -24,6 +24,12 @@ export default function ChartsBarRadial({ title }) {
 
     const data = [
         {
+            "name": "jpeg",
+            "quantité": jpeg.length,
+            "pv": 4800,
+            "fill": "#d0ed57"
+        },
+        {
             "name": "png",
             "quantité": png.length,
             "pv": 9800,
@@ -36,12 +42,6 @@ export default function ChartsBarRadial({ title }) {
             "fill": "#a4de6c"
         },
         {
-            "name": "jpeg",
-            "quantité": jpeg.length,
-            "pv": 4800,
-            "fill": "#d0ed57"
-        },
-        {
             "name": "pdf",
             "quantité": pdf.length,
             "pv": 4800,
@@ -51,7 +51,7 @@ export default function ChartsBarRadial({ title }) {
     return (
         <div className='shadow-2xl h-[40Opx] bg-white'>
             <h1 className='text-[24px] text-blue-700 border p-2'>{title}</h1>
-            <hr />            
+            <hr />
             <RadialBarChart
                 width={730}
                 height={250}
