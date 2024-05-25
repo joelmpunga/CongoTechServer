@@ -8,7 +8,7 @@ export default class ChartsUsers {
     async getAllParticulier() {
         const request = await prisma.owner.findMany({
             where: {
-                type: "Particulier"
+                type: "Particulier",
             }
         }).then()
         return request
@@ -17,6 +17,49 @@ export default class ChartsUsers {
         const request = await prisma.owner.findMany({
             where: {
                 type: "Entreprise"
+            }
+        }).then()
+        return request
+    }
+
+    async getParticulierMonth(month) {
+        const request = await prisma.owner.findMany({
+            where: {
+                type: "Particulier",
+            }
+        }).then()
+        const filteredOwners = request.filter(owner => {
+            if (owner.createdAt) {
+                const dateString = owner.createdAt.toISOString().split('T')[0];
+                return dateString.includes(month);
+            }
+            return false;
+        });
+        return filteredOwners;
+    }
+
+    async getEntrepriseMonth(month) {
+        const request = await prisma.owner.findMany({
+            where: {
+                type: "Entreprise",
+            }
+        }).then()
+        const filteredOwners = request.filter(owner => {
+            if (owner.createdAt) {
+                const dateString = owner.createdAt.toISOString().split('T')[0];
+                return dateString.includes(month);
+            }
+            return false;
+        });
+        return filteredOwners;
+    }
+
+    async getOwnerType(type) {
+        const request = await prisma.owner.findMany({
+            where: {
+                name: {
+                    contains: type
+                }
             }
         }).then()
         return request

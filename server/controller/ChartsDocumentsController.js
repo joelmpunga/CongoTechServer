@@ -64,4 +64,17 @@ export default class ChartsDocumentsController {
         //     res.status(500).json(error);
         // }
     }
+
+    static async getNumberDocExtension(req, res) {
+        // try{
+        const chartsDocuments = new ChartsDocuments();
+        const extension = req.params.extension
+        const data = await chartsDocuments.getDocumentExtension(extension).then()
+        res.status(200).json(data);
+        return data
+        // }
+        // catch (error) {
+        //     res.status(500).json(error);
+        // }
+    }
 }

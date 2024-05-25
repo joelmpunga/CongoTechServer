@@ -36,4 +36,15 @@ export default class ChartsDocuments {
         });
         return filteredDocuments;
     }
+
+    async getDocumentExtension(extension) {
+        const request = await prisma.document.findMany({
+            where: {
+                name: {
+                    contains: extension
+                }
+            }
+        }).then()
+        return request
+    }
 }
