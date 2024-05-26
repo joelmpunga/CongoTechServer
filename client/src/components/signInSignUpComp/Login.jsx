@@ -122,10 +122,10 @@ export default function Login() {
                     // console.log(res.data.userInfos);
                     setLocalStorage(res.data.userInfos.role, res.data.userInfos.nom, res.data.userInfos.postnom)
                     if (res.data.userInfos.role === 'SECRETAIRE') {
-                        navigate('/folder')
+                        navigate('/charts/doc')
                     }
                     else if (res.data.userInfos.role === 'ADMIN') {
-                        navigate('/')
+                        navigate('/userlist')
                     }
                     //pour recuperer le token en localStorage
                     //const local = localStorage.getItem('token')
