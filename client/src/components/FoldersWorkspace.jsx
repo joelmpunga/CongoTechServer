@@ -31,7 +31,7 @@ const FoldersWorkspace = () => {
     if (!isAuthenticatedLocalStorage) {
         navigate('/login');
     }
-    //stolen from App Component
+    //taken from App Component
 
     const nom = localStorage.getItem('nom');
     const postnom = localStorage.getItem('postnom');
@@ -39,7 +39,7 @@ const FoldersWorkspace = () => {
     const email = localStorage.getItem('email');
     const [searchField, setSearchField] = useState("");
 
-    //end stolen form App Component
+    //end taken form App Component
     const [isVisible, setIsVisible] = useState(false);
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [folders, setFolders] = useState([]);
@@ -68,7 +68,7 @@ const FoldersWorkspace = () => {
     };
     // search filters
     const filteredFolders = folders.filter(folder =>
-        folder.titre.toLowerCase().includes(searchField.toLowerCase())
+        folder.titre.toLowerCase().includes(searchField.toLowerCase()) || folder.description.toLowerCase().includes(searchField.toLowerCase())
     );
     //end search filters
     console.log("filtred Folders",filteredFolders);

@@ -7,16 +7,24 @@ import ChartsComposed from './ChartsComposed'
 import ChartsLine from './ChartsLine'
 import CardChart from '../ui/CardChart'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+
+// taken from App Component
+
+import SideBarAdmin from './SideBarAdmin'
+import SideBarSecretaire from './SideBarSecretaire'
+import Header from './Header'
+// End taken from App Component
 
 export default function ChartsDocuments() {
     const [allDocuments, setAllDocuments] = useState([])
     const [unClassedDocuments, setUnClassedDocument] = useState([])
-    const [allUsers,setAllUsers] = useState([])
-    const [usersSecretary,setUsersSecretary] = useState([])
-    const [usersAdmin,setUsersAdmin] = useState([])
-    const [owners,setOwners] = useState([])
-    const [ownersParticulier,setOwnersParticulier] = useState([])
-    const [ownersEntreprise,setOwnersEntreprise] = useState([])
+    const [allUsers, setAllUsers] = useState([])
+    const [usersSecretary, setUsersSecretary] = useState([])
+    const [usersAdmin, setUsersAdmin] = useState([])
+    const [owners, setOwners] = useState([])
+    const [ownersParticulier, setOwnersParticulier] = useState([])
+    const [ownersEntreprise, setOwnersEntreprise] = useState([])
     const getDocuments = async () => await axios.get("http://localhost:3000/charts/document").then(res => setAllDocuments(res.data))
     const getFiles = async () => await axios.get("http://localhost:3000/file/draft").then(res => setUnClassedDocument(res.data))
     const getUsers = async () => await axios.get("http://localhost:3000/charts/user").then(res => setAllUsers(res.data))
@@ -26,6 +34,20 @@ export default function ChartsDocuments() {
     const getOwnersParticulier = async () => await axios.get("http://localhost:3000/charts/owner/particulier").then(res => setOwnersParticulier(res.data))
     const getOwnersEntreprise = async () => await axios.get("http://localhost:3000/charts/owner/entreprise").then(res => setOwnersEntreprise(res.data))
 
+    const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated');
+    const navigate = useNavigate();
+    if (!isAuthenticatedLocalStorage) {
+        navigate('/login');
+    }
+    //taken from App Component
+
+    const nom = localStorage.getItem('nom');
+    const postnom = localStorage.getItem('postnom');
+    const role = localStorage.getItem('role');
+    const email = localStorage.getItem('email');
+    const [searchField, setSearchField] = useState("");
+
+    //end taken form App Component
 
     useEffect(() => {
         getDocuments()
@@ -39,23 +61,33 @@ export default function ChartsDocuments() {
     }, [])
 
     return (
-        <div className='flex gap-5 p-5 w-auto overflow-x-auto h-[760px]'>
-            <div className='flex flex-col gap-10'>
-                <div className='flex gap-4 justify-between'>
-                    <CardChart title="DOCUMENTS" number={allDocuments.length} descriptions="documents" subStat={true} stat1={allDocuments.length - unClassedDocuments.length} titleStat1 = "Classé(s)" stat2={unClassedDocuments.length} titleStat2 = "Non Classé(s)"/>
-                    <CardChart title="EMAILS" number={0} descriptions="emails" subStat={true} stat1={0} titleStat1 = "Classé(s)" stat2={0} titleStat2 = "Non Classé(s)"/>
+        <>
+            <div className='flex gap-0 w-full fixed'>
+                {
+                    role === 'ADMIN' ? <SideBarAdmin /> : <SideBarSecretaire />
+                }
+                <div className='flex flex-col w-full bg-slate-200'>
+                    <Header hasSearch={false} email={email} name={nom + " " + postnom} title={role} setSearchField={setSearchField} />
+                    <div className='flex gap-5 p-5 w-auto overflow-x-auto h-[760px]'>
+                        <div className='flex flex-col gap-10'>
+                            <div className='flex gap-4 justify-between'>
+                                <CardChart title="DOCUMENTS" number={allDocuments.length} descriptions="documents" subStat={true} stat1={allDocuments.length - unClassedDocuments.length} titleStat1="Classé(s)" stat2={unClassedDocuments.length} titleStat2="Non Classé(s)" />
+                                <CardChart title="EMAILS" number={0} descriptions="emails" subStat={true} stat1={0} titleStat1="Classé(s)" stat2={0} titleStat2="Non Classé(s)" />
+                            </div>
+                            <ChartsBar title="DOCUMENTS Vs EMAIL / Mois" />
+                            <ChartsArea title="DOCUMENTS Vs EMAIL / Années" />
+                        </div>
+                        <div className='flex flex-col gap-10'>
+                            <div className='flex gap-4 justify-between'>
+                                <CardChart title="UTILISATEURS" number={allUsers.length} descriptions="utilisateurs" subStat={true} stat1={usersAdmin.length} titleStat1="Admin(s)" stat2={usersSecretary.length} titleStat2="Secretaire(s)" />
+                                <CardChart title="CLIENTS" number={owners.length} descriptions="clients" subStat={true} stat1={ownersEntreprise.length} titleStat1="Entreprise(s)" stat2={ownersParticulier.length} titleStat2="Particulier(s)" />
+                            </div>
+                            <ChartsBarRadial title="TYPE DE DOCUMENTS" />
+                            <ChartsLine title="CLIENTS" />
+                        </div>
+                    </div>
                 </div>
-                <ChartsBar title="DOCUMENTS Vs EMAIL / Mois" />
-                <ChartsArea title="DOCUMENTS Vs EMAIL / Années" />
             </div>
-            <div className='flex flex-col gap-10'>
-                <div className='flex gap-4 justify-between'>
-                    <CardChart title="UTILISATEURS" number={allUsers.length} descriptions="utilisateurs" subStat={true} stat1={usersAdmin.length} titleStat1 = "Admin(s)" stat2={usersSecretary.length} titleStat2 = "Secretaire(s)" />
-                    <CardChart title="CLIENTS" number={owners.length} descriptions="clients" subStat={true} stat1={ownersEntreprise.length} titleStat1 = "Entreprise(s)" stat2={ownersParticulier.length} titleStat2 = "Particulier(s)"/>
-                </div>
-                <ChartsBarRadial title="TYPE DE DOCUMENTS" />
-                <ChartsLine title="CLIENTS" />
-            </div>
-        </div>
+        </>
     )
 }

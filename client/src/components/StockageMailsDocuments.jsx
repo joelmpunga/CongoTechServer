@@ -22,6 +22,12 @@ import PopupAlert from "../ui/Popup";
 import Swal from "sweetalert2";
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+// taken from App Component
+
+import SideBarAdmin from './SideBarAdmin'
+import SideBarSecretaire from './SideBarSecretaire'
+import Header from './Header'
+// End taken from App Component
 export default function StockageMailsDocuments() {
     const { idfile, handleCloseContextMenu, contextMenuVisible, contextMenuPosition } = useMyContext();
 
@@ -30,6 +36,15 @@ export default function StockageMailsDocuments() {
     if (!isAuthenticatedLocalStorage) {
         navigate('/login')
     }
+    //taken from App Component
+
+    const nom = localStorage.getItem('nom');
+    const postnom = localStorage.getItem('postnom');
+    const role = localStorage.getItem('role');
+    const email = localStorage.getItem('email');
+    const [searchField, setSearchField] = useState("");
+
+    //end taken form App Component
 
     const handleBackClick2 = () => {
         navigate(-2);
@@ -51,13 +66,19 @@ export default function StockageMailsDocuments() {
     const getCurrentPageData = () => {
         const startIndex = currentPage * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
-        return files.slice(startIndex, endIndex);
+        return filteredFiles.slice(startIndex, endIndex);
     };
 
     const handlePageClick = (data) => {
         const selectedPage = data.selected;
         setCurrentPage(selectedPage);
     };
+
+    // search filters
+    const filteredFiles = files.filter(file =>
+        file.name.toLowerCase().includes(searchField.toLowerCase())
+    );
+    //end search filters
 
     const getFiles = async () => {
         try {
@@ -343,67 +364,74 @@ export default function StockageMailsDocuments() {
     }
     return (
 
-        <div className='flex flex-col gap-10 mx-3' >
-            <div className=''>
-                <HeaderWorkspace title="Documents & Mails" actualPage={currentSubFolder.titre} >
-                    <Link to="/charts/doc" >
-                        <ItemLinkPage title="Dashboard" path="/charts/doc" />
-                    </Link>
-                    <Link to="#" onClick={handleBackClick1} >
-                        <ItemLinkPage title={"/ " + currentFolder.titre} />
-                    </Link>
-                </HeaderWorkspace>
-            </div>
-            <div className='bg-white shadow-2xl h-[700px] rounded-lg'>
+        <>
+            <div className='flex gap-0 w-full fixed'>
+                {
+                    role === 'ADMIN' ? <SideBarAdmin /> : <SideBarSecretaire />
+                }
+                <div className='flex flex-col w-full bg-slate-200'>
+                    <Header hasSearch={true} email={email} name={nom + " " + postnom} title={role} setSearchField={setSearchField} />
+                    <div className='flex flex-col gap-10 mx-3' >
+                        <div className=''>
+                            <HeaderWorkspace title="Documents & Mails" actualPage={currentSubFolder.titre} >
+                                <Link to="/charts/doc" >
+                                    <ItemLinkPage title="Dashboard" path="/charts/doc" />
+                                </Link>
+                                <Link to="#" onClick={handleBackClick1} >
+                                    <ItemLinkPage title={"/ " + currentFolder.titre} />
+                                </Link>
+                            </HeaderWorkspace>
+                        </div>
+                        <div className='bg-white shadow-2xl h-[700px] rounded-lg'>
 
-                <WorkSpace message="Parcourez les fichiers et mails">
-                    <div className='flex flex-wrap w-[100%] overflow-flex-auto h-[580px]'>
-                        {/* Modal */}
-                        {isOpen && (
-                            <div className='absolute bg-[#70726e7c] flex flex-row inset-0 justify-center items-center'>
-                                <div className="bg-gray-100 shadow-2xl p-4 w-[35%] modal-content" onClick={handleBackgroundClick}>
-                                    <button className="text-[30px]" onClick={closeModal}>&times;</button>
-                                    <div className="font-adamina text-[14px] flex w-full justify-end mx-auto mt-10">
-                                        <div className="w-[650px] border border-gray-200 shadow-md">
-                                            <form action="" encType="multipart/form-data">
-                                                {
-                                                    errorDoc && <PopupAlert message={errorMessageDoc} />
-                                                }
-                                                <ArchDocComp onChange={handleChangeDocDesc} onSubmit={handleSubmitDocument}
-                                                    className=" bg-gray-200 resize-none p-5 w-full h-[120px] my-5 border-1  border-blue outline-none"
-                                                >
-                                                    <CbxInput msgErr={docErr.ownerErr} ownNametypeDoc='Nom du proprietaire' onChange={handleChangeSelectedOwner} className='w-full h-14' >
-                                                        <option value=""></option>
-                                                        {
-                                                            owners.map(owner => (
-                                                                <option key={owner.id} value={owner.id}>{owner.nom}</option>
-                                                            ))
-                                                        }
-                                                    </CbxInput>
-                                                    <DragComponent errMsg={docErr.fileErr} getFile={handleChangeFileDocs} />
-                                                </ArchDocComp>
-                                            </form>
+                            <WorkSpace message="Parcourez les fichiers et mails">
+                                <div className='flex flex-wrap w-[100%] overflow-flex-auto h-[580px]'>
+                                    {/* Modal */}
+                                    {isOpen && (
+                                        <div className='absolute bg-[#70726e7c] flex flex-row inset-0 justify-center items-center'>
+                                            <div className="bg-gray-100 shadow-2xl p-4 w-[35%] modal-content" onClick={handleBackgroundClick}>
+                                                <button className="text-[30px]" onClick={closeModal}>&times;</button>
+                                                <div className="font-adamina text-[14px] flex w-full justify-end mx-auto mt-10">
+                                                    <div className="w-[650px] border border-gray-200 shadow-md">
+                                                        <form action="" encType="multipart/form-data">
+                                                            {
+                                                                errorDoc && <PopupAlert message={errorMessageDoc} />
+                                                            }
+                                                            <ArchDocComp onChange={handleChangeDocDesc} onSubmit={handleSubmitDocument}
+                                                                className=" bg-gray-200 resize-none p-5 w-full h-[120px] my-5 border-1  border-blue outline-none"
+                                                            >
+                                                                <CbxInput msgErr={docErr.ownerErr} ownNametypeDoc='Nom du proprietaire' onChange={handleChangeSelectedOwner} className='w-full h-14' >
+                                                                    <option value=""></option>
+                                                                    {
+                                                                        owners.map(owner => (
+                                                                            <option key={owner.id} value={owner.id}>{owner.nom}</option>
+                                                                        ))
+                                                                    }
+                                                                </CbxInput>
+                                                                <DragComponent errMsg={docErr.fileErr} getFile={handleChangeFileDocs} />
+                                                            </ArchDocComp>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
 
-                        )}
-                        {/* End modal */}
-                        {contextMenuVisible && (
-                            <div
-                                className="fixed bg-white border rounded shadow p-2"
-                                style={{ top: contextMenuPosition.y, left: contextMenuPosition.x }}
-                                onClick={handleCloseContextMenu}
-                            >
-                                <div className='flex flex-col'>
-                                    <Link to={`http://localhost:3000/file/show/${idfile}`}>
-                                        <span className="flex gap-4 py-1 px-1 hover:bg-gray-100 cursor-pointer"><img src="../src/assets/images/eye.svg" alt="" /> Ouvrir</span>
-                                    </Link>
-                                </div>
-                            </div>
-                        )}
-                        {/* {isVisible && (
+                                    )}
+                                    {/* End modal */}
+                                    {contextMenuVisible && (
+                                        <div
+                                            className="fixed bg-white border rounded shadow p-2"
+                                            style={{ top: contextMenuPosition.y, left: contextMenuPosition.x }}
+                                            onClick={handleCloseContextMenu}
+                                        >
+                                            <div className='flex flex-col'>
+                                                <Link to={`http://localhost:3000/file/show/${idfile}`}>
+                                                    <span className="flex gap-4 py-1 px-1 hover:bg-gray-100 cursor-pointer"><img src="../src/assets/images/eye.svg" alt="" /> Ouvrir</span>
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    )}
+                                    {/* {isVisible && (
                         <div
                             className="absolute bg-white border border-gray-300 p-2 shadow-md"
                             style={{ left: position.x, top: position.y }}
@@ -418,70 +446,73 @@ export default function StockageMailsDocuments() {
                         </div>
                     )} */}
 
-                        {
-                            loading ? (
-                                <>
-                                    <div className="flex gap-4 px-6 py-4">
-                                        <Skeleton height={200} width={200} borderRadius={20} />
-                                        <Skeleton height={200} width={200} borderRadius={20} />
-                                        <Skeleton height={200} width={200} borderRadius={20} />
-                                        <Skeleton height={200} width={200} borderRadius={20} />
-                                        <Skeleton height={200} width={200} borderRadius={20} />
-                                        <Skeleton height={200} width={200} borderRadius={20} />
-                                    </div>
-                                    <div className="flex gap-4 px-6 py-4">
-                                        <Skeleton height={200} width={200} borderRadius={20} />
-                                        <Skeleton height={200} width={200} borderRadius={20} />
-                                        <Skeleton height={200} width={200} borderRadius={20} />
-                                        <Skeleton height={200} width={200} borderRadius={20} />
-                                        <Skeleton height={200} width={200} borderRadius={20} />
-                                        <Skeleton height={200} width={200} borderRadius={20} />
-                                    </div>
-                                </>
-                            ) :
-                                files.length === 0 ? (
-                                    <div className="px-80 py-20">
-                                        <img src="../src/assets/images/empty_file.gif" className='w-80 h-80' alt="" />
-                                        <h1 className='text-gray-700 text-[20px]'>Aucun fichiers trouvés!</h1>
-                                    </div>
-                                ) : (
-                                    getCurrentPageData().map(file => (
-                                        <tr key={file.id}>
-                                            <File data={file} id={file.id} menuContex={true} title={file.name} />
-                                        </tr>
-                                    ))
-                                )
-                        }
-                    </div>
-                    {/* <Mail title="Mail" data={data} />
+                                    {
+                                        loading ? (
+                                            <>
+                                                <div className="flex gap-4 px-6 py-4">
+                                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                                </div>
+                                                <div className="flex gap-4 px-6 py-4">
+                                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                                    <Skeleton height={200} width={200} borderRadius={20} />
+                                                </div>
+                                            </>
+                                        ) :
+                                            filteredFiles.length === 0 ? (
+                                                <div className="px-80 py-20">
+                                                    <img src="../src/assets/images/empty_file.gif" className='w-80 h-80' alt="" />
+                                                    <h1 className='text-gray-700 text-[20px]'>Aucun fichiers trouvés!</h1>
+                                                </div>
+                                            ) : (
+                                                getCurrentPageData().map(file => (
+                                                    <tr key={file.id}>
+                                                        <File data={file} id={file.id} menuContex={true} title={file.name} />
+                                                    </tr>
+                                                ))
+                                            )
+                                    }
+                                </div>
+                                {/* <Mail title="Mail" data={data} />
                 <File title="File.png" />
                 <Mail title="Mail" data={data} />
                 <File title="File.png" />
                 <Mail title="Mail" data={data} />
                 <File title="File.png" />*/}
-                    <div className='flex justify-between w-full mx-5'>
-                        <ReactPaginate
-                            previousLabel={"Précédent"}
-                            nextLabel={"Suivant"}
-                            breakLabel={"..."}
-                            pageCount={Math.ceil(files.length / itemsPerPage)} // Calcul du nombre total de pages
-                            marginPagesDisplayed={2}
-                            pageRangeDisplayed={5}
-                            onPageChange={handlePageClick}
-                            containerClassName={"flex justify-end gap-6 text-[20px]"}
-                            activeClassName={"active"}
-                        />
-                        <div>
-                            <button
-                                className='flex flex-row gap-3 justify-center items-center bg-blue-600 rounded-2xl w-[150px] h-[50px] text-white'
-                                onClick={openModal}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="white" d="m12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14zM5 8v11h14V8zm0 13q-.825 0-1.412-.587T3 19V6.525q0-.35.113-.675t.337-.6L4.7 3.725q.275-.35.687-.538T6.25 3h11.5q.45 0 .863.188t.687.537l1.25 1.525q.225.275.338.6t.112.675V19q0 .825-.587 1.413T19 21zm.4-15h13.2l-.85-1H6.25zm6.6 7.5" /></svg>
-                                <span>Archiver</span>
-                            </button>
+                                <div className='flex justify-between w-full mx-5'>
+                                    <ReactPaginate
+                                        previousLabel={"Précédent"}
+                                        nextLabel={"Suivant"}
+                                        breakLabel={"..."}
+                                        pageCount={Math.ceil(filteredFiles.length / itemsPerPage)} // Calcul du nombre total de pages
+                                        marginPagesDisplayed={2}
+                                        pageRangeDisplayed={5}
+                                        onPageChange={handlePageClick}
+                                        containerClassName={"flex justify-end gap-6 text-[20px]"}
+                                        activeClassName={"active"}
+                                    />
+                                    <div>
+                                        <button
+                                            className='flex flex-row gap-3 justify-center items-center bg-blue-600 rounded-2xl w-[150px] h-[50px] text-white'
+                                            onClick={openModal}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="white" d="m12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14zM5 8v11h14V8zm0 13q-.825 0-1.412-.587T3 19V6.525q0-.35.113-.675t.337-.6L4.7 3.725q.275-.35.687-.538T6.25 3h11.5q.45 0 .863.188t.687.537l1.25 1.525q.225.275.338.6t.112.675V19q0 .825-.587 1.413T19 21zm.4-15h13.2l-.85-1H6.25zm6.6 7.5" /></svg>
+                                            <span>Archiver</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </WorkSpace>
                         </div>
                     </div>
-                </WorkSpace>
+                </div>
             </div>
-        </div>
+        </>
     )
 }

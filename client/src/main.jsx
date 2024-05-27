@@ -102,21 +102,21 @@ const router = createBrowserRouter([
         element: <><ChartsDocuments /></>,
         errorElement: <><Error404 /></>,
       },
-      {
-        path: "/charts/mail",
-        element: <><ChartsMails /></>,
-        errorElement: <><Error404 /></>,
-      },
-      {
-        path: "/charts/client",
-        element: <><ChartsClient /></>,
-        errorElement: <><Error404 /></>,
-      },
-      {
-        path: "/charts/user",
-        element: <><ChartsUser /></>,
-        errorElement: <><Error404 /></>,
-      },
+      // {
+      //   path: "/charts/mail",
+      //   element: <><ChartsMails /></>,
+      //   errorElement: <><Error404 /></>,
+      // },
+      // {
+      //   path: "/charts/client",
+      //   element: <><ChartsClient /></>,
+      //   errorElement: <><Error404 /></>,
+      // },
+      // {
+      //   path: "/charts/user",
+      //   element: <><ChartsUser /></>,
+      //   errorElement: <><Error404 /></>,
+      // },
       {
         path: '*',
         errorElement: <><Error404 /></>,
