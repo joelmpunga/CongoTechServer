@@ -4,7 +4,7 @@ import CheckBox from '../ui/CheckBox'
 export default function MailBrouillon({ allChk }) {
     return (
         <tbody className="divide-y divide-gray-100 border-t border-gray-100">
-            <tr className="hover:bg-gray-50">
+            <tr className="hover:bg-gray-100">
                 <td><CheckBox allChk={allChk} /></td>
                 <th className="flex gap-3 px-6 py-4 font-normal text-gray-900">
                     <div className="text-sm">

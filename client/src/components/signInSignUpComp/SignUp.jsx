@@ -133,11 +133,9 @@ export default function SignUp() {
           <Header hasSearch={false} email={email} name={nom + " " + postnom} title={role} setSearchField={setSearchField} />
           <div className='bg-white overflow-x-auto '>
             <SignInSignUpComp title2="Créer un compte" btnName="Créer un compte" onSubmit={handleSubmit}>
-
               {
                 error && <PopupAlert message={errorMessage} />
               }
-
               <InputsForm
                 labelName="Nom"
                 name="name"
@@ -149,7 +147,6 @@ export default function SignUp() {
                 value={formData.name}
                 onChange={handleChange}
               />
-
               <InputsForm
                 labelName="Postnom"
                 name="firstName"
@@ -161,7 +158,6 @@ export default function SignUp() {
                 value={formData.firstName}
                 onChange={handleChange}
               />
-
               <InputsForm
                 name="email"
                 labelName="Email"
@@ -173,7 +169,6 @@ export default function SignUp() {
                 value={formData.email}
                 onChange={handleChange}
               />
-
               <InputsForm
                 labelName="Mot de passe"
                 name="password"
@@ -185,7 +180,6 @@ export default function SignUp() {
                 value={formData.password}
                 onChange={handleChange}
               />
-
               <CbxInput
                 name="role"
                 ownNametypeDoc="Role"
@@ -193,13 +187,11 @@ export default function SignUp() {
                 value={formData.role}
                 onChange={handleChange}
                 className=" h-[60px] shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
-
               >
                 <option value=""></option>
                 <option value="ADMIN">Administrateur</option>
                 <option value="SECRETAIRE">Secretaire</option>
               </ CbxInput>
-
             </SignInSignUpComp>
           </div>
         </div>

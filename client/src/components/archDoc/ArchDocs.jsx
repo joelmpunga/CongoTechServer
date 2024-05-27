@@ -275,7 +275,7 @@ export default function ArchDocs() {
                                     <ArchDocComp ownNametypeDoc='Type du proprietaire' attName='Nom' onChange={handleChangeDesc} onSubmit={handleSubmitOwner}
                                         className=" bg-gray-200 resize-none p-5 w-full h-42 my-5 border-1  border-blue outline-none"
                                     >
-                                        <Inputs errMsg={ownerErr.nameErr} attName='Nom à attribuer au document' onChange={handleChangeName} placeholder='Nom à attribuer au document'>
+                                        <Inputs errMsg={ownerErr.nameErr} attName='Nom du propriétaire' onChange={handleChangeName} placeholder='Nom du propriétaire'>
 
                                             <CbxInput msgErr={ownerErr.typeErr} ownNametypeDoc='Type du proprietaire' className='w-[300px] h-14' onChange={handleChangeType}>
                                                 <option value=""></option>
