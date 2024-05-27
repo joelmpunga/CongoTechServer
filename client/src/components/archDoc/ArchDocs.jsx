@@ -168,11 +168,12 @@ export default function ArchDocs() {
 
         if (isValid) {
             try {
+                const userId = localStorage.getItem('userId')
                 const formData = new FormData();
                 formData.append('file', file);
                 formData.append('idOwner', parseInt(selectedOwner));
                 formData.append('description', docsDesc);
-                formData.append('idUser', 1);
+                formData.append('idUser', userId);
 
                 await axios.post('http://localhost:3000/file/upload', formData).then(res => {
                     if (res.status === 201) {

@@ -7,4 +7,5 @@ router.delete('/delete/:id',user.deleteUser)
 router.post('/login',user.login)
 router.get('/profile',user.getProfile)
 router.get('/logout',user.logout)
+router.patch('/update/:id',user.updateUser)
 export default router

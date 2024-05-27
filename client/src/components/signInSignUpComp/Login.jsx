@@ -14,12 +14,13 @@ export default function Login() {
     if (isAuthenticated) {
         navigate('/folder')
     }
-    const setLocalStorage = (role, nom, postnom, email) => {
+    const setLocalStorage = (role, nom, postnom, email,userId) => {
         localStorage.setItem('isAuthenticated', true)
         localStorage.setItem('role', role)
         localStorage.setItem('nom', nom)
         localStorage.setItem('postnom', postnom)
         localStorage.setItem('email', email)
+        localStorage.setItem('userId', userId)
     }
     // const [email, setEmail] = useState('')
     // const [password, setPassword] = useState('')
@@ -120,7 +121,7 @@ export default function Login() {
                     // updateNom(res.data.userInfos.nom)
                     // updatePostNom(res.data.userInfos.postnom)
                     // console.log(res.data.userInfos);
-                    setLocalStorage(res.data.userInfos.role, res.data.userInfos.nom, res.data.userInfos.postnom)
+                    setLocalStorage(res.data.userInfos.role, res.data.userInfos.nom, res.data.userInfos.postnom,res.data.userInfos.email,res.data.userInfos.userId)
                     if (res.data.userInfos.role === 'SECRETAIRE') {
                         navigate('/charts/doc')
                     }

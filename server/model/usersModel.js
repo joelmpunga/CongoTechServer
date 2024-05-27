@@ -35,13 +35,28 @@ export default class User {
         return query
     }
 
-    async getById(userId){
+    async getById(userId) {
         const query = await prisma.user.findUnique({
             where: {
                 id: userId
             }
         }).then()
         return query
+    }
+
+    async update(id) {
+        const query = await prisma.user.update({
+            data: {
+                nom: this.nom,
+                postnom: this.postnom,
+                email: this.email,
+                password: this.password,
+            },
+            where: {
+                id: id
+            }
+        }).then()
+        return query;
     }
 
     async delete(id) {

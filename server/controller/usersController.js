@@ -47,6 +47,33 @@ export default class usersController {
         }
     }
 
+    static async updateUser(req, res) {
+        try {
+            const id = parseInt(req.params.id);
+            const schema = Joi.object({
+                email: Joi.string().email().required(),
+                password: Joi.string().min(8).required(),
+                nom: Joi.string().min(2).required(),
+                postnom: Joi.string().min(2).required(),
+            })
+            const { error, value } = schema.validate(req.body);
+            if (error) {
+                console.log(error);
+                // Gérer l'erreur de validation
+                return res.status(400).json(error.details[0].message);
+            }
+            const { nom, postnom, email, password } = req.body;
+            const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
+
+            const user = new User(nom, postnom, email, hashedPassword);
+            const data = await user.update(id);
+            const response = await user.getAll();
+            res.status(200).json(response);
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    }
+
 
 
     static async deleteUser(req, res) {
@@ -98,10 +125,14 @@ export default class usersController {
         req.session.nom = user.nom;
         req.session.postnom = user.postnom;
 
+        console.log('Session après initialisation:', req.session);
+
         const userInfos = {
             role: req.session.role,
             nom: req.session.nom,
-            postnom: req.session.postnom
+            postnom: req.session.postnom,
+            userId: req.session.userId,
+            email: req.session.email,
         }
 
         console.log("sessions infos", userInfos);
@@ -155,13 +186,4 @@ export default class usersController {
             }
         });
     }
-
-
-
-
-
-
-
-
-
 }

@@ -1,39 +1,57 @@
-import { useEffect, useState } from 'react'
-import WorkSpace from './WorkSpace'
-import Folder from '../ui/Folder'
-import HeaderWorkspace from './HeaderWorkspace'
-import ItemLinkPage from '../ui/ItemLinkPage'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
+import { useEffect, useState } from 'react';
+import WorkSpace from './WorkSpace';
+import Folder from '../ui/Folder';
+import HeaderWorkspace from './HeaderWorkspace';
+import ItemLinkPage from '../ui/ItemLinkPage';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useMyContext } from '../contexts/MyContext';
-import ItemMenu from '../ui/ItemMenu'
+import ItemMenu from '../ui/ItemMenu';
 import ReactPaginate from 'react-paginate';
-import ActionBtns from './ActionBtns'
-import Title from './archDoc/Title'
-import PopupAlert from '../ui/Popup'
-import ArchDocComp from './archDoc/ArchDocComp'
-import Inputs from './archDoc/Inputs'
+import ActionBtns from './ActionBtns';
+import Title from './archDoc/Title';
+import PopupAlert from '../ui/Popup';
+import ArchDocComp from './archDoc/ArchDocComp';
+import Inputs from './archDoc/Inputs';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
+import SideBarAdmin from './components/SideBarAdmin'
+import SideBarSecretaire from './components/SideBarSecretaire'
+import Header from './components/Header'
+import FoldersWorkspace from './components/FoldersWorkspace'
 
-
-export default function FoldersWorkspace() {
+const FoldersWorkspace = ({ searchField }) => {
     const [isVisible, setIsVisible] = useState(false);
+    const [stringToSearch, setStringToSearch] = useState(searchField);
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const { isAuthenticated, updateIsAuthenticated } = useMyContext();
-    const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated')
-    const navigate = useNavigate()
+    const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated');
+    const navigate = useNavigate();
     if (!isAuthenticatedLocalStorage) {
-        navigate('/login')
+        navigate('/login');
     }
-    const [folders, setFolders] = useState([])
+    const [folders, setFolders] = useState([]);
     const [loading, setLoading] = useState(true);
-    //fonctions pour la pagination
     const [currentPage, setCurrentPage] = useState(0);
-    const [itemsPerPage] = useState(10); // Nombre d'éléments à afficher par page
-    // Fonction pour obtenir les éléments de la page actuelle
+    const [itemsPerPage] = useState(10);
+    console.log("dans folders",searchField);
+    useEffect(() => {
+        const getFolders = async () => {
+            await axios.get("http://localhost:3000/folder").then(res => {
+                setFolders(res.data);
+                setLoading(false);
+            });
+        };
+        getFolders();
+    }, []);
+
+
+    useEffect(() => {
+        setStringToSearch(searchField);
+    }, [searchField]);
+
     const getCurrentPageData = () => {
         const startIndex = currentPage * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
@@ -45,8 +63,10 @@ export default function FoldersWorkspace() {
         setCurrentPage(selectedPage);
     };
 
-    const getFolders = async () => await axios.get("http://localhost:3000/folder").then(res => setFolders(res.data))
-    useEffect(() => { getFolders() }, ['folders'])
+    const filteredFolders = folders.filter(folder => 
+        folder.titre.toLowerCase().includes(stringToSearch)
+    );
+    console.log(filteredFolders);
 
     const showMenu = (e) => {
         e.preventDefault();
@@ -58,58 +78,34 @@ export default function FoldersWorkspace() {
         setIsVisible(false);
     };
 
-    //modal
-    if (!isAuthenticatedLocalStorage) {
-        navigate('/login')
-    }
-    const [descFold, setDescFold] = useState('')
-    const [subDescFold, setDescSubFold] = useState('')
-    const [nomFold, setNomFold] = useState('')
-    const [nomSubFold, setNomSubFold] = useState('')
-    const [parentFolder, setParentFolder] = useState('')
-    const [errorFolder, setErrorFolder] = useState(false)
-    const [errorMessageFolder, setErrorMessageFolder] = useState('')
+    // Modal management
+    const [descFold, setDescFold] = useState('');
+    const [nomFold, setNomFold] = useState('');
+    const [errorFolder, setErrorFolder] = useState(false);
+    const [errorMessageFolder, setErrorMessageFolder] = useState('');
+
     const handleChangeDescriptionFolder = (event) => {
-        setDescFold(event.target.value)
-    }
+        setDescFold(event.target.value);
+    };
 
     const handleChangeNomFolder = (event) => {
-        setNomFold(event.target.value)
-    }
+        setNomFold(event.target.value);
+    };
 
-    const getAllFolders = async (event) => {
-        await axios.get('http://localhost:3000/folder/').then(
-            res => {
-                setFolders(res.data)
-                setLoading(false);
-
-            })
-    }
     const handleSubmitFolder = (event) => {
-        event.preventDefault()
+        event.preventDefault();
         axios.post('http://localhost:3000/folder/create', {
             description: descFold,
             titre: nomFold
         }).then(res => {
             if (res.status === 200) {
-                window.location.href = '/folder'
+                window.location.href = '/folder';
             }
         }).catch(err => {
-            setErrorFolder(true)
-            setErrorMessageFolder(err.response.data)
-        })
-    }
-    useEffect(() => {
-        handleChangeDescriptionFolder
-        handleChangeNomFolder
-        handleSubmitFolder
-
-    }, [descFold, nomFold])
-
-    useEffect(() => {
-        getAllFolders()
-    }, [folders])
-
+            setErrorFolder(true);
+            setErrorMessageFolder(err.response.data);
+        });
+    };
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -143,28 +139,23 @@ export default function FoldersWorkspace() {
         }
     };
 
-    //end modal
     return (
-        <div className='flex flex-col gap-10 mx-3' >
-            <div className=''>
+        <div className='flex flex-col gap-10 mx-3'>
+            <div>
                 <HeaderWorkspace title="Dossiers" actualPage="Dossiers">
-                    <Link to="/charts/doc" >
+                    <Link to="/charts/doc">
                         <ItemLinkPage title="Dashboard" path="/charts/doc" />
                     </Link>
                 </HeaderWorkspace>
             </div>
             <div className='bg-white shadow-2xl h-[700px] rounded-lg'>
-
                 <WorkSpace message="Parcourez les dossiers">
-                    <div className='flex flex-wrap w-[100%] overflow-x-auto h-[580px] '>
-                        {/* Modal */}
+                    <div className='flex flex-wrap w-[100%] overflow-x-auto h-[580px]'>
                         {isOpen && (
                             <div className="absolute bg-[#70726e7c] flex flex-row inset-0 justify-center items-center">
                                 <div className="bg-gray-100 shadow-2xl p-4 w-[35%] modal-content" onClick={handleBackgroundClick}>
                                     <Title title='Ajouter un dossier' />
-                                    {
-                                        errorFolder && <PopupAlert message={errorMessageFolder} />
-                                    }
+                                    {errorFolder && <PopupAlert message={errorMessageFolder} />}
                                     <ArchDocComp ownNametypeDoc='Type du proprietaire' attName='Nom' onChange={handleChangeDescriptionFolder} onSubmit={handleSubmitFolder}
                                         className=" bg-gray-200 resize-none p-5 w-full h-42 my-5 border-1  border-blue outline-none"
                                     >
@@ -173,7 +164,6 @@ export default function FoldersWorkspace() {
                                 </div>
                             </div>
                         )}
-                        {/* End modal */}
                         {loading ? (
                             <>
                                 <div className="flex gap-10 px-6 py-4">
@@ -193,28 +183,25 @@ export default function FoldersWorkspace() {
                                     <Skeleton height={200} width={200} borderRadius={20} />
                                 </div>
                             </>
-                        ) :
-
-                            folders.length === 0 ? (
-                                <div className="px-80 py-20">
-                                    <img src="../src/assets/images/empty_file.gif" className='w-80 h-80' alt="" />
-                                    <h1 className='text-gray-700 text-[20px]'>Aucun fichiers trouvés!</h1>
-                                </div>
-                            ) : (
-                                getCurrentPageData().map(folder => (
-                                    <Link key={folder.id} to={{ pathname: `/subfolder/${folder.id}`, state: { id: folder.id } }} className='h-5'>
-                                        <Folder onContextMenu={showMenu} isVisible={isVisible} position={position} title={folder.titre} id={folder.id} />
-                                    </Link>
-                                ))
-                            )
-                        }
+                        ) : folders.length === 0 ? (
+                            <div className="px-80 py-20">
+                                <img src="../src/assets/images/empty_file.gif" className='w-80 h-80' alt="" />
+                                <h1 className='text-gray-700 text-[20px]'>Aucun fichiers trouvés!</h1>
+                            </div>
+                        ) : (
+                            getCurrentPageData().map(folder => (
+                                <Link key={folder.id} to={{ pathname: `/subfolder/${folder.id}`, state: { id: folder.id } }} className='h-5'>
+                                    <Folder onContextMenu={showMenu} isVisible={isVisible} position={position} title={folder.titre} id={folder.id} />
+                                </Link>
+                            ))
+                        )}
                     </div>
                     <div className='flex justify-between w-full mx-5'>
                         <ReactPaginate
                             previousLabel={"Précédent"}
                             nextLabel={"Suivant"}
                             breakLabel={"..."}
-                            pageCount={Math.ceil(folders.length / itemsPerPage)} // Calcul du nombre total de pages
+                            pageCount={Math.ceil(folders.length / itemsPerPage)}
                             marginPagesDisplayed={2}
                             pageRangeDisplayed={5}
                             onPageChange={handlePageClick}
@@ -233,5 +220,7 @@ export default function FoldersWorkspace() {
                 </WorkSpace>
             </div>
         </div>
-    )
-}
+    );
+};
+
+export default FoldersWorkspace;

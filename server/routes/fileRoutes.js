@@ -1,12 +1,9 @@
 import express from 'express'
 import multer from 'multer'
-import * as path from 'path'
-const __dirname = path.dirname('/home/joelmpunga/Documents/MyAllProjects/ArchivageFECProject/server/index.js');
 const router = express.Router()
 import fileConst from '../controller/filesController.js'
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        console.log("multer",req)
         const uploadDir = './server/public/files/';
         cb(null, uploadDir);
     },
