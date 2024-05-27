@@ -29,10 +29,14 @@ export default function Header({ hasSearch, name, title, email, setSearchField }
     return (
         <div className='flex flex-col w-[100%] h-[100px]'>
             <div className='bg-white h-[75px] flex flex-row justify-between p-4'>
-                {hasSearch &&
+                {hasSearch ?
                     <div className='h-12 flex flex-row justify-center items-center  w-[80%] rounded-full bg-[#E2E8F0]'>
                         <img className='ml-4' src="../src/assets/images/search2.svg" alt="search" width={30} height={30} />
                         <input className='bg-[#E2E8F0] mx-5 outline-none w-full ' placeholder="Rechercher" onChange={handleChange} />
+                    </div> :
+                    <div className='h-12 flex flex-row justify-center items-center  w-[80%] rounded-full bg-[#E2E8F0]'>
+                        <img className='ml-4' src="../src/assets/images/search2.svg" alt="search" width={30} height={30} />
+                        <input className='bg-[#E2E8F0] mx-5 outline-none w-full ' placeholder="Rien à rechercher" onChange={handleChange} disabled/>
                     </div>
                 }
                 <div className='flex flex-row gap-4 items-center'>

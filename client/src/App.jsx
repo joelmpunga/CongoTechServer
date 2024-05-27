@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import SideBarAdmin from './components/SideBarAdmin'
 import SideBarSecretaire from './components/SideBarSecretaire'
 import Header from './components/Header'
@@ -28,19 +28,9 @@ function App({ children, getUserData }) {
   }, [searchField]); // On utilise searchField comme dépendance
   return (
     <>
-      <div className='flex gap-0 w-full fixed'>
-        {
-          role === 'ADMIN' ? <SideBarAdmin /> : <SideBarSecretaire />
-        }
-        <div className='flex flex-col w-full bg-slate-200'>
-          <Header hasSearch={true} email={email} name={nom + " " + postnom} title={role} setSearchField={setSearchField} />
-          {/* <FoldersWorkspace searchField={searchField} /> */}
-          {
-            // Clone the FoldersWorspace component and pass the searchField prop
-            React.cloneElement(children, { searchField: searchField })
-          }
-        </div>
-      </div>
+      {
+        children
+      }
     </>
   )
 }
