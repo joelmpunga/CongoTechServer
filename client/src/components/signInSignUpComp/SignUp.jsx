@@ -125,80 +125,83 @@ export default function SignUp() {
 
   return (
     <>
-      <div className='flex gap-0 w-full fixed'>
+      <div className='flex gap-0 w-full fixed bg-slate-200'>
         {
           role === 'ADMIN' ? <SideBarAdmin /> : <SideBarSecretaire />
         }
         <div className='flex flex-col w-full'>
-          <SignInSignUpComp title2="Créer un compte" btnName="Créer un compte" onSubmit={handleSubmit}>
+          <Header hasSearch={false} email={email} name={nom + " " + postnom} title={role} setSearchField={setSearchField} />
+          <div className='bg-white overflow-x-auto '>
+            <SignInSignUpComp title2="Créer un compte" btnName="Créer un compte" onSubmit={handleSubmit}>
 
-            {
-              error && <PopupAlert message={errorMessage} />
-            }
+              {
+                error && <PopupAlert message={errorMessage} />
+              }
 
-            <InputsForm
-              labelName="Nom"
-              name="name"
-              // htmlFor="Email"
-              inputId="nameId"
-              inputType="text"
-              inputPlaceholder="Entrez votre Email"
-              msgErr={formErrors.name}
-              value={formData.name}
-              onChange={handleChange}
-            />
+              <InputsForm
+                labelName="Nom"
+                name="name"
+                // htmlFor="Email"
+                inputId="nameId"
+                inputType="text"
+                inputPlaceholder="Entrez votre Email"
+                msgErr={formErrors.name}
+                value={formData.name}
+                onChange={handleChange}
+              />
 
-            <InputsForm
-              labelName="Postnom"
-              name="firstName"
-              // htmlFor="label"
-              inputId="firstNameId"
-              inputType="text"
-              inputPlaceholder="Entrez votre postnom"
-              msgErr={formErrors.firstName}
-              value={formData.firstName}
-              onChange={handleChange}
-            />
+              <InputsForm
+                labelName="Postnom"
+                name="firstName"
+                // htmlFor="label"
+                inputId="firstNameId"
+                inputType="text"
+                inputPlaceholder="Entrez votre postnom"
+                msgErr={formErrors.firstName}
+                value={formData.firstName}
+                onChange={handleChange}
+              />
 
-            <InputsForm
-              name="email"
-              labelName="Email"
-              // htmlFor="Email"
-              inputId="EmailId"
-              inputType="email"
-              inputPlaceholder="Entrez votre Email"
-              msgErr={formErrors.email}
-              value={formData.email}
-              onChange={handleChange}
-            />
+              <InputsForm
+                name="email"
+                labelName="Email"
+                // htmlFor="Email"
+                inputId="EmailId"
+                inputType="email"
+                inputPlaceholder="Entrez votre Email"
+                msgErr={formErrors.email}
+                value={formData.email}
+                onChange={handleChange}
+              />
 
-            <InputsForm
-              labelName="Mot de passe"
-              name="password"
-              // htmlFor="label"
-              inputId="passwordId"
-              inputType="password"
-              inputPlaceholder="8+ Caracteres, Majiscule exigé"
-              msgErr={formErrors.password}
-              value={formData.password}
-              onChange={handleChange}
-            />
+              <InputsForm
+                labelName="Mot de passe"
+                name="password"
+                // htmlFor="label"
+                inputId="passwordId"
+                inputType="password"
+                inputPlaceholder="8+ Caracteres, Majiscule exigé"
+                msgErr={formErrors.password}
+                value={formData.password}
+                onChange={handleChange}
+              />
 
-            <CbxInput
-              name="role"
-              ownNametypeDoc="Role"
-              msgErr={formErrors.role}
-              value={formData.role}
-              onChange={handleChange}
-              className=" h-[70px] shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+              <CbxInput
+                name="role"
+                ownNametypeDoc="Role"
+                msgErr={formErrors.role}
+                value={formData.role}
+                onChange={handleChange}
+                className=" h-[60px] shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
 
-            >
-              <option value=""></option>
-              <option value="ADMIN">Administrateur</option>
-              <option value="SECRETAIRE">Secretaire</option>
-            </ CbxInput>
+              >
+                <option value=""></option>
+                <option value="ADMIN">Administrateur</option>
+                <option value="SECRETAIRE">Secretaire</option>
+              </ CbxInput>
 
-          </SignInSignUpComp>
+            </SignInSignUpComp>
+          </div>
         </div>
       </div>
     </>
