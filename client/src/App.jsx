@@ -1,61 +1,46 @@
-import { Children, useState } from 'react'
-import FilesBrouillon from './components/FilesBrouillon'
-import FoldersClasser from './components/FoldersClasser'
-import FoldersWorkspace from './components/FoldersWorkspace'
-import Header from './components/Header'
-import LinksPages from './components/LinksPages'
-import Mail from './components/Mail'
-import MailBrouillon from './components/MailBrouillon'
-import MailsBrouillonAll from './components/MailsBrouillonAll'
+import React, { useEffect, useState } from 'react'
 import SideBarAdmin from './components/SideBarAdmin'
 import SideBarSecretaire from './components/SideBarSecretaire'
-import StockageMailsDocuments from './components/StockageMailsDocuments'
-import SubFoldersClasser from './components/SubFoldersClasser'
-import SubFoldersWorkspace from './components/SubFoldersWorkspace'
-import WorkSpace from './components/WorkSpace'
-import File from './ui/File'
-import Folder from './ui/Folder'
-import ItemLinkPage from './ui/ItemLinkPage'
-import { useMyContext } from './contexts/MyContext'
+import Header from './components/Header'
 import { useNavigate } from 'react-router-dom'
-
+import FoldersWorkspace from './components/FoldersWorkspace'
 
 function App({ children, getUserData }) {
-  //const { isAuthenticated, updateIsAuthenticated,role,updateRole,nom,updateNom,postnom,updatePostNom } = useMyContext();
   const nom = localStorage.getItem('nom');
   const postnom = localStorage.getItem('postnom');
   const role = localStorage.getItem('role');
   const email = localStorage.getItem('email');
   const isAuthenticated = localStorage.getItem('isAuthenticated');
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [searchField, setSearchField] = useState("Kadea");
+
   if (!isAuthenticated) {
     navigate("/login");
   }
+
+  console.log(searchField);
+  // Utilisation de useEffect pour observer les changements de searchField
+  useEffect(() => {
+    // Code à exécuter chaque fois que searchField change
+    // Vous pouvez mettre ici toute logique nécessaire pour le rendu du composant App
+    // Par exemple, vous pouvez mettre à jour d'autres états ou effectuer des appels à des API
+    console.log("searchField a changé :", searchField);
+  }, [searchField]); // On utilise searchField comme dépendance
   return (
     <>
       <div className='flex gap-0 w-full fixed'>
         {
-          role==='ADMIN'?<SideBarAdmin />:<SideBarSecretaire />
+          role === 'ADMIN' ? <SideBarAdmin /> : <SideBarSecretaire />
         }
-        {/* <SideBarSecretaire /> */}
         <div className='flex flex-col w-full bg-slate-200'>
-          <Header hasSearch={true} email={email} name={nom + " " + postnom} title={role} />
+          <Header hasSearch={true} email={email} name={nom + " " + postnom} title={role} setSearchField={setSearchField} />
+          {/* <FoldersWorkspace searchField={searchField} /> */}
           {
-            children
+            // Clone the FoldersWorspace component and pass the searchField prop
+            React.cloneElement(children, { searchField: searchField })
           }
         </div>
       </div>
-
-      {/* <Folder title="Folder" />
-      <File title="Document" />
-      <Mail data={data} />
-      <FoldersWorkspace />
-      <SubFoldersWorkspace />
-      <StockageMailsDocuments />
-      <FoldersClasser />
-      <MailsBrouillonAll />
-      <SubFoldersClasser />
-      <FilesBrouillon /> */}
     </>
   )
 }
