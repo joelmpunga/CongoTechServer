@@ -17,11 +17,6 @@ import Inputs from './archDoc/Inputs';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
-import SideBarAdmin from './components/SideBarAdmin'
-import SideBarSecretaire from './components/SideBarSecretaire'
-import Header from './components/Header'
-import FoldersWorkspace from './components/FoldersWorkspace'
-
 const FoldersWorkspace = ({ searchField }) => {
     const [isVisible, setIsVisible] = useState(false);
     const [stringToSearch, setStringToSearch] = useState(searchField);
