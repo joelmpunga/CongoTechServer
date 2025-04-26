@@ -69,7 +69,7 @@ export default function YearList() {
                 }
                 <div className='flex flex-col w-full bg-slate-200'>
                     <Header hasSearch={true} email={email} name={nom + " " + postnom} title={role} setSearchField={setSearchField} />
-                    <HeaderWorkspace title="Liste des utilisateurs">
+                    <HeaderWorkspace title="Liste des années scolaires">
                         <ItemLinkPage title="Dashboard" path="/proprietaires" />
                     </HeaderWorkspace>
                     <div className="flex flex-col justify-between h-[78%] ">
@@ -88,10 +88,10 @@ export default function YearList() {
                                         <tr className="hover:bg-gray-50" key={year.id}><td className="px-6 py-4 ">
                                             <div className="">
                                                 <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600">
-                                                    {year.debut.split('T')[0]}
+                                                    {year.debut.split('-')[0]}
                                                 </span>
                                                 <span className="inline-flex items-center gap-1 rounded-full bg-yellow-50 px-2 py-1 text-xs font-semibold text-yellow-600">
-                                                    {year.fin.split('T')[0]}
+                                                    {year.fin.split('-')[0]}
                                                 </span>
                                             </div>
                                         </td>
