@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Annee" ALTER COLUMN "isEnCours" SET DEFAULT 0,
+ALTER COLUMN "isFinished" SET DEFAULT 0;

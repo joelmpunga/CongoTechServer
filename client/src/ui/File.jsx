@@ -94,7 +94,7 @@ export default function File({ title, data, isToClass = false, id, menuContex })
             ></iframe>
           )}
         </Modal>
-        <img src="../src/assets/images/icon-file.png" alt="" width={120} height={120} className='' />
+        <img src="../src/assets/images/pdf-svgrepo-com.svg" alt="" width={120} height={120} className='' />
       </div>
       {
         isHover && (

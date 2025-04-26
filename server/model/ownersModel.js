@@ -1,16 +1,14 @@
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 export default class Owner {
-    constructor(nom,type,description) {
+    constructor(nom,description) {
         this.nom = nom;
-        this.type = type;
         this.description = description;
     }
     async create() {
         const query = await prisma.owner.create({
             data: {
                 nom: this.nom,
-                type: this.type,
                 description: this.description
             }
         }).then()

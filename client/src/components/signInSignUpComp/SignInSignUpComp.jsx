@@ -6,8 +6,9 @@ export default function SignInSignUpComp({ type, children, title1, title2, title
         <div>
             <div className='flex flex-row w-[100%] h-screen '>
                 <div className='w-[48%] flex flex-col  items-center gap-14 mt-14'>
-                    <h1 className="font-bold text-gray-900 font-abril-fatface text-3xl">ArchiDrive</h1>
-                    <p className="text-gray-500 text-center">Bienvenue sur ArchiDrive, l’application <br /> d’archivage pour la FEC</p>
+                    <h1 className="font-bold text-gray-900 font-abril-fatface text-3xl">ArchiApp</h1>
+                    <h1 className="font-bold text-gray-900 font-abril-fatface text-3xl">INSPECTION PRINCIPALE PROVINCIALE</h1>
+                    <p className="text-gray-500 text-center">Bienvenue sur ArchiApp, l’application <br /> d’archivage pour l'IPP</p>
                     <img className='w-[500px] h-[500px]' src="/src/assets/images/loginImg.svg" alt="" />
                 </div>
                 <div className='h- w-[2px] bg-zinc-300'></div>
@@ -34,7 +35,7 @@ export default function SignInSignUpComp({ type, children, title1, title2, title
 
                         </form>
 
-                        <span className='mt-10 font-adamamina w-full text-center'>{titleAdminContact1}<a className='text-blue-700' href="">{titleAdminContact2}</a></span>
+                        <span className='mt-10 font-adamamina w-full text-center'>{titleAdminContact1}<a className='text-blue-700' href="mailto:ipp@gmail.com">{titleAdminContact2}</a></span>
                     </div>
                 </div>
             </div>

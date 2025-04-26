@@ -44,60 +44,61 @@ export default function ChartsBar({ title }) {
   const data = [
     {
       "name": "Janv.",
-      "doc": janv.length,
-      "email": 2
+      "entrants": janv.length,
+      "sortants": 2
     },
     {
       "name": "Fevr.",
-      "doc": fevr.length,
-      "email": 2
+      "entrants": fevr.length,
+      "sortants": 2
     },
     {
       "name": "Mars",
-      "doc": mars.length,
-      "email": 4
+      "entrants": mars.length,
+      "sortants": 4
     },
     {
       "name": "Avril",
-      "doc": avril.length,
-      "email": 3
+      "entrants": avril.length,
+      "sortants": 3
     },
     {
       "name": "Mai",
-      "doc": mai.length,
-      "email": 1
+      "entrants": mai.length,
+      "sortants": 1
     },
     {
       "name": "Juin",
-      "doc": juin.length,
-      "email": 5
+      "entrants": juin.length,
+      "sortants": 5
     },
     {
       "name": "Juil.",
-      "doc": juillet.length,
-      "email": 0
+      "entrants": juillet.length,
+      "sortants": 0
     }, {
       "name": "Aout",
-      "doc": aout.length,
-      "email": 8
+      "entrants": aout.length,
+      "sortants": 8
     },
     {
       "name": "Sept.",
-      "doc": sept.length,
-      "email": 4
-    }, {
+      "entrants": sept.length,
+      "sortants": 4
+    }, 
+    {
       "name": "Oct.",
-      "doc": oct.length,
-      "email": 3
+      "entrants": oct.length,
+      "sortants": 3
     }, {
       "name": "Nov.",
-      "doc": nov.length,
-      "email": 7
+      "entrants": nov.length,
+      "sortants": 7
     },
     {
       "name": "Dec.",
-      "doc": dec.length,
-      "email": 3
+      "entrants": dec.length,
+      "sortants": 3
     }
   ]
   return (
@@ -110,8 +111,8 @@ export default function ChartsBar({ title }) {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Bar dataKey="doc" fill="#8884d8" />
-        <Bar dataKey="email" fill="#82ca9d" />
+        <Bar dataKey="entrants" fill="#8884d8" />
+        <Bar dataKey="sortants" fill="#82ca9d" />
       </BarChart>
     </div>
   )

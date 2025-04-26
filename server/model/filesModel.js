@@ -15,7 +15,8 @@ export default class File {
                     description: file.description,
                     idUser: file.idUser,
                     idOwner: file.idOwner,
-                    subFolderId: file.idSubFolder
+                    subFolderId: file.idSubFolder,
+                    type: file.type
                 }
             }).then()
             return request;
@@ -26,7 +27,9 @@ export default class File {
                 path: file.path,
                 description: file.description,
                 idUser: file.idUser,
-                idOwner: file.idOwner
+                idOwner: file.idOwner,
+                type:file.type,
+                idAnnee:file.idYear
             }
         }).then()
         return request;

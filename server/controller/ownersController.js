@@ -3,12 +3,11 @@ import Joi from 'joi';
 export default class ownersController {
 
     static async createOwner(req, res) {
-        try {
-            const { nom, type,description } = req.body;
+        // try {
+            const { nom, description } = req.body;
             const schema = Joi.object({
                 nom: Joi.string().required().min(2),
                 description: Joi.string().allow(''),
-                type: Joi.string().required()
             })
             const { error, value } = schema.validate(req.body);
             if (error) {
@@ -16,14 +15,14 @@ export default class ownersController {
                 console.log(error.details[0].message);
                 return res.status(400).json(error.details[0].message);
             }
-            const owner = new Owner(nom, type,description);
+            const owner = new Owner(nom, description);
             const data = await owner.create();
             const response = await owner.getAll()
             res.status(200).json(response)
-        }
-        catch (error) {
-            res.status(500).json(error)
-        }    
+        // }
+        // catch (error) {
+        //     res.status(500).json(error)
+        // }    
     }
 
     static async getAllOwners(req, res) {

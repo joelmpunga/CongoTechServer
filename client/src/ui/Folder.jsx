@@ -34,7 +34,7 @@ export default function Folder({ title, taille, isToClass = false, idFile, idSub
                     </div>
                 )}
 
-                <img src="../src/assets/images/icon-folder.png" alt="" width={150} height={150} />
+                <img src="../src/assets/images/dossier.png" alt="" width={150} height={150} />
                 {
                     !isToClass &&  <div className=''>
                     <h3 className=''>

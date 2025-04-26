@@ -7,7 +7,8 @@ export default function Inputs({
     onChange, 
     value,
     errMsg,
-    placeholder
+    placeholder,
+    type="text"
 }) {
     return (
         <div>
@@ -17,7 +18,7 @@ export default function Inputs({
 
                 <div className="flex flex-col w-[100%]">
                     <p>{attName}</p>
-                    <input className="border h-14 w-full " value={value} name="name" type="text" placeholder={placeholder} onChange={onChange} required />
+                    <input className="border h-14 w-full " value={value} name="name" type={type} placeholder={placeholder} onChange={onChange} required />
                     <span className='text-red-600 '>{errMsg}</span>
                 </div>
             </div>

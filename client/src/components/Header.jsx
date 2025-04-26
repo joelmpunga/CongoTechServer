@@ -1,15 +1,23 @@
 import { useState, useEffect } from 'react'
 import { useMyContext } from '../contexts/MyContext';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
 
-export default function Header({ hasSearch, name, title, email, setSearchField }) {
+export default function Header({ hasSearch, name, title, email, setSearchField, hasYear=false,setYearField, hasTypeDoc=false, setTypeDocField }) {
     const [disconnect, setDisconnect] = useState(false)
     const [visibleProfil, setVisibleProfil] = useState(false)
     const navigate = useNavigate()
     const { updateIsAuthenticated } = useMyContext();
+    const [years, setYears] = useState([])
 
     const handleChange = (e) => {
         setSearchField(e.target.value);
+    };
+    const handleChangeYear = (e) => {
+        setYearField(e.target.value);
+    };
+    const handleChangeTypeDocField = (e) => {
+        setTypeDocField(e.target.value);
     };
 
     const handleLogout = () => {
@@ -17,6 +25,12 @@ export default function Header({ hasSearch, name, title, email, setSearchField }
         unsetLocalStorage()
         navigate('/login')
     }
+    const getAllYears = async (event) => {
+        await axios.get('http://localhost:3000/years').then((res) => { setYears(res.data) })
+    }
+    useEffect(() => {
+            getAllYears()
+        }, ['years'])
 
     const unsetLocalStorage = () => {
         localStorage.removeItem('token')
@@ -31,8 +45,33 @@ export default function Header({ hasSearch, name, title, email, setSearchField }
             <div className='bg-white h-[75px] flex flex-row justify-between p-4'>
                 {hasSearch ?
                     <div className='h-12 flex flex-row justify-center items-center  w-[80%] rounded-full bg-[#E2E8F0]'>
-                        <img className='ml-4' src="../src/assets/images/search2.svg" alt="search" width={30} height={30} />
-                        <input className='bg-[#E2E8F0] mx-5 outline-none w-full ' placeholder="Rechercher" onChange={handleChange} />
+                        <div className='flex flex-row justify-center items-center  w-[95%] bg-[#E2E8F0]'>
+                            <img className='ml-4' src="../src/assets/images/search2.svg" alt="search" width={30} height={30} />
+                            <input className='bg-[#E2E8F0] mx-5 outline-none w-full ' placeholder="Rechercher" onChange={handleChange} />
+                        </div>
+                        { hasYear &&
+                        <div className='h-12 flex flex-row justify-center items-center ml-5  w-[80%] bg-[#E2E8F0]'>
+                            <img className='ml-4' src="../src/assets/images/search2.svg" alt="search" width={30} height={30} />
+                            <select className='bg-[#E2E8F0] outline-none w-full' name="" id="" onChange={handleChangeYear}>
+                                <option value="">Toutes les années</option>
+                                {
+                                    years.map(year => (
+                                        <option key={year.id} value={year.id}>De {year.debut.split('T')[0]} à {year.fin.split('T')[0]}</option>
+                                    ))
+                                }
+                            </select>
+                        </div>
+                        }
+                        { hasTypeDoc && 
+                        <div className='h-12 flex flex-row justify-center items-center ml-5  w-[80%] rounded-full bg-[#E2E8F0]'>
+                            <img className='ml-4' src="../src/assets/images/search2.svg" alt="search" width={30} height={30} />
+                            <select name="" id="" className='bg-[#E2E8F0] mx-5 outline-none w-full ' onChange={handleChangeTypeDocField}>
+                                <option value="">Choisir le type du document</option>
+                                <option value="Entrant">Entrant</option>
+                                <option value="Sortant">Sortant</option>
+                            </select>
+                        </div>
+                        }
                     </div> :
                     <div className='h-12 flex flex-row justify-center items-center  w-[80%] rounded-full bg-[#E2E8F0]'>
                         <img className='ml-4' src="../src/assets/images/search2.svg" alt="search" width={30} height={30} />

@@ -8,6 +8,7 @@ import subfolderRoutes from './routes/subFolderRoutes.js';
 import chartsDocumentsRoutes from './routes/chartsDocumentsRoutes.js';
 import chartsUsersRoutes from './routes/chartsUsersRoutes.js';
 import chartsOwnersRoutes from './routes/chartsOwnersRoutes.js';
+import anneeRoutes from './routes/AnneeRoutes.js'
 import session from 'express-session'
 const port = 3000 || process.env.PORT
 import { PrismaClient } from '@prisma/client'
@@ -43,6 +44,7 @@ class App {
         this.server.use('/charts/document',chartsDocumentsRoutes)
         this.server.use('/charts/user', chartsUsersRoutes)
         this.server.use('/charts/owner',chartsOwnersRoutes)
+        this.server.use('/years',anneeRoutes)
     }
     start() {
         this.server.listen(port, () => {

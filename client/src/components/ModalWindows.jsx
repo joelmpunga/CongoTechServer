@@ -256,7 +256,7 @@ export default function ModalWindow() {
                     <ArchDocComp onChange={handleChangeDocDesc} onSubmit={handleSubmitDocument}
                       className=" bg-gray-200 resize-none p-5 w-full h-[120px] my-5 border-1  border-blue outline-none"
                     >
-                      <CbxInput msgErr={docErr.ownerErr} ownNametypeDoc='Nom du proprietaire' onChange={handleChangeSelectedOwner} className='w-full h-14' >
+                      <CbxInput msgErr={docErr.ownerErr} ownNametypeDoc='Nom du partenaire' onChange={handleChangeSelectedOwner} className='w-full h-14' >
                         <option value=""></option>
                         {
                           owners.map(owner => (

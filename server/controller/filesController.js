@@ -3,17 +3,23 @@ import multer from 'multer'
 import express from 'express';
 import path from 'path';
 import jwt from 'jsonwebtoken'
-const __dirname = path.dirname('/home/joelmpunga/Documents/MyAllProjects/ArchivageFECProject/server');
 import Joi from 'joi'
-
-console.log(__dirname);
 const SECRET_KEY = process.env.SECRET_KEY
 import { fileTypeFromBuffer } from 'file-type';
 import { readChunk } from 'read-chunk';
 import { PrismaClient } from '@prisma/client';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename)
+const filesPath = path.resolve(__dirname, '..', 'public', 'files');
+console.log('new', __dirname, filesPath + '\\')
+if (!fs.existsSync(filesPath)) {
+    fs.mkdirSync(filesPath, { recursive: true });
+  }
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        const uploadDir = './server/public/files/';
+        const uploadDir = filesPath + '\\'
         cb(null, uploadDir);
     },
     filename: (req, file, cb) => {
@@ -86,7 +92,7 @@ export default class filesController {
         return storage
     }
 
-    static async uploadFile(req, res) {
+    static async uploadFile(req, res) {        
         // try {
         const schema = Joi.object({
             // email: Joi.string().email().required(),
@@ -94,7 +100,9 @@ export default class filesController {
             // nom: Joi.string().min(2).required(),
             // postnom: Joi.string().min(2).required(),
             idOwner: Joi.number().required(),
+            typeDoc: Joi.required(),
             idUser: Joi.number().required(),
+            idYear:Joi.number(),
             description: Joi.string().allow(''),
             file: Joi.object({
                 fieldname: Joi.string().required(),
@@ -108,8 +116,8 @@ export default class filesController {
                 mimetype: Joi.string().valid('image/jpeg', 'image/png', 'image/jpg', 'application/pdf').required(),
             }).required(),
         })
-        const { error, value } = schema.validate({ file: req.file, idOwner: req.body.idOwner, idUser: req.body.idUser, description: req.body.description });
-        console.log(value);
+        const { error, value } = schema.validate({ file: req.file, idOwner: req.body.idOwner,typeDoc: req.body.typeDoc, idUser: req.body.idUser,idYear:req.body.idYear, description: req.body.description });
+        console.log(value,'================');
         if (error) {
             // Gérer l'erreur de validation
             console.log(error.details[0].message);
@@ -131,7 +139,9 @@ export default class filesController {
         //         res.status(500).json(error);
         //     }
         // });
-        const { description, idOwner, idUser,idSubFolder } = req.body
+        const { description, idOwner, typeDoc, idUser, idYear, idSubFolder } = req.body
+        console.log(idYear, ')))))');
+        
         //const __dirname = path.dirname('/home/joelmpunga/mail-retrieval-app/index.js');
         //console.log(req.file)
         // console.log(req.body);
@@ -144,13 +154,15 @@ export default class filesController {
             console.log("Exists", checkFileExists);
             return res.status(404).json({ "message": "File name already exists" });
         }
-        if (type !== null && (type.ext === 'pdf' || type.ext === 'docx' || type.ext === 'jpg' || type.ext === 'png' || type.ext === 'jpeg')) {
+        if (type !== null && (type.ext === 'pdf')) {
             const data = {
                 name: req.file.filename,
                 path: req.file.destination.substring(1) + req.file.filename,
                 description: description,
                 idUser: parseInt(idUser),
                 idOwner: parseInt(idOwner),
+                type: typeDoc,
+                idYear:parseInt(idYear)
             }
             if (idSubFolder) {
                 data.idSubFolder = parseInt(idSubFolder)

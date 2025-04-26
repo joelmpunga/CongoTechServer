@@ -33,6 +33,8 @@ export default function FilesBrouillon() {
   const role = localStorage.getItem('role');
   const email = localStorage.getItem('email');
   const [searchField, setSearchField] = useState("");
+  const  [yearField, setYearField] = useState("");
+  const  [typeDocField, setTypeDocField] = useState("");
 
   //end taken form App Component
   const [files, setFiles] = useState([])
@@ -43,7 +45,7 @@ export default function FilesBrouillon() {
 
   // search filters
   const filteredFiles = files.filter(file =>
-    file.name.toLowerCase().includes(searchField.toLowerCase())
+    (file.name.toLowerCase().includes(searchField.toLowerCase()) && file.type.toLowerCase().includes(typeDocField.toLowerCase()))
   );
   //end search filters
   const getCurrentPageData = () => {
@@ -71,7 +73,7 @@ export default function FilesBrouillon() {
           role === 'ADMIN' ? <SideBarAdmin /> : <SideBarSecretaire />
         }
         <div className='flex flex-col w-full bg-slate-200'>
-          <Header hasSearch={true} email={email} name={nom + " " + postnom} title={role} setSearchField={setSearchField} />
+          <Header hasSearch={true} email={email} name={nom + " " + postnom} title={role} setSearchField={setSearchField} hasYear={true} hasTypeDoc={true} setYearField={setYearField} setTypeDocField={setTypeDocField} />
           <div className='flex flex-col gap-10 mx-3' >
             <div className=''>
               <HeaderWorkspace title="Brouillon des Documents" actualPage="Brouillon des Documents">
@@ -108,8 +110,8 @@ export default function FilesBrouillon() {
 
                     filteredFiles.length === 0 ? (
                         <div className="px-80 py-20">
-                          <img src="../src/assets/images/empty_file.gif" className='w-80 h-80' alt="" />
-                          <h1 className='text-gray-700 text-[20px]'>Aucun fichiers trouvés!</h1>
+                          <img src="../src/assets/images/search-files-empty.png" className='w-80 h-80' alt="" />
+                          <h1 className='text-gray-700 text-[20px]'>Aucun fichier trouvé!</h1>
                         </div>
                       ) : (
                         getCurrentPageData().map(file => (

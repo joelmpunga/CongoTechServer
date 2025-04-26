@@ -164,20 +164,27 @@ export default function StockageMailsDocuments() {
     };
 
     //const { isAuthenticated, updateIsAuthenticated } = useMyContext();
-    const [ownerErr, setOwnerErr] = useState({ typeErr: '', nameErr: '' })
+    const [ownerErr, setOwnerErr] = useState({ nameErr: '' })
+    const [typeDocErr, setTypeDocErr] = useState({ typeDocErr: '' })
+    const [yearErr, setYearErr] = useState({ debutErr: '', finErr: '' })
     const [docErr, setDocErr] = useState({ ownerErr: '', fileErr: '' })
 
     const [descOwner, setDescOwner] = useState('')
     const [nameOwner, setNameOwner] = useState('')
     const [typeOwner, setTypeOwner] = useState('')
     const [owners, setOwners] = useState([])
+    const [years, setYears] = useState([])
     const [selectedOwner, setSelectedOwner] = useState('')
+    const [selectedTypeDoc, setSelectedTypeDoc] = useState('')
+    const [selectedYear, setSelectedYear] = useState('')
     const [nameDocs, setNameDocs] = useState('')
     const [docsDesc, setDocsDesc] = useState('')
     const [file, setFile] = useState([])
     const [filesInput, setFilesInput] = useState([])
     const [errorOwner, setErrorOwner] = useState(false)
+    const [errorYear, setErrorYear] = useState(false)
     const [errorMessageOwner, setErrorMessageOwner] = useState('')
+    const [errorMessageYear, setErrorMessageYear] = useState('')
     const [errorDoc, setErrorDoc] = useState(false)
     const [errorMessageDoc, setErrorMessageDoc] = useState('')
     const handleChangeType = (event) => {
@@ -193,6 +200,12 @@ export default function StockageMailsDocuments() {
     const handleChangeSelectedOwner = (event) => {
         setSelectedOwner(event.target.value)
     }
+    const handleChangeSelectedTypeDoc = (event) => {
+        setSelectedTypeDoc(event.target.value)
+    }
+    const handleChangeSelectedYear = (event) => {
+        setSelectedYear(event.target.value)
+    }
     const handleChangeFileDocs = (data) => {
         setFile(data)
     }
@@ -206,9 +219,15 @@ export default function StockageMailsDocuments() {
     const getAllOwners = async (event) => {
         await axios.get('http://localhost:3000/owner').then((res) => { setOwners(res.data) })
     }
+    const getAllYears = async (event) => {
+        await axios.get('http://localhost:3000/years').then((res) => { setYears(res.data) })
+    }
     useEffect(() => {
         getAllOwners()
     }, ['owners'])
+    useEffect(() => {
+        getAllYears()
+    }, ['years'])
     useEffect((event) => {
         handleChangeDesc
         handleChangeName
@@ -234,40 +253,14 @@ export default function StockageMailsDocuments() {
         return Object.keys(errors).length === 0;
     };
 
-    const handleSubmitOwner = (event) => {
-        try {
-            event.preventDefault()
-            const isValid = validateOwner();
-            if (isValid) {
-
-                axios.post('http://localhost:3000/owner/create', {
-                    description: descOwner,
-                    nom: nameOwner,
-                    type: typeOwner
-                }).then(res => {
-                    if (res.status === 200) {
-                        window.location.href = '/archive'
-                    }
-                }).catch(err => {
-                    setErrorOwner(true)
-                    setErrorMessageOwner(err.response.data)
-                })
-
-            } else {
-                console.log('error')
-            }
-
-        }
-        catch (err) {
-            console.log(err);
-        }
-    }
-
 
     const validateDoc = () => {
 
         let errors = {};
         if (selectedOwner == '') {
+            errors.ownerErr = 'Selectionner le type';
+        }
+        if (selectedTypeDoc == '') {
             errors.ownerErr = 'Selectionner le type';
         }
         // console.log(file);
@@ -316,7 +309,9 @@ export default function StockageMailsDocuments() {
                 formData.append('file', file);
                 formData.append('idOwner', parseInt(selectedOwner));
                 formData.append('description', docsDesc);
+                formData.append('typeDoc', selectedTypeDoc)
                 formData.append('idUser', userId);
+                formData.append('idYear', selectedYear)
                 formData.append('idSubFolder', parseInt(id));
 
                 await axios.post('http://localhost:3000/file/upload', formData).then(res => {
@@ -325,7 +320,7 @@ export default function StockageMailsDocuments() {
                         // window.location.href = '/file/' + id
                         TopNotification.fire({
                             icon: "success",
-                            title: "Le fichier est archivée"
+                            title: "Le fichier est archivée, veuillez annuler la fenetre"
                         });
                     }
                     else if (res.status === 404) {
@@ -373,7 +368,7 @@ export default function StockageMailsDocuments() {
                     <Header hasSearch={true} email={email} name={nom + " " + postnom} title={role} setSearchField={setSearchField} />
                     <div className='flex flex-col gap-10 mx-3' >
                         <div className=''>
-                            <HeaderWorkspace title="Documents & Mails" actualPage={currentSubFolder.titre} >
+                            <HeaderWorkspace title="Documents" actualPage={currentSubFolder.titre} >
                                 <Link to="/charts/doc" >
                                     <ItemLinkPage title="Dashboard" path="/charts/doc" />
                                 </Link>
@@ -384,7 +379,7 @@ export default function StockageMailsDocuments() {
                         </div>
                         <div className='bg-white shadow-2xl h-[700px] rounded-lg'>
 
-                            <WorkSpace message="Parcourez les fichiers et mails">
+                            <WorkSpace message="Parcourez les fichiers">
                                 <div className='flex flex-wrap w-[100%] overflow-flex-auto h-[580px]'>
                                     {/* Modal */}
                                     {isOpen && (
@@ -393,6 +388,7 @@ export default function StockageMailsDocuments() {
                                                 <button className="text-[30px]" onClick={closeModal}>&times;</button>
                                                 <div className="font-adamina text-[14px] flex w-full justify-end mx-auto mt-10">
                                                     <div className="w-[650px] border border-gray-200 shadow-md">
+
                                                         <form action="" encType="multipart/form-data">
                                                             {
                                                                 errorDoc && <PopupAlert message={errorMessageDoc} />
@@ -400,11 +396,24 @@ export default function StockageMailsDocuments() {
                                                             <ArchDocComp onChange={handleChangeDocDesc} onSubmit={handleSubmitDocument}
                                                                 className=" bg-gray-200 resize-none p-5 w-full h-[120px] my-5 border-1  border-blue outline-none"
                                                             >
-                                                                <CbxInput msgErr={docErr.ownerErr} ownNametypeDoc='Nom du proprietaire' onChange={handleChangeSelectedOwner} className='w-full h-14' >
+                                                                <CbxInput msgErr={docErr.ownerErr} ownNametypeDoc='Nom du partenaire' onChange={handleChangeSelectedOwner} className='w-full h-14' >
                                                                     <option value=""></option>
                                                                     {
                                                                         owners.map(owner => (
                                                                             <option key={owner.id} value={owner.id}>{owner.nom}</option>
+                                                                        ))
+                                                                    }
+                                                                </CbxInput>
+                                                                <CbxInput msgErr={docErr.ownerErr} ownNametypeDoc='Type du document' onChange={handleChangeSelectedTypeDoc} className='w-full h-14' >
+                                                                    <option value=""></option>
+                                                                    <option value="Entrant">Entrant</option>
+                                                                    <option value="Sortant">Sortant</option>
+                                                                </CbxInput>
+                                                                <CbxInput msgErr={docErr.ownerErr} ownNametypeDoc='Année du document' onChange={handleChangeSelectedYear} className='w-full h-14' >
+                                                                    <option value="">Pas d'année liée</option>
+                                                                    {
+                                                                        years.map(year => (
+                                                                            <option key={year.id} value={year.id}>De {year.debut.split('T')[0]} à {year.fin.split('T')[0]}</option>
                                                                         ))
                                                                     }
                                                                 </CbxInput>
@@ -469,8 +478,8 @@ export default function StockageMailsDocuments() {
                                         ) :
                                             filteredFiles.length === 0 ? (
                                                 <div className="px-80 py-20">
-                                                    <img src="../src/assets/images/empty_file.gif" className='w-80 h-80' alt="" />
-                                                    <h1 className='text-gray-700 text-[20px]'>Aucun fichiers trouvés!</h1>
+                                                    <img src="../src/assets/images/search-files-empty.png" className='w-80 h-80' alt="" />
+                                                    <h1 className='text-gray-700 text-[20px]'>Aucun fichier trouvé!</h1>
                                                 </div>
                                             ) : (
                                                 getCurrentPageData().map(file => (

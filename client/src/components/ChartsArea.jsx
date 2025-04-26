@@ -33,8 +33,8 @@ export default function ChartsArea({ title }) {
         data.push(
             {
                 "name": currentYear - 5,
-                "doc": currentYearUndo5.length,
-                "email": 0,
+                "entrants": currentYearUndo5.length,
+                "sortants": 0,
             }
         )
     }
@@ -43,8 +43,8 @@ export default function ChartsArea({ title }) {
         data.push(
             {
                 "name": currentYear - 4,
-                "doc": currentYearUndo4.length,
-                "email": 0,
+                "entrants": currentYearUndo4.length,
+                "sortants": 0,
             }
         )
     }
@@ -53,8 +53,8 @@ export default function ChartsArea({ title }) {
         data.push(
             {
                 "name": currentYear - 3,
-                "doc": currentYearUndo3.length,
-                "email": 0,
+                "entrants": currentYearUndo3.length,
+                "sortants": 0,
             }
         )
     }
@@ -63,8 +63,8 @@ export default function ChartsArea({ title }) {
         data.push(
             {
                 "name": currentYear - 2,
-                "doc": currentYearUndo2.length,
-                "email": 0,
+                "entrants": currentYearUndo2.length,
+                "sortants": 0,
             }
         )
     }
@@ -72,15 +72,15 @@ export default function ChartsArea({ title }) {
     data.push(
         {
             "name": currentYear - 1,
-            "doc": currentYearUndo1.length,
-            "email": 0,
+            "entrants": currentYearUndo1.length,
+            "sortants": 0,
         }
     )
     data.push(
         {
             "name": currentYear,
-            "doc": currentYearData.length,
-            "email": 38,
+            "entrants": currentYearData.length,
+            "sortants": 38,
         }
     )
 
@@ -103,8 +103,8 @@ export default function ChartsArea({ title }) {
                 <YAxis />
                 <CartesianGrid strokeDasharray="3 3" />
                 <Tooltip />
-                <Area type="monotone" dataKey="doc" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
-                <Area type="monotone" dataKey="email" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
+                <Area type="monotone" dataKey="entrants" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
+                <Area type="monotone" dataKey="sortants" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
             </AreaChart>
         </div>
     )
