@@ -43,7 +43,6 @@ export default function CreateSubfolder({ classValue, annuler }) {
             titre: nomSubFold,
             idFolder: id
         }).then(res => {
-            console.log(res.data, res.status);
             if (res.status === 200) {
                 window.location.href = '/subfolder/'+id
             }

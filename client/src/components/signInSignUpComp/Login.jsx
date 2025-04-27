@@ -22,49 +22,10 @@ export default function Login() {
         localStorage.setItem('email', email)
         localStorage.setItem('userId', userId)
     }
-    // const [email, setEmail] = useState('')
-    // const [password, setPassword] = useState('')
+
     const [error, setError] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
-    // useEffect(()=>{
-    //     const token = localStorage.getItem('token')
-    //     if(token){
-    //         const decoded = jwt_decode(token)
-    //         if(decoded.exp < Date.now()/1000){
-    //             localStorage.removeItem('token')
-    //         }
-    //     }
-    // },['token'])
-
-    // useEffect(() => {
-    //     const isAuthenticated = localStorage.getItem('isAuthenticated');
-    //     if (isAuthenticated) {
-    //         navigate('/folder')
-    //     }
-    // }, [navigate]);
-
-    // useEffect(() => {
-    //     handleChangeEmail
-    // }, [email])
-    // useEffect(() => {
-    //     handleChangePassword
-    // }, [password])
-    // const handleChangeEmail = (event) => {
-    //     setEmail(event.target.value)
-    // }
-    // const handleChangePassword = (event) => {
-    //     setPassword(event.target.value)
-    // }
-    // const handleSubmit = (event) => {
-    //     event.preventDefault()
-
-    // }
-    // console.log(email, password);
-
-
-
-
-
+    
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -111,16 +72,12 @@ export default function Login() {
             // Submit the form, for now just log the data
             axios.post('http://localhost:3000/user/login', formData
                ).then(res => {
-                // console.log(res.data.userInfos)
                 if (res.status === 200) {
                     localStorage.setItem('token', res.data.token);
-                    console.log("login before", isAuthenticated);
                     //updateIsAuthenticated(true);
-                    console.log("login after", isAuthenticated);
                     // updateRole(res.data.userInfos.role)
                     // updateNom(res.data.userInfos.nom)
                     // updatePostNom(res.data.userInfos.postnom)
-                    // console.log(res.data.userInfos);
                     setLocalStorage(res.data.userInfos.role, res.data.userInfos.nom, res.data.userInfos.postnom,res.data.userInfos.email,res.data.userInfos.userId)
                     if (res.data.userInfos.role === 'SECRETAIRE') {
                         navigate('/charts/doc')
@@ -130,7 +87,6 @@ export default function Login() {
                     }
                     //pour recuperer le token en localStorage
                     //const local = localStorage.getItem('token')
-                    //console.log(local);
                 }
             }).catch((err) => {
                 setError(true)
@@ -165,12 +121,6 @@ export default function Login() {
                 msgErr={formErrors.email}
             // onChange={handleChangeEmail} 
             />
-
-
-
-
-
-
             <InputsForm
                 labelName="Mot de passe"
                 // htmlFor="Password"
@@ -183,10 +133,6 @@ export default function Login() {
                 value={formData.password}
                 onChange={handleChange}
             />
-
-
-
-
         </SignInSignUpComp>
     )
 }

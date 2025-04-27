@@ -18,13 +18,11 @@ function App({ children, getUserData }) {
     navigate("/login");
   }
 
-  console.log(searchField);
   // Utilisation de useEffect pour observer les changements de searchField
   useEffect(() => {
     // Code à exécuter chaque fois que searchField change
     // Vous pouvez mettre ici toute logique nécessaire pour le rendu du composant App
     // Par exemple, vous pouvez mettre à jour d'autres états ou effectuer des appels à des API
-    console.log("searchField a changé :", searchField);
   }, [searchField]); // On utilise searchField comme dépendance
   return (
     <>

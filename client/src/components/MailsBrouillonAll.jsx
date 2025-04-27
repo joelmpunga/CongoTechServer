@@ -51,7 +51,7 @@ export default function MailsBrouillonAll() {
                     <Header hasSearch={true} email={email} name={nom + " " + postnom} title={role} setSearchField={setSearchField} />
                     <div className='flex flex-col gap-10 mx-3' >
                         <div className=''>
-                            <HeaderWorkspace title="Brouillon des E-mails" actualPage="Brouillon Emails">
+                            <HeaderWorkspace title="Brouillon des E-mails" actualPage="">
                                 <Link to="/charts/doc" >
                                     <ItemLinkPage title="Dashboard" path="/charts/doc" />
                                 </Link>

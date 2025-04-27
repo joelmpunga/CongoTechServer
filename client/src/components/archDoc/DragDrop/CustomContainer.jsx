@@ -18,7 +18,6 @@ export function CustomDragDrop({
     const fileRef = useRef(null);
     const [file, setFile] = useState([]);
     getFile(file)
-    console.table("Swal file",file);
     const handleChangeFile = (e) => {
         setFile(e.target.files[0])
         handleDrop(e, "inputFile")

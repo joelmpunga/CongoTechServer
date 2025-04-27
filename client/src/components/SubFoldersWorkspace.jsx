@@ -35,7 +35,6 @@ export default function SubFoldersWorkspace() {
         navigate(-1);
     };
     const params = useParams()
-    console.log(params.id);
     const [subFolders, setSubFolders] = useState([])
     const [loading, setLoading] = useState(true);
     const [currentFolder, setCurrentFolder] = useState([])
@@ -55,7 +54,6 @@ export default function SubFoldersWorkspace() {
     useEffect(() => {
         getCurrentFolder()
     }, [currentFolder])
-    // console.log(currentFolder);
     //fonctions pour la pagination
     const [currentPage, setCurrentPage] = useState(0);
     const [itemsPerPage] = useState(10); // Nombre d'éléments à afficher par page
@@ -87,7 +85,6 @@ export default function SubFoldersWorkspace() {
     const annuler = () => {
         setclassValue('hidden')
     }
-    // console.log(currentFolder);
     return (
         <>
             <div className='flex gap-0 w-full fixed'>

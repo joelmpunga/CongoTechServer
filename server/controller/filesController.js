@@ -13,7 +13,6 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename)
 const filesPath = path.resolve(__dirname, '..', 'public', 'files');
-console.log('new', __dirname, filesPath + '\\')
 if (!fs.existsSync(filesPath)) {
     fs.mkdirSync(filesPath, { recursive: true });
   }
@@ -117,7 +116,6 @@ export default class filesController {
             }).required(),
         })
         const { error, value } = schema.validate({ file: req.file, idOwner: req.body.idOwner,typeDoc: req.body.typeDoc, idUser: req.body.idUser,idYear:req.body.idYear, description: req.body.description });
-        console.log(value,'================');
         if (error) {
             // Gérer l'erreur de validation
             console.log(error.details[0].message);
@@ -132,26 +130,19 @@ export default class filesController {
         //     }
         //     try {
         //         idUser = decoded.userId;
-        //         console.log(decoded);
-        //         console.log(idUser);
         //         if (!idUser) return res.status(401).json({ message: 'Coordonnées invalide' });
         //     } catch (error) {
         //         res.status(500).json(error);
         //     }
         // });
         const { description, idOwner, typeDoc, idUser, idYear, idSubFolder } = req.body
-        console.log(idYear, ')))))');
         
         //const __dirname = path.dirname('/home/joelmpunga/mail-retrieval-app/index.js');
-        //console.log(req.file)
-        // console.log(req.body);
         const buffer = await readChunk('./server/public/files/' + req.file.filename, { length: 4100 });
         const type = await fileTypeFromBuffer(buffer);
         const file = new File()
         const checkFileExists = await file.isNameFileExists(req.file.filename);
-        console.log("IS EXISTS: " , checkFileExists);
         if(checkFileExists !== null) {
-            console.log("Exists", checkFileExists);
             return res.status(404).json({ "message": "File name already exists" });
         }
         if (type !== null && (type.ext === 'pdf')) {
@@ -225,7 +216,6 @@ export default class filesController {
             const files = new File();
             const id = req.params.id;
             const data = await files.download(id)
-            console.log(data);
             if (!data) {
                 return res.status(404).send('File not found');
             }
@@ -244,7 +234,6 @@ export default class filesController {
             const files = new File();
             const id = req.params.id;
             const data = await files.download(id)
-            console.log(data);
             if (!data) {
                 return res.status(404).send('File not found');
             }

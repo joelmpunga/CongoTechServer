@@ -38,7 +38,6 @@ export default function SubFoldersClasser({ idFolder }) {
         navigate(-2);
     };
     const params = useParams()
-    console.log(params);
     const id = params.id
     const idFile = params.idFile
     const [subFolders, setSubFolders] = useState([])

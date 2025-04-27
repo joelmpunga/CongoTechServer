@@ -112,7 +112,6 @@ export default class usersController {
         }
         // Compare hashed password
         const passwordMatch = await bcrypt.compare(password, user.password);
-        console.log(passwordMatch);
         if (!passwordMatch) {
             return res.status(401).json({ message: 'Invalid email or password' });
         }
@@ -125,8 +124,6 @@ export default class usersController {
         req.session.nom = user.nom;
         req.session.postnom = user.postnom;
 
-        console.log('Session après initialisation:', req.session);
-
         const userInfos = {
             role: req.session.role,
             nom: req.session.nom,
@@ -134,9 +131,6 @@ export default class usersController {
             userId: req.session.userId,
             email: req.session.email,
         }
-
-        console.log("sessions infos", userInfos);
-
 
         // Passwords match, generate JWT
         const token = jwt.sign({ userId: user.id, email: user.email }, SECRET_KEY, { expiresIn: '1h' });
@@ -160,7 +154,6 @@ export default class usersController {
         // Assuming a token is sent in the Authorization header
         const Authorization = req.headers.authorization;
         const token = Authorization.split(' ')[1]
-        console.log(token);
 
         if (!token) {
             return res.status(401).json({ message: 'Missing token' });
@@ -175,8 +168,6 @@ export default class usersController {
             try {
                 const users = new User();
                 const user = await users.getById(decoded.userId);
-                console.log(decoded);
-                console.log(user);
                 if (!user) {
                     return res.status(404).json({ message: 'User not found' });
                 }

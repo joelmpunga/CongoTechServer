@@ -71,8 +71,6 @@ const FoldersWorkspace = () => {
         folder.titre.toLowerCase().includes(searchField.toLowerCase()) || folder.description.toLowerCase().includes(searchField.toLowerCase())
     );
     //end search filters
-    console.log("filtred Folders",filteredFolders);
-
     const showMenu = (e) => {
         e.preventDefault();
         setIsVisible(true);

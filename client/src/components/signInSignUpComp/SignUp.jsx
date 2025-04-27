@@ -86,7 +86,6 @@ export default function SignUp() {
     const isValid = validateForm();
 
     if (isValid) {
-      console.log(formData);
 
       axios.post('http://localhost:3000/user/signup', {
         nom: formData.name,
@@ -95,9 +94,7 @@ export default function SignUp() {
         password: formData.password,
         role: formData.role
       }).then(res => {
-        console.log(res.data, res.status);
         if (res.status === 200) {
-          console.log("user created");
           window.location.href = '/register'
         }
       }).catch(err => {
@@ -119,7 +116,7 @@ export default function SignUp() {
         role: '',
       });
     } else {
-      console.log('joel Le formulaire contient des erreurs');
+      console.log('Le formulaire contient des erreurs');
     }
   };
 

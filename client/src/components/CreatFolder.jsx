@@ -67,7 +67,6 @@ export default function CreatFolder() {
             titre: nomSubFold,
             idFolder: parentFolder
         }).then(res => {
-            console.log(res.data, res.status);
             if (res.status === 200) {
                 window.location.href = '/createfolder'
             }
@@ -86,9 +85,6 @@ export default function CreatFolder() {
     useEffect(() => {
         getAllFolders()
     }, ['folders'])
-
-
-    console.log(subDescFold, nomSubFold, parentFolder);
     return (
         <div className='bg-white shadow-2xl mx-6 h-[800px]'>
             <HeaderWorkspace title="Créer un dossier">

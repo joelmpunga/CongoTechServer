@@ -165,7 +165,6 @@ export default function ArchDocs() {
             } else {
                 console.log('error:'.isValid)
             }
-
         }
         catch (err) {
             console.log(err);
@@ -175,7 +174,6 @@ export default function ArchDocs() {
     const handleSubmitYear = (event) => {
         try {
             event.preventDefault()
-            console.log (debut,fin,'before')
                 axios.post('http://localhost:3000/years/create', {
                     debut: debut,
                     fin: fin
@@ -201,7 +199,6 @@ export default function ArchDocs() {
         if (selectedTypeDoc == '') {
             errors.ownerErr = 'Selectionner le type';
         }
-        console.log(file);
 
         if (file.length === 0) {
             errors.fileErr = 'Selectionner un document';
@@ -237,7 +234,6 @@ export default function ArchDocs() {
     const handleSubmitDocument = async (event) => {
         event.preventDefault()
         const token = localStorage.getItem('token')
-        console.log(token);
         const isValid = validateDoc()
 
         if (isValid) {

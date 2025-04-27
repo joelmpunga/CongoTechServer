@@ -80,7 +80,6 @@ export default function UserList() {
                             thStatusRole="Role"
                             Nom="Nom"
                         >
-
                             <tbody className="divide-y divide-gray-100 border-t border-gray-100">
 
                                 {
