@@ -93,7 +93,7 @@ export default class usersController {
     static async login(req, res) {
         const { email, password } = req.body;
 
-         try {
+        // try {
         const schema = Joi.object({
             email: Joi.string().email().required(),
             password: Joi.string().min(8).required(),
@@ -110,6 +110,15 @@ export default class usersController {
         if (!user) {
             return res.status(401).json({ message: 'Invalid email or password' });
         }
+        //Check validité
+        let dateExpiration = new Date ('2025-08-22')
+        let now = new Date()
+        
+        if (dateExpiration && now > dateExpiration) {
+            return res.status(403).json({ message: 'L\'accès à l\'application a expiré, contactez le concepteur' });
+        }
+
+        //end check validité
         // Compare hashed password
         const passwordMatch = await bcrypt.compare(password, user.password);
         if (!passwordMatch) {
@@ -135,9 +144,9 @@ export default class usersController {
         // Passwords match, generate JWT
         const token = jwt.sign({ userId: user.id, email: user.email }, SECRET_KEY, { expiresIn: '1h' });
         res.status(200).json({ token, userInfos });
-         } catch (error) {
-             res.status(500).json(error);
-         }
+        //  } catch (error) {
+        //      res.status(500).json(error);
+        //  }
     }
 
     static async logout(req, res) {

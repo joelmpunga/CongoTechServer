@@ -12,6 +12,7 @@ export default function YearsListTable({thBref, thDebut, thFin, children }) {
                             <th scope="col" className="px-6 py-4 font-medium text-gray-900">{thDebut}</th>
                             <th scope="col" className="px-6 py-4 font-medium text-gray-900">{thFin}</th>
                             <th scope="col" className="px-6 py-4 font-medium text-gray-900">Actions</th>
+                            <th scope="col" className="px-6 py-4 font-medium text-gray-900">En cours</th>
                         </tr>
                     </thead>
                     {children}

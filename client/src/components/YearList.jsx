@@ -85,16 +85,17 @@ export default function YearList() {
                                 {
                                     getCurrentPageData().map(year => (
                                         // <option key={owner.id} value={owner.id}>{owner.nom}</option>
-                                        <tr className="hover:bg-gray-50" key={year.id}><td className="px-6 py-4 ">
-                                            <div className="">
-                                                <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600">
-                                                    {year.debut.split('-')[0]}
-                                                </span>
-                                                <span className="inline-flex items-center gap-1 rounded-full bg-yellow-50 px-2 py-1 text-xs font-semibold text-yellow-600">
-                                                    {year.fin.split('-')[0]}
-                                                </span>
-                                            </div>
-                                        </td>
+                                        <tr className="hover:bg-gray-50" key={year.id}>
+                                            <td className="px-6 py-4 ">
+                                                <div className="">
+                                                    <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600">
+                                                        {year.debut.split('-')[0]}
+                                                    </span>
+                                                    <span className="inline-flex items-center gap-1 rounded-full bg-yellow-50 px-2 py-1 text-xs font-semibold text-yellow-600">
+                                                        {year.fin.split('-')[0]}
+                                                    </span>
+                                                </div>
+                                            </td>
                                             <td className="flex gap-3 px-6 py-4 font-normal text-gray-900">
                                                 <div className="text-sm">
                                                     <div className="font-medium text-gray-700">{year.debut.split('T')[0]}</div>
@@ -106,8 +107,11 @@ export default function YearList() {
                                                 </span>
                                             </td>
                                             <td className='flex gap-3 pl-6'>
-                                                <img src="../src/assets/images/eye.svg" alt="" />
-                                                <img src="../src/assets/images/trash-can-alt-2.svg" alt="" />
+                                                <img src="../src/assets/images/icons8-check.svg" alt="" />
+                                                <img src="../src/assets/images/icons8-trash.gif" alt="" />
+                                            </td>
+                                            <td className='pl-6'>
+                                                <img src="../src/assets/images/icons8-check.gif" alt="" />
                                             </td>
                                         </tr>
                                     ))
