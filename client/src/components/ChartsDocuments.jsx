@@ -68,21 +68,20 @@ export default function ChartsDocuments() {
                 }
                 <div className='flex flex-col w-full bg-slate-200'>
                     <Header hasSearch={false} email={email} name={nom + " " + postnom} title={role} setSearchField={setSearchField} />
-                    <div className='flex gap-5 p-5 w-auto overflow-x-auto h-[760px]'>
+                    <div className='flex gap-5 p-5 w-auto overflow-x-auto h-[860px]'>
                         <div className='flex flex-col gap-10'>
                             <div className='flex gap-4 justify-between'>
                                 <CardChart title="DOCUMENTS ENTRANTS" number={allDocuments.length} descriptions="documents" subStat={true} stat1={allDocuments.length - unClassedDocuments.length} titleStat1="Classé(s)" stat2={unClassedDocuments.length} titleStat2="Non Classé(s)" />
                                 <CardChart title="DOCUMENTS SORTANTS" number={0} descriptions="documents" subStat={true} stat1={0} titleStat1="Classé(s)" stat2={0} titleStat2="Non Classé(s)" />
                             </div>
                             <ChartsBar title="ENTRANTS & SORTANTS" />
-                            <ChartsArea title="ENTRANTS & SORTANTS" />
                         </div>
                         <div className='flex flex-col gap-10'>
                             <div className='flex gap-4 justify-between'>
                                 <CardChart title="UTILISATEURS" number={allUsers.length} descriptions="utilisateurs" subStat={true} stat1={usersAdmin.length} titleStat1="Admin(s)" stat2={usersSecretary.length} titleStat2="Secretaire(s)" />
                                 <CardChart title="PARTENAIRES" number={owners.length} descriptions="partenaires" subStat={true} stat1={ownersEntreprise.length} titleStat1="Entreprise(s)" stat2={ownersParticulier.length} titleStat2="Particulier(s)" />
                             </div>
-                            <ChartsLine title="PARTENAIRES" />
+                            <ChartsArea title="ENTRANTS & SORTANTS" />
                         </div>
                     </div>
                 </div>

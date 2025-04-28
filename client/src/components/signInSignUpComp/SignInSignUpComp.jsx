@@ -9,7 +9,7 @@ export default function SignInSignUpComp({ type, children, title1, title2, title
                     <h1 className="font-bold text-gray-900 font-abril-fatface text-3xl">ArchiApp</h1>
                     <h1 className="font-bold text-gray-900 font-abril-fatface text-3xl">INSPECTION PRINCIPALE PROVINCIALE</h1>
                     <p className="text-gray-500 text-center">Bienvenue sur ArchiApp, l’application <br /> d’archivage pour l'IPP</p>
-                    <img className='w-[500px] h-[500px]' src="/src/assets/images/loginImg.svg" alt="" />
+                    <img className='w-[500px] h-[500px]' src="/src/assets/images/logoIpp.jpg" alt="" />
                 </div>
                 <div className='h- w-[2px] bg-zinc-300'></div>
                 <div className='w-[48%] ml-24'>

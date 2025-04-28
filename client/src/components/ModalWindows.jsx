@@ -129,8 +129,7 @@ export default function ModalWindow() {
 
         axios.post('http://localhost:3000/owner/create', {
           description: descOwner,
-          nom: nameOwner,
-          type: typeOwner
+          nom: nameOwner
         }).then(res => {
           if (res.status === 200) {
             window.location.href = '/archive'
