@@ -3,7 +3,7 @@ import Joi from 'joi';
 export default class ownersController {
 
     static async createOwner(req, res) {
-        // try {
+         try {
             const { nom, description } = req.body;
             const schema = Joi.object({
                 nom: Joi.string().required().min(2),
@@ -19,10 +19,10 @@ export default class ownersController {
             const data = await owner.create();
             const response = await owner.getAll()
             res.status(200).json(response)
-        // }
-        // catch (error) {
-        //     res.status(500).json(error)
-        // }    
+         }
+         catch (error) {
+             res.status(500).json(error)
+         }    
     }
 
     static async getAllOwners(req, res) {

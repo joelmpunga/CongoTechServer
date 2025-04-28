@@ -93,7 +93,7 @@ export default class usersController {
     static async login(req, res) {
         const { email, password } = req.body;
 
-        // try {
+         try {
         const schema = Joi.object({
             email: Joi.string().email().required(),
             password: Joi.string().min(8).required(),
@@ -135,9 +135,9 @@ export default class usersController {
         // Passwords match, generate JWT
         const token = jwt.sign({ userId: user.id, email: user.email }, SECRET_KEY, { expiresIn: '1h' });
         res.status(200).json({ token, userInfos });
-        // } catch (error) {
-        //     res.status(500).json(error);
-        // }
+         } catch (error) {
+             res.status(500).json(error);
+         }
     }
 
     static async logout(req, res) {

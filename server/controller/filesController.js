@@ -92,7 +92,7 @@ export default class filesController {
     }
 
     static async uploadFile(req, res) {        
-        // try {
+         try {
         const schema = Joi.object({
             // email: Joi.string().email().required(),
             // password: Joi.string().min(8).required(),
@@ -168,61 +168,60 @@ export default class filesController {
         // const data = await user.signup({ nom, postnom, email, password, role });
         // const response = await user.getAll()
         // res.status(200).json(response);
-        // }
-        // catch (error) {
-        //     res.status(500).json(error);
-        // }
+         }
+         catch (error) {
+             res.status(500).json(error);
+         }
     }
 
     static async getAllFiles(req, res) {
-        // try {
+         try {
         const files = new File();
         const data = await files.getAll()
         res.status(200).json(data);
         return data
-        // }
-        // catch (error) {
-        //     res.status(500).json(error);
-        // }
+         }
+         catch (error) {
+             res.status(500).json(error);
+         }
     }
 
     static async getAllDraftsFiles(req, res) {
-        // try {
+         try {
         const files = new File();
         const data = await files.getAllDraft()
         res.status(200).json(data);
         console.log ('---------', data)
         return data
-        // }
-        // catch (error) {
-        //     res.status(500).json(error);
-        // }
+         }
+         catch (error) {
+             res.status(500).json(error);
+         }
     }
 
     static async getAllEntrantFiles(req,res) {
-        // try {
+         try {
             const files = new File();
             const data = await files.getAllEntrant()
             res.status(200).json(data);
-            console.log ('========', data)
             return data
-            // }
-            // catch (error) {
-            //     res.status(500).json(error);
-            // }
+             }
+             catch (error) {
+                 res.status(500).json(error);
+             }
     }
 
     static async getFilesByIdSubFolder(req, res) {
-        // try {
+         try {
         const files = new File();
         const idSub = parseInt(req.params.id)
         const data = await files.getByIdSubFolder(idSub)
         res.status(200).json(data);
         return data
-        // }
-        // catch (error) {
-        //     res.status(500).json(error);
-        // }
+         }
+         catch (error) {
+             res.status(500).json(error);
+         }
     }
 
     static async downloadFile(req, res) {

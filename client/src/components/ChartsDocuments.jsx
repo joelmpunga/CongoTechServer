@@ -20,6 +20,7 @@ export default function ChartsDocuments() {
     const [allDocuments, setAllDocuments] = useState([])
     const [unClassedDocuments, setUnClassedDocument] = useState([])
     const [entrantDocuments, setEntrantDocument] = useState([])
+    const [sortantDocuments, setSortantDocument] = useState([])
     const [allUsers, setAllUsers] = useState([])
     const [usersSecretary, setUsersSecretary] = useState([])
     const [usersAdmin, setUsersAdmin] = useState([])
@@ -31,8 +32,12 @@ export default function ChartsDocuments() {
     const getFiltresEntrant = allDocuments.filter(file =>
         (file.type.includes('Entrant'))
     );
+    const getFiltresSortant = allDocuments.filter(file =>
+        (file.type.includes('Sortant'))
+    );
     const getFilesEntrant = () => {
         setEntrantDocument(getFiltresEntrant)
+        setSortantDocument(getFiltresSortant)
     }
     const getUsers = async () => await axios.get("http://localhost:3000/charts/user").then(res => setAllUsers(res.data))
     const getUsersSecretary = async () => await axios.get("http://localhost:3000/charts/user/secretaire").then(res => setUsersSecretary(res.data))
@@ -80,7 +85,7 @@ export default function ChartsDocuments() {
                         <div className='flex flex-col gap-10'>
                             <div className='flex gap-4 justify-between'>
                                 <CardChart title="TOUS LES DOCUMENTS" number={allDocuments.length} descriptions="documents" subStat={true} stat1={allDocuments.length - unClassedDocuments.length} titleStat1="Classé(s)" stat2={unClassedDocuments.length} titleStat2="Non Classé(s)" />
-                                <CardChart title="ENTRANTS & SORTANTS" number={allDocuments.length} descriptions="documents" subStat={true} stat1={allDocuments.length - entrantDocuments.length} titleStat1="Sortant(s)" stat2={entrantDocuments.length} titleStat2="Entrant(s)" />
+                                <CardChart title="ENTRANTS & SORTANTS" number={allDocuments.length} descriptions="documents" subStat={true} stat1={sortantDocuments.length} titleStat1="Sortant(s)" stat2={entrantDocuments.length} titleStat2="Entrant(s)" />
                             </div>
                             <ChartsBar title="ENTRANTS & SORTANTS" />
                         </div>

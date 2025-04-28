@@ -156,7 +156,7 @@ export default function FoldersClasser() {
                                             filteredFolders.length === 0 ? (
                                                 <div className="px-80 py-20">
                                                     <img src="../src/assets/images/search-files-empty.png" className='w-80 h-80' alt="" />
-                                                    <h1 className='text-gray-700 text-[20px]'>Aucun fichier trouvé!</h1>
+                                                    <h1 className='text-gray-700 text-[20px]'>Aucune donnée trouvée!</h1>
                                                 </div>
                                             ) : (
                                                 getCurrentPageData().map(folder => (

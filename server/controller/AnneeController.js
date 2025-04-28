@@ -26,15 +26,15 @@ export default class AnneeController {
     }
 
     static async getAllAnnees(req, res) {
-        // try{
+         try{
             const annee = new Annee();
             const data = await annee.getAll().then()
             res.status(200).json(data);
             return data
-        // }
-        // catch (error) {
-        //     res.status(500).json(error);
-        // }
+         }
+         catch (error) {
+             res.status(500).json(error);
+         }
     }
 
     static async getByIdAnnee(req, res) {

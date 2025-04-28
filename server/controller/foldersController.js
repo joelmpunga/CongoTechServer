@@ -26,15 +26,15 @@ export default class foldersController {
     }
 
     static async getAllFolders(req, res) {
-        // try{
+         try{
             const folder = new Folder();
             const data = await folder.getAll().then()
             res.status(200).json(data);
             return data
-        // }
-        // catch (error) {
-        //     res.status(500).json(error);
-        // }
+         }
+         catch (error) {
+             res.status(500).json(error);
+         }
     }
 
     static async getByIdFolders(req, res) {
