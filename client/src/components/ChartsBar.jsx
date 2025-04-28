@@ -44,61 +44,61 @@ export default function ChartsBar({ title }) {
   const data = [
     {
       "name": "Janv.",
-      "entrants": janv.length,
-      "sortants": 2
+      "entrants": janv.filter(file =>(file.type.includes('Entrant'))).length,
+      "sortants": janv.filter(file =>(file.type.includes('Sortant'))).length
     },
     {
       "name": "Fevr.",
-      "entrants": fevr.length,
-      "sortants": 2
+      "entrants": fevr.filter(file =>(file.type.includes('Entrant'))).length,
+      "sortants": fevr.filter(file =>(file.type.includes('Sortant'))).length
     },
     {
       "name": "Mars",
-      "entrants": mars.length,
-      "sortants": 4
+      "entrants": mars.filter(file =>(file.type.includes('Entrant'))).length,
+      "sortants": mars.filter(file =>(file.type.includes('Sortant'))).length
     },
     {
       "name": "Avril",
-      "entrants": avril.length,
-      "sortants": 3
+      "entrants": avril.filter(file =>(file.type.includes('Entrant'))).length,
+      "sortants": avril.filter(file =>(file.type.includes('Sortant'))).length
     },
     {
       "name": "Mai",
-      "entrants": mai.length,
-      "sortants": 1
+      "entrants": mai.filter(file =>(file.type.includes('Entrant'))).length,
+      "sortants": mai.filter(file =>(file.type.includes('Sortant'))).length
     },
     {
       "name": "Juin",
-      "entrants": juin.length,
-      "sortants": 5
+      "entrants": juin.filter(file =>(file.type.includes('Entrant'))).length,
+      "sortants": juin.filter(file =>(file.type.includes('Sortant'))).length
     },
     {
       "name": "Juil.",
-      "entrants": juillet.length,
-      "sortants": 0
+      "entrants": juillet.filter(file =>(file.type.includes('Entrant'))).length,
+      "sortants": juillet.filter(file =>(file.type.includes('Sortant'))).length
     }, {
       "name": "Aout",
-      "entrants": aout.length,
-      "sortants": 8
+      "entrants": aout.filter(file =>(file.type.includes('Entrant'))).length,
+      "sortants": aout.filter(file =>(file.type.includes('Sortant'))).length
     },
     {
       "name": "Sept.",
-      "entrants": sept.length,
-      "sortants": 4
+      "entrants": sept.filter(file =>(file.type.includes('Entrant'))).length,
+      "sortants": sept.filter(file =>(file.type.includes('Sortant'))).length
     }, 
     {
       "name": "Oct.",
-      "entrants": oct.length,
-      "sortants": 3
+      "entrants": oct.filter(file =>(file.type.includes('Entrant'))).length,
+      "sortants": oct.filter(file =>(file.type.includes('Sortant'))).length
     }, {
       "name": "Nov.",
-      "entrants": nov.length,
-      "sortants": 7
+      "entrants": nov.filter(file =>(file.type.includes('Entrant'))).length,
+      "sortants": nov.filter(file =>(file.type.includes('Sortant'))).length
     },
     {
       "name": "Dec.",
-      "entrants": dec.length,
-      "sortants": 3
+      "entrants": dec.filter(file =>(file.type.includes('Entrant'))).length,
+      "sortants": dec.filter(file =>(file.type.includes('Sortant'))).length
     }
   ]
   return (

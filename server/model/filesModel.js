@@ -58,6 +58,15 @@ export default class File {
         return request
     }
 
+    async getAllEntrant() {
+        const request = await prisma.document.findMany({
+            where: {
+                type: "Entrant"
+            }
+        }).then()
+        return request
+    }
+
     async getByIdSubFolder(idSub) {
         const request = await prisma.document.findMany({
             where: {

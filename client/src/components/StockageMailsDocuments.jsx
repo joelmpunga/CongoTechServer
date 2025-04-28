@@ -43,6 +43,8 @@ export default function StockageMailsDocuments() {
     const role = localStorage.getItem('role');
     const email = localStorage.getItem('email');
     const [searchField, setSearchField] = useState("");
+    const  [yearField, setYearField] = useState("");
+    const  [typeDocField, setTypeDocField] = useState("");
 
     //end taken form App Component
 
@@ -76,7 +78,7 @@ export default function StockageMailsDocuments() {
 
     // search filters
     const filteredFiles = files.filter(file =>
-        file.name.toLowerCase().includes(searchField.toLowerCase())
+        (file.name.toLowerCase().includes(searchField.toLowerCase()) && file.type.toLowerCase().includes(typeDocField.toLowerCase()))
     );
     //end search filters
 
@@ -358,7 +360,7 @@ export default function StockageMailsDocuments() {
                     role === 'ADMIN' ? <SideBarAdmin /> : <SideBarSecretaire />
                 }
                 <div className='flex flex-col w-full bg-slate-200'>
-                    <Header hasSearch={true} email={email} name={nom + " " + postnom} title={role} setSearchField={setSearchField} />
+                    <Header hasSearch={true} email={email} name={nom + " " + postnom} title={role} setSearchField={setSearchField} hasYear={true} hasTypeDoc={true} setYearField={setYearField} setTypeDocField={setTypeDocField} />
                     <div className='flex flex-col gap-10 mx-3' >
                         <div className=''>
                             <HeaderWorkspace title="Documents" actualPage={currentSubFolder.titre} >

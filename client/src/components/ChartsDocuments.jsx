@@ -19,6 +19,7 @@ import Header from './Header'
 export default function ChartsDocuments() {
     const [allDocuments, setAllDocuments] = useState([])
     const [unClassedDocuments, setUnClassedDocument] = useState([])
+    const [entrantDocuments, setEntrantDocument] = useState([])
     const [allUsers, setAllUsers] = useState([])
     const [usersSecretary, setUsersSecretary] = useState([])
     const [usersAdmin, setUsersAdmin] = useState([])
@@ -27,6 +28,12 @@ export default function ChartsDocuments() {
     const [ownersEntreprise, setOwnersEntreprise] = useState([])
     const getDocuments = async () => await axios.get("http://localhost:3000/charts/document").then(res => setAllDocuments(res.data))
     const getFiles = async () => await axios.get("http://localhost:3000/file/draft").then(res => setUnClassedDocument(res.data))
+    const getFiltresEntrant = allDocuments.filter(file =>
+        (file.type.includes('Entrant'))
+    );
+    const getFilesEntrant = () => {
+        setEntrantDocument(getFiltresEntrant)
+    }
     const getUsers = async () => await axios.get("http://localhost:3000/charts/user").then(res => setAllUsers(res.data))
     const getUsersSecretary = async () => await axios.get("http://localhost:3000/charts/user/secretaire").then(res => setUsersSecretary(res.data))
     const getUsersAdmin = async () => await axios.get("http://localhost:3000/charts/user/admin").then(res => setUsersAdmin(res.data))
@@ -52,6 +59,7 @@ export default function ChartsDocuments() {
     useEffect(() => {
         getDocuments()
         getFiles()
+        getFilesEntrant()
         getUsers()
         getUsersAdmin()
         getUsersSecretary()
@@ -71,15 +79,15 @@ export default function ChartsDocuments() {
                     <div className='flex gap-5 p-5 w-auto overflow-x-auto h-[860px]'>
                         <div className='flex flex-col gap-10'>
                             <div className='flex gap-4 justify-between'>
-                                <CardChart title="DOCUMENTS ENTRANTS" number={allDocuments.length} descriptions="documents" subStat={true} stat1={allDocuments.length - unClassedDocuments.length} titleStat1="Classé(s)" stat2={unClassedDocuments.length} titleStat2="Non Classé(s)" />
-                                <CardChart title="DOCUMENTS SORTANTS" number={0} descriptions="documents" subStat={true} stat1={0} titleStat1="Classé(s)" stat2={0} titleStat2="Non Classé(s)" />
+                                <CardChart title="TOUS LES DOCUMENTS" number={allDocuments.length} descriptions="documents" subStat={true} stat1={allDocuments.length - unClassedDocuments.length} titleStat1="Classé(s)" stat2={unClassedDocuments.length} titleStat2="Non Classé(s)" />
+                                <CardChart title="ENTRANTS & SORTANTS" number={allDocuments.length} descriptions="documents" subStat={true} stat1={allDocuments.length - entrantDocuments.length} titleStat1="Sortant(s)" stat2={entrantDocuments.length} titleStat2="Entrant(s)" />
                             </div>
                             <ChartsBar title="ENTRANTS & SORTANTS" />
                         </div>
                         <div className='flex flex-col gap-10'>
                             <div className='flex gap-4 justify-between'>
                                 <CardChart title="UTILISATEURS" number={allUsers.length} descriptions="utilisateurs" subStat={true} stat1={usersAdmin.length} titleStat1="Admin(s)" stat2={usersSecretary.length} titleStat2="Secretaire(s)" />
-                                <CardChart title="PARTENAIRES" number={owners.length} descriptions="partenaires" subStat={true} stat1={ownersEntreprise.length} titleStat1="Entreprise(s)" stat2={ownersParticulier.length} titleStat2="Particulier(s)" />
+                                <CardChart title="PARTENAIRES" number={owners.length} descriptions="partenaires" subStat={true} stat1={ownersEntreprise.length} titleStat1="Actif(s)" stat2={0} titleStat2="Inactif(s)" />
                             </div>
                             <ChartsArea title="ENTRANTS & SORTANTS" />
                         </div>

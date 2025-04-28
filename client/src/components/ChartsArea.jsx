@@ -33,8 +33,8 @@ export default function ChartsArea({ title }) {
         data.push(
             {
                 "name": currentYear - 5,
-                "entrants": currentYearUndo5.length,
-                "sortants": 0,
+                "entrants": currentYearUndo5.filter(file =>(file.type.includes('Entrant'))).length,
+                "sortants": currentYearUndo5.filter(file =>(file.type.includes('Sortant'))).length,
             }
         )
     }
@@ -43,8 +43,8 @@ export default function ChartsArea({ title }) {
         data.push(
             {
                 "name": currentYear - 4,
-                "entrants": currentYearUndo4.length,
-                "sortants": 0,
+                "entrants": currentYearUndo4.filter(file =>(file.type.includes('Entrant'))).length,
+                "sortants": currentYearUndo4.filter(file =>(file.type.includes('Sortant'))).length,
             }
         )
     }
@@ -53,8 +53,8 @@ export default function ChartsArea({ title }) {
         data.push(
             {
                 "name": currentYear - 3,
-                "entrants": currentYearUndo3.length,
-                "sortants": 0,
+                "entrants": currentYearUndo3.filter(file =>(file.type.includes('Entrant'))).length,
+                "sortants": currentYearUndo3.filter(file =>(file.type.includes('Sortant'))).length,
             }
         )
     }
@@ -63,8 +63,8 @@ export default function ChartsArea({ title }) {
         data.push(
             {
                 "name": currentYear - 2,
-                "entrants": currentYearUndo2.length,
-                "sortants": 0,
+                "entrants": currentYearUndo2.filter(file =>(file.type.includes('Entrant'))).length,
+                "sortants": currentYearUndo2.filter(file =>(file.type.includes('Sortant'))).length,
             }
         )
     }
@@ -72,15 +72,15 @@ export default function ChartsArea({ title }) {
     data.push(
         {
             "name": currentYear - 1,
-            "entrants": currentYearUndo1.length,
-            "sortants": 0,
+            "entrants": currentYearUndo1.filter(file =>(file.type.includes('Entrant'))).length,
+            "sortants": currentYearUndo1.filter(file =>(file.type.includes('Sortant'))).length,
         }
     )
     data.push(
         {
             "name": currentYear,
-            "entrants": currentYearData.length,
-            "sortants": 38,
+            "entrants": currentYearData.filter(file =>(file.type.includes('Entrant'))).length,
+            "sortants": currentYearData.filter(file =>(file.type.includes('Sortant'))).length,
         }
     )
 

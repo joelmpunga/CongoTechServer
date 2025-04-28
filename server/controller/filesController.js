@@ -191,11 +191,25 @@ export default class filesController {
         const files = new File();
         const data = await files.getAllDraft()
         res.status(200).json(data);
+        console.log ('---------', data)
         return data
         // }
         // catch (error) {
         //     res.status(500).json(error);
         // }
+    }
+
+    static async getAllEntrantFiles(req,res) {
+        // try {
+            const files = new File();
+            const data = await files.getAllEntrant()
+            res.status(200).json(data);
+            console.log ('========', data)
+            return data
+            // }
+            // catch (error) {
+            //     res.status(500).json(error);
+            // }
     }
 
     static async getFilesByIdSubFolder(req, res) {
