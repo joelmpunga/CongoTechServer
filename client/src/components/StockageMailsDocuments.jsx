@@ -398,7 +398,7 @@ export default function StockageMailsDocuments() {
                                                             <ArchDocComp onChange={handleChangeDocDesc} onSubmit={handleSubmitDocument}
                                                                 className=" bg-gray-200 resize-none p-5 w-full h-[120px] my-5 border-1  border-blue outline-none"
                                                             >
-                                                                <CbxInput msgErr={docErr.ownerErr} ownNametypeDoc='Nom du partenaire' onChange={handleChangeSelectedOwner} className='w-full h-14' >
+                                                                <CbxInput msgErr={docErr.ownerErr} ownNametypeDoc='Nom du service' onChange={handleChangeSelectedOwner} className='w-full h-14' >
                                                                     <option value=""></option>
                                                                     {
                                                                         owners.map(owner => (
@@ -406,7 +406,7 @@ export default function StockageMailsDocuments() {
                                                                         ))
                                                                     }
                                                                 </CbxInput>
-                                                                <CbxInput msgErr={docErr.ownerErr} ownNametypeDoc='Type du document' onChange={handleChangeSelectedTypeDoc} className='w-full h-14' >
+                                                                <CbxInput msgErr={docErr.ownerErr} ownNametypeDoc='Entrant / Sortant' onChange={handleChangeSelectedTypeDoc} className='w-full h-14' >
                                                                     <option value=""></option>
                                                                     <option value="Entrant">Entrant</option>
                                                                     <option value="Sortant">Sortant</option>

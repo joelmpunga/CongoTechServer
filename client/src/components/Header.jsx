@@ -72,7 +72,7 @@ export default function Header({ hasSearch, name, title, email, setSearchField, 
                         <div className='h-12 flex flex-row justify-center items-center ml-5  w-[80%] rounded-full bg-[#E2E8F0]'>
                             <img className='ml-4' src="../src/assets/images/search2.svg" alt="search" width={30} height={30} />
                             <select name="" id="" className='bg-[#E2E8F0] mx-5 outline-none w-full ' onChange={handleChangeTypeDocField}>
-                                <option value="">Choisir le type du document</option>
+                                <option value="">Entrant / Sortant</option>
                                 <option value="Entrant">Entrant</option>
                                 <option value="Sortant">Sortant</option>
                             </select>

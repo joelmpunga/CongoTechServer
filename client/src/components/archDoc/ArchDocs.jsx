@@ -201,7 +201,7 @@ export default function ArchDocs() {
 
         let errors = {};
         if (selectedOwner == '') {
-            errors.ownerErr = 'Selectionner le partenaire';
+            errors.ownerErr = 'Selectionner le service';
         }
         if (selectedTypeDoc == '') {
             errors.ownerErr = 'Selectionner le type';
@@ -332,7 +332,7 @@ export default function ArchDocs() {
                                                     ))
                                                 }
                                             </CbxInput>
-                                            <CbxInput msgErr={docErr.ownerErr} ownNametypeDoc='Type du document' onChange={handleChangeSelectedTypeDoc} className='w-full h-14' >
+                                            <CbxInput msgErr={docErr.ownerErr} ownNametypeDoc='Entrant / Sortant' onChange={handleChangeSelectedTypeDoc} className='w-full h-14' >
                                                 <option value=""></option>
                                                 <option value="Entrant">Entrant</option>
                                                 <option value="Sortant">Sortant</option>
@@ -350,14 +350,14 @@ export default function ArchDocs() {
                                     </form>
                                 </div>
                                 <div className="w-[650px] border border-gray-200 shadow-md">
-                                    <Title title='Ajouter un partenaire' />
+                                    <Title title='Ajouter un service' />
                                     {
                                         errorOwner && <PopupAlert message={errorMessageOwner} />
                                     }
-                                    <ArchDocComp ownNametypeDoc='Type du partenaire' attName='Nom' onChange={handleChangeDesc} onSubmit={handleSubmitOwner}
+                                    <ArchDocComp ownNametypeDoc='Type du service' attName='Nom' onChange={handleChangeDesc} onSubmit={handleSubmitOwner}
                                         className=" bg-gray-200 resize-none p-5 w-full h-42 my-5 border-1  border-blue outline-none"
                                     >
-                                        <Inputs errMsg={ownerErr.nameErr} attName='Nom du partenaire' onChange={handleChangeName} placeholder='Exemple IGE'>
+                                        <Inputs errMsg={ownerErr.nameErr} attName='Nom du service' onChange={handleChangeName} placeholder='Exemple IGE'>
                                         </Inputs>
                                     </ArchDocComp>
                                 </div>

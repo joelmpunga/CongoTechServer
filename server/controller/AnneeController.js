@@ -45,6 +45,22 @@ export default class AnneeController {
         return data
     }
 
+    static async setEnCoursAnnee(req, res) {
+        const id = parseInt(req.params.id);
+        const annee = new Annee();
+        const data = await annee.setAnneeEnCours(id).then()
+        res.status(200).json(data);
+        return data
+    }
+
+    static async setCloturerAnneeEnCours(req, res) {
+        const id = parseInt(req.params.id);
+        const annee = new Annee();
+        const data = await annee.setCloturerAnnee(id).then()
+        res.status(200).json(data);
+        return data
+    }
+
     static async deleteAnnee(req,res){
         const id = parseInt(req.params.id);
         try{

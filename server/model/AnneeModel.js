@@ -28,6 +28,31 @@ export default class Annee {
         return query
     }
 
+    async setAnneeEnCours(id) {
+        await prisma.annee.updateMany({
+          data: { isEnCours: 0 }
+        });
+      
+        const query = await prisma.annee.update({
+          where: { id },
+          data: { isEnCours: 1 }
+        });
+      
+        return query;
+      }
+
+      async setCloturerAnnee(id) {
+        await prisma.annee.updateMany({
+          data: { isEnCours: 0 }
+        });
+      
+        const query = await prisma.annee.update({
+          where: { id },
+          data: { isEnCours: 0 }
+        });
+        return query;
+      }
+      
     async delete(id){
         const query = await prisma.annee.delete({
             where:{

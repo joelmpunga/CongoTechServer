@@ -94,7 +94,7 @@ export default function ChartsDocuments() {
                         <div className='flex flex-col gap-10'>
                             <div className='flex gap-4 justify-between'>
                                 <CardChart title="UTILISATEURS" number={allUsers.length} descriptions="utilisateurs" subStat={true} stat1={usersAdmin.length} titleStat1="Admin(s)" stat2={usersSecretary.length} titleStat2="Secretaire(s)" />
-                                <CardChart title="PARTENAIRES" number={owners.length} descriptions="partenaires" subStat={true} stat1={ownersEntreprise.length} titleStat1="Actif(s)" stat2={0} titleStat2="Inactif(s)" />
+                                <CardChart title="SERVICES" number={owners.length} descriptions="services" subStat={true} stat1={ownersEntreprise.length} titleStat1="Actif(s)" stat2={0} titleStat2="Inactif(s)" />
                             </div>
                             <ChartsArea title="ENTRANTS & SORTANTS" />
                         </div>
