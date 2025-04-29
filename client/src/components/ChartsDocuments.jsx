@@ -64,7 +64,6 @@ export default function ChartsDocuments() {
     useEffect(() => {
         getDocuments()
         getFiles()
-        getFilesEntrant()
         getUsers()
         getUsersAdmin()
         getUsersSecretary()
@@ -72,6 +71,9 @@ export default function ChartsDocuments() {
         getOwnersParticulier()
         getOwnersEntreprise()
     }, [])
+    useEffect(() => {
+        getFilesEntrant()
+    }, [allDocuments])
 
     return (
         <>
