@@ -19,10 +19,7 @@ export default function SideBarSecretaire() {
           <MenuOne title="Dashboard" iconeLeft="../src/assets/images/Group.svg"></MenuOne>
         </Link>
         <Link to="/folder">
-          <MenuOne title="Dossiers Entrants" iconeLeft="../src/assets/images/list-alt.svg" />
-        </Link>
-        <Link to="/folder">
-          <MenuOne title="Dossiers Sortants" iconeLeft="../src/assets/images/list-alt.svg" />
+          <MenuOne title="Dossiers" iconeLeft="../src/assets/images/list-alt.svg" />
         </Link>
           <Menu title="Documents" hasManyMenuItems={true} hasNumberCount={false} iconeRightOff="../src/assets/images/chevron-down.svg" iconeRightOn="../src/assets/images/chevron-up.svg" iconeLeft="../src/assets/images/page.svg">
             <Link to="/archive">

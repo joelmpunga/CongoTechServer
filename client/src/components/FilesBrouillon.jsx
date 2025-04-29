@@ -45,7 +45,7 @@ export default function FilesBrouillon() {
 
   // search filters
   const filteredFiles = files.filter(file =>
-    (file.name.toLowerCase().includes(searchField.toLowerCase()) && file.type.toLowerCase().includes(typeDocField.toLowerCase()))
+    (file.name.toLowerCase().includes(searchField.toLowerCase()) && file.type.toLowerCase().includes(typeDocField.toLowerCase()) && file.idAnnee == yearField)
   );
   //end search filters
   const getCurrentPageData = () => {

@@ -72,8 +72,8 @@ datasource db {
     Audit       Audit[]
     SubFolder   SubFolder? @relation(fields: [subFolderId], references: [id])
     subFolderId Int?
-    annee       Annee?      @relation(fields: [idAnnee], references: [id])
-    idAnnee     Int?
+    annee       Annee      @relation(fields: [idAnnee], references: [id])
+    idAnnee     Int
   }
   
   model Audit {

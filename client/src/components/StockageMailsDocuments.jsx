@@ -172,6 +172,7 @@ export default function StockageMailsDocuments() {
     const [typeOwner, setTypeOwner] = useState('')
     const [owners, setOwners] = useState([])
     const [years, setYears] = useState([])
+    const [anneeEnCours, setAnneeEnCours] = useState()
     const [selectedOwner, setSelectedOwner] = useState('')
     const [selectedTypeDoc, setSelectedTypeDoc] = useState('')
     const [selectedYear, setSelectedYear] = useState('')
@@ -218,7 +219,13 @@ export default function StockageMailsDocuments() {
         await axios.get('http://localhost:3000/owner').then((res) => { setOwners(res.data) })
     }
     const getAllYears = async (event) => {
-        await axios.get('http://localhost:3000/years').then((res) => { setYears(res.data) })
+        await axios.get('http://localhost:3000/years').then((res) => { 
+            setYears(res.data)
+            const activeYear = res.data.find(year => year.isEnCours==1);         
+            if (activeYear) {
+                setAnneeEnCours(activeYear.id);
+            }
+        })
     }
     useEffect(() => {
         getAllOwners()
@@ -404,11 +411,11 @@ export default function StockageMailsDocuments() {
                                                                     <option value="Entrant">Entrant</option>
                                                                     <option value="Sortant">Sortant</option>
                                                                 </CbxInput>
-                                                                <CbxInput msgErr={docErr.ownerErr} ownNametypeDoc='Année du document' onChange={handleChangeSelectedYear} className='w-full h-14' >
-                                                                    <option value="">Pas d'année liée</option>
+                                                                <CbxInput msgErr={docErr.ownerErr} ownNametypeDoc='Année du document' onChange={handleChangeSelectedYear} className='w-full h-14' value={anneeEnCours}>
+                                                                    <option value="">Rien</option>
                                                                     {
                                                                         years.map(year => (
-                                                                            <option key={year.id} value={year.id}>De {year.debut.split('T')[0]} à {year.fin.split('T')[0]}</option>
+                                                                            <option key={year.id} value={year.id}>{year.debut.split('-')[0]} - {year.fin.split('-')[0]}</option>
                                                                         ))
                                                                     }
                                                                 </CbxInput>

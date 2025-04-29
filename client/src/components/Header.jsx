@@ -9,6 +9,7 @@ export default function Header({ hasSearch, name, title, email, setSearchField, 
     const navigate = useNavigate()
     const { updateIsAuthenticated } = useMyContext();
     const [years, setYears] = useState([])
+    const [anneeEnCours, setAnneeEnCours] = useState()
 
     const handleChange = (e) => {
         setSearchField(e.target.value);
@@ -26,7 +27,13 @@ export default function Header({ hasSearch, name, title, email, setSearchField, 
         navigate('/login')
     }
     const getAllYears = async (event) => {
-        await axios.get('http://localhost:3000/years').then((res) => { setYears(res.data) })
+        await axios.get('http://localhost:3000/years').then((res) => { 
+            setYears(res.data)
+            const activeYear = res.data.find(year => year.isEnCours==1);            
+            if (activeYear) {
+                setAnneeEnCours(activeYear.id);
+            }
+        })
     }
     useEffect(() => {
             getAllYears()
@@ -52,11 +59,10 @@ export default function Header({ hasSearch, name, title, email, setSearchField, 
                         { hasYear &&
                         <div className='h-12 flex flex-row justify-center items-center ml-5  w-[80%] bg-[#E2E8F0]'>
                             <img className='ml-4' src="../src/assets/images/search2.svg" alt="search" width={30} height={30} />
-                            <select className='bg-[#E2E8F0] outline-none w-full' name="" id="" onChange={handleChangeYear}>
-                                <option value="">Toutes les années</option>
+                            <select value={anneeEnCours} className='bg-[#E2E8F0] outline-none w-full' name="" id="" onChange={handleChangeYear}>
                                 {
                                     years.map(year => (
-                                        <option key={year.id} value={year.id}>De {year.debut.split('T')[0]} à {year.fin.split('T')[0]}</option>
+                                        <option key={year.id} value={year.id} >{year.debut.split('-')[0]} - {year.fin.split('-')[0]}</option>
                                     ))
                                 }
                             </select>
