@@ -7,13 +7,15 @@ import HeaderWorkspace from "./HeaderWorkspace";
 import ReactPaginate from "react-paginate";
 import NextBtn from "./nextPrevBtns/NextBtn";
 import PrevBtn from "./nextPrevBtns/PrevBtn";
-import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
+import { Link, useNavigate } from "react-router-dom";
 
 // taken from App Component
 
 import SideBarAdmin from './SideBarAdmin'
 import SideBarSecretaire from './SideBarSecretaire'
 import Header from './Header'
+import TrYearList from "../ui/TrYearList";
 // End taken from App Component
 export default function YearList() {
     const isAuthenticatedLocalStorage = localStorage.getItem('isAuthenticated');
@@ -55,12 +57,67 @@ export default function YearList() {
         getAllYears()
     }, [years])
 
+    const deleteFile = async () => {
+        const confirmation = await Swal.fire({
+          title: 'Confirmation',
+          text: 'Etes vous sur de vouloir supprimer ce document ?',
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Oui',
+          cancelButtonText: 'Annuler'
+        });
+    
+        if (confirmation.isConfirmed) {
+          try {
+            const response = await axios.delete(`http://localhost:3000/file/delete/${id}`);
+            if (response.status === 200) {
+              await Swal.fire('Succès', 'Supprimé avec succès!', 'success');
+              navigate(actualUrl);
+            } else {
+              await Swal.fire('Erreur', 'Une erreur est survenue lors de la suppression', 'error');
+            }
+          } catch (error) {
+            console.error('Error deleting file:', error);
+            await Swal.fire('Erreur', 'Une erreur est survenue lors de la suppression', 'error');
+          }
+        } else {
+          await Swal.fire('Action annulée', '', 'info');
+        }
+      };
+
     // search filters
     const filteredYears = years.filter(year =>
         year.debut.toLowerCase().includes(searchField.toLowerCase()) || year.fin.toLowerCase().includes(searchField.toLowerCase())
     );
     //end search filters
-
+    const handleSetEnCours = async (event, id) => {
+        try {
+            const response = await axios.post(`http://localhost:3000/years/encours/${id}`);
+            if (response.status === 200) {
+              await Swal.fire('Succès', 'Defini comme en année cours avec succès!', 'success');
+              navigate(actualUrl);
+            } else {
+              await Swal.fire('Erreur', 'Une erreur est survenue lors de la definition de l\'année en cours', 'error');
+            }
+          } catch (error) {
+            console.error('Error years:', error);
+        }
+    }
+    const handleSetCloturer = async (event,id) => {
+        try {
+            const response = await axios.post(`http://localhost:3000/years/cloturer/${id}`);
+            if (response.status === 200) {
+              await Swal.fire('Succès', 'Année cloturée avec succès!', 'success');
+              navigate(actualUrl);
+            } else {
+              await Swal.fire('Erreur', 'Une erreur est survenue lors de la cloture de l\'année en cours', 'error');
+            }
+          } catch (error) {
+            console.error('Error years:', error);
+        }
+    }
     return (
         <>
             <div className='flex gap-0 w-full fixed'>
@@ -85,35 +142,7 @@ export default function YearList() {
                                 {
                                     getCurrentPageData().map(year => (
                                         // <option key={owner.id} value={owner.id}>{owner.nom}</option>
-                                        <tr className="hover:bg-gray-50" key={year.id}>
-                                            <td className="px-6 py-4 ">
-                                                <div className="">
-                                                    <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600">
-                                                        {year.debut.split('-')[0]}
-                                                    </span>
-                                                    <span className="inline-flex items-center gap-1 rounded-full bg-yellow-50 px-2 py-1 text-xs font-semibold text-yellow-600">
-                                                        {year.fin.split('-')[0]}
-                                                    </span>
-                                                </div>
-                                            </td>
-                                            <td className="flex gap-3 px-6 py-4 font-normal text-gray-900">
-                                                <div className="text-sm">
-                                                    <div className="font-medium text-gray-700">{year.debut.split('T')[0]}</div>
-                                                </div>
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                <span className="inline-flex items-center gap-1 rounded-full  text-xs font-semibold">
-                                                    {year.fin.split('T')[0]}
-                                                </span>
-                                            </td>
-                                            <td className='flex gap-3 pl-6'>
-                                                <img src="../src/assets/images/icons8-check.svg" alt="" />
-                                                <img src="../src/assets/images/icons8-trash.gif" alt="" />
-                                            </td>
-                                            <td className='pl-6'>
-                                                <img src="../src/assets/images/icons8-check.gif" alt="" />
-                                            </td>
-                                        </tr>
+                                        <TrYearList year={year} id={year.id} key={year.id}></TrYearList>
                                     ))
                                 }
                             </tbody>
