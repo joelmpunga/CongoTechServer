@@ -14,6 +14,7 @@ import SubFoldersClasser from './components/SubFoldersClasser.jsx'
 import MailsBrouillonAll from './components/MailsBrouillonAll.jsx'
 import Login from './components/signInSignUpComp/Login.jsx'
 import SignUp from './components/signInSignUpComp/SignUp.jsx'
+import Terms from './components/Terms.jsx'
 import ArchDocs from './components/archDoc/ArchDocs.jsx'
 import CreatFolder from './components/CreatFolder.jsx'
 import OwnerListDocs from './components/OwnerListDocs.jsx'
@@ -85,6 +86,10 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <><SignUp /></>,
+        errorElement: <><Error404 /></>,
+      },{
+        path: "/terms",
+        element: <><Terms /></>,
         errorElement: <><Error404 /></>,
       },
       {

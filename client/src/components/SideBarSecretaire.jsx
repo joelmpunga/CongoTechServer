@@ -32,6 +32,9 @@ export default function SideBarSecretaire() {
           <Link to="/years">
             <MenuOne title="Années Scolaires" iconeLeft="../src/assets/images/list-alt.svg" />
           </Link>
+          <Link to="/terms">
+            <MenuOne title="Contrat" iconeLeft="../src/assets/images/list-alt.svg" />
+          </Link>
       </div>
     </div >
   )

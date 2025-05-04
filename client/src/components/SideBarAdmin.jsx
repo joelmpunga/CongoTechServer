@@ -1,6 +1,7 @@
 import Menu from './Menu'
 import ItemMenu from '../ui/ItemMenu'
 import LogoSideBar from '../ui/LogoSideBar'
+import MenuOne from './MenuOne'
 import { Link } from 'react-router-dom'
 
 export default function SideBarAdmin() {
@@ -12,15 +13,19 @@ export default function SideBarAdmin() {
                     <ItemMenu actived={true} title="Création" />
                 </Link>
 
-                <Link to="/">
-                    <ItemMenu actived={true} title="Roles" />
-                </Link>
-
                 <Link to="/userlist">
                     <ItemMenu actived={true} title="Utilisteurs" />
                 </Link>
-
             </Menu>
+            <Link to="/terms">
+                <MenuOne title="Contrat" iconeLeft="../src/assets/images/list-alt.svg" />
+            </Link>
+            <Link to="/">
+                <MenuOne title="Exporter BDD" iconeLeft="../src/assets/images/list-alt.svg" />
+            </Link>
+            <Link to="/">
+                <MenuOne title="Importer BDD" iconeLeft="../src/assets/images/list-alt.svg" />
+            </Link>
         </div>
     )
 }
